@@ -11,7 +11,9 @@ define( 'kf.export', function ( require ) {
         Icon: require( "widget/icon" ),
         Label: require( "widget/label" ),
         Button: require( "widget/button" ),
-        ToggleButton: require( "widget/toggle-button" )
+        ToggleButton: require( "widget/toggle-button" ),
+
+        Panel: require( "widget/panel" )
 
     };
 

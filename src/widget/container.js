@@ -14,25 +14,26 @@ define( function ( require ) {
 
         base: Widget,
 
-        // 不监听事件
-        _events: [],
+        constructor: function ( options ) {
 
-        __widgetType: 'container',
+            var marker = Utils.getMarker();
+            this.callBase( marker );
 
-        /**
-         * 容器内包含的子构件列表
-         */
-        __widgets: [],
+            var defaultOptions = {
+                break: false
+            };
 
-        __defaultOptions: {
-            // 内容widget之间是否换行
-            break: false
+            this.widgetName = 'Icon';
+
+            this.__widgets = [];
+            this.__contentElement = null;
+            this.__extendOptions( defaultOptions, options );
+
+            if ( options !== marker ) {
+                this.__render();
+            }
+
         },
-
-        /**
-         * 承载容器构件内容的dom元素
-         */
-        __contentElement: null,
 
         indexOf: function ( widget ) {
 
@@ -42,15 +43,12 @@ define( function ( require ) {
 
         __render: function () {
 
-            if ( this.isBadCall() ) {
-                return this;
-            }
-
             if ( this.__rendered ) {
                 return this;
             }
 
             this.callBase();
+
             this.__contentElement = this.__element;
 
             $( this.__element ).addClass( CONF.classPrefix + "container" );

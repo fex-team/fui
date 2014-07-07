@@ -19,26 +19,27 @@
     <script>
         window.onload = function () {
 
-//            initCommonButton();
+            initCommonButton();
             initToggleButton();
 
         };
 
         function initCommonButton () {
 
-                var button = new FUI.Button( {
+            var panel = new FUI.Panel(),
+                button = new FUI.Button( {
 //                    disabled: true,
-                        label:'按钮',
-                        text: '清理垃圾',
+                    label:'按钮',
+                    text: '清理垃圾',
 //                    width: 500,
 //                    height: 40,
 //                    icon: "demo/assets/icon/clean.png",
-                        icon: {
-                            img: 'assets/icon/clean.png',
-                        },
+                    icon: {
+                        img: 'assets/icon/clean.png',
+                    },
 //                        layout: 'bottom',
-                        padding: '2px 10px'
-                    } );
+                    padding: '2px 10px'
+                } );
 
             button.on( "click", function ( e ) {
 
@@ -58,7 +59,11 @@
 
             } );
 
-            button.appendTo( $( "#common" )[ 0 ] );
+            panel.appendWidget( button );
+
+            panel.appendTo( $( "#common" )[ 0 ] );
+
+            panel.disable();
 
         }
 

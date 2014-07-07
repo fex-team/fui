@@ -5,24 +5,44 @@
 define( function ( require ) {
 
     var Utils = require( "base/utils" ),
+        panelTpl = require( "tpl/panel" ),
         $ = require( "base/jquery" );
 
     return Utils.createClass( "Panel", {
 
         base: require( "widget/container" ),
 
-        __defaultOptions: {
-            width: null,
-            height: null,
-            padding: null,
-            margin: 0
+        constructor: function ( options ) {
+
+            var marker = Utils.getMarker();
+            this.callBase( marker );
+
+            var defaultOptions = {
+                width: null,
+                height: null,
+                padding: null,
+                margin: 0
+            };
+
+            this.__extendOptions( defaultOptions, options );
+
+            this.widgetName = 'Panel';
+
+            this.__tpl = panelTpl;
+
+            if ( options !== marker ) {
+                this.__render();
+            }
+
         },
 
-        __tpl: require( "tpl/panel" ),
+        __render: function () {
 
-        widgetName: 'Panel',
+            if ( this.__rendered ) {
+                return this;
+            }
 
-        constructor: function ( options ) {
+            this.callBase();
 
             this.__initOptions();
 
