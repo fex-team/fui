@@ -20,7 +20,8 @@ define( function ( require ) {
 
             var defaultOptions = {
                 className: '',
-                disabled: false
+                disabled: false,
+                preventDefault: false
             };
 
             this.__widgetType = 'widget';
@@ -145,11 +146,22 @@ define( function ( require ) {
 
         on: function ( type, cb ) {
 
+            return this.__on( type, cb, true );
+
+        },
+
+        // 如果第三个参数 isCheck 不为true，则绕过disable和preventDefault限制
+        __on: function ( type, cb, isCheck ) {
+
             var _self = this;
 
             cb.__fui_listener = function ( e ) {
 
-                if ( !_self.isDisabled() ) {
+                if ( isCheck ) {
+                    if ( !_self.isDisabled() && !_self.__options.preventDefault ) {
+                        cb.apply( _self, arguments );
+                    }
+                } else {
                     cb.apply( _self, arguments );
                 }
 

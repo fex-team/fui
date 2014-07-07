@@ -23,11 +23,11 @@ define( function ( require ) {
                 pressed: false
             };
 
+            this.__extendOptions( defaultOptions, options );
+
             this.widgetName = 'ToggleButton';
             // 按钮当前状态
             this.__state = false;
-
-            this.__extendOptions( defaultOptions, options );
 
             if ( options !== marker ) {
                 this.__render();

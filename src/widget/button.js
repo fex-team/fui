@@ -32,13 +32,13 @@ define( function ( require ) {
                 layout: 'right'
             };
 
+            this.__extendOptions( defaultOptions, options );
+
             this.widgetName = 'Button';
             this.__tpl = buttonTpl;
 
             this.__iconWidget = null;
             this.__labelWidget = null;
-
-            this.__extendOptions( defaultOptions, options );
 
             if ( options !== marker ) {
                 this.__render();

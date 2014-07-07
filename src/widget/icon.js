@@ -25,10 +25,11 @@ define( function ( require ) {
                 img: null
             };
 
-            this.widgetName = 'Icon';
-            this.__tpl = iconTpl;
 
             this.__extendOptions( defaultOptions, options );
+
+            this.widgetName = 'Icon';
+            this.__tpl = iconTpl;
 
             if ( options !== marker ) {
                 this.__render();

@@ -114,6 +114,7 @@
 
 .fui-icon {
   text-align: center;
+  font-size: 0;
 }
 .fui-icon img {
   display: inline-block;

@@ -87,6 +87,12 @@ define( function ( require ) {
 
         },
 
+        getWidget: function ( index ) {
+
+            return this.__widgets[ index ] || null;
+
+        },
+
         appendWidget: function ( widget ) {
 
             if ( !this.__valid( widget ) ) {
@@ -155,6 +161,8 @@ define( function ( require ) {
                 // TODO 处理break为true时,应删除附加的br
 //                this.__contentElement.removeChild(  );
             }
+
+            return widget;
 
         },
 

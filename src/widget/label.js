@@ -27,10 +27,10 @@ define( function ( require ) {
                 textAlign: 'center'
             };
 
+            this.__extendOptions( defaultOptions, options );
+
             this.widgetName = 'Label';
             this.__tpl = labelTpl;
-
-            this.__extendOptions( defaultOptions, options );
 
             if ( options !== marker ) {
                 this.__render();

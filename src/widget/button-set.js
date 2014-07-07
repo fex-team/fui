@@ -7,57 +7,34 @@ define( function ( require ) {
 
     var $ = require( "base/jquery" ),
         CONF = require( "base/sysconf" ),
+        Utils = require( "base/utils" ),
         ToggleButton = require( "widget/toggle-button" );
 
     return require( "base/utils" ).createClass( "Buttonset", {
 
         base: require( "widget/panel" ),
 
-        widgetName: 'Buttonset',
+        constructor: function ( options ) {
 
-        // 前一次选中项
-        __prevIndex: -1,
+            var marker = Utils.getMarker();
+            this.callBase( marker );
 
-        // 当前选中项
-        __currentIndex: -1,
+            var defaultOptions = {
+                // 初始选中项, -1表示不选中任何项
+                selected: -1
+            };
 
-        __defaultOptions: {
-            // 初始选中项, -1表示不选中任何项
-            selected: -1
-        },
+            this.__extendOptions( defaultOptions, options );
 
-        __userEvents: [ "change" ],
+            this.widgetName = 'Buttonset';
+            // 当前选中项
+            this.__currentIndex = -1;
+            // 前一次选中项
+            this.__prevIndex = -1;
 
-        __initButtons: function () {
-
-            var _self = this,
-                buttonWidget = null;
-
-            $.each( this.__options.buttons, function ( index, buttonOption ) {
-
-                // 禁止ToggleButton对象注册事件
-                buttonOption.__clickToggle = false;
-                buttonOption.pressed = false;
-
-                buttonWidget = new ToggleButton( buttonOption );
-
-                // 切换
-                buttonWidget.__on( 'click', function () {
-
-                    _self.__pressButton( this );
-
-                    _self.trigger( 'change', {
-                        currentIndex: _self.__currentIndex,
-                        prevIndex: _self.__prevIndex,
-                        currentButton: _self.getButton( _self.__currentIndex ),
-                        prevButton: _self.getButton( _self.__prevIndex )
-                    } );
-
-                } );
-
-                _self.appendButton( buttonWidget );
-
-            } );
+            if ( options !== marker ) {
+                this.__render();
+            }
 
         },
 
@@ -103,38 +80,99 @@ define( function ( require ) {
             return this.removeWidget.apply( this, arguments );
         },
 
-        __render: function () {
+        insertWidget: function ( index, widget ) {
 
-            if ( this.isBadCall() ) {
-                return this;
+            var returnValue = this.callBase( index, widget );
+
+            if ( returnValue === null ) {
+                return returnValue;
             }
+
+            if ( index <= this.__currentIndex ) {
+                this.__currentIndex++;
+            }
+
+            if ( index <= this.__prevIndex ) {
+                this.__prevIndex++;
+            }
+
+            return returnValue;
+
+        },
+
+        removeWidget: function ( widget ) {
+
+            var index = widget;
+
+            if ( typeof index !== "number" ) {
+                index = this.indexOf( widget );
+            }
+
+            widget = this.callBase( widget );
+
+            if ( index === this.__currentIndex ) {
+                this.__currentIndex = -1;
+            } else if ( index < this.__currentIndex ) {
+                this.__currentIndex--;
+            }
+
+            if ( index === this.__prevIndex ) {
+                this.__prevIndex = -1;
+            } else if ( index < this.__prevIndex ) {
+                this.__prevIndex--;
+            }
+
+            return widget;
+
+        },
+
+        __render: function () {
 
             if ( this.__rendered ) {
                 return this;
             }
 
             this.callBase();
+
             $( this.__element ).addClass( CONF.classPrefix + "buttonset" )
 
             this.__initButtons();
-            this.__initSelect();
 
             return this;
 
         },
 
-        __initSelect: function () {
+        __initButtons: function () {
 
-            var selectedWidget = null;
+            var _self = this,
+                buttonWidget = null;
 
+            $.each( this.__options.buttons, function ( index, buttonOption ) {
 
-            if ( this.__options.selected > -1 ) {
-                selectedWidget = this.__widgets[ this.__options.selected ];
-            }
+                buttonWidget = new ToggleButton( $.extend( {}, buttonOption, {
+                    pressed: index === _self.__options.selected,
+                    preventDefault: true
+                } ) );
 
-            if ( selectedWidget ) {
-                this.__pressButton( selectedWidget );
-            }
+                // 切换
+                buttonWidget.__on( 'click', function ( e ) {
+
+                    if ( !_self.isDisabled() ) {
+                        _self.__pressButton( this );
+                    }
+
+                } );
+
+                buttonWidget.__on( 'change', function ( e ) {
+
+                    // 阻止buton本身的事件向上冒泡
+                    e.stopPropagation();
+
+                } );
+
+                _self.appendButton( buttonWidget );
+
+            } );
 
         },
 
@@ -145,21 +183,27 @@ define( function ( require ) {
          */
         __pressButton: function ( button ) {
 
-            var _self = this;
+            this.__prevIndex = this.__currentIndex;
+            this.__currentIndex = this.indexOf( button );
+
+            if ( this.__currentIndex === this.__prevIndex ) {
+                return;
+            }
 
             button.press();
-
-            this.__prevIndex = this.__currentIndex;
 
             // 弹起其他按钮
             $.each( this.__widgets, function ( i, otherButton ) {
 
                 if ( otherButton !== button ) {
                     otherButton.bounce();
-                } else {
-                    _self.__currentIndex = i;
                 }
 
+            } );
+
+            this.trigger( 'change', {
+                currentIndex: this.__currentIndex,
+                prevIndex: this.__prevIndex
             } );
 
         },
