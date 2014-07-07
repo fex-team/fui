@@ -33,7 +33,7 @@
   -webkit-user-drag: none;
 }
 .fui-widget.fui-disabled {
-  opacity: 0.6!important;
+  opacity: 0.3!important;
 }
 
 /**
@@ -123,6 +123,11 @@
   display: inline-block;
 }
 
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
 .fui-label-panel .fui-label-panel-label {
   width: 100%;
 }
@@ -134,6 +139,9 @@
   bottom: 0;
   left: 0;
   top: auto;
+}
+.fui-label-panel.fui-disabled .fui-label-panel-label {
+  opacity: 0.3!important;
 }
 
 .fui-label {
