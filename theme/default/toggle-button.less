@@ -1,0 +1,16 @@
+/**
+ * 可切换Button (ToggleButton)
+ */
+
+@import "define";
+
+.fui-toggle-button {
+
+  &.fui-button-pressed {
+    background-color: darken( @hoverBgColor, 10% );
+    &.fui-disabled {
+      background-color: darken( @hoverBgColor, 10% )!important;
+    }
+  }
+
+}

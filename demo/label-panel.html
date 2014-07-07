@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var lPanel = new FUI.LabelPanel( {
+                width: 100,
+                height: 100,
+                padding: '10px',
+                margin: '10px',
+                label: {
+                    width: '100%',
+                    text: '内容'
+                }
+            });
+
+            lPanel.appendTo( document.body );
+
+            window.setTimeout( function () {
+//                label.disable();
+            }, 5000 );
+
+            var button = new FUI.Button( {
+                label: 'red'
+            } );
+
+            lPanel.appendWidget( button );
+
+        };
+    </script>
+</head>
+<body>
+    <h1>LabelPanel 示例</h1>
+</body>
+</html>

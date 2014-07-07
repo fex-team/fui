@@ -1,0 +1,35 @@
+/**
+ * FUI 通用样式定义
+ */
+
+/*------------ var*/
+@radius: 5px;
+@color: black;
+@bgColor: white;
+@hoverBgColor: #D5E1F2;
+@activeBgColor: darken( @hoverBgColor, 20% );
+@hoverColor: @color;
+@activeColor: @color;
+@fontSize: 12px;
+@lineHeight: 1.5;
+@fontFamily: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+
+/*------------ mixin*/
+
+.mixin-raidus () {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.mixin-text () {
+  color: @color;
+  line-height: @lineHeight;
+  font-size: @fontSize;
+  font-family: @fontFamily;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mixin-disabled () {
+  opacity: 0.6!important;
+}

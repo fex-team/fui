@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var panel = new FUI.Panel(),
+                    buttonset= new FUI.Buttonset( {
+//                        disabled: true,
+                        selected: 0,
+                        padding: '5px',
+                        margin: '5px',
+                        buttons: [ {
+                            text: '左对齐',
+                            pressed: true,
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            pressed: true,
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        } ]
+
+                    } );
+
+            console.log( buttonset.getButtons() );
+
+            panel.appendWidget( buttonset );
+
+            buttonset.on( "change", function ( e, info ) {
+
+                console.log( 'this: ' + this.widgetName )
+                console.log( 'event: ' + e.type )
+
+                console.log(info)
+
+            } );
+
+            buttonset.on( "click", function ( e, info ) {
+
+                console.log("click")
+
+            } );
+
+            panel.appendTo( document.body );
+
+            window.setTimeout( function () {
+
+//                panel.disable();
+                buttonset.select( 2 );
+
+            }, 1000 );
+
+            window.b = buttonset;
+
+        };
+    </script>
+</head>
+<body>
+    <h1>FUI Button-set Widget 示例</h1>
+
+</body>
+</html>

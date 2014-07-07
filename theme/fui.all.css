@@ -1,0 +1,154 @@
+/**
+ * 所有构件样式规则
+ **/
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-widget {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  color: #000000;
+  line-height: 1.5;
+  font-size: 12px;
+  font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande", "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  vertical-align: top;
+}
+.fui-widget * {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.fui-widget.fui-disabled {
+  opacity: 0.6!important;
+}
+
+/**
+ * 容器类通用样式
+ **/
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-container {
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.fui-container.fui-disabled {
+  opacity: 1!important;
+}
+
+/**
+ * 通用button
+ */
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-button {
+  overflow: hidden;
+  background-color: #ffffff;
+}
+.fui-button ._layout .fui-label {
+  display: block;
+}
+.fui-button ._layout .fui-icon {
+  display: block;
+}
+.fui-button .fui-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+.fui-button .fui-label {
+  display: inline-block;
+  vertical-align: middle;
+}
+.fui-button.fui-button-layout-top .fui-label {
+  display: block;
+}
+.fui-button.fui-button-layout-top .fui-icon {
+  display: block;
+}
+.fui-button.fui-button-layout-bottom .fui-label {
+  display: block;
+}
+.fui-button.fui-button-layout-bottom .fui-icon {
+  display: block;
+}
+.fui-button:HOVER {
+  background-color: #d5e1f2 !important;
+  color: #000000 !important;
+}
+.fui-button:ACTIVE {
+  background-color: #87a9da !important;
+  color: #000000 !important;
+}
+.fui-button.fui-disabled:ACTIVE {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+.fui-button.fui-disabled:HOVER {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+
+.fui-icon {
+  text-align: center;
+}
+.fui-icon img {
+  display: inline-block;
+}
+
+
+.fui-label {
+  cursor: default;
+  display: inline-block;
+}
+
+/**
+ * 通用button
+ */
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-panel {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/**
+ * 可切换Button (ToggleButton)
+ */
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-toggle-button.fui-button-pressed {
+  background-color: #aec5e6;
+}
+.fui-toggle-button.fui-button-pressed.fui-disabled {
+  background-color: #aec5e6 !important;
+}

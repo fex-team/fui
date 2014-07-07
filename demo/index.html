@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI完整demo</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+    <link rel="stylesheet" type="text/css" href="assets/style/demo.css">
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var toolbar = new FUI.Panel( {
+                    className: 'toolbar',
+                    width: 1000,
+                    height: 100
+                } ),
+
+                undoRedoPanel = new FUI.LabelPanel( {
+                    break: true,
+                    label: '撤销',
+                    padding: '5px 5px 0 5px'
+                } ),
+
+                clipboardPanel = new FUI.LabelPanel( {
+                    label: '剪贴板',
+                    padding: '5px 5px 0 5px',
+                    margin: '2px'
+                } ),
+                fontPanel = new FUI.LabelPanel( {
+                    label: '字体',
+                    padding: '5px 5px 0 5px',
+                    margin: '2px'
+                } );
+
+            var sep1 = new FUI.Separator( {
+                    margin: '5px 3px',
+                    height: '90px'
+                }),
+                sep2 = new FUI.Separator( {
+                    margin: '5px 3px',
+                    height: '90px'
+                } ),
+                sep3 = new FUI.Separator( {
+                    margin: '5px 3px',
+                    height: '90px'
+                } );
+
+            initUndoRedoWidget( undoRedoPanel );
+            initClipboardWidget( clipboardPanel );
+            initFontWidget( fontPanel );
+
+            toolbar.appendWidget( sep1 );
+            toolbar.insertWidget( toolbar.indexOf( sep1 ), undoRedoPanel );
+            toolbar.appendWidget( clipboardPanel );
+            toolbar.appendWidget( sep2 );
+            toolbar.appendWidget( fontPanel );
+            toolbar.appendWidget( sep3 );
+
+            toolbar.appendTo( document.body );
+
+        };
+
+        function initUndoRedoWidget ( panel ) {
+
+            var undoButton = new FUI.Button( {
+                    disabled: true,
+                    padding: '5px',
+                    icon: 'assets/icon-demo/undo.png',
+                    text: '撤销'
+                } ),
+                redoButton = new FUI.Button( {
+                    padding: '5px',
+                    icon: 'assets/icon-demo/redo.png',
+                    text: '恢复'
+                } );
+
+            panel.appendWidget( undoButton );
+            panel.appendWidget( redoButton );
+
+        }
+
+
+        function initClipboardWidget ( panel ) {
+
+            var panel1 = new FUI.Panel(),
+                panel2 = new FUI.Panel( {
+                    break: true
+                } );
+
+            var pasteButton = new FUI.Button( {
+                    padding: '7px',
+                    label: '粘贴',
+                    text: '粘贴',
+                    icon: 'assets/icon-demo/paste.png',
+                    layout: 'bottom'
+                } ),
+                cutButton = new FUI.Button( {
+                    padding: '2px',
+                    label: '剪切',
+                    text: '剪切',
+                    icon: 'assets/icon-demo/cut.png'
+                }),
+                copyButton = new FUI.Button( {
+                    padding: '2px',
+                    label: '复制',
+                    text: '复制',
+                    icon: 'assets/icon-demo/copy.png'
+                } );
+
+            panel1.insertWidget( 0, pasteButton );
+
+            panel2.appendWidget( cutButton );
+            panel2.appendWidget( copyButton );
+
+            panel.appendWidget( panel1 );
+            panel.appendWidget( panel2 );
+
+        }
+
+        function initFontWidget ( panel ) {
+
+            var boldButton = new FUI.ToggleButton( {
+                    padding: '5px',
+                    text: '加粗',
+                    icon: 'assets/icon-demo/bold.png'
+                } ),
+
+                italicButton = new FUI.ToggleButton( {
+                    padding: '5px',
+                    text: '倾斜',
+                    icon: 'assets/icon-demo/italic.png'
+                } ),
+
+                underlineButton = new FUI.ToggleButton( {
+                    padding: '5px',
+                    pressed: true,
+                    text: '下划线',
+                    icon: 'assets/icon-demo/underline.png'
+                } ),
+
+                strikethroughButton = new FUI.ToggleButton( {
+                    padding: '5px',
+                    text: '删除线',
+                    icon: 'assets/icon-demo/strikethrough.png'
+                } ),
+
+                scriptButton = new FUI.Buttonset( {
+                    selected: 0,
+                    margin: '0 2px',
+                    buttons: [ {
+                        text: '上标',
+                        icon: 'assets/icon-demo/superscript.png'
+                    }, {
+                        text: '下标',
+                        // 无效
+                        pressed: true,
+                        icon: 'assets/icon-demo/superscript.png'
+                    } ]
+                } );
+
+            panel.appendWidget( boldButton );
+            panel.appendWidget( italicButton );
+            panel.appendWidget( underlineButton );
+            panel.appendWidget( strikethroughButton );
+            panel.appendWidget( scriptButton );
+
+        }
+
+    </script>
+</head>
+<body>
+<h1>FUI 完整demo</h1>
+</body>
+</html>
