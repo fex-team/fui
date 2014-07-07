@@ -146,22 +146,21 @@ define( function ( require ) {
 
         on: function ( type, cb ) {
 
-            return this.__on( type, cb, true );
+            if ( !this.__options.preventDefault ) {
+                this.__on( type, cb );
+            }
+
+            return this;
 
         },
 
-        // 如果第三个参数 isCheck 不为true，则绕过disable和preventDefault限制
-        __on: function ( type, cb, isCheck ) {
+        __on: function ( type, cb ) {
 
             var _self = this;
 
             cb.__fui_listener = function ( e ) {
 
-                if ( isCheck ) {
-                    if ( !_self.isDisabled() && !_self.__options.preventDefault ) {
-                        cb.apply( _self, arguments );
-                    }
-                } else {
+                if ( !_self.isDisabled() ) {
                     cb.apply( _self, arguments );
                 }
 
@@ -174,6 +173,16 @@ define( function ( require ) {
         },
 
         trigger: function ( type, params ) {
+
+            if ( !this.__options.preventDefault ) {
+                $( this.__element ).trigger( type, [].slice.call( arguments, 1 ) );
+            }
+
+            return this;
+
+        },
+
+        __trigger: function ( type, params ) {
 
             $( this.__element ).trigger( type, [].slice.call( arguments, 1 ) );
 

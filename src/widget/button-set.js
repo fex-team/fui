@@ -70,7 +70,7 @@ define( function ( require ) {
 
             indexOrWidget = this.__widgets[ indexOrWidget ];
 
-            indexOrWidget.trigger( "click" );
+            this.__pressButton( indexOrWidget );
 
             return this;
 

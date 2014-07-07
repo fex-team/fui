@@ -29,13 +29,14 @@
             var panel = new FUI.Panel(),
                 button = new FUI.Button( {
 //                    disabled: true,
+//                    preventDefault: true,
                     label:'按钮',
                     text: '清理垃圾',
 //                    width: 500,
 //                    height: 40,
 //                    icon: "demo/assets/icon/clean.png",
                     icon: {
-                        img: 'assets/icon/clean.png',
+                        img: 'assets/icon/clean.png'
                     },
 //                        layout: 'bottom',
                     padding: '2px 10px'
@@ -51,7 +52,7 @@
 
             } );
 
-            button.on( "change", function ( e, info ) {
+            button.on( "labelchange", function ( e, info ) {
 
                 console.log( e.type )
                 console.log( info.currentText )
@@ -63,7 +64,7 @@
 
             panel.appendTo( $( "#common" )[ 0 ] );
 
-            panel.disable();
+//            panel.disable();
 
         }
 
@@ -71,7 +72,7 @@
 
             var button = new FUI.ToggleButton( {
 //                    disabled: true,
-                    preventDefault: true,
+//                    preventDefault: true,
                     pressed: true,
                     label: {
                         text: 'Linux'
@@ -87,7 +88,7 @@
                         ( this.isPressed() ? "已" : "未" ) + "按下!" +
                         "按钮当前的状态值: "+ currentState);
 
-                this.disable();
+//                this.disable();
 
             } );
 
@@ -97,9 +98,17 @@
 
             } );
 
+            button.on( "labelchange", function ( e, info ) {
+
+                console.log( e.type + '： from "' + info.prevText + '" to "' + info.currentText + '"'  )
+
+            } );
+
             console.log( '当前按钮是否已经按下? ' + button.isPressed() );
 
             button.appendTo( $( "#toggle" )[ 0 ] );
+
+            window.button = button;
 
         }
 

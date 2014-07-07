@@ -58,7 +58,9 @@ define( function ( require ) {
                 return;
             }
 
-            this.press();
+            // 不直接调用press方法， 防止初始化时事件的触发
+            $( this.__element ).addClass( CONF.classPrefix + "button-pressed" );
+            this.__state = true;
 
         },
 

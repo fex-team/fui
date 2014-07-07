@@ -51,10 +51,14 @@ define( function ( require ) {
         },
 
         setLabel: function ( text ) {
+
             return this.__labelWidget.setText( text );
+
         },
 
         __render: function () {
+
+            var _self = this;
 
             if ( this.__rendered ) {
                 return this;
@@ -65,6 +69,14 @@ define( function ( require ) {
 
             this.__iconWidget = new Icon( this.__options.icon );
             this.__labelWidget = new Label( this.__options.label );
+
+            this.__labelWidget.on( "change", function ( e, info ) {
+
+                e.stopPropagation();
+
+                _self.trigger( "labelchange", info );
+
+            } );
 
             // layout
             switch ( this.__options.layout ) {
