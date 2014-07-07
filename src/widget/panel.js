@@ -36,18 +36,6 @@ define( function ( require ) {
 
         },
 
-        __render: function () {
-
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.callBase();
-
-            this.__initOptions();
-
-        },
-
         appendWidget: function ( widget ) {
 
             var returnValue = this.callBase( widget );
@@ -72,6 +60,26 @@ define( function ( require ) {
 
         },
 
+        __render: function () {
+
+            var $content = null;
+
+            if ( this.__rendered ) {
+                return this;
+            }
+
+            this.__initOptions();
+
+            this.callBase();
+
+            $content = $( '<div class="fui-panel-content"></div>' );
+
+            this.__contentElement.appendChild( $content[ 0 ] );
+
+            this.__contentElement = $content[ 0 ];
+
+        },
+
         __initOptions: function () {
 
             var cssMapping = {},
@@ -89,6 +97,11 @@ define( function ( require ) {
             } );
 
             options.__css = cssMapping;
+
+            // margin
+            if ( typeof this.__options.margin === "number" ) {
+                this.__options.margin += 'px';
+            }
 
         }
 

@@ -21,11 +21,11 @@
 
             var lPanel = new FUI.LabelPanel( {
                 width: 100,
-                height: 100,
+//                height: 100,
                 padding: '10px',
                 margin: '10px',
+//                layout: 'top',
                 label: {
-                    width: '100%',
                     text: '内容'
                 }
             });
@@ -41,6 +41,7 @@
             } );
 
             lPanel.appendWidget( button );
+//            button.appendTo( document.body );
 
         };
     </script>

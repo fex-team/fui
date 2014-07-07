@@ -14,50 +14,54 @@ define( function ( require ) {
 
         base: require( "widget/panel" ),
 
-        __defaultOptions: {
-            layout: 'bottom',
-            label: {
-                width: '100%'
-            }
-        },
-
-        __labelWidget: null,
-
-        widgetName: 'LabelPanel',
-
         constructor: function ( options ) {
 
-            this.__initOptions();
-            this.__labelWidget = new Label( this.__options.label );
+            var marker = Utils.getMarker();
+            this.callBase( marker );
+
+            var defaultOptions = {
+                layout: 'bottom'
+            };
+
+            this.__extendOptions( defaultOptions, options );
+
+            this.widgetName = 'LabelPanel';
+
+            this.__labelWidget = null;
+
+            if ( options !== marker ) {
+                this.__render();
+            }
 
         },
 
         __render: function () {
 
-            if ( this.isBadCall() ) {
-                return this;
-            }
-
-            var oldMargin = this.__options.margin,
-                $contentElement = null;
+            var $contentElement = null;
 
             if ( this.__rendered ) {
                 return this;
             }
 
+            this.__initOptions();
+
+            this.__labelWidget = new Label( this.__options.label );
+
             this.callBase();
 
             $( this.__element ).addClass( CONF.classPrefix + "label-panel" );
+            $( this.__element ).addClass( CONF.classPrefix + "layout-" + this.__options.layout );
 
             $contentElement = $( '<div class="fui-label-panel-content"></div>' );
-            $( this.__contentElement ).append( $contentElement );
 
-            // 重置margin, 避免添加label时被添加margin值
-            this.__options.margin = 0;
+            this.__contentElement.appendChild( this.__labelWidget.getElement() );
+            this.__contentElement.appendChild( $contentElement[ 0 ] );
 
-            this.appendWidget( this.__labelWidget );
-
-            this.__options.margin = oldMargin;
+            // 容器高度未设置， 则禁用定位属性， 避免自适应布局下的因流布局被破坏造成的重叠问题
+            if ( this.__options.height === null ) {
+                $( this.__element ).addClass( CONF.classPrefix + "no-position" );
+                this.__contentElement.appendChild( this.__labelWidget.getElement() );
+            }
 
             // 更新contentElement
             this.__contentElement = $contentElement[ 0 ];
@@ -74,10 +78,15 @@ define( function ( require ) {
 
             if ( typeof label === "string" ) {
                 this.__options.label = {
-                    text: label,
-                    width: this.__defaultOptions.label.width
+                    text: label
                 }
             }
+
+            if ( !this.__options.label.className ) {
+                this.__options.label.className = '';
+            }
+
+            this.__options.label.className += ' fui-label-panel-label';
 
         }
 

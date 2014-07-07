@@ -5,29 +5,46 @@
 define( function ( require ) {
 
     var Utils = require( "base/utils" ),
+        separatorTpl = require( "tpl/separator" ),
         $ = require( "base/jquery" );
 
     return Utils.createClass( "Separator", {
 
         base: require( "widget/widget" ),
 
-        __tpl: require( "tpl/separator" ),
+        constructor: function ( options ) {
 
-        __events: [],
+            var marker = Utils.getMarker();
+            this.callBase( marker );
 
-        __defaultOptions: {
-            padding: null,
-            margin: null,
-            width: 1,
-            height: '100%',
-            color: '#e1e1e1'
+            var defaultOptions = {
+                padding: null,
+                margin: null,
+                width: 1,
+                height: '100%',
+                color: '#e1e1e1'
+            };
+
+            this.__extendOptions( defaultOptions, options );
+
+            this.widgetName = 'Separator';
+            this.__tpl = separatorTpl;
+
+            if ( options !== marker ) {
+                this.__render();
+            }
+
         },
 
-        widgetName: 'Separator',
+        __render: function () {
 
-        constructor: function () {
+            if ( this.__rendered ) {
+                return this;
+            }
 
             this.__initOptions();
+
+            this.callBase();
 
         },
 

@@ -22,38 +22,35 @@
             var toolbar = new FUI.Panel( {
                     className: 'toolbar',
                     width: 1000,
-                    height: 100
+                    height: 100,
+                    padding: '5px 0',
+                    margin: '0 2px'
                 } ),
 
                 undoRedoPanel = new FUI.LabelPanel( {
                     break: true,
-                    label: '撤销',
-                    padding: '5px 5px 0 5px'
+                    height: 90,
+                    padding: 5,
+                    margin: 2,
+                    label: '撤销'
                 } ),
 
                 clipboardPanel = new FUI.LabelPanel( {
                     label: '剪贴板',
-                    padding: '5px 5px 0 5px',
-                    margin: '2px'
+                    height: 90,
+                    padding: 5,
+                    margin: 2
                 } ),
                 fontPanel = new FUI.LabelPanel( {
                     label: '字体',
-                    padding: '5px 5px 0 5px',
-                    margin: '2px'
+                    height: 90,
+                    padding: 5,
+                    margin: 2
                 } );
 
-            var sep1 = new FUI.Separator( {
-                    margin: '5px 3px',
-                    height: '90px'
-                }),
-                sep2 = new FUI.Separator( {
-                    margin: '5px 3px',
-                    height: '90px'
-                } ),
-                sep3 = new FUI.Separator( {
-                    margin: '5px 3px',
-                    height: '90px'
-                } );
+            var sep1 = new FUI.Separator(),
+                sep2 = new FUI.Separator(),
+                sep3 = new FUI.Separator();
 
             initUndoRedoWidget( undoRedoPanel );
             initClipboardWidget( clipboardPanel );

@@ -25,7 +25,6 @@ define( function ( require ) {
                 img: null
             };
 
-
             this.__extendOptions( defaultOptions, options );
 
             this.widgetName = 'Icon';
@@ -44,6 +43,7 @@ define( function ( require ) {
             }
 
             this.__initOptions();
+
             this.callBase();
 
         },

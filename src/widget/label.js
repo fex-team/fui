@@ -12,8 +12,6 @@ define( function ( require ) {
 
         base: require( "widget/widget" ),
 
-        widgetName: 'Label',
-
         constructor: function ( options ) {
 
             var marker = Utils.getMarker();
@@ -58,18 +56,6 @@ define( function ( require ) {
             return this.__options.text;
         },
 
-        /**
-         * 初始化模板所用的css值
-         * @private
-         */
-        __initOptions: function () {
-
-            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding', {
-                textAlign: 'text-align'
-            } ], this.__options );
-
-        },
-
         __render: function () {
 
             if ( this.__rendered ) {
@@ -79,6 +65,18 @@ define( function ( require ) {
             this.__initOptions();
 
             this.callBase();
+
+        },
+
+        /**
+         * 初始化模板所用的css值
+         * @private
+         */
+        __initOptions: function () {
+
+            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding', {
+                textAlign: 'text-align'
+            } ], this.__options );
 
         }
 
