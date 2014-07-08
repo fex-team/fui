@@ -32,7 +32,7 @@
 
             console.log( "当前的内容是: " + label.getText() )
 
-            label.on( "change", function ( e, info ) {
+            label.on( "labelchange", function ( e, info ) {
 
                 console.log( this.widgetName + " 发生了 " + e.type + " 事件, 其内容由 '" + info.prevText + "' 改变成 '" + info.currentText + "'" );
 

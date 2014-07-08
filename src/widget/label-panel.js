@@ -35,6 +35,20 @@ define( function ( require ) {
 
         },
 
+        disable: function () {
+
+            this.callBase();
+            this.__labelWidget.disable();
+
+        },
+
+        enable: function () {
+
+            this.callBase();
+            this.__labelWidget.enable();
+
+        },
+
         __render: function () {
 
             var $contentElement = null;

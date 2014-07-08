@@ -29,11 +29,45 @@ define( function ( require ) {
 
             this.widgetName = 'Icon';
             this.__tpl = iconTpl;
+            this.__prevIcon = null;
+            this.__currentIcon = this.__options.img;
 
             if ( options !== marker ) {
                 this.__render();
             }
 
+        },
+
+        setImage: function ( imageSrc ) {
+
+            var tpl = null,
+                node = null;
+
+            if ( this.__options.img === imageSrc ) {
+                return this;
+            }
+
+            this.__prevIcon = this.__currentIcon;
+            this.__currentIcon = imageSrc;
+
+            tpl = Utils.Tpl.compile( this.__tpl, $.extend( {}, this.__options, {
+                img: this.__currentIcon
+            } ) );
+
+            node = $( tpl )[ 0 ];
+
+            this.__element.innerHTML = node.innerHTML;
+            node = null;
+
+            this.trigger( "iconchange", {
+                prevIcon: this.__prevIcon,
+                currentIcon: this.__currentIcon
+            } );
+
+        },
+
+        getImage: function () {
+            return this.__currentIcon;
         },
 
         __render: function () {

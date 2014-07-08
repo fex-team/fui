@@ -140,9 +140,6 @@
   left: 0;
   top: auto;
 }
-.fui-label-panel.fui-disabled .fui-label-panel-label {
-  opacity: 0.3!important;
-}
 
 .fui-label {
   cursor: default;

@@ -43,7 +43,7 @@ define( function ( require ) {
             this.__options.text = text;
             $( this.__element ).text( text );
 
-            this.trigger( "change", {
+            this.trigger( "labelchange", {
                 currentText: text,
                 prevText: oldtext
             } );

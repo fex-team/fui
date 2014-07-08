@@ -70,14 +70,6 @@ define( function ( require ) {
             this.__iconWidget = new Icon( this.__options.icon );
             this.__labelWidget = new Label( this.__options.label );
 
-            this.__labelWidget.on( "change", function ( e, info ) {
-
-                e.stopPropagation();
-
-                _self.trigger( "labelchange", info );
-
-            } );
-
             // layout
             switch ( this.__options.layout ) {
 

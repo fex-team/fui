@@ -25,6 +25,18 @@
 
             icon.appendTo( document.body );
 
+            icon.on( "iconchange", function ( e, info ) {
+
+                console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件， 导致icon从 ' + info.prevIcon + " 改变成 " + info.currentIcon )
+
+            } );
+
+            window.setTimeout( function () {
+
+                icon.setImage( "assets/icon/chrome.png" );
+
+            }, 1000 );
+
         };
     </script>
 </head>
