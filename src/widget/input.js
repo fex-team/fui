@@ -67,6 +67,20 @@ define( function ( require ) {
 
         },
 
+        focus: function () {
+
+            this.__element.focus();
+            return this;
+
+        },
+
+        unfocus: function () {
+
+            this.__element.blur();
+            return this;
+
+        },
+
         __render: function () {
 
             if ( this.__rendered ) {
@@ -77,13 +91,11 @@ define( function ( require ) {
 
             this.callBase();
 
-            this.__initEvent();
+            this.__initInputEvent();
 
         },
 
-        __initEvent: function () {
-
-            this.callBase();
+        __initInputEvent: function () {
 
             this.on( "keydown", function ( e ) {
 

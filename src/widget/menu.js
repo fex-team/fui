@@ -21,6 +21,7 @@ define( function ( require ) {
             var defaultOptions = {
                 break: true,
                 selected: -1,
+                textAlign: 'left',
                 items: []
             };
 
@@ -53,7 +54,8 @@ define( function ( require ) {
         __render: function () {
 
             var _self = this,
-                selected = _self.__options.selected;
+                textAlign = this.__options.textAlign,
+                selected = this.__options.selected;
 
             if ( this.__rendered ) {
                 return this;
@@ -72,12 +74,15 @@ define( function ( require ) {
                 }
 
                 itemOption.selected = index === selected;
+                itemOption.textAlign = textAlign;
 
                 _self.appendItem( new Item( itemOption ) );
 
             } );
 
-            this.__initEvent();
+            this.hide();
+
+            this.__initMenuEvent();
 
         },
 
@@ -140,9 +145,7 @@ define( function ( require ) {
         },
 
         // 初始化点击事件
-        __initEvent: function () {
-
-            this.callBase();
+        __initMenuEvent: function () {
 
             this.on( "itemclick", function ( e ) {
 
@@ -164,14 +167,23 @@ define( function ( require ) {
             item.select();
 
             this.trigger( "select", {
-                index: this.__currentSelect
+                index: this.__currentSelect,
+                value: this.__widgets[ this.__currentSelect ].getValue()
             } );
 
             if ( this.__prevSelect !== this.__currentSelect ) {
 
+                var fromItem = this.__widgets[ this.__prevSelect ] || null;
+
                 this.trigger( "change", {
-                    from: this.__prevSelect,
-                    to: this.__currentSelect
+                    from: {
+                        index: this.__prevSelect,
+                        value: fromItem && fromItem.getValue()
+                    },
+                    to: {
+                        index: this.__currentSelect,
+                        value: this.__widgets[ this.__currentSelect ].getValue()
+                    }
                 } );
 
             }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 200%;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+    </style>
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var mask1 = new FUI.Mask( {
+                target: document.getElementById( "test" )
+            }),
+            mask2 = new FUI.Mask( {
+                bgcolor: "green",
+                opacity: 0.5
+            } );
+
+            mask1.show();
+
+            mask2.show();
+
+            mask2.on( "scroll", function ( e, info ) {
+
+                console.log( e.type, info.delta)
+
+            } );
+
+            mask2.on( "maskclick", function ( e ) {
+
+                console.log( e.type )
+
+            } );
+
+        };
+    </script>
+</head>
+<body>
+    <h1>Mask 示例</h1>
+    <div style="background: red; width: 100px; height: 100px;" id="test"></div>
+</body>
+</html>

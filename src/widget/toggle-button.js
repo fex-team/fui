@@ -46,7 +46,7 @@ define( function ( require ) {
             $( this.__element ).addClass( CONF.classPrefix + "toggle-button" );
 
             this.__initButtonState();
-            this.__initEvent();
+            this.__initToggleButtonEvent();
 
             return this;
 
@@ -68,9 +68,7 @@ define( function ( require ) {
          * 初始化事件监听, 控制状态的切换
          * @private
          */
-        __initEvent: function () {
-
-            this.callBase();
+        __initToggleButtonEvent: function () {
 
             this.on( "click", function () {
 

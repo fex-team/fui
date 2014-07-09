@@ -79,6 +79,12 @@ define( function ( require ) {
 
         getRect: function ( node ) {
             return node.getBoundingClientRect();
+        },
+
+        getCssValue: function ( props, node ) {
+
+            var styleList = node.ownerDocument.defaultView.getComputedStyle( node, null );
+
         }
 
     }

@@ -200,6 +200,15 @@
 .fui-label {
   cursor: default;
   display: inline-block;
+  white-space: nowrap;
+}
+
+/**
+ * 通用button
+ */
+.fui-mask {
+  position: fixed;
+  z-index: 99998;
 }
 
 /**
@@ -207,6 +216,12 @@
  */
 /*------------ var*/
 /*------------ mixin*/
+.fui-menu {
+  border: 1px solid #d3d3d3;
+}
+.fui-menu .fui-item {
+  padding: 2px 5px;
+}
 .fui-menu .fui-item:HOVER {
   background: #d5e1f2;
 }
@@ -222,8 +237,9 @@
 .fui-panel {
   display: inline-block;
   vertical-align: top;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
+  background: #fff;
 }
 .fui-panel .fui-panel-content {
   position: relative;

@@ -22,7 +22,8 @@ define( function ( require ) {
                 className: '',
                 disabled: false,
                 preventDefault: false,
-                text: ''
+                text: '',
+                value: null
             };
 
             this.__widgetType = 'widget';
@@ -83,10 +84,19 @@ define( function ( require ) {
             }
 
 
-            this.__initEvent();
+            this.__initWidgetEvent();
 
             return this;
 
+        },
+
+        getValue: function () {
+            return this.__options.value;
+        },
+
+        setValue: function ( value ) {
+            this.__options.value = value;
+            return this;
         },
 
         show: function () {
@@ -171,7 +181,7 @@ define( function ( require ) {
 
         },
 
-        __initEvent: function () {
+        __initWidgetEvent: function () {
 
             this.on( "mousedown", function ( e ) {
 

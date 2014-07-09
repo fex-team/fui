@@ -36,6 +36,10 @@ define( function ( require ) {
 
         },
 
+        getValue: function () {
+            return this.__options.text;
+        },
+
         setText: function ( text ) {
 
             var oldtext = this.__options.text;

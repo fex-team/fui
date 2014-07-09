@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var inputMenu = new FUI.InputMenu( {
+                input: {
+                    button: {
+                        padding: '5px 3px',
+                        icon: {
+                            width: 10,
+                            height: 10,
+                            img: "assets/icon-demo/down.png"
+                        }
+                    },
+                    input: {
+                        padding: 2,
+                        value: '你好'
+                    }
+                },
+                menu: {
+                    items: [ "你好", "Hello", "Hi" ]
+                }
+            } );
+
+            inputMenu.appendTo( document.body );
+
+            inputMenu.on( "select", function ( e, info ) {
+
+                console.log(e.type, info )
+
+            } );
+
+            inputMenu.on( "change", function ( e, info ) {
+
+                console.log(e.type, info )
+
+            } );
+
+        };
+    </script>
+</head>
+<body>
+    <h1>InputMenu 示例</h1>
+</body>
+</html>

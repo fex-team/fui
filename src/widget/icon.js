@@ -38,6 +38,10 @@ define( function ( require ) {
 
         },
 
+        getValue: function () {
+            return this.__options.value || this.__options.img;
+        },
+
         setImage: function ( imageSrc ) {
 
             var tpl = null,

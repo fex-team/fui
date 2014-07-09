@@ -45,6 +45,10 @@ define( function ( require ) {
 
         },
 
+        getValue: function () {
+            return this.__labelWidget.getValue() || this.__iconWidget.getValue() || null;
+        },
+
         select: function () {
 
             this.__update( true );
@@ -103,7 +107,7 @@ define( function ( require ) {
             this.__iconWidget.appendTo( this.__element );
             this.__labelWidget.appendTo( this.__element );
 
-            this.__initEvent();
+            this.__initItemEvent();
 
         },
 
@@ -120,9 +124,7 @@ define( function ( require ) {
 
         },
 
-        __initEvent: function () {
-
-            this.callBase();
+        __initItemEvent: function () {
 
             this.on( "click", function () {
 
@@ -138,14 +140,16 @@ define( function ( require ) {
          */
         __initOptions: function () {
 
-            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding', {
-                textAlign: 'text-align'
-            } ], this.__options );
+            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding' ], this.__options );
 
             if ( typeof this.__options.label === "string" ) {
                 this.__options.label = {
                     text: this.__options.label
                 };
+            }
+
+            if ( !this.__options.label.textAlign ) {
+                this.__options.label.textAlign = this.__options.textAlign;
             }
 
             if ( typeof this.__options.icon === "string" ) {

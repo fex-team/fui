@@ -6,6 +6,7 @@ define( function ( require ) {
 
     var Utils = require( "base/utils" ),
         CONF = require( "base/sysconf" ),
+        Widget = require( "widget/widget" ),
         $ = require( "base/jquery" );
 
     var LAYOUT = {
@@ -26,7 +27,9 @@ define( function ( require ) {
 
             var defaultOptions = {
                 layout: LAYOUT.BOTTOM,
-                target: null
+                target: null,
+                // 布局属性layout是否以target内部为参照
+                inner: false
             };
 
             this.__extendOptions( defaultOptions, options );
@@ -36,6 +39,10 @@ define( function ( require ) {
             this.__target = this.__options.target;
             this.__layout = this.__options.layout;
 
+            if ( this.__target instanceof Widget ) {
+                this.__target = this.__target.getElement();
+            }
+
             if ( options !== marker ) {
                 this.__render();
             }
@@ -44,12 +51,17 @@ define( function ( require ) {
 
         positionTo: function ( target, layout ) {
 
+            if ( target instanceof Widget ) {
+                target = target.getElement();
+            }
+
             this.__target = target;
 
             if ( layout ) {
                 this.__layout = layout;
             }
 
+            return this;
         },
 
         show: function () {
@@ -88,14 +100,60 @@ define( function ( require ) {
         // 执行定位
         __position: function () {
 
-            var targetRect = Utils.getRect( this.__target ),
-                panelRect = Utils.getRect( this.__element ),
-                location = {
-                    top: 0,
-                    left: 0
-                };
+            var location = null,
+                targetRect = Utils.getRect( this.__target );
 
             $( this.__element ).addClass( CONF.classPrefix + "ppanel-position" );
+
+            this.__autoResize( targetRect );
+
+            if ( !this.__options.inner ) {
+                location = this.__getOuterLayout( targetRect );
+            } else {
+                location = this.__getInnerLayout( targetRect );
+            }
+
+            $( this.__element ).css( 'top', location.top + 'px' ).css( 'left', location.left + 'px' );
+
+        },
+
+        /**
+         * 在未指定宽度的情况下，执行自动宽度适配。
+         * 如果构件未被指定宽度， 则添加一个最小宽度， 该最小宽度等于给定目标的宽度
+         * @param targetRect 传递该参数，是出于整体性能上的考虑。
+         * @private
+         */
+        __autoResize: function ( targetRect ) {
+
+            if ( !this.__target || this.__options.width !== null ) {
+                return;
+            }
+
+            var $ele = $( this.__element ),
+                vals = {
+                    bl: parseInt( $ele.css( 'border-left-width' ), 10 ) || 0,
+                    br: parseInt( $ele.css( 'border-right-width' ), 10 ) || 0,
+                    pl: parseInt( $ele.css( 'padding-left' ), 10 ) || 0,
+                    pr: parseInt( $ele.css( 'padding-right' ), 10 ) || 0
+                },
+                minWidth = targetRect.width - vals.bl - vals.br - vals.pl - vals.pr;
+
+            this.__element.style.minWidth = minWidth + 'px';
+
+        },
+
+        /**
+         * 获取外部布局定位属性
+         * @returns {{top: number, left: number}}
+         * @private
+         */
+        __getOuterLayout: function ( targetRect ) {
+
+            var location = {
+                    top: 0,
+                    left: 0
+                },
+                panelRect = Utils.getRect( this.__element );
 
             switch ( this.__layout ) {
 
@@ -122,7 +180,39 @@ define( function ( require ) {
 
             }
 
-            $( this.__element ).css( 'top', location.top + 'px' ).css( 'left', location.left + 'px' );
+            return location;
+
+        },
+
+        /**
+         * 获取内部布局定位属性
+         * @private
+         */
+        __getInnerLayout: function ( targetRect ) {
+
+            var location = {
+                    top: 0,
+                    left: 0
+                },
+                panelRect = Utils.getRect( this.__element );
+
+            switch ( this.__layout ) {
+
+                case LAYOUT.TOP:
+                case LAYOUT.LEFT:
+                    location.left = targetRect.left;
+                    location.top = targetRect.top;
+                    break;
+
+                case LAYOUT.RIGHT:
+                case LAYOUT.BOTTOM:
+                    location.top = targetRect.bottom - panelRect.height;
+                    location.left = targetRect.right - panelRect.width;
+                    break;
+
+            }
+
+            return location;
 
         }
 

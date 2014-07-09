@@ -17,12 +17,14 @@ define( 'kf.export', function ( require ) {
         Item: require( "widget/item" ),
         Input: require( "widget/input" ),
         InputButton: require( "widget/input-button" ),
+        Mask: require( "widget/mask" ),
 
         Container: require( "widget/container" ),
         Panel: require( "widget/panel" ),
         PPanel: require( "widget/ppanel" ),
         LabelPanel: require( "widget/label-panel" ),
-        Menu: require( "widget/menu" )
+        Menu: require( "widget/menu" ),
+        InputMenu: require( "widget/input-menu" )
 
     };
 

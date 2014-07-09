@@ -37,7 +37,7 @@ define( function ( require ) {
             this.__tpl = tpl;
 
             this.__inputWidget = null;
-            this.__labelWidget = null;
+            this.__buttonWidget = null;
 
             if ( options !== marker ) {
                 this.__render();
@@ -69,6 +69,20 @@ define( function ( require ) {
 
             this.__inputWidget.selectRange( start, end );
 
+            return this;
+
+        },
+
+        focus: function () {
+
+            this.__inputWidget.focus();
+            return this;
+
+        },
+
+        unfocus: function () {
+
+            this.__inputWidget.unfocus();
             return this;
 
         },
@@ -106,7 +120,7 @@ define( function ( require ) {
 
             }
 
-            $( this.__element ).addClass( CONF.classPrefix + "-layout-"+this.__options.layout )
+            $( this.__element ).addClass( CONF.classPrefix + "layout-"+this.__options.layout )
 
             this.__buttonWidget.on( "click", function () {
                 _self.trigger( "buttonclick" );
