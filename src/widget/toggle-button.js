@@ -70,6 +70,8 @@ define( function ( require ) {
          */
         __initEvent: function () {
 
+            this.callBase();
+
             this.on( "click", function () {
 
                 this.toggle();

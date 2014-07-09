@@ -60,8 +60,8 @@ define( function ( require ) {
             node = null;
 
             this.trigger( "iconchange", {
-                prevIcon: this.__prevIcon,
-                currentIcon: this.__currentIcon
+                prevImage: this.__prevIcon,
+                currentImage: this.__currentIcon
             } );
 
         },

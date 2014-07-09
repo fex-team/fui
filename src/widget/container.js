@@ -53,6 +53,10 @@ define( function ( require ) {
 
             $( this.__element ).addClass( CONF.classPrefix + "container" );
 
+            if ( this.__options.break ) {
+                $( this.__element ).addClass( CONF.classPrefix + "container-break" );
+            }
+
             return this;
 
         },
@@ -106,10 +110,6 @@ define( function ( require ) {
             this.__widgets.push( widget );
             widget.appendTo( this.__contentElement );
 
-            if ( this.__options.break ) {
-                $( '<br>' ).appendTo( this.__contentElement );
-            }
-
             return widget;
 
         },
@@ -135,10 +135,6 @@ define( function ( require ) {
             this.__widgets.splice( index, 0, widget );
             this.__contentElement.insertBefore( widget.getElement(), oldElement.getElement() );
 
-            if ( this.__options.break ) {
-                $( this.__contentElement ).insertAfter( $( '<br>' ), widget.getElement() );
-            }
-
             return widget;
 
         },
@@ -156,11 +152,6 @@ define( function ( require ) {
             }
 
             this.__contentElement.removeChild( widget.getElement() );
-
-            if ( this._options.break ) {
-                // TODO 处理break为true时,应删除附加的br
-//                this.__contentElement.removeChild(  );
-            }
 
             return widget;
 

@@ -14,10 +14,15 @@ define( 'kf.export', function ( require ) {
         ToggleButton: require( "widget/toggle-button" ),
         Buttonset: require( "widget/button-set" ),
         Separator: require( "widget/separator" ),
+        Item: require( "widget/item" ),
+        Input: require( "widget/input" ),
+        InputButton: require( "widget/input-button" ),
 
         Container: require( "widget/container" ),
         Panel: require( "widget/panel" ),
-        LabelPanel: require( "widget/label-panel" )
+        PPanel: require( "widget/ppanel" ),
+        LabelPanel: require( "widget/label-panel" ),
+        Menu: require( "widget/menu" )
 
     };
 

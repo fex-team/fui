@@ -51,9 +51,7 @@ define( function ( require ) {
         },
 
         setLabel: function ( text ) {
-
             return this.__labelWidget.setText( text );
-
         },
 
         __render: function () {

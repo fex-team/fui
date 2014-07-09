@@ -75,6 +75,10 @@ define( function ( require ) {
 
             return __marker;
 
+        },
+
+        getRect: function ( node ) {
+            return node.getBoundingClientRect();
         }
 
     }

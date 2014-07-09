@@ -11,7 +11,7 @@ define( function ( require ) {
         $ = require( "base/jquery" ),
         Utils = require( "base/utils" );
 
-    return require( "base/utils" ).createClass( "Widget", {
+    var Widget = require( "base/utils" ).createClass( "Widget", {
 
         constructor: function ( options ) {
 
@@ -21,7 +21,8 @@ define( function ( require ) {
             var defaultOptions = {
                 className: '',
                 disabled: false,
-                preventDefault: false
+                preventDefault: false,
+                text: ''
             };
 
             this.__widgetType = 'widget';
@@ -30,6 +31,9 @@ define( function ( require ) {
             this.__rendered = false;
             this.__options = {};
             this.__element = null;
+            // 禁止获取焦点
+            this.__allow_focus = false;
+
             this.widgetName = 'Widget';
 
             this.__uid = generatorId();
@@ -78,6 +82,23 @@ define( function ( require ) {
                 }
             }
 
+
+            this.__initEvent();
+
+            return this;
+
+        },
+
+        show: function () {
+
+            $( this.__element ).removeClass( CONF.classPrefix + "hide" );
+            return this;
+
+        },
+
+        hide: function () {
+
+            $( this.__element ).addClass( CONF.classPrefix + "hide" );
             return this;
 
         },
@@ -120,11 +141,7 @@ define( function ( require ) {
 
         appendTo: function ( container ) {
 
-            if ( Utils.Widget.isContainer( container ) ) {
-
-                container.getContentElement().appendChild( this.__element );
-
-            } else if ( Utils.isElement( container ) ) {
+            if ( Utils.isElement( container ) ) {
 
                 container.appendChild( this.__element );
 
@@ -154,14 +171,40 @@ define( function ( require ) {
 
         },
 
+        __initEvent: function () {
+
+            this.on( "mousedown", function ( e ) {
+
+                if ( !this.__allowFocus() ) {
+                    e.preventDefault();
+                } else {
+                    e.stopPropagation();
+                }
+
+            } );
+
+        },
+
         __on: function ( type, cb ) {
 
             var _self = this;
 
-            cb.__fui_listener = function ( e ) {
+            cb.__fui_listener = function ( e, widget ) {
+
+                var params = [];
+
+                for ( var i = 0, len = arguments.length; i < len; i++ ) {
+
+                    if ( i !== 1 ) {
+                        params.push( arguments[ i ] );
+                    }
+
+                }
+
+                e.widget = widget;
 
                 if ( !_self.isDisabled() ) {
-                    cb.apply( _self, arguments );
+                    cb.apply( _self, params );
                 }
 
             };
@@ -175,16 +218,20 @@ define( function ( require ) {
         trigger: function ( type, params ) {
 
             if ( !this.__options.preventDefault ) {
-                $( this.__element ).trigger( type, [].slice.call( arguments, 1 ) );
+                this.__trigger.apply( this, arguments );
             }
 
             return this;
 
         },
 
+        __allowFocus: function () {
+            return !!this.__allow_focus;
+        },
+
         __trigger: function ( type, params ) {
 
-            $( this.__element ).trigger( type, [].slice.call( arguments, 1 ) );
+            $( this.__element ).trigger( type, [ this ].concat( [].slice.call( arguments, 1 ) ) );
 
             return this;
 
@@ -211,8 +258,11 @@ define( function ( require ) {
     function generatorId () {
 
         uid++;
+
         return prefix + uid;
 
     }
+
+    return Widget;
 
 } );

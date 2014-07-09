@@ -14,9 +14,11 @@
 }
 
 .fui-widget {
+
   .mixin-unselect();
   .mixin-text();
 
+  outline: none;
   display: inline-block;
   vertical-align: top;
   position: relative;
@@ -29,6 +31,10 @@
 
   &.fui-disabled {
     .mixin-disabled();
+  }
+
+  &.fui-hide {
+    display: none!important;
   }
 
 }

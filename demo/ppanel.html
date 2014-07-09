@@ -19,28 +19,23 @@
     <script>
         window.onload = function () {
 
-            var icon = new FUI.Icon( {
-                img: "assets/icon/linux.png"
+            var ppanel = new FUI.PPanel( {
+                width: 100,
+                height: 100,
+//                layout: 'left'
+                target: document.getElementById( "test" )
             } );
 
-            icon.appendTo( document.body );
+            ppanel.appendTo( document.body );
+//            ppanel.positionTo( document.getElementById( "test" ) );
 
-            icon.on( "iconchange", function ( e, info ) {
-
-                console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件， 导致icon从 ' + info.prevImage + " 改变成 " + info.currentImage )
-
-            } );
-
-            window.setTimeout( function () {
-
-                icon.setImage( "assets/icon/chrome.png" );
-
-            }, 1000 );
+            ppanel.show();
 
         };
     </script>
 </head>
 <body>
-    <h1>Icon 示例</h1>
+    <h1>Positioning Panel 示例</h1>
+    <button id="test">你好</button>
 </body>
 </html>

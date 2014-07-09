@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var item = new FUI.Item( {
+                icon: "assets/icon/linux.png",
+                label: 'Linux',
+                padding: '5px 20px'
+            } );
+
+            item.appendTo( document.body );
+
+            item.on( "click", function () {
+
+                console.log( this.getLabel() );
+
+                this.setLabel( 'nihao' );
+                this.setIcon( 'assets/icon/chrome.png' );
+
+            } );
+
+            item.on( "labelchange", function ( e, info ) {
+
+                console.log( e.type +", from: " + info.prevText + " to: " + info.currentText )
+
+            } );
+
+            item.on( "iconchange", function ( e, info ) {
+
+                console.log( e.type +", from: " + info.prevImage + " to: " + info.currentImage )
+
+            } );
+
+        };
+    </script>
+</head>
+<body>
+    <h1>Item 示例</h1>
+</body>
+</html>

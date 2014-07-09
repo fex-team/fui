@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/style/custom.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var menu = new FUI.Menu( {
+//                padding: 50,
+                className: 'c-menu',
+                selected: 3,
+                height: 200,
+                items: [ "宋体", "楷体", "微软雅黑", "宋体", "楷体", "微软雅黑", "宋体", "楷体", "微软雅黑", "宋体", "楷体", "微软雅黑", "宋体", "楷体", "微软雅黑", "宋体", "楷体", "微软雅黑" ]
+            } );
+
+            menu.appendTo( document.body );
+
+            menu.positionTo( document.getElementById( "test" ) );
+            menu.show();
+
+            menu.on( "select", function ( e, info ) {
+
+                console.log( this.widgetName + ', ' + e.type + ', current index is: ' + info.index );
+
+            } );
+
+            menu.on( "change", function ( e, info ) {
+
+                console.log( this.widgetName + ', ' + e.type + ', from ' + info.from + ' to ' + info.to );
+
+            } );
+
+            menu.select( 5 );
+//            item.on( "click", function () {
+//
+//                console.log( this.getLabel() );
+//
+//                this.setLabel( 'nihao' );
+//                this.setIcon( 'assets/icon/chrome.png' );
+//
+//            } );
+//
+//            item.on( "labelchange", function ( e, info ) {
+//
+//                console.log( e.type +", from: " + info.prevText + " to: " + info.currentText )
+//
+//            } );
+//
+//            item.on( "iconchange", function ( e, info ) {
+//
+//                console.log( e.type +", from: " + info.prevImage + " to: " + info.currentImage )
+//
+//            } );
+
+        };
+    </script>
+</head>
+<body>
+    <h1>Menu 示例</h1>
+    <button id="test">你好</button>
+</body>
+</html>

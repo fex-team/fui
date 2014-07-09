@@ -18,6 +18,7 @@
   font-size: 12px;
   font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande", "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   -webkit-font-smoothing: antialiased;
+  outline: none;
   display: inline-block;
   vertical-align: top;
   position: relative;
@@ -34,6 +35,9 @@
 }
 .fui-widget.fui-disabled {
   opacity: 0.3!important;
+}
+.fui-widget.fui-hide {
+  display: none!important;
 }
 
 /**
@@ -128,6 +132,58 @@
  */
 /*------------ var*/
 /*------------ mixin*/
+.fui-input-button {
+  border: 1px solid #ababab;
+}
+.fui-input-button .fui-input {
+  vertical-align: middle;
+  border: none!important;
+}
+.fui-input-button .fui-button {
+  vertical-align: middle;
+}
+.fui-input-button:HOVER {
+  border-color: #87a9da;
+}
+.fui-input-button:ACTIVE {
+  border-color: #87a9da;
+}
+
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-input {
+  border: 1px solid black;
+  padding: 1px;
+  margin: 0;
+}
+.fui-input:HOVER,
+.fui-input:FOCUS {
+  border-color: #4d90fe!important;
+}
+
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-item .fui-icon {
+  vertical-align: middle;
+}
+.fui-item .fui-label {
+  vertical-align: middle;
+}
+.fui-item.fui-item-selected {
+  background: #87a9da;
+}
+
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
 .fui-label-panel .fui-label-panel-label {
   width: 100%;
 }
@@ -147,6 +203,15 @@
 }
 
 /**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-menu .fui-item:HOVER {
+  background: #d5e1f2;
+}
+
+/**
  * 通用button
  */
 /**
@@ -157,13 +222,24 @@
 .fui-panel {
   display: inline-block;
   vertical-align: top;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .fui-panel .fui-panel-content {
-  width: 100%;
-  height: 100%;
   position: relative;
   top: 0;
   left: 0;
+}
+.fui-panel.fui-container-break .fui-panel-content .fui-widget {
+  display: block;
+}
+
+/**
+ * 通用button
+ */
+.fui-ppanel.fui-ppanel-position {
+  position: fixed;
+  z-index: 99999;
 }
 
 /**
