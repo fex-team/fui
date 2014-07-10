@@ -266,6 +266,18 @@
 }
 
 /**
+ * 通用button
+ */
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-tabs .fui-tabs-selected {
+  background-color: #d5e1f2;
+}
+
+/**
  * 可切换Button (ToggleButton)
  */
 /**

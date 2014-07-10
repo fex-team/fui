@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var tabs = new FUI.Tabs( {
+                buttons: [ "语文", "数学", "理综", "英语" ]
+            } );
+
+            tabs.appendTo( document.body );
+
+            $.each( tabs.getPanels(), function ( index, panel ) {
+
+                panel.getContentElement().innerHTML = index;
+
+            } );
+
+            tabs.on( "tabselect", function ( e, info ) {
+
+                console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
+
+            } );
+
+            tabs.on( "tabchange", function ( e, info ) {
+
+                console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
+
+            } );
+
+            window.setTimeout( function () {
+
+                tabs.select( 2 );
+                tabs.select( 2 );
+
+            }, 1000 );
+
+            window.tabs = tabs;
+
+        };
+    </script>
+</head>
+<body>
+    <h1>Tabs 示例</h1>
+</body>
+</html>

@@ -18,6 +18,7 @@ define( 'kf.export', function ( require ) {
         Input: require( "widget/input" ),
         InputButton: require( "widget/input-button" ),
         Mask: require( "widget/mask" ),
+        Tabs: require( "widget/tabs" ),
 
         Container: require( "widget/container" ),
         Panel: require( "widget/panel" ),
