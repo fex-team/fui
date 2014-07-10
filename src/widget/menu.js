@@ -80,8 +80,6 @@ define( function ( require ) {
 
             } );
 
-            this.hide();
-
             this.__initMenuEvent();
 
         },

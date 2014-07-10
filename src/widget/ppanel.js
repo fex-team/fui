@@ -29,7 +29,11 @@ define( function ( require ) {
                 layout: LAYOUT.BOTTOM,
                 target: null,
                 // 布局属性layout是否以target内部为参照
-                inner: false
+                inner: false,
+                // 边界容器
+                bound: null,
+                // 和边界之间的最小距离
+                diff: 10
             };
 
             this.__extendOptions( defaultOptions, options );
@@ -72,6 +76,10 @@ define( function ( require ) {
                 return this.callBase();
             }
 
+            if ( !this.__options.bound ) {
+                this.__options.bound = this.__target.ownerDocument.body;
+            }
+
             docNode = this.__target.ownerDocument.documentElement;
 
             if ( $.contains( docNode, this.__target ) && $.contains( docNode, this.__element ) ) {
@@ -105,8 +113,6 @@ define( function ( require ) {
 
             $( this.__element ).addClass( CONF.classPrefix + "ppanel-position" );
 
-            this.__autoResize( targetRect );
-
             if ( !this.__options.inner ) {
                 location = this.__getOuterLayout( targetRect );
             } else {
@@ -114,6 +120,9 @@ define( function ( require ) {
             }
 
             $( this.__element ).css( 'top', location.top + 'px' ).css( 'left', location.left + 'px' );
+
+            this.__resizeWidth( targetRect );
+            this.__resizeHeight();
 
         },
 
@@ -123,7 +132,7 @@ define( function ( require ) {
          * @param targetRect 传递该参数，是出于整体性能上的考虑。
          * @private
          */
-        __autoResize: function ( targetRect ) {
+        __resizeWidth: function ( targetRect ) {
 
             if ( !this.__target || this.__options.width !== null ) {
                 return;
@@ -139,6 +148,43 @@ define( function ( require ) {
                 minWidth = targetRect.width - vals.bl - vals.br - vals.pl - vals.pr;
 
             this.__element.style.minWidth = minWidth + 'px';
+
+        },
+
+        /**
+         * 调整panel高度，使其不超过边界范围，如果已设置高度， 则不进行调整
+         * @private
+         */
+        __resizeHeight: function () {
+
+            var boundRect = null,
+                panelRect = null,
+                diff = 0;
+
+            if ( this.__options.height !== null ) {
+                return;
+            }
+
+            panelRect = Utils.getRect( this.__element );
+
+            if ( this.__options.bound.tagName.toLowerCase() === 'body' ) {
+
+                boundRect = {
+                    top: 0,
+                    bottom: $( this.__options.bound.ownerDocument.defaultView ).height()
+                };
+
+            } else {
+                boundRect = Utils.getRect( this.__options.bound );
+            }
+
+            diff = panelRect.bottom - boundRect.bottom;
+
+            if ( diff > 0 ) {
+
+                $( this.__element ).css( "height", panelRect.height - diff - this.__options.diff + 'px' );
+
+            }
 
         },
 
