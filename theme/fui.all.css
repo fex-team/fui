@@ -125,7 +125,7 @@
 /*------------ var*/
 /*------------ mixin*/
 .fui-drop-panel {
-  border: 1px solid #ababab;
+  border: 1px solid #d3d3d3;
   overflow: hidden;
   position: relative;
 }
@@ -136,7 +136,7 @@
   display: none;
 }
 .fui-drop-panel .fui-drop-panel-button {
-  border-left: 1px solid #ababab;
+  border-left: 1px solid #d3d3d3;
   visibility: visible;
 }
 .fui-drop-panel .fui-drop-panel-button:HOVER {
@@ -161,7 +161,7 @@
   overflow: visible;
 }
 .fui-drop-panel.fui-drop-panel-open .fui-drop-panel-content {
-  border: 1px solid #ababab;
+  border: 1px solid #d3d3d3;
   position: absolute;
   top: -1px;
   left: -1px;
@@ -173,7 +173,19 @@
   display: inline-block;
 }
 .fui-drop-panel-popup {
-  border: 1px solid #ababab;
+  border: 1px solid #d3d3d3;
+}
+.fui-drop-panel-popup:HOVER {
+  border-color: #d5e1f2;
+}
+.fui-drop-panel-popup:HOVER .fui-drop-panel-button {
+  border-left-color: #d5e1f2;
+}
+.fui-drop-panel-popup:ACTIVE {
+  border-color: #87a9da;
+}
+.fui-drop-panel-popup:ACTIVE .fui-drop-panel-button {
+  border-left-color: #d5e1f2;
 }
 
 .fui-icon {
