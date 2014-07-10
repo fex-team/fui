@@ -1,0 +1,72 @@
+@import "define";
+
+.fui-drop-panel {
+
+  border: 1px solid @borderColor;
+  overflow: hidden;
+  position: relative;
+
+  .fui-drop-panel-content{
+    display: inline-block;
+  }
+
+  .fui-drop-panel-placeholder {
+    display: none;
+  }
+
+  .fui-drop-panel-button {
+    border-left: 1px solid @borderColor;
+    visibility: visible;
+
+    .fui-icon{
+    }
+
+    &:HOVER {
+      border-color: @hoverBgColor;
+    }
+
+    &:ACTIVE {
+      border-color: @activeBgColor;
+    }
+
+  }
+
+  &:HOVER {
+    border-color: @hoverBgColor;
+    .fui-drop-panel-button {
+      border-left-color: @hoverBgColor;
+    }
+  }
+
+  &:ACTIVE {
+    border-color: @activeBgColor;
+    .fui-drop-panel-button {
+      border-left-color: @hoverBgColor;
+    }
+  }
+
+}
+.fui-drop-panel.fui-drop-panel-open {
+
+  overflow: visible;
+
+  .fui-drop-panel-content{
+    border: 1px solid @borderColor;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+  }
+
+  .fui-drop-panel-button {
+    visibility: hidden;
+  }
+
+  .fui-drop-panel-placeholder {
+    display: inline-block;
+  }
+
+}
+
+.fui-drop-panel-popup {
+  border: 1px solid @borderColor;
+}

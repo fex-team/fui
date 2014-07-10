@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var droppanel = new FUI.DropPanel( {
+                    button: {
+                        padding: '40px 3px 5px 3px',
+                        icon: {
+                            width: 10,
+                            height: 10,
+                            img: "assets/icon-demo/down.png"
+                        },
+                        height: 15
+                    },
+                    content: {
+                        width: 255,
+                        height: 200,
+                        margin: 3,
+                        padding: 2
+                    },
+                    height: 60,
+                    width: 300
+                }),
+                buttonset= new FUI.Buttonset( {
+                    selected: 2,
+                    padding: '5px',
+                    margin: '5px',
+                    buttons: [{
+                        text: '左对齐',
+                        pressed: true,
+                        icon: "assets/icon/align-left.png"
+                    }, {
+                        text: '居中对齐',
+                        icon: "assets/icon/align-center.png"
+                    }, {
+                        text: '右对齐',
+                        icon: "assets/icon/align-right.png"
+                    }, {
+                        text: '两端对齐',
+                        icon: "assets/icon/align-justify.png"
+                    }, {
+                        text: '左对齐',
+                        icon: "assets/icon/align-left.png"
+                    }, {
+                        text: '居中对齐',
+                        icon: "assets/icon/align-center.png"
+                    }, {
+                        text: '右对齐',
+                        icon: "assets/icon/align-right.png"
+                    }, {
+                        text: '两端对齐',
+                        icon: "assets/icon/align-justify.png"
+                    }, {
+                        text: '左对齐',
+                        icon: "assets/icon/align-left.png"
+                    }, {
+                        text: '居中对齐',
+                        icon: "assets/icon/align-center.png"
+                    }, {
+                        text: '右对齐',
+                        icon: "assets/icon/align-right.png"
+                    }, {
+                        text: '两端对齐',
+                        icon: "assets/icon/align-justify.png"
+                    }, {
+                        text: '左对齐',
+                        icon: "assets/icon/align-left.png"
+                    }, {
+                        text: '居中对齐',
+                        icon: "assets/icon/align-center.png"
+                    }, {
+                        text: '右对齐',
+                        icon: "assets/icon/align-right.png"
+                    }, {
+                        text: '两端对齐',
+                        icon: "assets/icon/align-justify.png"
+                    }, {
+                        text: '左对齐',
+                        icon: "assets/icon/align-left.png"
+                    }, {
+                        text: '居中对齐',
+                        icon: "assets/icon/align-center.png"
+                    }, {
+                        text: '右对齐',
+                        icon: "assets/icon/align-right.png"
+                    }, {
+                        text: '两端对齐',
+                        icon: "assets/icon/align-justify.png"
+                    }]
+
+                });
+
+
+            buttonset.on( "click", function ( e, info ) {
+
+                droppanel.close();
+
+            } );
+
+            droppanel.appendWidget(buttonset);
+            droppanel.appendTo($('#droppanel')[0]);
+
+        };
+    </script>
+</head>
+<body>
+    <h1>DropPanel 示例</h1>
+    <div id="droppanel"></div>
+    <p>123
+    12
+    3
+    12312312</p>
+</body>
+</html>
