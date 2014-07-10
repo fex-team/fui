@@ -22,7 +22,7 @@ define( function ( require ) {
             this.callBase( marker );
 
             var defaultOptions = {
-                icon: null,
+                button: null,
                 input: null,
                 width: null,
                 height: null,
@@ -132,15 +132,9 @@ define( function ( require ) {
 
             this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding' ], this.__options );
 
-            if ( typeof this.__options.button === "string" ) {
-                this.__options.input = {
+            if ( typeof this.__options.button !== "object" ) {
+                this.__options.button = {
                     icon: this.__options.button
-                };
-            }
-
-            if ( typeof this.__options.icon === "string" ) {
-                this.__options.icon = {
-                    img: this.__options.icon
                 }
             }
 

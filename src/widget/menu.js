@@ -51,6 +51,14 @@ define( function ( require ) {
 
         },
 
+        getItems: function () {
+            return this.getWidgets.apply( this, arguments );
+        },
+
+        getItem: function () {
+            return this.getWidget.apply( this, arguments );
+        },
+
         appendItem: function ( item ) {
             return this.appendWidget.apply( this, arguments );
         },

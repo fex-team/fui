@@ -186,6 +186,7 @@
 /*------------ mixin*/
 .fui-label-panel .fui-label-panel-label {
   width: 100%;
+  color: #666;
 }
 .fui-label-panel.fui-no-position .fui-label-panel-label {
   position: static!important;

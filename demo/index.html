@@ -22,15 +22,13 @@
             var toolbar = new FUI.Panel( {
                     className: 'toolbar',
                     width: 1000,
-                    height: 110,
-                    padding: '5px 0',
+                    height: 100,
                     margin: '0 2px'
                 } ),
 
                 undoRedoPanel = new FUI.LabelPanel( {
                     break: true,
                     height: 100,
-                    padding: 5,
                     margin: 2,
                     label: '撤销'
                 } ),
@@ -38,20 +36,27 @@
                 clipboardPanel = new FUI.LabelPanel( {
                     label: '剪贴板',
                     height: 100,
-                    padding: 5,
                     margin: 2
                 } ),
                 fontPanel = new FUI.LabelPanel( {
                     label: '字体',
                     height: 100,
-                    padding: 5,
                     margin: '0 0 5px 0',
                     break: true
                 } );
 
-            var sep1 = new FUI.Separator(),
-                sep2 = new FUI.Separator(),
-                sep3 = new FUI.Separator();
+            var sep1 = new FUI.Separator( {
+                        className: 'ext-sep',
+                        height: 90
+                    } ),
+                sep2 = new FUI.Separator( {
+                    className: 'ext-sep',
+                    height: 90
+                } ),
+                sep3 = new FUI.Separator( {
+                    className: 'ext-sep',
+                    height: 90
+                } );
 
             initUndoRedoWidget( undoRedoPanel );
             initClipboardWidget( clipboardPanel );
@@ -181,6 +186,7 @@
                     } ),
                 familyMenu = new FUI.InputMenu( {
                     text: '字体名称',
+                    selected: 0,
                     input: {
                         button: {
                             padding: '5px 3px',
@@ -225,6 +231,7 @@
                 }),
                 sizeMenu = new FUI.InputMenu( {
                     text: '字号',
+                    selected: 4,
                     input: {
                         button: {
                             padding: '5px 3px',

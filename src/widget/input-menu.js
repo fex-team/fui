@@ -25,7 +25,8 @@ define( function ( require ) {
             var defaultOptions = {
                 input: null,
                 menu: null,
-                mask: null
+                mask: null,
+                selected: -1
             };
 
             this.__extendOptions( defaultOptions, options );
@@ -65,11 +66,23 @@ define( function ( require ) {
             return this.__inputWidget.getValue();
         },
 
+        open: function () {
+            this.__maskWidget.show();
+            this.__menuWidget.show();
+        },
+
+        close: function () {
+            this.__maskWidget.hide();
+            this.__menuWidget.hide();
+        },
+
         __render: function () {
 
             if ( this.__rendered ) {
                 return this;
             }
+
+            this.__initOptions();
 
             this.__inputWidget = new InputButton( this.__options.input );
             this.__menuWidget = new Menu( this.__options.menu );
@@ -80,18 +93,21 @@ define( function ( require ) {
             this.__inputWidget.appendTo( this.__element );
             this.__menuWidget.positionTo( this.__inputWidget );
 
+            this.__initInputValue();
             this.__initInputMenuEvent();
 
         },
 
-        open: function () {
-            this.__maskWidget.show();
-            this.__menuWidget.show();
-        },
+        __initInputValue: function () {
 
-        close: function () {
-            this.__maskWidget.hide();
-            this.__menuWidget.hide();
+            var selectedItem = this.__menuWidget.getItem( this.__options.selected );
+
+            if ( !selectedItem ) {
+                return;
+            }
+
+            this.__inputWidget.setValue( selectedItem.getValue() );
+
         },
 
         __initInputMenuEvent: function () {
@@ -256,6 +272,14 @@ define( function ( require ) {
         __appendMenu: function () {
 
             this.__menuWidget.appendTo( this.__inputWidget.getElement().ownerDocument.body );
+
+        },
+
+        __initOptions: function () {
+
+            if ( this.__options.selected !== -1 ) {
+                this.__options.menu.selected = this.__options.selected;
+            }
 
         }
 

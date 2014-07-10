@@ -23,8 +23,7 @@ define( function ( require ) {
                 height: null,
                 border: null,
                 padding: null,
-                color: null,
-                value: null
+                color: null
             };
 
             this.__extendOptions( defaultOptions, options );

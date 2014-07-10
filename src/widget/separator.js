@@ -19,10 +19,9 @@ define( function ( require ) {
 
             var defaultOptions = {
                 padding: null,
-                margin: null,
                 width: 1,
                 height: '100%',
-                color: '#e1e1e1'
+                bgcolor: '#e1e1e1'
             };
 
             this.__extendOptions( defaultOptions, options );
@@ -54,25 +53,9 @@ define( function ( require ) {
          */
         __initOptions: function () {
 
-            var cssMapping = {},
-                options = this.__options,
-                value = null;
-
-            $.each( [ 'width', 'height', 'padding', 'margin', 'color' ], function ( i, item ) {
-
-                value = options[ item ];
-
-                if ( item === "color" ) {
-                    item = 'background-color';
-                }
-
-                if ( value !== null && value !== undefined ) {
-                    cssMapping[ item ] = value;
-                }
-
-            } );
-
-            options.__css = cssMapping;
+            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding', 'margin', {
+                bgcolor: 'background-color'
+            } ], this.__options );
 
         }
 
