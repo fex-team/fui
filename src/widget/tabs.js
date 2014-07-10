@@ -106,6 +106,25 @@ define( function ( require ) {
             return $.inArray( btn, this.__btns );
         },
 
+        /**
+         * 把所有button追加到其他容器中
+         */
+        appendButtonTo: function ( container ) {
+
+            $.each( this.__btns, function ( index, btn ) {
+                btn.appendTo( container );
+            } );
+
+        },
+
+        appendPanelTo: function ( container ) {
+
+            $.each( this.__panels, function ( index, panel ) {
+                panel.appendTo( container );
+            } );
+
+        },
+
         __render: function () {
 
             var _self = this,
@@ -179,7 +198,7 @@ define( function ( require ) {
 
             var btn = this.getButton( index ),
                 prevBtn = this.getButton( this.__selected ),
-                className = "fui-tabs-selected";
+                className = CONF.classPrefix + "selected";
 
             if ( !btn ) {
                 return false;
