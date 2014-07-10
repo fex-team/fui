@@ -50,6 +50,10 @@ define( function ( require ) {
 
         },
 
+        select: function ( index ) {
+            this.__menuWidget.select( index );
+        },
+
         setValue: function ( value ) {
 
             this.__inputWidget.setValue( value );
