@@ -246,8 +246,12 @@
   top: 0;
   left: 0;
 }
-.fui-panel.fui-container-break .fui-panel-content .fui-widget {
-  display: block;
+.fui-panel .fui-panel-content {
+  width: 100%;
+  height: 100%;
+}
+.fui-panel.fui-container-break .fui-panel-break-widget {
+  display: table-cell;
 }
 
 /**
