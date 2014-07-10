@@ -43,6 +43,12 @@
                     height: 100,
                     margin: '0 0 5px 0',
                     break: true
+                } ),
+                stylePanel = new FUI.LabelPanel( {
+                    label: '样式',
+                    height: 100,
+                    margin: '5px 1px',
+                    break: true
                 } );
 
             var sep1 = new FUI.Separator( {
@@ -56,11 +62,16 @@
                 sep3 = new FUI.Separator( {
                     className: 'ext-sep',
                     height: 90
+                } ),
+                sep4 = new FUI.Separator( {
+                    className: 'ext-sep',
+                    height: 90
                 } );
 
             initUndoRedoWidget( undoRedoPanel );
             initClipboardWidget( clipboardPanel );
             initFontWidget( fontPanel );
+            initStyleWidget( stylePanel );
 
             toolbar.appendWidget( sep1 );
             toolbar.insertWidget( toolbar.indexOf( sep1 ), undoRedoPanel );
@@ -68,6 +79,8 @@
             toolbar.appendWidget( sep2 );
             toolbar.appendWidget( fontPanel );
             toolbar.appendWidget( sep3 );
+            toolbar.appendWidget( stylePanel );
+            toolbar.appendWidget( sep4 );
 
             toolbar.appendTo( document.body );
 
@@ -278,6 +291,109 @@
 
             panel.appendWidget( fontsizePanel );
             panel.appendWidget( biuPanel );
+
+        }
+
+        function initStyleWidget ( panel ) {
+
+            var droppanel = new FUI.DropPanel( {
+                        button: {
+                            padding: '45px 3px 5px 3px',
+                            icon: {
+                                width: 10,
+                                height: 10,
+                                img: "assets/icon-demo/down.png"
+                            },
+                            height: 15
+                        },
+                        content: {
+                            width: 255,
+                            height: 200,
+                            margin: 3,
+                            padding: 2
+                        },
+                        height: 60,
+                        padding: '0 0 5px 0',
+                        width: 245
+                    }),
+                    buttonset= new FUI.Buttonset( {
+                        selected: 2,
+                        padding: '5px',
+                        margin: '5px',
+                        buttons: [{
+                            text: '左对齐',
+                            pressed: true,
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        }, {
+                            text: '左对齐',
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        }, {
+                            text: '左对齐',
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        }, {
+                            text: '左对齐',
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        }, {
+                            text: '左对齐',
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        }]
+
+                    });
+
+
+            buttonset.on( "click", function ( e, info ) {
+
+                droppanel.close();
+
+            } );
+
+            droppanel.appendWidget(buttonset);
+            panel.appendWidget( droppanel );
 
         }
 
