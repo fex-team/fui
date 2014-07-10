@@ -51,39 +51,6 @@ define( function ( require ) {
 
         },
 
-        __render: function () {
-
-            var _self = this,
-                textAlign = this.__options.textAlign,
-                selected = this.__options.selected;
-
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.callBase();
-
-            $( this.__element ).addClass( CONF.classPrefix + "menu" );
-
-            $.each( this.__options.items, function ( index, itemOption ) {
-
-                if ( typeof itemOption === "string" ) {
-                    itemOption = {
-                        label: itemOption
-                    };
-                }
-
-                itemOption.selected = index === selected;
-                itemOption.textAlign = textAlign;
-
-                _self.appendItem( new Item( itemOption ) );
-
-            } );
-
-            this.__initMenuEvent();
-
-        },
-
         appendItem: function ( item ) {
             return this.appendWidget.apply( this, arguments );
         },
@@ -139,6 +106,39 @@ define( function ( require ) {
             }
 
             return widget;
+
+        },
+
+        __render: function () {
+
+            var _self = this,
+                textAlign = this.__options.textAlign,
+                selected = this.__options.selected;
+
+            if ( this.__rendered ) {
+                return this;
+            }
+
+            this.callBase();
+
+            $( this.__element ).addClass( CONF.classPrefix + "menu" );
+
+            $.each( this.__options.items, function ( index, itemOption ) {
+
+                if ( typeof itemOption !== "object" ) {
+                    itemOption = {
+                        label: itemOption
+                    };
+                }
+
+                itemOption.selected = index === selected;
+                itemOption.textAlign = textAlign;
+
+                _self.appendItem( new Item( itemOption ) );
+
+            } );
+
+            this.__initMenuEvent();
 
         },
 

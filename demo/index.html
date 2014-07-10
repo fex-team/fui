@@ -22,14 +22,14 @@
             var toolbar = new FUI.Panel( {
                     className: 'toolbar',
                     width: 1000,
-                    height: 100,
+                    height: 110,
                     padding: '5px 0',
                     margin: '0 2px'
                 } ),
 
                 undoRedoPanel = new FUI.LabelPanel( {
                     break: true,
-                    height: 90,
+                    height: 100,
                     padding: 5,
                     margin: 2,
                     label: '撤销'
@@ -37,15 +37,16 @@
 
                 clipboardPanel = new FUI.LabelPanel( {
                     label: '剪贴板',
-                    height: 90,
+                    height: 100,
                     padding: 5,
                     margin: 2
                 } ),
                 fontPanel = new FUI.LabelPanel( {
                     label: '字体',
-                    height: 90,
+                    height: 100,
                     padding: 5,
-                    margin: 2
+                    margin: '0 0 5px 0',
+                    break: true
                 } );
 
             var sep1 = new FUI.Separator(),
@@ -126,7 +127,11 @@
 
         function initFontWidget ( panel ) {
 
-            var boldButton = new FUI.ToggleButton( {
+            var biuPanel = new FUI.Panel( {
+                    padding: 5,
+                    margin: '0 3px'
+                } ),
+                boldButton = new FUI.ToggleButton( {
                     padding: '5px',
                     text: '加粗',
                     icon: 'assets/icon-demo/bold.png'
@@ -165,11 +170,107 @@
                     } ]
                 } );
 
-            panel.appendWidget( boldButton );
-            panel.appendWidget( italicButton );
-            panel.appendWidget( underlineButton );
-            panel.appendWidget( strikethroughButton );
-            panel.appendWidget( scriptButton );
+            biuPanel.appendWidget( boldButton );
+            biuPanel.appendWidget( italicButton );
+            biuPanel.appendWidget( underlineButton );
+            biuPanel.appendWidget( strikethroughButton );
+            biuPanel.appendWidget( scriptButton );
+
+            var fontsizePanel = new FUI.Panel( {
+                        margin: '5px'
+                    } ),
+                familyMenu = new FUI.InputMenu( {
+                    text: '字体名称',
+                    input: {
+                        button: {
+                            padding: '5px 3px',
+                            icon: {
+                                width: 10,
+                                height: 10,
+                                img: "assets/icon-demo/down.png"
+                            }
+                        },
+                        input: {
+                            padding: 2
+                        }
+                    },
+                    menu: {
+                        items: [ {
+                            className: "ext-songti",
+                            label: "宋体"
+                        }, {
+                            className: "ext-yahei",
+                            label: "微软雅黑"
+                        }, {
+                            className: "ext-kaiti",
+                            label: "楷体"
+                        }, {
+                            className: "ext-calibri-light",
+                            label: "Calibri Light"
+                        }, {
+                            className: "ext-arial",
+                            label: "Arial"
+                        }, {
+                            className: "ext-symbol",
+                            label: "Symbol"
+                        }, {
+                            className: "ext-times",
+                            label: "Times"
+                        }, {
+                            className: "ext-times-new-roman",
+                            label: "Times New Roman"
+                        }
+                        ]
+                    }
+                }),
+                sizeMenu = new FUI.InputMenu( {
+                    text: '字号',
+                    input: {
+                        button: {
+                            padding: '5px 3px',
+                            icon: {
+                                width: 10,
+                                height: 10,
+                                img: "assets/icon-demo/down.png"
+                            }
+                        },
+                        input: {
+                            width: 50,
+                            padding: 2
+                        }
+                    },
+                    menu: {
+                        items: [ 8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 26, 36, 48, 72 ]
+                    }
+                } ),
+                btnpanel = new FUI.Panel(),
+                upsizeBtn = new FUI.Button( {
+                    text: '增大字体',
+                    padding: 5,
+                    icon: "assets/icon-demo/a-plus.png"
+                }),
+                downsizeBtn = new FUI.Button( {
+                    text: '缩小字体',
+                    padding: 5,
+                    icon: "assets/icon-demo/b-plus.png"
+                }),
+                cleanBtn = new FUI.Button( {
+                    text: '清除格式',
+                    padding: 5,
+                    icon: "assets/icon-demo/clean.png"
+                });
+
+            fontsizePanel.appendWidget( familyMenu );
+            fontsizePanel.appendWidget( sizeMenu );
+
+            btnpanel.appendWidget( upsizeBtn );
+            btnpanel.appendWidget( downsizeBtn );
+            btnpanel.appendWidget( cleanBtn );
+
+            fontsizePanel.appendWidget( btnpanel );
+
+            panel.appendWidget( fontsizePanel );
+            panel.appendWidget( biuPanel );
 
         }
 

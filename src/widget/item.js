@@ -142,7 +142,7 @@ define( function ( require ) {
 
             this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding' ], this.__options );
 
-            if ( typeof this.__options.label === "string" ) {
+            if ( typeof this.__options.label !== "object" ) {
                 this.__options.label = {
                     text: this.__options.label
                 };
@@ -152,7 +152,7 @@ define( function ( require ) {
                 this.__options.label.textAlign = this.__options.textAlign;
             }
 
-            if ( typeof this.__options.icon === "string" ) {
+            if ( typeof this.__options.icon !== "object" ) {
                 this.__options.icon = {
                     img: this.__options.icon
                 };

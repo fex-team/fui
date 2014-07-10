@@ -83,6 +83,9 @@ define( function ( require ) {
                 }
             }
 
+            if ( this.__options.text && this.__allowShowTitle() ) {
+                this.__element.setAttribute( "title", this.__options.text );
+            }
 
             this.__initWidgetEvent();
 
@@ -233,6 +236,10 @@ define( function ( require ) {
 
             return this;
 
+        },
+
+        __allowShowTitle: function () {
+            return true;
         },
 
         __allowFocus: function () {

@@ -60,6 +60,11 @@ define( function ( require ) {
             return this.__options.text;
         },
 
+        // label 禁用title显示
+        __allowShowTitle: function () {
+            return false;
+        },
+
         __render: function () {
 
             if ( this.__rendered ) {
@@ -77,6 +82,8 @@ define( function ( require ) {
          * @private
          */
         __initOptions: function () {
+
+            this.__options.text = this.__options.text.toString();
 
             this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding', {
                 textAlign: 'text-align'

@@ -109,9 +109,11 @@ define( function ( require ) {
 
             this.__widgets.push( widget );
             widget.appendTo( this.__contentElement );
-            this.__contentElement.appendChild( $( '<span class="fui-break">' )[0] );
 
-            $( widget.getElement() ).addClass( CONF.classPrefix + "panel-break-widget" );
+            if ( this.__options.break ) {
+                this.__contentElement.appendChild( $( '<span class="fui-break">' )[0] );
+                $( widget.getElement() ).addClass( CONF.classPrefix + "panel-break-widget" );
+            }
 
             return widget;
 
@@ -137,9 +139,11 @@ define( function ( require ) {
 
             this.__widgets.splice( index, 0, widget );
             this.__contentElement.insertBefore( widget.getElement(), oldElement.getElement() );
-            this.__contentElement.insertBefore( $( '<span class="fui-break">' )[0], oldElement.getElement() );
 
-            $( widget.getElement() ).addClass( CONF.classPrefix + "panel-break-widget" );
+            if ( this.__options.break ) {
+                this.__contentElement.insertBefore( $( '<span class="fui-break">' )[0], oldElement.getElement() );
+                $( widget.getElement() ).addClass( CONF.classPrefix + "panel-break-widget" );
+            }
 
             return widget;
 
