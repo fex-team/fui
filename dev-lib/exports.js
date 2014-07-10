@@ -24,7 +24,8 @@ define( 'kf.export', function ( require ) {
         PPanel: require( "widget/ppanel" ),
         LabelPanel: require( "widget/label-panel" ),
         Menu: require( "widget/menu" ),
-        InputMenu: require( "widget/input-menu" )
+        InputMenu: require( "widget/input-menu" ),
+        DropPanel: require( "widget/drop-panel" )
 
     };
 

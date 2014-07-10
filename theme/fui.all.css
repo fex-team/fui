@@ -119,6 +119,63 @@
 /*------------ var*/
 /*------------ mixin*/
 
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-drop-panel {
+  border: 1px solid #ababab;
+  overflow: hidden;
+  position: relative;
+}
+.fui-drop-panel .fui-drop-panel-content {
+  display: inline-block;
+}
+.fui-drop-panel .fui-drop-panel-placeholder {
+  display: none;
+}
+.fui-drop-panel .fui-drop-panel-button {
+  border-left: 1px solid #ababab;
+  visibility: visible;
+}
+.fui-drop-panel .fui-drop-panel-button:HOVER {
+  border-color: #d5e1f2;
+}
+.fui-drop-panel .fui-drop-panel-button:ACTIVE {
+  border-color: #87a9da;
+}
+.fui-drop-panel:HOVER {
+  border-color: #d5e1f2;
+}
+.fui-drop-panel:HOVER .fui-drop-panel-button {
+  border-left-color: #d5e1f2;
+}
+.fui-drop-panel:ACTIVE {
+  border-color: #87a9da;
+}
+.fui-drop-panel:ACTIVE .fui-drop-panel-button {
+  border-left-color: #d5e1f2;
+}
+.fui-drop-panel.fui-drop-panel-open {
+  overflow: visible;
+}
+.fui-drop-panel.fui-drop-panel-open .fui-drop-panel-content {
+  border: 1px solid #ababab;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+}
+.fui-drop-panel.fui-drop-panel-open .fui-drop-panel-button {
+  visibility: hidden;
+}
+.fui-drop-panel.fui-drop-panel-open .fui-drop-panel-placeholder {
+  display: inline-block;
+}
+.fui-drop-panel-popup {
+  border: 1px solid #ababab;
+}
+
 .fui-icon {
   text-align: center;
   font-size: 0;
