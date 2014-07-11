@@ -34,7 +34,8 @@ define( function ( require ) {
                 bound: null,
                 // 和边界之间的最小距离
                 diff: 10,
-                hide: true
+                hide: true,
+                resize: 'all'
             };
 
             this.__extendOptions( defaultOptions, options );
@@ -108,20 +109,33 @@ define( function ( require ) {
         __position: function () {
 
             var location = null,
-                targetRect = Utils.getRect( this.__target );
+                targetRect = Utils.getBound( this.__target );
 
             $( this.__element ).addClass( CONF.classPrefix + "ppanel-position" );
 
-            if ( !this.__options.inner ) {
+            if ( this.__layout === 'center' || this.__layout === 'middle' ) {
+
+                location = this.__getCenterLayout( targetRect );
+
+            } else if ( !this.__options.inner ) {
+
                 location = this.__getOuterLayout( targetRect );
+
             } else {
+
                 location = this.__getInnerLayout( targetRect );
+
             }
 
             $( this.__element ).css( 'top', location.top + 'px' ).css( 'left', location.left + 'px' );
 
-            this.__resizeWidth( targetRect );
-            this.__resizeHeight();
+            if ( this.__options.resize !== 'height' ) {
+                this.__resizeWidth( targetRect );
+            }
+
+            if ( this.__options.resize !== 'width' ) {
+                this.__resizeHeight();
+            }
 
         },
 
@@ -184,6 +198,35 @@ define( function ( require ) {
                 $( this.__element ).css( "height", panelRect.height - diff - this.__options.diff + 'px' );
 
             }
+
+        },
+
+        /**
+         * 居中定位的位置属性
+         * @private
+         */
+        __getCenterLayout: function ( targetRect ) {
+
+            var location = {
+                    top: 0,
+                    left: 0
+                },
+                panelRect = Utils.getRect( this.__element ),
+                diff = 0;
+
+            diff = targetRect.height - panelRect.height;
+
+            if ( diff > 0 ) {
+                location.top = targetRect.top + diff / 2;
+            }
+
+            diff = targetRect.width - panelRect.width;
+
+            if ( diff > 0 ) {
+                location.left = targetRect.left + diff / 2;
+            }
+
+            return location;
 
         },
 

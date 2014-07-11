@@ -48,56 +48,6 @@ define( function ( require ) {
 
         },
 
-        /**
-         * 根据模板渲染构件, 如果该构件已经渲染过, 则不会进行二次渲染
-         * @returns {Widget}
-         */
-        __render: function () {
-
-            var $ele = null,
-                className = null;
-
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__rendered = true;
-
-            this.__compiledTpl = Utils.Tpl.compile( this.__tpl, this.__options );
-            this.__element = $( this.__compiledTpl )[ 0 ];
-
-            $ele = $( this.__element );
-
-            if ( this.__options.disabled ) {
-                $ele.addClass( CONF.classPrefix + "disabled" );
-            }
-
-            $ele.addClass( CONF.classPrefix + "widget" );
-
-            // add custom class-name
-            className = this.__options.className;
-            if ( className.length > 0 ) {
-                if ( $.isArray( className ) ) {
-                    $ele.addClass( className.join( " " ) );
-                } else {
-                    $ele.addClass( className );
-                }
-            }
-
-            if ( this.__options.text && this.__allowShowTitle() ) {
-                this.__element.setAttribute( "title", this.__options.text );
-            }
-
-            if ( this.__options.hide ) {
-                this.__hide();
-            }
-
-            this.__initWidgetEvent();
-
-            return this;
-
-        },
-
         getValue: function () {
             return this.__options.value;
         },
@@ -196,6 +146,56 @@ define( function ( require ) {
             if ( !this.__options.preventDefault ) {
                 this.__on( type, cb );
             }
+
+            return this;
+
+        },
+
+        /**
+         * 根据模板渲染构件, 如果该构件已经渲染过, 则不会进行二次渲染
+         * @returns {Widget}
+         */
+        __render: function () {
+
+            var $ele = null,
+                className = null;
+
+            if ( this.__rendered ) {
+                return this;
+            }
+
+            this.__rendered = true;
+
+            this.__compiledTpl = Utils.Tpl.compile( this.__tpl, this.__options );
+            this.__element = $( this.__compiledTpl )[ 0 ];
+
+            $ele = $( this.__element );
+
+            if ( this.__options.disabled ) {
+                $ele.addClass( CONF.classPrefix + "disabled" );
+            }
+
+            $ele.addClass( CONF.classPrefix + "widget" );
+
+            // add custom class-name
+            className = this.__options.className;
+            if ( className.length > 0 ) {
+                if ( $.isArray( className ) ) {
+                    $ele.addClass( className.join( " " ) );
+                } else {
+                    $ele.addClass( className );
+                }
+            }
+
+            if ( this.__options.text && this.__allowShowTitle() ) {
+                this.__element.setAttribute( "title", this.__options.text );
+            }
+
+            if ( this.__options.hide ) {
+                this.__hide();
+            }
+
+            this.__initWidgetEvent();
 
             return this;
 

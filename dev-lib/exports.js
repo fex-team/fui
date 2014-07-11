@@ -27,6 +27,7 @@ define( 'kf.export', function ( require ) {
         Menu: require( "widget/menu" ),
         InputMenu: require( "widget/input-menu" ),
         DropPanel: require( "widget/drop-panel" ),
+        Dialog: require( "widget/dialog" ),
 
         Utils: require( "base/utils" )
 

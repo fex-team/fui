@@ -19,11 +19,11 @@
     <script>
         window.onload = function () {
 
-            var Draggable = FUI.Utils.Draggable;
+            var createDraggable = FUI.Utils.createDraggable;
 
-            new Draggable().bind( document.getElementById( "test" ) );
+            createDraggable().bind( document.getElementById( "test" ) );
 
-            new Draggable( {
+            createDraggable( {
                 range: document.getElementById( "range" )
             } ).bind( document.getElementById( "test2" ) );
 

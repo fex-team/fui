@@ -81,6 +81,34 @@ define( function ( require ) {
             return node.getBoundingClientRect();
         },
 
+        getBound: function ( node ) {
+
+            var w = 0,
+                h = 0;
+
+            if ( node.tagName.toLowerCase() === 'body' ) {
+
+                h = $( node.ownerDocument.defaultView );
+                w = h.width();
+                h = h.height();
+
+                return {
+                    top: 0,
+                    left: 0,
+                    bottom: h,
+                    right: w,
+                    width: w,
+                    height: h
+                };
+
+            } else {
+
+                return node.getBoundingClientRect();
+
+            }
+
+        },
+
         getCssValue: function ( props, node ) {
 
             var styleList = node.ownerDocument.defaultView.getComputedStyle( node, null );

@@ -69,6 +69,8 @@
 .fui-button {
   overflow: hidden;
   background-color: #ffffff;
+  cursor: default;
+  font-size: 0;
 }
 .fui-button ._layout .fui-label {
   display: block;
@@ -118,6 +120,42 @@
  */
 /*------------ var*/
 /*------------ mixin*/
+
+/**
+ * 通用button
+ */
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-dialog {
+  position: fixed;
+  top: -1000000px;
+  left: -100000px;
+  border: 1px solid #B1B1B1;
+}
+.fui-dialog .fui-panel-content {
+  width: auto!important;
+  height: auto!important;
+  padding: 2px;
+}
+.fui-dialog .fui-dialog-caption {
+  margin: 0;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1;
+  display: inline-block;
+}
+.fui-dialog .fui-close-button {
+  float: right;
+}
+.fui-dialog .fui-close-button .fui-close-button-icon {
+  width: 16px;
+  height: 16px;
+  background: url("default/images/close.png") no-repeat 0 0;
+}
 
 /**
  * FUI 通用样式定义
