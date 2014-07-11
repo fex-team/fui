@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            initColorPicker();
+
+        };
+
+        function initColorPicker () {
+
+            var button = new FUI.Button({
+                    text: '文字颜色',
+                    icon: {
+                        img: 'assets/icon-demo/forecolor.png'
+                    },
+                    padding: '2px',
+                    layout: 'left'
+                }), colorppanel = new FUI.ColorPPanel({
+                        label:'按钮',
+                        commonText: '通用颜色',
+                        standardText: '标准颜色'
+                    });
+
+            button.appendTo( $( "#colorpicker" )[0] );
+            colorppanel.attachTo(button);
+        }
+
+    </script>
+</head>
+<body>
+    <h1>FUI ColorPicker Widget 示例</h1>
+    <h2>颜色选择器</h2>
+    <div id="colorpicker"></div>
+asdas
+d
+asd
+as
+d
+
+</body>
+</html>
