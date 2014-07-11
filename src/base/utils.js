@@ -8,7 +8,7 @@ define( function ( require ) {
         Utils = {
             Tpl: require( "base/kit/compile" ),
             Widget: require( "base/kit/widget" ),
-            Draggable: require( "base/kit/draggable" )
+            createDraggable: require( "base/kit/draggable" )
         };
 
     return $.extend( Utils, require( "base/kit/common" ), require( "base/kit/class" ) );

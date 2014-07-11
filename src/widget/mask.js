@@ -7,7 +7,9 @@ define( function ( require ) {
     var Utils = require( "base/utils" ),
         tpl = require( "tpl/mask" ),
         Widget = require( "widget/widget" ),
-        $ = require( "base/jquery" );
+        $ = require( "base/jquery" ),
+        __cache_inited = false,
+        __MASK_CACHE = [];
 
     return Utils.createClass( "Mask", {
 
@@ -22,14 +24,21 @@ define( function ( require ) {
                 bgcolor: '#000',
                 opacity: 0,
                 inner: true,
+                target: null,
                 // 禁止mouse scroll事件
-                scroll: false
+                scroll: false,
+                hide: true
             };
 
             this.__extendOptions( defaultOptions, options );
 
             this.widgetName = 'Mask';
             this.__tpl = tpl;
+
+            this.__cacheId = __MASK_CACHE.length;
+            this.__hideState = true;
+
+            __MASK_CACHE.push( this );
 
             this.__target = this.__options.target;
 
@@ -52,6 +61,11 @@ define( function ( require ) {
             this.callBase();
 
             this.__initMaskEvent();
+
+            if ( !__cache_inited ) {
+                __cache_inited = true;
+                __initCacheEvent();
+            }
 
         },
 
@@ -84,6 +98,22 @@ define( function ( require ) {
 
             this.__position();
             this.__resize();
+
+            this.__hideState = false;
+
+        },
+
+        hide: function () {
+
+            this.callBase();
+
+            this.__hideState = true;
+
+        },
+
+        isHide: function () {
+
+            return this.__hideState;
 
         },
 
@@ -169,4 +199,22 @@ define( function ( require ) {
         }
 
     } );
+
+    // 全局监听
+    function __initCacheEvent () {
+
+        $( window ).on( "resize", function () {
+
+            $.each( __MASK_CACHE, function ( i, mask ) {
+
+                if ( mask && !mask.isHide() ) {
+                    mask.__resize();
+                }
+
+            } );
+
+        } );
+
+    }
+
 } );

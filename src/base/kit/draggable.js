@@ -69,6 +69,10 @@ define( function ( require, exports ) {
 
             $( handler ).on( "mousedown", function ( e ) {
 
+                if ( e.which !== 1 ) {
+                    return;
+                }
+
                 var location = common.getRect( handler );
 
                 e.preventDefault();
@@ -154,9 +158,9 @@ define( function ( require, exports ) {
 
         __initEnv: function () {
 
-            var $target = $( this.__target );
+            var $handler = $( this.__handler );
 
-            $target.css( "position", "fixed" );
+            $handler.css( "cursor", "move" );
 
         },
 
@@ -210,6 +214,8 @@ define( function ( require, exports ) {
 
     } );
 
-    return Draggable;
+    return function ( options ) {
+        return new Draggable( options );
+    };
 
 } );
