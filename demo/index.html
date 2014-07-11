@@ -48,7 +48,13 @@
                 fontPanel = new FUI.LabelPanel( {
                     label: '字体',
                     height: 100,
-                    margin: '0 0 5px 0',
+                    margin: 2,
+                    break: true
+                } ),
+                filePanel = new FUI.LabelPanel( {
+                    label: '图片',
+                    height: 100,
+                    margin: 2,
                     break: true
                 } );
 
@@ -63,11 +69,16 @@
                 sep3 = new FUI.Separator( {
                     className: 'ext-sep',
                     height: 90
+                }),
+                sep4 = new FUI.Separator( {
+                    className: 'ext-sep',
+                    height: 90
                 } );
 
             initUndoRedoWidget( undoRedoPanel );
             initClipboardWidget( clipboardPanel );
             initFontWidget( fontPanel );
+            initFileWidget( filePanel );
 
             toolbar.appendWidget( sep1 );
             toolbar.insertWidget( toolbar.indexOf( sep1 ), undoRedoPanel );
@@ -75,6 +86,8 @@
             toolbar.appendWidget( sep2 );
             toolbar.appendWidget( fontPanel );
             toolbar.appendWidget( sep3 );
+            toolbar.appendWidget( filePanel );
+            toolbar.appendWidget( sep4 );
 
             fileButton.appendTo( document.getElementById( "classify" ) );
             tabs.appendButtonTo( document.getElementById( "classify" ) );
@@ -289,6 +302,27 @@
 
             panel.appendWidget( fontsizePanel );
             panel.appendWidget( biuPanel );
+
+        }
+
+        function initFileWidget ( panel ) {
+
+            var btn = new FUI.Button( {
+                    label: '图片',
+                    icon: 'assets/icon-demo/img.png',
+                    layout: 'bottom'
+                } ),
+                dialog = new FUI.Dialog( {
+                    width: 600,
+                    height: 400,
+                    caption: '上传图片'
+                } );
+
+            btn.on( "click", function () {
+                dialog.open();
+            } );
+
+            panel.appendWidget( btn );
 
         }
 
