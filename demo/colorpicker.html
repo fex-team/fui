@@ -40,6 +40,10 @@
 
             button.appendTo( $( "#colorpicker" )[0] );
             colorppanel.attachTo(button);
+
+            colorppanel.on('pickcolor', function (color){
+                console.log(color);
+            });
         }
 
     </script>

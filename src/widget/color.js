@@ -5,10 +5,10 @@
 define( function ( require ) {
 
     var Utils = require( "base/utils" ),
-        colorpickerTpl = require( "tpl/colorpicker" ),
+        colorTpl = require( "tpl/color" ),
         $ = require( "base/jquery" );
 
-    return Utils.createClass( "ColorPicker", {
+    return Utils.createClass( "Color", {
 
         base: require( "widget/container" ),
 
@@ -58,9 +58,9 @@ define( function ( require ) {
 
             this.__extendOptions( defaultOptions, options );
 
-            this.widgetName = 'ColorPicker';
+            this.widgetName = 'Color';
 
-            this.__tpl = colorpickerTpl;
+            this.__tpl = colorTpl;
 
             if ( options !== marker ) {
                 this.__render();

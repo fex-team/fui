@@ -5,12 +5,12 @@
 define( function ( require ) {
 
     var Utils = require( "base/utils" ),
-        ColorPicker = require( "widget/colorpicker" ),
+        ColorPicker = require( "widget/color" ),
         Mask = require( "widget/mask" ),
         CONF = require( "base/sysconf" ),
         $ = require( "base/jquery" );
 
-    return Utils.createClass( "ColorPPanel", {
+    return Utils.createClass( "Color", {
 
         base: require( "widget/ppanel" ),
 
@@ -28,7 +28,7 @@ define( function ( require ) {
 
             this.__extendOptions( defaultOptions, options );
 
-            this.widgetName = 'ColorPPanel';
+            this.widgetName = 'Color';
 
             if ( options !== marker ) {
                 this.__render();
@@ -37,7 +37,7 @@ define( function ( require ) {
         },
 
         select: function ( color ) {
-            this.__colorpickerWidget.trigger('pickcolor', color);
+            this.__colorpickerWidget.trigger('selectcolor', color);
             return this;
         },
 
@@ -72,8 +72,8 @@ define( function ( require ) {
         __initColorPPanelEvent: function () {
 
             var _self = this;
-            this.__colorpickerWidget.on('pickcolor', function (color){
-                _self.trigger('pickcolor', color);
+            this.__colorpickerWidget.on('selectcolor', function (color){
+                _self.trigger('selectcolor', color);
                 _self.hide();
             });
             this.__maskWidget.on('click', function (){
