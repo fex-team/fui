@@ -111,6 +111,18 @@ define( function ( require ) {
             return this.__openState;
         },
 
+        getHeadElement: function () {
+            return this.__headElement;
+        },
+
+        getBodyElement: function () {
+            return this.getContentElement();
+        },
+
+        getFootElement: function () {
+            return this.__footElement;
+        },
+
         __render: function () {
 
             if ( this.__rendered ) {
