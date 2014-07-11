@@ -39,6 +39,12 @@
 .fui-widget.fui-hide {
   display: none!important;
 }
+.fui-widget.fui-mask-animate {
+  -webkit-transition: all 0.2s;
+}
+.fui-widget.fui-mask-hint {
+  -webkit-transform: perspective(600px) translateZ(30px);
+}
 
 /**
  * 容器类通用样式

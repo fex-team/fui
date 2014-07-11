@@ -42,6 +42,7 @@ define( function ( require ) {
             this.__target = this.__options.target;
             this.__layout = this.__options.layout;
             this.__inDoc = false;
+            this.__hinting = false;
             this.__openState = false;
 
             this.__headElement = null;
@@ -140,7 +141,7 @@ define( function ( require ) {
                 this.__initCloseButton();
             }
 
-            this.__initMaskClose();
+            this.__initMaskLint();
 
         },
 
@@ -181,9 +182,37 @@ define( function ( require ) {
 
         },
 
-        __initMaskClose: function () {
+        __initMaskLint: function () {
 
+            var _self = this;
 
+            this.__maskWidget.on( "click", function () {
+                _self.__hint();
+            } );
+
+        },
+
+        __hint: function () {
+
+            if ( this.__hinting ) {
+                return;
+            }
+
+            this.__hinting = true;
+
+            var $ele = $( this.__element ),
+                _self = this,
+                classNmae = [ CONF.classPrefix + "mask-hint", CONF.classPrefix + "mask-animate" ];
+
+            $ele.addClass( classNmae.join( " " ) );
+
+            window.setTimeout( function () {
+                $ele.removeClass( classNmae[ 0 ] );
+                window.setTimeout( function () {
+                    $ele.removeClass( classNmae[ 1 ] );
+                    _self.__hinting = false;
+                }, 200 );
+            }, 200 );
 
         }
 
