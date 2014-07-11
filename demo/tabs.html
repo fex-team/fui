@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var tabs = new FUI.Tabs( {
+                buttons: [ "语文", "数学", "理综", "英语" ]
+            } );
+
+            tabs.appendTo( document.body );
+
+            $.each( tabs.getPanels(), function ( index, panel ) {
+
+                panel.getContentElement().innerHTML = index;
+
+            } );
+
+            tabs.on( "tabselect", function ( e, info ) {
+
+                console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
+
+            } );
+
+            tabs.on( "tabchange", function ( e, info ) {
+
+                console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
+
+            } );
+
+            window.setTimeout( function () {
+
+                tabs.select( 2 );
+                tabs.select( 2 );
+
+            }, 1000 );
+
+            window.tabs = tabs;
+
+            var tabs2 = new FUI.Tabs( {
+                buttons: [ "语文1", "数学2", "理综3", "英语4" ]
+            } );
+
+            tabs2.appendButtonTo( document.getElementById( "buttons" ) );
+            tabs2.appendPanelTo( document.getElementById( "panels" ) );
+
+            tabs2.on( "tabselect", function ( e, info ) {
+
+                console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
+
+            } );
+
+            tabs2.on( "tabchange", function ( e, info ) {
+
+                console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
+
+            } );
+
+        };
+    </script>
+</head>
+<body>
+    <h1>Tabs 示例</h1>
+    <h2>分离式tabs</h2>
+    <div id="buttons"></div>
+    <div id="panels"></div>
+    <h2>整体tabs</h2>
+</body>
+</html>

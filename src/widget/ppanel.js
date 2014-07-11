@@ -33,7 +33,8 @@ define( function ( require ) {
                 // 边界容器
                 bound: null,
                 // 和边界之间的最小距离
-                diff: 10
+                diff: 10,
+                hide: true
             };
 
             this.__extendOptions( defaultOptions, options );
@@ -100,8 +101,6 @@ define( function ( require ) {
             this.callBase();
 
             $( this.__element ).addClass( CONF.classPrefix + "ppanel" );
-
-            this.hide();
 
         },
 

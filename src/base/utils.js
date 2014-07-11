@@ -7,7 +7,8 @@ define( function ( require ) {
     var $ = require( "base/jquery" ),
         Utils = {
             Tpl: require( "base/kit/compile" ),
-            Widget: require( "base/kit/widget" )
+            Widget: require( "base/kit/widget" ),
+            Draggable: require( "base/kit/draggable" )
         };
 
     return $.extend( Utils, require( "base/kit/common" ), require( "base/kit/class" ) );

@@ -23,7 +23,8 @@ define( function ( require ) {
                 disabled: false,
                 preventDefault: false,
                 text: '',
-                value: null
+                value: null,
+                hide: false
             };
 
             this.__widgetType = 'widget';
@@ -87,6 +88,10 @@ define( function ( require ) {
                 this.__element.setAttribute( "title", this.__options.text );
             }
 
+            if ( this.__options.hide ) {
+                this.__hide();
+            }
+
             this.__initWidgetEvent();
 
             return this;
@@ -104,15 +109,27 @@ define( function ( require ) {
 
         show: function () {
 
-            $( this.__element ).removeClass( CONF.classPrefix + "hide" );
+            this.__show();
             return this;
 
         },
 
         hide: function () {
 
-            $( this.__element ).addClass( CONF.classPrefix + "hide" );
+            this.__hide();
             return this;
+
+        },
+
+        addClass: function ( className ) {
+
+            $( this.__element).addClass( className );
+
+        },
+
+        removeClass: function ( className ) {
+
+            $( this.__element).removeClass( className );
 
         },
 
@@ -267,6 +284,16 @@ define( function ( require ) {
 
             this.__options = $.extend.apply( $, params );
 
+        },
+
+        __hide: function () {
+
+            $( this.__element ).addClass( CONF.classPrefix + "hide" );
+
+        },
+
+        __show: function () {
+            $( this.__element ).removeClass( CONF.classPrefix + "hide" );
         }
 
     } );

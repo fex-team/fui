@@ -19,6 +19,13 @@
     <script>
         window.onload = function () {
 
+            var tabs = new FUI.Tabs( {
+                buttons: [ "开始", "插入", "页面布局", "审阅", "视图" ]
+            }),
+            fileButton = new FUI.Button( {
+                label: "文件"
+            } );
+
             var toolbar = new FUI.Panel( {
                     className: 'toolbar',
                     width: 1000,
@@ -82,7 +89,11 @@
             toolbar.appendWidget( stylePanel );
             toolbar.appendWidget( sep4 );
 
-            toolbar.appendTo( document.body );
+            fileButton.appendTo( document.getElementById( "classify" ) );
+            tabs.appendButtonTo( document.getElementById( "classify" ) );
+            tabs.appendPanelTo( document.getElementById( "opArea" ) );
+
+            toolbar.appendTo( tabs.getPanel( 0 ).getElement() );
 
         };
 
@@ -401,5 +412,11 @@
 </head>
 <body>
 <h1>FUI 完整demo</h1>
+<div id="toolbar">
+
+    <div id="classify" class="classify"></div>
+    <div id="opArea" class="operator-area"></div>
+
+</div>
 </body>
 </html>

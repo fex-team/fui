@@ -1,6 +1,54 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #2b579a;
+}
+
 .toolbar {
-    border: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
     border-width: 1px 0;
+}
+
+.operator-area {
+    background-color: #fff;
+}
+
+.classify {
+    background-color: #e1e1e1;
+}
+
+.classify .fui-button {
+    line-height: 30px;
+    padding: 2px 20px!important;
+    background-color: #e1e1e1;
+}
+
+.classify .fui-button:HOVER {
+    background-color: #e1e1e1!important;
+}
+
+.classify .fui-button:ACTIVE {
+    background-color: #e1e1e1!important;
+}
+
+.classify .fui-button:HOVER .fui-label {
+    color: #2b579a;
+}
+
+.classify .fui-selected {
+    background-color: #fff!important;
+}
+
+.classify .fui-selected .fui-label {
+    color: #2b579a;
+}
+
+.classify .fui-selected:HOVER {
+    background-color: #fff!important;
+}
+
+.classify .fui-selected:ACTIVE {
+    background-color: #fff!important;
 }
 
 .ext-sep {

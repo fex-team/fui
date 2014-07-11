@@ -19,6 +19,7 @@ define( 'kf.export', function ( require ) {
         InputButton: require( "widget/input-button" ),
         Mask: require( "widget/mask" ),
         ColorPPanel: require( "widget/color-ppanel" ),
+        Tabs: require( "widget/tabs" ),
 
         Container: require( "widget/container" ),
         Panel: require( "widget/panel" ),
@@ -26,7 +27,9 @@ define( 'kf.export', function ( require ) {
         LabelPanel: require( "widget/label-panel" ),
         Menu: require( "widget/menu" ),
         InputMenu: require( "widget/input-menu" ),
-        DropPanel: require( "widget/drop-panel" )
+        DropPanel: require( "widget/drop-panel" ),
+
+        Utils: require( "base/utils" )
 
     };
 

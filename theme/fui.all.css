@@ -104,11 +104,11 @@
   background-color: #87a9da !important;
   color: #000000 !important;
 }
-.fui-button.fui-disabled:ACTIVE {
+.fui-button.fui-disabled:HOVER {
   background-color: #ffffff !important;
   color: #000000 !important;
 }
-.fui-button.fui-disabled:HOVER {
+.fui-button.fui-disabled:ACTIVE {
   background-color: #ffffff !important;
   color: #000000 !important;
 }
@@ -366,6 +366,18 @@
 .fui-ppanel.fui-ppanel-position {
   position: fixed;
   z-index: 99999;
+}
+
+/**
+ * 通用button
+ */
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-tabs .fui-selected {
+  background-color: #d5e1f2;
 }
 
 /**
