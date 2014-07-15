@@ -28,7 +28,7 @@ define( function ( require ) {
                 commonText: '',
                 commonColor: [
                     [
-                        '#FFFFFF', '#000000', '#eeece1', '#1f497d', '#4f81bd',
+                        '#ffffff', '#000000', '#eeece1', '#1f497d', '#4f81bd',
                         '#c0504d', '#9bbb59', '#8064a2', '#4bacc6', '#f79646'
                     ],
                     [
