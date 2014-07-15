@@ -32,17 +32,20 @@
                     },
                     padding: '2px',
                     layout: 'left'
-                }), colorppanel = new FUI.ColorPPanel({
-                        label:'按钮',
-                        commonText: '通用颜色',
-                        standardText: '标准颜色'
-                    });
+                }), colorpicker = new FUI.ColorPicker({
+                    clearText: '清除颜色',
+                    commonText: '通用颜色',
+                    standardText: '标准颜色'
+                });
 
             button.appendTo( $( "#colorpicker" )[0] );
-            colorppanel.attachTo(button);
+            colorpicker.attachTo(button);
 
-            colorppanel.on('pickcolor', function (color){
+            colorpicker.on('selectcolor', function (e, color){
                 console.log(color);
+            });
+            setTimeout(function (){
+                button.trigger('click');
             });
         }
 

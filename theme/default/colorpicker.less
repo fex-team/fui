@@ -1,6 +1,6 @@
 @import "define";
 
-.fui-colorpicker {
+.fui-colorpicker-container {
 
   border: 1px solid @borderColor;
 
@@ -31,6 +31,29 @@
   .fui-colorpicker-commoncolor,
   .fui-colorpicker-standardcolor{
     margin: 4px 3px;
+  }
+
+  .fui-colorpicker-toolbar{
+    margin: 4px;
+
+    .fui-colorpicker-preview{
+      display: inline-block;
+      height: 25px;
+      width: 120px;
+      border: 1px solid @borderColor;
+    }
+
+    .fui-colorpicker-clear{
+      display: inline-block;
+      height: 25px;
+      line-height: 25px;
+      width: 60px;
+      border: 1px solid @borderColor;
+      font-size: 12px;
+      text-align: center;
+      position: absolute;
+      right: 5px;
+    }
   }
 
 }
