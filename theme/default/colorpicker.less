@@ -1,0 +1,63 @@
+@import "define";
+
+.fui-colorpicker-container {
+
+  border: 1px solid @borderColor;
+
+  .fui-colorpicker-title{
+    background: #eee;
+    padding: 2px 4px;
+  }
+
+  .fui-colorpicker-colors {
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+  }
+  .fui-colorpicker-colors-line0 {
+    margin-bottom: 3px;
+  }
+
+  .fui-colorpicker-item{
+    display: inline-block;
+    margin: 0 2px;
+    width: 13px;
+    height: 13px;
+    border-style: solid;
+    border-width: 1px;
+  }
+
+  .fui-colorpicker-commoncolor,
+  .fui-colorpicker-standardcolor{
+    margin: 4px 3px;
+    white-space: nowrap;
+  }
+
+  .fui-colorpicker-toolbar{
+    margin: 4px;
+    height: 27px;
+
+    .fui-colorpicker-preview{
+      display: inline-block;
+      height: 25px;
+      line-height: 25px;
+      width: 120px;
+      border: 1px solid @borderColor;
+    }
+
+    .fui-colorpicker-clear{
+      display: inline-block;
+      height: 25px;
+      line-height: 25px;
+      width: 60px;
+      border: 1px solid @borderColor;
+      font-size: 12px;
+      text-align: center;
+      position: absolute;
+      right: 5px;
+      cursor: pointer;
+    }
+  }
+
+}
