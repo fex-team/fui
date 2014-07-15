@@ -8,7 +8,7 @@
         @m.commonColor.forEach(function(colors, i){
             <div class="fui-colorpicker-colors fui-colorpicker-colors-line@i">
                 @colors.forEach(function(color){
-                <span class="fui-colorpicker-item" style="background-color: @color; border-color: @(color == '#ffffff' ? '#eeeeee':color);" data-color="@color"></span>
+                <span class="fui-colorpicker-item" style="background-color: @color; border-color: @(color.toLowerCase() == '#ffffff' ? '#eeeeee':color);" data-color="@color"></span>
                 })
             </div>
         })
