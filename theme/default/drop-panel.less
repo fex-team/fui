@@ -69,4 +69,18 @@
 
 .fui-drop-panel-popup {
   border: 1px solid @borderColor;
+
+  &:HOVER {
+    border-color: @hoverBgColor;
+    .fui-drop-panel-button {
+      border-left-color: @hoverBgColor;
+    }
+  }
+
+  &:ACTIVE {
+    border-color: @activeBgColor;
+    .fui-drop-panel-button {
+      border-left-color: @hoverBgColor;
+    }
+  }
 }

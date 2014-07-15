@@ -18,6 +18,7 @@ define( 'fui.export', function ( require ) {
         Input: require( "widget/input" ),
         InputButton: require( "widget/input-button" ),
         Mask: require( "widget/mask" ),
+        ColorPicker: require( "widget/colorpicker" ),
         Tabs: require( "widget/tabs" ),
 
         Container: require( "widget/container" ),

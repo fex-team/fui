@@ -1,0 +1,22 @@
+<div class="fui-colorpicker-container" @h.toCssText( m.__css )>
+    <div class="fui-colorpicker-toolbar">
+        <div class="fui-colorpicker-preview"></div>
+        <div class="fui-colorpicker-clear">@m.clearText</div>
+    </div>
+    <div class="fui-colorpicker-title">@m.commonText</div>
+    <div class="fui-colorpicker-commoncolor">
+        @m.commonColor.forEach(function(colors, i){
+            <div class="fui-colorpicker-colors fui-colorpicker-colors-line@i">
+                @colors.forEach(function(color){
+                <span class="fui-colorpicker-item" style="background-color: @color; border-color: @(color.toLowerCase() == '#ffffff' ? '#eeeeee':color);" data-color="@color"></span>
+                })
+            </div>
+        })
+    </div>
+    <div class="fui-colorpicker-title">@m.standardText</div>
+    <div class="fui-colorpicker-standardcolor fui-colorpicker-colors">
+        @m.standardColor.forEach(function(color){
+            <span class="fui-colorpicker-item" style="background-color: @color; border-color: @color;" data-color="@color"></span>
+        })
+    </div>
+</div>
