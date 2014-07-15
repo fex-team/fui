@@ -2,7 +2,7 @@
  * 模块暴露
  */
 
-define( 'kf.export', function ( require ) {
+define( 'fui.export', function ( require ) {
 
     window.FUI = {
 

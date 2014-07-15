@@ -1,5 +1,2 @@
-/**
- * Created by hn on 13-12-4.
- */
-// 启动脚本
-inc.use( 'kf.export' );
+// develop版本启动脚本
+inc.use( 'fui.export' );
