@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var widgets = FUI.Creator.parse( {
+
+                'Button': {
+                    id: "hancong",
+                    label: 'nihao'
+                }
+
+            } );
+
+            window.widgets = widgets;
+
+        };
+    </script>
+</head>
+<body>
+<h1>Dialog 示例</h1>
+<button id="openBtn">打开Dialog</button>
+</body>
+</html>

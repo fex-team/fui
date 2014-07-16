@@ -8,6 +8,7 @@ define( function ( require ) {
     var prefix = '_fui_',
         uid = 0,
         CONF = require( "base/sysconf" ),
+        FUI_NS = require( "base/ns" ),
         $ = require( "base/jquery" ),
         Utils = require( "base/utils" );
 
@@ -19,6 +20,7 @@ define( function ( require ) {
             this.callBase( marker );
 
             var defaultOptions = {
+                id: null,
                 className: '',
                 disabled: false,
                 preventDefault: false,
@@ -38,14 +40,16 @@ define( function ( require ) {
 
             this.widgetName = 'Widget';
 
-            this.__uid = generatorId();
-
             this.__extendOptions( defaultOptions, options );
 
             if ( options !== marker ) {
                 this.__render();
             }
 
+        },
+
+        getId: function () {
+            return this.id;
         },
 
         getValue: function () {
@@ -165,9 +169,14 @@ define( function ( require ) {
             }
 
             this.__rendered = true;
+            this.id = this.__id();
+
+            // 向NS注册自己
+            FUI_NS.__registerInstance( this );
 
             this.__compiledTpl = Utils.Tpl.compile( this.__tpl, this.__options );
             this.__element = $( this.__compiledTpl )[ 0 ];
+            this.__element.setAttribute( "id", this.id );
 
             $ele = $( this.__element );
 
@@ -294,6 +303,10 @@ define( function ( require ) {
 
         __show: function () {
             $( this.__element ).removeClass( CONF.classPrefix + "hide" );
+        },
+
+        __id: function () {
+            return this.__options.id || generatorId();
         }
 
     } );
@@ -301,9 +314,7 @@ define( function ( require ) {
     // 为widget生成唯一id
     function generatorId () {
 
-        uid++;
-
-        return prefix + uid;
+        return prefix + ( ++uid );
 
     }
 
