@@ -88,6 +88,8 @@ define( function ( require ) {
 
             $( this.__element ).addClass( CONF.classPrefix + "button-layout-"+this.__options.layout )
 
+            this.__initButtonEvent();
+
         },
 
         __initOptions: function () {
@@ -105,6 +107,16 @@ define( function ( require ) {
                     img: this.__options.icon
                 }
             }
+
+        },
+
+        __initButtonEvent: function () {
+
+            this.on( "click", function () {
+
+                this.trigger( "btnclick" );
+
+            } );
 
         }
 

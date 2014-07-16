@@ -65,6 +65,25 @@
 }
 
 /**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-button-menu {
+  border: 1px solid white;
+}
+.fui-button-menu:HOVER {
+  border-color: #d5e1f2;
+}
+.fui-button-menu.fui-button-active {
+  border-color: #d5e1f2;
+  background: #d5e1f2;
+}
+.fui-button-menu.fui-button-active .fui-button {
+  background: #d5e1f2;
+}
+
+/**
  * 通用button
  */
 /**

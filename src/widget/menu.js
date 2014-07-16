@@ -71,6 +71,14 @@ define( function ( require ) {
             return this.removeWidget.apply( this, arguments );
         },
 
+        getSelected: function () {
+            return this.__currentSelect;
+        },
+
+        getSelectedItem: function () {
+            return this.getItem( this.__currentSelect );
+        },
+
         insertWidget: function ( index, widget ) {
 
             var returnValue = this.callBase( index, widget );

@@ -27,6 +27,7 @@ define( 'fui.export', function ( require ) {
         LabelPanel: require( "widget/label-panel" ),
         Menu: require( "widget/menu" ),
         InputMenu: require( "widget/input-menu" ),
+        ButtonMenu: require( "widget/button-menu" ),
         DropPanel: require( "widget/drop-panel" ),
         Dialog: require( "widget/dialog" ),
 

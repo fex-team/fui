@@ -1,0 +1,20 @@
+@import "define";
+
+.fui-button-menu {
+
+  border: 1px solid white;
+
+  &:HOVER {
+    border-color: @hoverBgColor;
+  }
+
+  &.fui-button-active {
+    border-color: @hoverBgColor;
+    background: @hoverBgColor;
+
+    .fui-button {
+      background: @hoverBgColor;
+    }
+  }
+
+}

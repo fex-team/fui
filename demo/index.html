@@ -238,7 +238,7 @@
                     selected: 0,
                     input: {
                         button: {
-                            padding: '5px 3px',
+                            padding: '6px 3px',
                             icon: {
                                 width: 10,
                                 height: 10,
@@ -283,7 +283,7 @@
                     selected: 4,
                     input: {
                         button: {
-                            padding: '5px 3px',
+                            padding: '6px 3px',
                             icon: {
                                 width: 10,
                                 height: 10,
@@ -333,6 +333,7 @@
         function initFileWidget ( panel ) {
 
             var btn = new FUI.Button( {
+                    padding: 5,
                     label: '图片',
                     icon: 'assets/icon-demo/img.png',
                     layout: 'bottom'
@@ -341,13 +342,26 @@
                     width: 600,
                     height: 400,
                     caption: '上传图片'
+                } ),
+                btnMenu = new FUI.ButtonMenu( {
+                    text: "编号",
+                    buttons: [ {
+                        className: 'ext-list-btn'
+                    }, {
+                        className: 'ext-open-btn'
+                    } ],
+                    menu: {
+                        items: [ "圆点", "实心点", "方框" ]
+                    }
                 } );
+
 
             btn.on( "click", function () {
                 dialog.open();
             } );
 
             panel.appendWidget( btn );
+            panel.appendWidget( btnMenu );
         }
 
         function initStyleWidget ( panel ) {

@@ -7,12 +7,13 @@ define( function ( require ) {
 
     var $ = require( "base/jquery" ),
         CONF = require( "base/sysconf" ),
-        buttonTpl = require( "tpl/button" ),
-        Icon = require( "widget/icon" ),
-        Label = require( "widget/label" ),
+        tpl = require( "tpl/button-menu" ),
+        Button = require( "widget/button" ),
+        Menu = require( "widget/menu" ),
+        Mask = require( "widget/mask" ),
         Utils = require( "base/utils" );
 
-    return require( "base/utils" ).createClass( "ButtonSelect", {
+    return require( "base/utils" ).createClass( "ButtonMenu", {
 
         base: require( "widget/widget" ),
 
@@ -22,23 +23,22 @@ define( function ( require ) {
             this.callBase( marker );
 
             var defaultOptions = {
-                label: null,
-                text: null,
-                icon: null,
-                width: null,
-                height: null,
-                padding: 2,
-                // label相对icon的位置
-                layout: 'right'
+                // item选项
+                menu: null,
+                mask: null,
+                buttons: [],
+                selected: -1
             };
 
             this.__extendOptions( defaultOptions, options );
 
-            this.widgetName = 'ButtonSelect';
+            this.widgetName = 'ButtonMenu';
             this.__tpl = tpl;
 
-            this.__iconWidget = null;
-            this.__labelWidget = null;
+            this.__buttonWidgets = null;
+            this.__menuWidget = null;
+            this.__maskWidget = null;
+            this.__openState = false;
 
             if ( options !== marker ) {
                 this.__render();
@@ -46,12 +46,34 @@ define( function ( require ) {
 
         },
 
-        getLabel: function () {
-            return this.__labelWidget.getText();
+        open: function () {
+            this.__openState = true;
+            this.__maskWidget.show();
+            this.__menuWidget.show();
+            this.addClass( CONF.classPrefix + "button-active" );
         },
 
-        setLabel: function ( text ) {
-            return this.__labelWidget.setText( text );
+        close: function () {
+            this.__openState = false;
+            this.__maskWidget.hide();
+            this.__menuWidget.hide();
+            this.removeClass( CONF.classPrefix + "button-active" );
+        },
+
+        isOpen: function () {
+            return !!this.__openState;
+        },
+
+        getSelected: function () {
+            return this.__menuWidget.getSelected();
+        },
+
+        getSelectedItem: function () {
+            return this.__menuWidget.getSelectedItem();
+        },
+
+        getValue: function () {
+            return this.getSelectedItem().getValue();
         },
 
         __render: function () {
@@ -63,48 +85,90 @@ define( function ( require ) {
             }
 
             this.__initOptions();
+
             this.callBase();
 
-            this.__iconWidget = new Icon( this.__options.icon );
-            this.__labelWidget = new Label( this.__options.label );
+            this.__initButtons();
 
-            // layout
-            switch ( this.__options.layout ) {
+            this.__menuWidget = new Menu( this.__options.menu );
+            this.__maskWidget = new Mask( this.__options.mask );
 
-                case 'left':
-                case 'top':
-                    this.__element.appendChild( this.__labelWidget.getElement() );
-                    this.__element.appendChild( this.__iconWidget.getElement() );
-                    break;
+            this.__menuWidget.positionTo( this.__element );
+            this.__menuWidget.appendTo( this.__element.ownerDocument.body );
 
-                case 'right':
-                case 'bottom':
-                default:
-                    this.__element.appendChild( this.__iconWidget.getElement() );
-                    this.__element.appendChild( this.__labelWidget.getElement() );
-                    break;
-
-            }
-
-            $( this.__element ).addClass( CONF.classPrefix + "button-layout-"+this.__options.layout )
+            this.__initButtonMenuEvent();
 
         },
 
         __initOptions: function () {
 
-            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding' ], this.__options );
-
-            if ( typeof this.__options.label === "string" ) {
-                this.__options.label = {
-                    text: this.__options.label
-                };
+            if ( this.__options.selected !== -1 ) {
+                this.__options.menu.selected = this.__options.selected;
             }
 
-            if ( typeof this.__options.icon === "string" ) {
-                this.__options.icon = {
-                    img: this.__options.icon
+        },
+
+        __initButtons: function () {
+
+            var buttons = [],
+                ele = this.__element;
+
+            $.each( this.__options.buttons, function ( index, options ) {
+
+                var btn = new Button( options );
+                btn.appendTo( ele );
+
+                buttons.push( btn );
+
+            } );
+
+            this.__buttonWidgets = buttons;
+
+        },
+
+        __initButtonMenuEvent: function () {
+
+            var lastBtn = this.__buttonWidgets[ this.__buttonWidgets.length - 1 ],
+                _self = this;
+
+            lastBtn.on( "click", function ( e ) {
+
+                _self.open();
+
+            } );
+
+            this.__maskWidget.on( "maskclick", function () {
+
+                _self.close();
+
+            } );
+
+            this.__menuWidget.on( "select", function ( e, info ) {
+
+                e.stopPropagation();
+
+                _self.close();
+                _self.trigger( "select", info );
+
+            } ).on( "change", function ( e, info ) {
+
+                _self.trigger( "change", info );
+
+            } );
+
+            this.on( "btnclick", function ( e ) {
+
+                e.stopPropagation();
+
+                var btnIndex = $.inArray( e.widget, this.__buttonWidgets );
+
+                if ( btnIndex > -1 && btnIndex < this.__buttonWidgets.length - 1 ) {
+                    this.trigger( "buttonclick", {
+                        button: this.__buttonWidgets[ btnIndex ]
+                    } );
                 }
-            }
+
+            } );
 
         }
 

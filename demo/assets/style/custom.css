@@ -2,3 +2,9 @@
 .c-menu .fui-item {
     padding: 5px 20px;
 }
+
+.ext-open-btn {
+    width: 16px;
+    height: 50px;
+    background: red;
+}

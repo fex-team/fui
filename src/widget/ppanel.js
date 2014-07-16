@@ -109,9 +109,11 @@ define( function ( require ) {
         __position: function () {
 
             var location = null,
-                targetRect = Utils.getBound( this.__target );
+                targetRect = null;
 
             $( this.__element ).addClass( CONF.classPrefix + "ppanel-position" );
+
+            targetRect = Utils.getBound( this.__target );
 
             if ( this.__layout === 'center' || this.__layout === 'middle' ) {
 

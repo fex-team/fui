@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var buttonMenu = new FUI.ButtonMenu( {
+                selected: 1,
+                text: "编号",
+                buttons: [ {
+                    label: 'nihao'
+                }, {
+                    label: 'da'
+                } ],
+                menu: {
+                    items: [ "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi" ]
+                }
+            } );
+
+            buttonMenu.appendTo( document.body );
+
+            buttonMenu.on( "select", function ( e, info ) {
+
+                console.log(e.type, info )
+
+                console.log( this.getSelected() )
+                console.log( this.getSelectedItem() )
+                console.log( this.getValue() )
+
+            } );
+
+            buttonMenu.on( "change", function ( e, info ) {
+
+                console.log(e.type, info )
+
+            } );
+
+            buttonMenu.on( "buttonclick", function ( e, info ) {
+
+                console.log(e.type, info )
+
+            } );
+
+        };
+    </script>
+</head>
+<body>
+    <h1>ButtonMenu 示例</h1>
+</body>
+</html>
