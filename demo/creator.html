@@ -22,19 +22,18 @@
             var widgets = FUI.Creator.parse( {
 
                 'Button': {
-                    id: "hancong",
+                    id: "btn",
                     label: 'nihao'
                 }
 
             } );
 
-            window.widgets = widgets;
+            widgets.btn.appendTo( document.body );
 
         };
     </script>
 </head>
 <body>
-<h1>Dialog 示例</h1>
-<button id="openBtn">打开Dialog</button>
+<h1>Creator 示例</h1>
 </body>
 </html>
