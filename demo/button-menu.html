@@ -5,6 +5,13 @@
     <title>FUI</title>
 
     <link rel="stylesheet" type="text/css" href="../theme/fui.all.css">
+    <style type="text/css">
+
+        .ext-spelling {
+            text-align: center;
+        }
+
+    </style>
 
     <script src="../dev-lib/vash.js"></script>
     <script src="../dev-lib/jquery-1.11.1.js"></script>
@@ -21,11 +28,20 @@
 
             var buttonMenu = new FUI.ButtonMenu( {
                 selected: 1,
-                text: "编号",
+                text: "拼写检查",
+                layout: "bottom",
                 buttons: [ {
-                    label: 'nihao'
+                    width: 60,
+                    className: 'ext-spelling',
+                    icon: {
+                        img: 'assets/icon-demo/spelling.png'
+                    }
                 }, {
-                    label: 'da'
+                    label: '拼写检查',
+                    icon: {
+                        img: 'assets/icon-demo/small-down.png'
+                    },
+                    layout: 'top'
                 } ],
                 menu: {
                     items: [ "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi" ]

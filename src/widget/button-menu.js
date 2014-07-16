@@ -11,7 +11,8 @@ define( function ( require ) {
         Button = require( "widget/button" ),
         Menu = require( "widget/menu" ),
         Mask = require( "widget/mask" ),
-        Utils = require( "base/utils" );
+        Utils = require( "base/utils" ),
+        LAYOUT = CONF.layout;
 
     return require( "base/utils" ).createClass( "ButtonMenu", {
 
@@ -27,7 +28,8 @@ define( function ( require ) {
                 menu: null,
                 mask: null,
                 buttons: [],
-                selected: -1
+                selected: -1,
+                layout: LAYOUT.RIGHT
             };
 
             this.__extendOptions( defaultOptions, options );
@@ -111,16 +113,36 @@ define( function ( require ) {
         __initButtons: function () {
 
             var buttons = [],
-                ele = this.__element;
+                ele = this.__element,
+                btn = null,
+                lastIndex = this.__options.buttons.length - 1;
+
+            if ( this.__options.layout === LAYOUT.TOP || this.__options.layout === LAYOUT.LEFT ) {
+                btn = new Button( this.__options.buttons[ lastIndex ] );
+                btn.appendTo( ele );
+            } else {
+                lastIndex = -1;
+            }
 
             $.each( this.__options.buttons, function ( index, options ) {
 
-                var btn = new Button( options );
-                btn.appendTo( ele );
+                if ( lastIndex !== index ) {
 
-                buttons.push( btn );
+                    var button = new Button( options );
+                    button.appendTo( ele );
+
+                    buttons.push( button );
+
+                } else {
+
+                    buttons.push( btn );
+
+                }
 
             } );
+
+            this.addClass( CONF.classPrefix + "layout-" + this.__options.layout );
+            buttons[ buttons.length - 1 ].addClass( CONF.classPrefix + "open-btn" );
 
             this.__buttonWidgets = buttons;
 

@@ -66,3 +66,8 @@ html, body {
     height: 16px;
     background: url( "../icon-demo/list.png" ) no-repeat 0 0;
 }
+
+.ext-spelling {
+    width: 60px;
+    text-align: center;
+}
