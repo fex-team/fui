@@ -40,12 +40,12 @@ module.exports = function(grunt) {
         less: {
             develop: {
                 files: {
-                    'theme/fui.all.css': [ "theme/default/widget.less", "theme/default/container.less", "theme/default/**.less" ]
+                    'theme/default/fui.all.css': [ "theme/default/widget.less", "theme/default/container.less", "theme/default/**.less" ]
                 }
             },
             build: {
                 files: {
-                    'dist/themes/default.css': [ "theme/default/widget.less", "theme/default/container.less", "theme/default/**.less" ]
+                    'dist/theme/default/fui.css': [ "theme/default/widget.less", "theme/default/container.less", "theme/default/**.less" ]
                 }
             }
         },
@@ -146,8 +146,16 @@ module.exports = function(grunt) {
 
             min: {
                files: {
-                   'dist/themes/default.min.css': [ 'dist/themes/default.css' ]
+                   'dist/theme/default/fui.min.css': [ 'dist/theme/default/fui.css' ]
                }
+            }
+        },
+
+        copy: {
+            image: {
+                expand: true,
+                src: [ 'theme/default/images/**' ],
+                dest: 'dist/'
             }
         },
 
@@ -211,6 +219,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerMultiTask( 'tpl', function () {
 
@@ -223,6 +232,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask( 'default', [ 'jshint' ] );
     grunt.registerTask( 'dev', [ 'less', 'tpl', 'watch' ] );
-    grunt.registerTask( 'build', [ /*'jshint', */'dependence:replace', 'concat:full', 'uglify:minimize', 'less:build', 'cssmin', 'clean' ] );
+    grunt.registerTask( 'build', [ /*'jshint', */'dependence:replace', 'concat:full', 'uglify:minimize', 'less:build', 'cssmin', 'copy', 'clean' ] );
 
 };
