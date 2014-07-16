@@ -34,7 +34,8 @@
         "grunt-module-dependence": "~0.1.1",
         "grunt-contrib-jshint": "~0.10.0",
         "grunt-contrib-watch": "~0.6.1",
-        "grunt-contrib-less": "~0.11.3"
+        "grunt-contrib-less": "~0.11.3",
+        "grunt-contrib-cssmin": "~0.10.0"
     }
 
 }

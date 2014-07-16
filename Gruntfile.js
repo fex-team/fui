@@ -4,6 +4,17 @@
 
 module.exports = function(grunt) {
 
+    var cssBanner = '/*!\n' +
+        ' * ====================================================\n' +
+        ' * <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+        '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+        '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
+        ' * GitHub: <%= pkg.repository.url %> \n' +
+        ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n' +
+        ' * ====================================================\n' +
+        ' */\n';
+
     // Project configuration.
     grunt.initConfig({
 
@@ -30,6 +41,11 @@ module.exports = function(grunt) {
             develop: {
                 files: {
                     'theme/fui.all.css': [ "theme/default/widget.less", "theme/default/container.less", "theme/default/**.less" ]
+                }
+            },
+            build: {
+                files: {
+                    'dist/themes/default.css': [ "theme/default/widget.less", "theme/default/container.less", "theme/default/**.less" ]
                 }
             }
         },
@@ -69,16 +85,7 @@ module.exports = function(grunt) {
 
             options: {
 
-                banner: '/*!\n' +
-                    ' * ====================================================\n' +
-                    ' * <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-                    '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-                    '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
-                    ' * GitHub: <%= pkg.repository.url %> \n' +
-                    ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-                    ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n' +
-                    ' * ====================================================\n' +
-                    ' */\n',
+                banner: cssBanner,
 
                 beautify: {
                     ascii_only: true
@@ -120,6 +127,28 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc'
             },
             check: [ 'src/**/*.js' ]
+        },
+
+        cssmin: {
+            options: {
+                banner: '/*!\n' +
+                    ' * ====================================================\n' +
+                    ' * Themes file' +
+                    ' * <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+                    '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+                    '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' +
+                    ' * GitHub: <%= pkg.repository.url %> \n' +
+                    ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+                    ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n' +
+                    ' * ====================================================\n' +
+                    ' */\n'
+            },
+
+            min: {
+               files: {
+                   'dist/themes/default.min.css': [ 'dist/themes/default.css' ]
+               }
+            }
         },
 
         // 临时目录清理
@@ -181,6 +210,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-module-dependence');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     grunt.registerMultiTask( 'tpl', function () {
 
@@ -193,6 +223,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask( 'default', [ 'jshint' ] );
     grunt.registerTask( 'dev', [ 'less', 'tpl', 'watch' ] );
-    grunt.registerTask( 'build', [ /*'jshint', */'dependence:replace', 'concat:full', 'uglify:minimize', 'clean' ] );
+    grunt.registerTask( 'build', [ /*'jshint', */'dependence:replace', 'concat:full', 'uglify:minimize', 'less:build', 'cssmin', 'clean' ] );
 
 };

@@ -82,10 +82,13 @@
 .fui-button-menu.fui-button-active .fui-button {
   background: #d5e1f2;
 }
+.fui-button-menu.fui-layout-top,
+.fui-button-menu.fui-layout-bottom {
+  text-align: center;
+}
 .fui-button-menu.fui-layout-top .fui-open-btn,
 .fui-button-menu.fui-layout-bottom .fui-open-btn {
   display: block;
-  text-align: center;
 }
 
 /**
