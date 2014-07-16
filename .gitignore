@@ -10,7 +10,6 @@ npm-debug.log
 .idea
 log
 upload
-dist
 
 
 ###############
@@ -168,7 +167,6 @@ Desktop.ini
 # Packages
 *.egg
 *.egg-info
-dist
 eggs
 parts
 bin
