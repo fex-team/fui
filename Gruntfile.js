@@ -23,17 +23,21 @@ module.exports = function(grunt) {
 
         tpl: {
             source: {
-                src: [ 'src/tpl/origin/**/*.html' ]
+                src: [ 'src/tpl/origin/**/*.html', 'src/ext/word/tpl/origin/**/*.html' ]
             }
         },
 
         watch: {
             build: {
-                files: [ 'src/tpl/origin/**/*.html' ]
+                files: [ 'src/tpl/origin/**/*.html', 'src/ext/**/tpl/origin/**/*.html' ]
             },
             less: {
-                files: [ "theme/default/widget.less", "theme/default/container.less", "theme/default/**.less" ],
+                files: [ "theme/default/**.less" ],
                 tasks: [ 'less:develop' ]
+            },
+            "ext-word": {
+                files: [ "src/ext/word/theme/default/**/*.less" ],
+                tasks: [ 'less:ext-word' ]
             }
         },
 
@@ -46,6 +50,11 @@ module.exports = function(grunt) {
             build: {
                 files: {
                     'dist/theme/default/fui.css': [ "theme/default/widget.less", "theme/default/container.less", "theme/default/**.less" ]
+                }
+            },
+            "ext-word": {
+                files: {
+                    'src/ext/word/theme/default/word.all.css': [ "src/ext/word/theme/default/**/*.less" ]
                 }
             }
         },
@@ -177,7 +186,7 @@ module.exports = function(grunt) {
     function rebuildTpl ( filepath ) {
 
         var originSouce = grunt.file.read( filepath ),
-            targetFile = filepath.replace( 'src/tpl/origin/', 'src/tpl/' ).replace( /html$/, 'js' ),
+            targetFile = filepath.replace( 'tpl/origin/', 'tpl/' ).replace( /html$/, 'js' ),
             result = [];
 
         originSouce.split( '\n' ).forEach( function ( source ) {

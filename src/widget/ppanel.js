@@ -84,7 +84,11 @@ define( function ( require ) {
 
             docNode = this.__target.ownerDocument.documentElement;
 
-            if ( $.contains( docNode, this.__target ) && $.contains( docNode, this.__element ) ) {
+            if ( !$.contains( docNode, this.__element ) ) {
+                this.__target.ownerDocument.body.appendChild( this.__element );
+            }
+
+            if ( $.contains( docNode, this.__target ) ) {
                 this.callBase( Utils.getMarker() );
                 this.__position();
             }
@@ -131,12 +135,22 @@ define( function ( require ) {
 
             $( this.__element ).css( 'top', location.top + 'px' ).css( 'left', location.left + 'px' );
 
-            if ( this.__options.resize !== 'height' ) {
-                this.__resizeWidth( targetRect );
-            }
 
-            if ( this.__options.resize !== 'width' ) {
-                this.__resizeHeight();
+            switch ( this.__options.resize ) {
+
+                case 'all':
+                    this.__resizeWidth( targetRect );
+                    this.__resizeHeight();
+                    break;
+
+                case 'width':
+                    this.__resizeWidth( targetRect );
+                    break;
+
+                case 'height':
+                    this.__resizeHeight();
+                    break;
+
             }
 
         },

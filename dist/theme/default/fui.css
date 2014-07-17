@@ -451,6 +451,9 @@
   width: 100%;
   height: 100%;
 }
+.fui-panel.fui-container-break {
+  font-size: 0;
+}
 .fui-panel.fui-container-break .fui-break {
   display: block;
 }
@@ -458,9 +461,32 @@
 /**
  * 通用button
  */
+.fui-ppanel::-webkit-scrollbar {
+  width: 15px;
+}
+.fui-ppanel::-webkit-scrollbar-button:start:decrement,
+.fui-ppanel::-webkit-scrollbar-button:end:decrement,
+.fui-ppanel::-webkit-scrollbar-button:start:increment,
+.fui-ppanel::-webkit-scrollbar-button:end:increment,
+.fui-ppanel::-webkit-scrollbar-thumb {
+  border: 1px solid #e7e7e7;
+}
 .fui-ppanel.fui-ppanel-position {
   position: fixed;
   z-index: 99999;
+}
+
+/**
+ * Spin-button
+ */
+.fui-spin-button .fui-spin-up-btn .fui-icon,
+.fui-spin-button .fui-spin-down-btn .fui-icon {
+  width: 16px;
+  height: 9px;
+  background: url("images/up.png") no-repeat 3px 1.5px;
+}
+.fui-spin-button .fui-spin-down-btn .fui-icon {
+  background-image: url("images/down.png");
 }
 
 /**

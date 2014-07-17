@@ -1,0 +1,28 @@
+.fui-t-picker table {
+  table-layout: fixed;
+  border-spacing: 2px;
+  border-width: 0;
+}
+.fui-t-picker td {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #e3e3e3;
+}
+
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-table-picker-panel {
+  border: 1px solid #d3d3d3;
+}
+.fui-table-picker-panel .fui-label {
+  display: block;
+  background: #e0e0e0;
+  padding: 5px 0 5px 2px;
+  text-align: left!important;
+}
+.fui-table-picker-panel .fui-table-picker-hoverin {
+  border-color: #87a9da;
+}

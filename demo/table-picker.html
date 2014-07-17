@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/default/fui.all.css">
+    <link rel="stylesheet" type="text/css" href="../src/ext/word/theme/default/word.all.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/style/custom.css">
+
+    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var tablePicker = new FUI.TablePicker( {
+                button: {
+                    label: '表格',
+                    icon: {
+                        className: 'ext-table-icon'
+                    }
+                }
+            } );
+
+            tablePicker.appendTo( document.body );
+
+            tablePicker.on( "pickerselect", function ( e, info ) {
+
+                console.log( this.widgetName + ', ' + e.type, info );
+
+            } );
+
+        };
+    </script>
+</head>
+<body>
+    <h1>FUI.TablePicker 示例</h1>
+</body>
+</html>

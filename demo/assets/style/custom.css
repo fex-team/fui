@@ -8,3 +8,9 @@
     height: 50px;
     background: red;
 }
+
+.ext-table-icon {
+    width: 24px;
+    height: 24px;
+    background: url( "../icon-demo/table.png" ) no-repeat 0 0;
+}
