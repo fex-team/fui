@@ -27,7 +27,7 @@ define( function ( require ) {
                 icon: null,
                 width: null,
                 height: null,
-                padding: 2,
+                padding: null,
                 // label相对icon的位置
                 layout: 'right'
             };

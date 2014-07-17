@@ -21,6 +21,7 @@ define( function ( require ) {
         Mask: require( "widget/mask" ),
         ColorPicker: require( "widget/colorpicker" ),
         Tabs: require( "widget/tabs" ),
+        SpinButton: require( "widget/spin-button" ),
 
         Container: require( "widget/container" ),
         Panel: require( "widget/panel" ),

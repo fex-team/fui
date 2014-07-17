@@ -4,6 +4,14 @@
 
 .fui-ppanel {
 
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  &::-webkit-scrollbar-button:start:decrement, &::-webkit-scrollbar-button:end:decrement, &::-webkit-scrollbar-button:start:increment, &::-webkit-scrollbar-button:end:increment, &::-webkit-scrollbar-thumb {
+    border: 1px solid #e7e7e7;
+  }
+
   &.fui-ppanel-position {
     position: fixed;
     z-index: 99999;
