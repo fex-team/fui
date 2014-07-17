@@ -55,12 +55,19 @@ define( function ( require ) {
             this.__update( index );
         },
 
+        // 根据值进行选择
+        selectByValue: function ( value ) {
+            value = value + "";
+            this.__update( $.inArray( value, this.__options.items ) );
+        },
+
         __render: function () {
 
             if ( this.__rendered ) {
                 return this;
             }
 
+            this.__initOptions();
             this.callBase();
 
             this.__buttons = [
@@ -135,6 +142,18 @@ define( function ( require ) {
                 } );
 
             }
+
+        },
+
+        __initOptions: function () {
+
+            var items = this.__options.items;
+
+            $.each( items, function ( index, val ) {
+
+                items[ index ] = val + '';
+
+            } );
 
         }
 
