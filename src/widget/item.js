@@ -65,7 +65,7 @@ define( function ( require ) {
 
         },
 
-        isSelect: function () {
+        isSelected: function () {
             return this.__selectState;
         },
 

@@ -239,6 +239,12 @@
   height: auto!important;
   padding: 2px;
 }
+.fui-dialog .fui-dialog-head {
+  display: table-row;
+}
+.fui-dialog .fui-dialog-head > * {
+  vertical-align: middle;
+}
 .fui-dialog .fui-dialog-caption {
   margin: 0;
   padding: 5px;
@@ -246,9 +252,6 @@
   font-weight: normal;
   line-height: 1;
   display: inline-block;
-}
-.fui-dialog .fui-close-button {
-  float: right;
 }
 .fui-dialog .fui-close-button .fui-close-button-icon {
   width: 16px;

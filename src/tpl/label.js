@@ -1,3 +1,3 @@
 define( function () {
-return '<div unselectable="on" class="fui-label" >@(m.text)</div>'
+return '<div unselectable="on" class="fui-label">$text</div>\n'
 } );

@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" type="text/css" href="../theme/default/fui.all.css">
 
-    <script src="../dev-lib/vash.js"></script>
+    <script src="../dev-lib/jhtmls.min.js"></script>
     <script src="../dev-lib/jquery-1.11.1.js"></script>
     <script src="../dev-lib/dev-define.js"></script>
     <script>
@@ -22,7 +22,8 @@
             var item = new FUI.Item( {
                 icon: "assets/icon/linux.png",
                 label: 'Linux',
-                padding: '5px 20px'
+                padding: '5px 20px',
+                selected: true
             } );
 
             item.appendTo( document.body );

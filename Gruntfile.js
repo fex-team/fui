@@ -192,7 +192,7 @@ module.exports = function(grunt) {
         originSouce.split( '\n' ).forEach( function ( source ) {
             source = source.trim();
             if ( source.length ) {
-                result.push( "'" + source.trim().replace( /'/g, '\\\'' ) + "'" );
+                result.push( "'" + source.trim().replace( /'/g, '\\\'' ) + "\\n'" );
             }
         } );
 

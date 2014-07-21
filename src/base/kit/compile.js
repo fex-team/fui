@@ -4,15 +4,20 @@
 
 define( function ( require ) {
 
-    var vash = require( "base/vash" ),
-        $ = require( "base/jquery" ),
-        defaultOptions = {
-            htmlEscape: false,
-            helpersName: 'h',
-            modelName: 'm'
-        };
+    var jhtmls = require( "base/jhtmls" ),
+        $ = require( "base/jquery" );
 
-    $.extend( vash.helpers, {
+    var Helper = {
+
+        forEach: function ( arras, cb ) {
+
+            $.each( arras, function ( i, item ) {
+
+                cb.call( null, i, item );
+
+            } );
+
+        },
 
         toSpaceStyle: function ( space ) {
 
@@ -60,10 +65,11 @@ define( function ( require ) {
 
         }
 
-    } );
+    };
 
     return {
-        compile: function ( tpl, data, compileOptions ) {
+
+        compile: function ( tpl, data ) {
 
             tpl = $.trim( tpl );
 
@@ -71,13 +77,10 @@ define( function ( require ) {
                 return "";
             }
 
-            compileOptions = $.extend( true, {}, defaultOptions, compileOptions );
-
-            var tpl = vash.compile( tpl, compileOptions );
-
-            return tpl( data );
+            return jhtmls.render( tpl, data, Helper );
 
         }
+
     };
 
 } );
