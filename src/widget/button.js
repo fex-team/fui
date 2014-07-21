@@ -25,9 +25,6 @@ define( function ( require ) {
                 label: null,
                 text: null,
                 icon: null,
-                width: null,
-                height: null,
-                padding: null,
                 // label相对icon的位置
                 layout: 'right'
             };
@@ -94,15 +91,13 @@ define( function ( require ) {
 
         __initOptions: function () {
 
-            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding' ], this.__options );
-
-            if ( typeof this.__options.label === "string" ) {
+            if ( typeof this.__options.label !== "object" ) {
                 this.__options.label = {
                     text: this.__options.label
                 };
             }
 
-            if ( typeof this.__options.icon === "string" ) {
+            if ( typeof this.__options.icon !== "object" ) {
                 this.__options.icon = {
                     img: this.__options.icon
                 }

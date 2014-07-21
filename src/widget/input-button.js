@@ -24,9 +24,6 @@ define( function ( require ) {
             var defaultOptions = {
                 button: null,
                 input: null,
-                width: null,
-                height: null,
-                padding: null,
                 // label相对icon的位置
                 layout: 'right'
             };
@@ -129,8 +126,6 @@ define( function ( require ) {
         },
 
         __initOptions: function () {
-
-            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding' ], this.__options );
 
             if ( typeof this.__options.button !== "object" ) {
                 this.__options.button = {

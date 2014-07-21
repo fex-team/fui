@@ -26,7 +26,9 @@ define( function ( require ) {
                 preventDefault: false,
                 text: '',
                 value: null,
-                hide: false
+                hide: false,
+                width: null,
+                height: null
             };
 
             this.__widgetType = 'widget';
@@ -169,6 +171,7 @@ define( function ( require ) {
             }
 
             this.__rendered = true;
+
             this.id = this.__id();
 
             // 向NS注册自己
@@ -196,9 +199,7 @@ define( function ( require ) {
                 }
             }
 
-            if ( this.__options.text && this.__allowShowTitle() ) {
-                this.__element.setAttribute( "title", this.__options.text );
-            }
+            this.__initCommonStyle();
 
             if ( this.__options.hide ) {
                 this.__hide();
@@ -303,6 +304,22 @@ define( function ( require ) {
 
         __show: function () {
             $( this.__element ).removeClass( CONF.classPrefix + "hide" );
+        },
+
+        __initCommonStyle: function () {
+
+            if ( this.__options.text && this.__allowShowTitle() ) {
+                this.__element.setAttribute( "title", this.__options.text );
+            }
+
+            if ( this.__options.width ) {
+                this.__element.style.width = this.__options.width + 'px';
+            }
+
+            if ( this.__options.height ) {
+                this.__element.style.height = this.__options.height + 'px';
+            }
+
         },
 
         __id: function () {

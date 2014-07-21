@@ -23,9 +23,6 @@ define( function ( require ) {
             var defaultOptions = {
                 label: '',
                 icon: null,
-                width: null,
-                height: null,
-                padding: null,
                 selected: false,
                 textAlign: 'left'
             };
@@ -139,8 +136,6 @@ define( function ( require ) {
          * @private
          */
         __initOptions: function () {
-
-            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding' ], this.__options );
 
             if ( typeof this.__options.label !== "object" ) {
                 this.__options.label = {

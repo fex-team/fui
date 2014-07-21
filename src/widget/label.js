@@ -19,9 +19,6 @@ define( function ( require ) {
 
             var defaultOptions = {
                 text: '',
-                width: null,
-                height: null,
-                padding: null,
                 textAlign: 'center'
             };
 
@@ -84,10 +81,6 @@ define( function ( require ) {
         __initOptions: function () {
 
             this.__options.text = this.__options.text.toString();
-
-            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'padding', {
-                textAlign: 'text-align'
-            } ], this.__options );
 
         }
 

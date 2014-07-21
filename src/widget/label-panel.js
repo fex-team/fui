@@ -90,7 +90,7 @@ define( function ( require ) {
 
             this.callBase();
 
-            if ( typeof label === "string" ) {
+            if ( typeof label !== "object" ) {
                 this.__options.label = {
                     text: label
                 }

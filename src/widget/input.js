@@ -19,13 +19,7 @@ define( function ( require ) {
             var marker = Utils.getMarker();
             this.callBase( marker );
 
-            var defaultOptions = {
-                width: null,
-                height: null,
-                border: null,
-                padding: null,
-                color: null
-            };
+            var defaultOptions = {};
 
             this.__extendOptions( defaultOptions, options );
 
@@ -87,8 +81,6 @@ define( function ( require ) {
                 return this;
             }
 
-            this.__initOptions();
-
             this.callBase();
 
             this.__element.removeAttribute( "unselectable" );
@@ -108,12 +100,6 @@ define( function ( require ) {
                 }
 
             } );
-
-        },
-
-        __initOptions: function () {
-
-            this.__options.__css = Utils.getCssRules( [ 'width', 'height', 'border', 'padding', 'color' ], this.__options );
 
         }
 

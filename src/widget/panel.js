@@ -19,9 +19,7 @@ define( function ( require ) {
 
             var defaultOptions = {
                 width: null,
-                height: null,
-                padding: null,
-                margin: 0
+                height: null
             };
 
             this.__extendOptions( defaultOptions, options );
@@ -36,26 +34,6 @@ define( function ( require ) {
 
         },
 
-        appendWidget: function ( widget ) {
-
-            var returnValue = this.callBase( widget );
-
-            return returnValue;
-
-        },
-
-        insertWidget: function ( index, widget ) {
-
-            var returnValue = this.callBase( index, widget );
-
-            if ( this.__options.margin ) {
-                widget.getElement().style.margin = this.__options.margin;
-            }
-
-            return returnValue;
-
-        },
-
         __render: function () {
 
             var $content = null;
@@ -64,8 +42,6 @@ define( function ( require ) {
                 return this;
             }
 
-            this.__initOptions();
-
             this.callBase();
 
             $content = $( '<div class="fui-panel-content"></div>' );
@@ -73,31 +49,6 @@ define( function ( require ) {
             this.__contentElement.appendChild( $content[ 0 ] );
 
             this.__contentElement = $content[ 0 ];
-
-        },
-
-        __initOptions: function () {
-
-            var cssMapping = {},
-                options = this.__options,
-                value = null;
-
-            $.each( [ 'width', 'height', 'padding' ], function ( i, item ) {
-
-                value = options[ item ];
-
-                if ( value !== null && value !== undefined ) {
-                    cssMapping[ item ] = value;
-                }
-
-            } );
-
-            options.__css = cssMapping;
-
-            // margin
-            if ( typeof this.__options.margin === "number" ) {
-                this.__options.margin += 'px';
-            }
 
         }
 

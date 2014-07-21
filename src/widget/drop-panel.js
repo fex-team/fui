@@ -133,12 +133,6 @@ define( function ( require ) {
             $content = $('<div class="' + CONF.classPrefix + 'drop-panel-content"></div>').append(this.__panelWidget.getElement());
             this.__contentElement = $content[0];
 
-            // 设置样式
-            $content.css(Utils.getCssRules( [ 'width', 'height', 'padding' ], this.__options ));
-            if (this.__options.margin) {
-                $(this.elements).css('margin', this.__options.margin);
-            }
-
             // 插入按钮到element
             $(this.__element).append($content).append(this.__buttonWidget.getElement());
             this.__initDropPanelEvent();
@@ -147,9 +141,7 @@ define( function ( require ) {
 
         __initOptions: function () {
 
-            this.__options.__css = Utils.getCssRules( ['height' ], this.__options );
-
-            if ( typeof this.__options.button === "string" ) {
+            if ( typeof this.__options.button !== "object" ) {
                 this.__options.input = {
                     icon: this.__options.button
                 };

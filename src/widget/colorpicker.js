@@ -20,10 +20,6 @@ define( function ( require ) {
             this.callBase( marker );
 
             var defaultOptions = {
-                width: null,
-                height: null,
-                padding: null,
-                margin: 0,
                 clearText: '',
                 commonText: '',
                 commonColor: [

@@ -80,15 +80,7 @@ define( function ( require ) {
                 return this;
             }
 
-            this.__initOptions();
-
             this.callBase();
-
-        },
-
-        __initOptions: function () {
-
-            this.__options.__css = Utils.getCssRules( [ 'width', 'height' ], this.__options );
 
         }
 
