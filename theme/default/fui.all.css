@@ -25,6 +25,14 @@
   top: 0;
   left: 0;
 }
+.fui-widget.fui-selectable {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-user-drag: text;
+}
 .fui-widget * {
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -231,6 +239,12 @@
   height: auto!important;
   padding: 2px;
 }
+.fui-dialog .fui-dialog-head {
+  display: table-row;
+}
+.fui-dialog .fui-dialog-head > * {
+  vertical-align: middle;
+}
 .fui-dialog .fui-dialog-caption {
   margin: 0;
   padding: 5px;
@@ -238,9 +252,6 @@
   font-weight: normal;
   line-height: 1;
   display: inline-block;
-}
-.fui-dialog .fui-close-button {
-  float: right;
 }
 .fui-dialog .fui-close-button .fui-close-button-icon {
   width: 16px;

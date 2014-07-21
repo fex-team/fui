@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-07-16
+ * Flex UI - v1.0.0 - 2014-07-20
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -42,7 +42,7 @@ var _p = {
  */
 _p[0] = {
     value: function(require) {
-        var Creator = {}, $ = _p.r(2), FUI_NS = _p.r(9);
+        var Creator = {}, $ = _p.r(3), FUI_NS = _p.r(10);
         $.extend(Creator, {
             parse: function(options) {
                 var pool = {}, instance = null, optionList = null;
@@ -75,31 +75,32 @@ _p[0] = {
  */
 _p[1] = {
     value: function(require) {
-        var FUI_NS = _p.r(9);
+        var FUI_NS = _p.r(10);
         FUI_NS.___register({
-            Widget: _p.r(50),
-            Icon: _p.r(36),
-            Label: _p.r(42),
-            Button: _p.r(31),
-            ToggleButton: _p.r(49),
-            Buttonset: _p.r(30),
-            Separator: _p.r(47),
-            Item: _p.r(40),
-            Input: _p.r(39),
-            InputButton: _p.r(37),
-            Mask: _p.r(43),
-            ColorPicker: _p.r(32),
-            Tabs: _p.r(48),
-            Container: _p.r(33),
-            Panel: _p.r(45),
-            PPanel: _p.r(46),
-            LabelPanel: _p.r(41),
-            Menu: _p.r(44),
-            InputMenu: _p.r(38),
-            ButtonMenu: _p.r(28),
-            DropPanel: _p.r(35),
-            Dialog: _p.r(34),
-            Utils: _p.r(11),
+            Widget: _p.r(57),
+            Icon: _p.r(42),
+            Label: _p.r(48),
+            Button: _p.r(37),
+            ToggleButton: _p.r(56),
+            Buttonset: _p.r(36),
+            Separator: _p.r(53),
+            Item: _p.r(46),
+            Input: _p.r(45),
+            InputButton: _p.r(43),
+            Mask: _p.r(49),
+            ColorPicker: _p.r(38),
+            Tabs: _p.r(55),
+            SpinButton: _p.r(54),
+            Container: _p.r(39),
+            Panel: _p.r(51),
+            PPanel: _p.r(52),
+            LabelPanel: _p.r(47),
+            Menu: _p.r(50),
+            InputMenu: _p.r(44),
+            ButtonMenu: _p.r(34),
+            DropPanel: _p.r(41),
+            Dialog: _p.r(40),
+            Utils: _p.r(12),
             Creator: _p.r(0)
         });
         FUI_NS.__export();
@@ -107,9 +108,21 @@ _p[1] = {
 };
 
 /**
- * jquery模块封装
+ * 扩展模块暴露
  */
 _p[2] = {
+    value: function(require) {
+        var FUI_NS = _p.r(10);
+        FUI_NS.___register({
+            TablePicker: _p.r(17)
+        });
+    }
+};
+
+/**
+ * jquery模块封装
+ */
+_p[3] = {
     value: function(require) {
         return window.jQuery;
     }
@@ -127,7 +140,7 @@ _p[2] = {
  * TODO:
  *     Mixin 构造函数调用支持
  */
-_p[3] = {
+_p[4] = {
     value: function(require, exports) {
         // just to bind context
         Function.prototype.bind = Function.prototype.bind || function(thisObj) {
@@ -286,9 +299,9 @@ _p[3] = {
 /**
  * 通用工具包
  */
-_p[4] = {
+_p[5] = {
     value: function(require) {
-        var $ = _p.r(2), __marker = "__fui__marker__" + +new Date();
+        var $ = _p.r(3), __marker = "__fui__marker__" + +new Date();
         return {
             isElement: function(target) {
                 return target.nodeType === 1;
@@ -363,9 +376,9 @@ _p[4] = {
 /**
  * 模板编译器
  */
-_p[5] = {
+_p[6] = {
     value: function(require) {
-        var vash = _p.r(12), $ = _p.r(2), defaultOptions = {
+        var vash = _p.r(13), $ = _p.r(3), defaultOptions = {
             htmlEscape: false,
             helpersName: "h",
             modelName: "m"
@@ -417,9 +430,9 @@ _p[5] = {
 /**
  * Draggable Lib
  */
-_p[6] = {
+_p[7] = {
     value: function(require, exports) {
-        var $ = _p.r(2), common = _p.r(4), DEFAULT_OPTIONS = {
+        var $ = _p.r(3), common = _p.r(5), DEFAULT_OPTIONS = {
             handler: null,
             target: null,
             axis: "all",
@@ -557,9 +570,9 @@ _p[6] = {
 /**
  * 弥补jQuery的extend在克隆对象和数组时存在的问题
  */
-_p[7] = {
+_p[8] = {
     value: function(require) {
-        var $ = _p.r(2);
+        var $ = _p.r(3);
         function extend(target) {
             var type = null, isPlainObject = false, isArray = false, sourceObj = null;
             if (arguments.length === 1) {
@@ -612,7 +625,7 @@ _p[7] = {
 /**
  * 构件相关工具方法
  */
-_p[8] = {
+_p[9] = {
     value: function(require) {
         return {
             isContainer: function(widget) {
@@ -625,7 +638,7 @@ _p[8] = {
 /**
  * FUI名称空间
  */
-_p[9] = {
+_p[10] = {
     value: function() {
         // 容纳所有构件的实例池
         var WIDGET_POOL = {};
@@ -661,7 +674,7 @@ _p[9] = {
 /**
  * UI系统配置
  */
-_p[10] = {
+_p[11] = {
     value: function() {
         return {
             classPrefix: "fui-",
@@ -680,111 +693,318 @@ _p[10] = {
 /**
  * utils类包， 提供常用操作的封装，补充jQuery的不足
  */
-_p[11] = {
+_p[12] = {
     value: function(require) {
-        var $ = _p.r(2), Utils = {
-            Tpl: _p.r(5),
-            Widget: _p.r(8),
-            createDraggable: _p.r(6)
+        var $ = _p.r(3), Utils = {
+            Tpl: _p.r(6),
+            Widget: _p.r(9),
+            createDraggable: _p.r(7)
         };
-        return $.extend(Utils, _p.r(4), _p.r(3));
+        return $.extend(Utils, _p.r(5), _p.r(4));
     }
 };
 
 /**
  * vash模板引擎
  */
-_p[12] = {
+_p[13] = {
     value: function() {
         return window.vash;
     }
 };
 
-_p[13] = {
-    value: function() {
-        return '<div unselectable="on" class="fui-button-menu" @h.toCssText( m.__css )></div>';
-    }
-};
-
 _p[14] = {
     value: function() {
-        return '<div unselectable="on" class="fui-button" @h.toCssText( m.__css )></div>';
+        return '<div unselectable="on" class="fui-t-picker"></div>';
     }
 };
 
 _p[15] = {
     value: function() {
-        return '<div unselectable="on" class="fui-colorpicker-container" @h.toCssText( m.__css )>' + '<div unselectable="on" class="fui-colorpicker-toolbar">' + '<div unselectable="on" class="fui-colorpicker-preview"></div>' + '<div unselectable="on" class="fui-colorpicker-clear">@m.clearText</div>' + "</div>" + '<div unselectable="on" class="fui-colorpicker-title">@m.commonText</div>' + '<div unselectable="on" class="fui-colorpicker-commoncolor">' + "@m.commonColor.forEach(function(colors, i){" + '<div unselectable="on" class="fui-colorpicker-colors fui-colorpicker-colors-line@i">' + "@colors.forEach(function(color){" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: @color; border-color: @(color.toLowerCase() == \'#ffffff\' ? \'#eeeeee\':color);" data-color="@color"></span>' + "})" + "</div>" + "})" + "</div>" + '<div unselectable="on" class="fui-colorpicker-title">@m.standardText</div>' + '<div unselectable="on" class="fui-colorpicker-standardcolor fui-colorpicker-colors">' + "@m.standardColor.forEach(function(color){" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: @color; border-color: @color;" data-color="@color"></span>' + "})" + "</div>" + "</div>";
+        return '<div unselectable="on" class="fui-table-picker"></div>';
     }
 };
 
+/**
+ * TPicker -- table 选择器
+ */
 _p[16] = {
-    value: function() {
-        return '<div unselectable="on" class="fui-dialog-wrap">' + '<div unselectable="on" class="fui-dialog-head">' + '<h1 unselectable="on" class="fui-dialog-caption">@(m.caption)</h1>' + "</div>" + '<div unselectable="on" class="fui-dialog-body"></div>' + '<div unselectable="on" class="fui-dialog-foot"></div>' + "</div>";
+    value: function(require) {
+        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(14), Utils = _p.r(12);
+        return _p.r(12).createClass("TPicker", {
+            base: _p.r(57),
+            constructor: function(options) {
+                var marker = Utils.getMarker();
+                this.callBase(marker);
+                var defaultOptions = {
+                    // 10行 10列
+                    row: 10,
+                    col: 10
+                };
+                this.__extendOptions(defaultOptions, options);
+                this.widgetName = "TPicker";
+                this.__tpl = tpl;
+                // 背板
+                this.__backplane = null;
+                if (options !== marker) {
+                    this.__render();
+                }
+            },
+            __render: function() {
+                var _self = this;
+                if (this.__rendered) {
+                    return this;
+                }
+                this.callBase();
+                this.__backplane = this.__createBackplane();
+                this.__element.appendChild(this.__backplane);
+                this.__initTPickerEvent();
+            },
+            __initTPickerEvent: function() {
+                var _self = this;
+                $(this.__backplane).delegate("td", "mousemove click", function(e) {
+                    var info = e.target.getAttribute("data-index").split(",");
+                    info = {
+                        row: parseInt(info[0], 10),
+                        col: parseInt(info[1], 10)
+                    };
+                    if (e.type === "click") {
+                        _self.__select(info.row, info.col);
+                    } else {
+                        _self.__update(info.row, info.col);
+                    }
+                });
+            },
+            __select: function(row, col) {
+                this.trigger("pickerselect", {
+                    row: row,
+                    col: col
+                });
+            },
+            __update: function(row, col) {
+                var tr = null, rowCount = this.__options.row, colCount = this.__options.col, className = CONF.classPrefix + "table-picker-hoverin";
+                for (var i = 0; i < rowCount; i++) {
+                    tr = this.__backplane.rows[i];
+                    for (var j = 0; j < colCount; j++) {
+                        if (i <= row && j <= col) {
+                            tr.cells[j].className = className;
+                        } else {
+                            tr.cells[j].className = "";
+                        }
+                    }
+                }
+                this.trigger("pickerhover", {
+                    row: row,
+                    col: col
+                });
+            },
+            __createBackplane: function() {
+                var tpl = [], tmp = null;
+                for (var i = 0, len = this.__options.row; i < len; i++) {
+                    tmp = [];
+                    for (var j = 0, jlen = this.__options.col; j < jlen; j++) {
+                        tmp.push('<td data-index="' + i + "," + j + '"></td>');
+                    }
+                    tpl.push("<tr>" + tmp.join("") + "</tr>");
+                }
+                tpl = $("<table><tbody>" + tpl.join("") + "</tbody></table>");
+                tpl.addClass(CONF.classPrefix + "t-picker-table");
+                return tpl[0];
+            }
+        });
     }
 };
 
+/**
+ * Table选择器构件
+ */
 _p[17] = {
-    value: function() {
-        return "<div unselectable=\"on\" class=\"fui-drop-panel\" @h.toCssText( m.__css ) @( m.text ? 'title=\"' + m.text + '\"' : '' )></div>";
+    value: function(require) {
+        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(15), Label = _p.r(48), TPicker = _p.r(16), Button = _p.r(37), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(12);
+        return _p.r(12).createClass("TablePicker", {
+            base: _p.r(57),
+            constructor: function(options) {
+                var marker = Utils.getMarker();
+                this.callBase(marker);
+                var defaultOptions = {
+                    button: null,
+                    row: 10,
+                    col: 10
+                };
+                this.__extendOptions(defaultOptions, options);
+                this.widgetName = "TablePicker";
+                this.__tpl = tpl;
+                this.__pickerWidget = null;
+                this.__labelWidget = null;
+                this.__buttonWidget = null;
+                this.__panelWidget = null;
+                this.__maskWidget = null;
+                if (options !== marker) {
+                    this.__render();
+                }
+            },
+            open: function() {
+                this.__panelWidget.show();
+                this.__maskWidget.show();
+            },
+            close: function() {
+                this.__panelWidget.hide();
+                this.__maskWidget.hide();
+            },
+            // Overload
+            appendTo: function(container) {
+                container.appendChild(this.__buttonWidget.getElement());
+            },
+            __render: function() {
+                var _self = this;
+                if (this.__rendered) {
+                    return this;
+                }
+                this.callBase();
+                this.__pickerWidget = new TPicker(this.__options);
+                this.__labelWidget = new Label({
+                    text: "插入表格"
+                });
+                this.__buttonWidget = new Button(this.__options.button);
+                this.__panelWidget = new PPanel({
+                    className: CONF.classPrefix + "table-picker-panel",
+                    "break": true,
+                    resize: "none"
+                });
+                this.__maskWidget = new Mask();
+                this.__panelWidget.appendWidget(this.__labelWidget);
+                this.__panelWidget.appendWidget(this.__pickerWidget);
+                this.__panelWidget.positionTo(this.__buttonWidget);
+                this.__initTablePickerEvent();
+            },
+            __initTablePickerEvent: function() {
+                var _self = this;
+                this.__buttonWidget.on("btnclick", function(e) {
+                    _self.open();
+                });
+                this.__maskWidget.on("maskclick", function(e) {
+                    _self.close();
+                });
+                this.__pickerWidget.on("pickerhover", function(e, info) {
+                    var row = info.row + 1, col = info.col + 1;
+                    _self.__labelWidget.setText(row + "x" + col + " 表格");
+                }).on("pickerselect", function(e, info) {
+                    var row = info.row + 1, col = info.col + 1;
+                    _self.close();
+                    _self.trigger("pickerselect", {
+                        row: row,
+                        col: col
+                    });
+                });
+            },
+            __createBackplane: function() {
+                var tpl = [], tmp = null;
+                for (var i = 0, len = this.__options.row; i < len; i++) {
+                    tmp = [];
+                    for (var j = 0, jlen = this.__options.col; j < jlen; j++) {
+                        tmp.push('<td data-index="' + i + "," + j + '"></td>');
+                    }
+                    tpl.push("<tr>" + tmp.join("") + "</tr>");
+                }
+                tpl = $("<table><tbody>" + tpl.join("") + "</tbody></table>");
+                tpl.addClass(CONF.classPrefix + "t-picker-table");
+                return tpl[0];
+            }
+        });
     }
 };
 
 _p[18] = {
     value: function() {
-        return '<div unselectable="on" class="fui-icon" @h.toCssText( m.__css )>' + "@if ( m.img ) {" + '<img unselectable="on" src="@m.img" @h.toCssText( m.__css )>' + "}" + "</div>";
+        return '<div unselectable="on" class="fui-button-menu"></div>';
     }
 };
 
 _p[19] = {
     value: function() {
-        return '<div unselectable="on" class="fui-input-button" @h.toCssText( m.__css )></div>';
+        return '<div unselectable="on" class="fui-button"></div>';
     }
 };
 
 _p[20] = {
     value: function() {
-        return '<div unselectable="on" class="fui-input-menu"></div>';
+        return '<div unselectable="on" class="fui-colorpicker-container">' + '<div unselectable="on" class="fui-colorpicker-toolbar">' + '<div unselectable="on" class="fui-colorpicker-preview"></div>' + '<div unselectable="on" class="fui-colorpicker-clear">@m.clearText</div>' + "</div>" + '<div unselectable="on" class="fui-colorpicker-title">@m.commonText</div>' + '<div unselectable="on" class="fui-colorpicker-commoncolor">' + "@m.commonColor.forEach(function(colors, i){" + '<div unselectable="on" class="fui-colorpicker-colors fui-colorpicker-colors-line@i">' + "@colors.forEach(function(color){" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: @color; border-color: @(color.toLowerCase() == \'#ffffff\' ? \'#eeeeee\':color);" data-color="@color"></span>' + "})" + "</div>" + "})" + "</div>" + '<div unselectable="on" class="fui-colorpicker-title">@m.standardText</div>' + '<div unselectable="on" class="fui-colorpicker-standardcolor fui-colorpicker-colors">' + "@m.standardColor.forEach(function(color){" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: @color; border-color: @color;" data-color="@color"></span>' + "})" + "</div>" + "</div>";
     }
 };
 
 _p[21] = {
     value: function() {
-        return '<input unselectable="on" class="fui-input" @h.toCssText( m.__css ) autocomplete="off" @( m.value ? \'value="\' + m.value + \'"\' : \'\')>';
+        return '<div unselectable="on" class="fui-dialog-wrap">' + '<div unselectable="on" class="fui-dialog-head">' + '<h1 unselectable="on" class="fui-dialog-caption">@(m.caption)</h1>' + "</div>" + '<div unselectable="on" class="fui-dialog-body"></div>' + '<div unselectable="on" class="fui-dialog-foot"></div>' + "</div>";
     }
 };
 
 _p[22] = {
     value: function() {
-        return "<div unselectable=\"on\" class=\"fui-item@( m.selected ? ' fui-item-selected': '' )\" @h.toCssText( m.__css )></div>";
+        return "<div unselectable=\"on\" class=\"fui-drop-panel\"  @( m.text ? 'title=\"' + m.text + '\"' : '' )></div>";
     }
 };
 
 _p[23] = {
     value: function() {
-        return '<div unselectable="on" class="fui-label" @h.toCssText( m.__css )>@(m.text)</div>';
+        return '<div unselectable="on" class="fui-icon" >' + "@if ( m.img ) {" + '<img unselectable="on" src="@m.img" >' + "}" + "</div>";
     }
 };
 
 _p[24] = {
     value: function() {
-        return '<div unselectable="on" class="fui-mask" style="background-color: @m.bgcolor; opacity: @m.opacity;"></div>';
+        return '<div unselectable="on" class="fui-input-button" ></div>';
     }
 };
 
 _p[25] = {
     value: function() {
-        return '<div unselectable="on" class="fui-panel" @h.toCssText( m.__css )></div>';
+        return '<div unselectable="on" class="fui-input-menu"></div>';
     }
 };
 
 _p[26] = {
     value: function() {
-        return '<div unselectable="on" class="fui-separator" @h.toCssText( m.__css )></div>';
+        return '<input unselectable="on" class="fui-input"  autocomplete="off" @( m.value ? \'value="\' + m.value + \'"\' : \'\')>';
     }
 };
 
 _p[27] = {
+    value: function() {
+        return "<div unselectable=\"on\" class=\"fui-item@( m.selected ? ' fui-item-selected': '' )\" ></div>";
+    }
+};
+
+_p[28] = {
+    value: function() {
+        return '<div unselectable="on" class="fui-label" >@(m.text)</div>';
+    }
+};
+
+_p[29] = {
+    value: function() {
+        return '<div unselectable="on" class="fui-mask" style="background-color: @m.bgcolor; opacity: @m.opacity;"></div>';
+    }
+};
+
+_p[30] = {
+    value: function() {
+        return '<div unselectable="on" class="fui-panel" ></div>';
+    }
+};
+
+_p[31] = {
+    value: function() {
+        return '<div unselectable="on" class="fui-separator" ></div>';
+    }
+};
+
+_p[32] = {
+    value: function() {
+        return '<div unselectable="on" class="fui-spin-button" ></div>';
+    }
+};
+
+_p[33] = {
     value: function() {
         return '<div unselectable="on" class="fui-tabs">' + '<div unselectable="on" class="fui-tabs-button-wrap"></div>' + '<div unselectable="on" class="fui-tabs-panel-wrap"></div>' + "</div>";
     }
@@ -794,11 +1014,11 @@ _p[27] = {
  * Button对象
  * 通用按钮构件
  */
-_p[28] = {
+_p[34] = {
     value: function(require) {
-        var $ = _p.r(2), CONF = _p.r(10), tpl = _p.r(13), Button = _p.r(31), Menu = _p.r(44), Mask = _p.r(43), Utils = _p.r(11), LAYOUT = CONF.layout;
-        return _p.r(11).createClass("ButtonMenu", {
-            base: _p.r(50),
+        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(18), Button = _p.r(37), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(12), LAYOUT = CONF.layout;
+        return _p.r(12).createClass("ButtonMenu", {
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -918,11 +1138,11 @@ _p[28] = {
  * InputMenu构件
  * 可接受输入的下拉菜单构件
  */
-_p[29] = {
+_p[35] = {
     value: function(require) {
-        var $ = _p.r(2), CONF = _p.r(10), tpl = _p.r(20), InputButton = _p.r(37), Menu = _p.r(44), Mask = _p.r(43), Utils = _p.r(11);
-        return _p.r(11).createClass("InputMenu", {
-            base: _p.r(50),
+        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(12);
+        return _p.r(12).createClass("InputMenu", {
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1084,11 +1304,11 @@ _p[29] = {
  * Button对象
  * 通用按钮构件
  */
-_p[30] = {
+_p[36] = {
     value: function(require) {
-        var $ = _p.r(2), CONF = _p.r(10), Utils = _p.r(11), ToggleButton = _p.r(49);
-        return _p.r(11).createClass("Buttonset", {
-            base: _p.r(45),
+        var $ = _p.r(3), CONF = _p.r(11), Utils = _p.r(12), ToggleButton = _p.r(56);
+        return _p.r(12).createClass("Buttonset", {
+            base: _p.r(51),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1229,11 +1449,11 @@ _p[30] = {
  * Button对象
  * 通用按钮构件
  */
-_p[31] = {
+_p[37] = {
     value: function(require) {
-        var $ = _p.r(2), CONF = _p.r(10), buttonTpl = _p.r(14), Icon = _p.r(36), Label = _p.r(42), Utils = _p.r(11);
-        return _p.r(11).createClass("Button", {
-            base: _p.r(50),
+        var $ = _p.r(3), CONF = _p.r(11), buttonTpl = _p.r(19), Icon = _p.r(42), Label = _p.r(48), Utils = _p.r(12);
+        return _p.r(12).createClass("Button", {
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1243,7 +1463,7 @@ _p[31] = {
                     icon: null,
                     width: null,
                     height: null,
-                    padding: 2,
+                    padding: null,
                     // label相对icon的位置
                     layout: "right"
                 };
@@ -1314,11 +1534,11 @@ _p[31] = {
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[32] = {
+_p[38] = {
     value: function(require) {
-        var Utils = _p.r(11), CONF = _p.r(10), Mask = _p.r(43), tpl = _p.r(15), $ = _p.r(2);
+        var Utils = _p.r(12), CONF = _p.r(11), Mask = _p.r(49), tpl = _p.r(20), $ = _p.r(3);
         return Utils.createClass("ColorPicker", {
-            base: _p.r(46),
+            base: _p.r(52),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1413,9 +1633,9 @@ _p[32] = {
  * Container类， 所有容器类的父类`
  * @abstract
  */
-_p[33] = {
+_p[39] = {
     value: function(require) {
-        var Utils = _p.r(11), CONF = _p.r(10), Widget = _p.r(50), $ = _p.r(2);
+        var Utils = _p.r(12), CONF = _p.r(11), Widget = _p.r(57), $ = _p.r(3);
         return Utils.createClass("Container", {
             base: Widget,
             constructor: function(options) {
@@ -1529,11 +1749,11 @@ _p[33] = {
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[34] = {
+_p[40] = {
     value: function(require) {
-        var Utils = _p.r(11), CONF = _p.r(10), Widget = _p.r(50), Mask = _p.r(43), tpl = _p.r(16), Button = _p.r(31), LAYOUT = CONF.layout, $ = _p.r(2);
+        var Utils = _p.r(12), CONF = _p.r(11), Widget = _p.r(57), Mask = _p.r(49), tpl = _p.r(21), Button = _p.r(37), LAYOUT = CONF.layout, $ = _p.r(3);
         return Utils.createClass("Dialog", {
-            base: _p.r(46),
+            base: _p.r(52),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1680,11 +1900,11 @@ _p[34] = {
  * DropPanel对象
  * 可接受输入的按钮构件
  */
-_p[35] = {
+_p[41] = {
     value: function(require) {
-        var $ = _p.r(2), CONF = _p.r(10), tpl = _p.r(17), Button = _p.r(31), Panel = _p.r(45), PPanel = _p.r(46), Mask = _p.r(43), Utils = _p.r(11);
-        return _p.r(11).createClass("DropPanel", {
-            base: _p.r(50),
+        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(22), Button = _p.r(37), Panel = _p.r(51), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(12);
+        return _p.r(12).createClass("DropPanel", {
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1791,11 +2011,11 @@ _p[35] = {
  * icon widget
  * 封装多种icon方式
  */
-_p[36] = {
+_p[42] = {
     value: function(require) {
-        var prefix = "_fui_", $ = _p.r(2), iconTpl = _p.r(18), Utils = _p.r(11);
-        return _p.r(11).createClass("Icon", {
-            base: _p.r(50),
+        var prefix = "_fui_", $ = _p.r(3), iconTpl = _p.r(23), Utils = _p.r(12);
+        return _p.r(12).createClass("Icon", {
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1855,11 +2075,11 @@ _p[36] = {
  * InputButton对象
  * 可接受输入的按钮构件
  */
-_p[37] = {
+_p[43] = {
     value: function(require) {
-        var $ = _p.r(2), CONF = _p.r(10), tpl = _p.r(19), Button = _p.r(31), Input = _p.r(39), Utils = _p.r(11);
-        return _p.r(11).createClass("InputButton", {
-            base: _p.r(50),
+        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(24), Button = _p.r(37), Input = _p.r(45), Utils = _p.r(12);
+        return _p.r(12).createClass("InputButton", {
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1949,11 +2169,11 @@ _p[37] = {
  * InputMenu构件
  * 可接受输入的下拉菜单构件
  */
-_p[38] = {
+_p[44] = {
     value: function(require) {
-        var $ = _p.r(2), CONF = _p.r(10), tpl = _p.r(20), InputButton = _p.r(37), Menu = _p.r(44), Mask = _p.r(43), Utils = _p.r(11);
-        return _p.r(11).createClass("InputMenu", {
-            base: _p.r(50),
+        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(12);
+        return _p.r(12).createClass("InputMenu", {
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2129,11 +2349,11 @@ _p[38] = {
 /**
  * Input widget
  */
-_p[39] = {
+_p[45] = {
     value: function(require) {
-        var prefix = "_fui_", $ = _p.r(2), tpl = _p.r(21), Utils = _p.r(11);
-        return _p.r(11).createClass("Input", {
-            base: _p.r(50),
+        var prefix = "_fui_", $ = _p.r(3), tpl = _p.r(26), Utils = _p.r(12);
+        return _p.r(12).createClass("Input", {
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2207,11 +2427,11 @@ _p[39] = {
 /**
  * Label Widget
  */
-_p[40] = {
+_p[46] = {
     value: function(require) {
-        var Utils = _p.r(11), itemTpl = _p.r(22), Icon = _p.r(36), Label = _p.r(42), CONF = _p.r(10), $ = _p.r(2);
+        var Utils = _p.r(12), itemTpl = _p.r(27), Icon = _p.r(42), Label = _p.r(48), CONF = _p.r(11), $ = _p.r(3);
         return Utils.createClass("Item", {
-            base: _p.r(50),
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2314,11 +2534,11 @@ _p[40] = {
  * LabelPanel Widget
  * 带标签的面板
  */
-_p[41] = {
+_p[47] = {
     value: function(require) {
-        var Utils = _p.r(11), CONF = _p.r(10), Label = _p.r(42), $ = _p.r(2);
+        var Utils = _p.r(12), CONF = _p.r(11), Label = _p.r(48), $ = _p.r(3);
         return Utils.createClass("LabelPanel", {
-            base: _p.r(45),
+            base: _p.r(51),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2382,11 +2602,11 @@ _p[41] = {
 /**
  * Label Widget
  */
-_p[42] = {
+_p[48] = {
     value: function(require) {
-        var Utils = _p.r(11), labelTpl = _p.r(23), $ = _p.r(2);
+        var Utils = _p.r(12), labelTpl = _p.r(28), $ = _p.r(3);
         return Utils.createClass("Label", {
-            base: _p.r(50),
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2448,11 +2668,11 @@ _p[42] = {
 /**
  * Mask Widget
  */
-_p[43] = {
+_p[49] = {
     value: function(require) {
-        var Utils = _p.r(11), tpl = _p.r(24), Widget = _p.r(50), $ = _p.r(2), __cache_inited = false, __MASK_CACHE = [];
+        var Utils = _p.r(12), tpl = _p.r(29), Widget = _p.r(57), $ = _p.r(3), __cache_inited = false, __MASK_CACHE = [];
         return Utils.createClass("Mask", {
-            base: _p.r(50),
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2586,11 +2806,11 @@ _p[43] = {
 /**
  * Menu Widget
  */
-_p[44] = {
+_p[50] = {
     value: function(require) {
-        var Utils = _p.r(11), Item = _p.r(40), CONF = _p.r(10), $ = _p.r(2);
+        var Utils = _p.r(12), Item = _p.r(46), CONF = _p.r(11), $ = _p.r(3);
         return Utils.createClass("Menu", {
-            base: _p.r(46),
+            base: _p.r(52),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2728,11 +2948,11 @@ _p[44] = {
 /**
  * 容器类： Panel
  */
-_p[45] = {
+_p[51] = {
     value: function(require) {
-        var Utils = _p.r(11), panelTpl = _p.r(25), $ = _p.r(2);
+        var Utils = _p.r(12), panelTpl = _p.r(30), $ = _p.r(3);
         return Utils.createClass("Panel", {
-            base: _p.r(33),
+            base: _p.r(39),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2751,9 +2971,6 @@ _p[45] = {
             },
             appendWidget: function(widget) {
                 var returnValue = this.callBase(widget);
-                if (this.__options.margin) {
-                    widget.getElement().style.margin = this.__options.margin;
-                }
                 return returnValue;
             },
             insertWidget: function(index, widget) {
@@ -2795,9 +3012,9 @@ _p[45] = {
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[46] = {
+_p[52] = {
     value: function(require) {
-        var Utils = _p.r(11), CONF = _p.r(10), Widget = _p.r(50), $ = _p.r(2);
+        var Utils = _p.r(12), CONF = _p.r(11), Widget = _p.r(57), $ = _p.r(3);
         var LAYOUT = {
             TOP: "top",
             LEFT: "left",
@@ -2805,7 +3022,7 @@ _p[46] = {
             RIGHT: "right"
         };
         return Utils.createClass("PPanel", {
-            base: _p.r(45),
+            base: _p.r(51),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2851,7 +3068,10 @@ _p[46] = {
                     this.__options.bound = this.__target.ownerDocument.body;
                 }
                 docNode = this.__target.ownerDocument.documentElement;
-                if ($.contains(docNode, this.__target) && $.contains(docNode, this.__element)) {
+                if (!$.contains(docNode, this.__element)) {
+                    this.__target.ownerDocument.body.appendChild(this.__element);
+                }
+                if ($.contains(docNode, this.__target)) {
                     this.callBase(Utils.getMarker());
                     this.__position();
                 }
@@ -2877,11 +3097,19 @@ _p[46] = {
                     location = this.__getInnerLayout(targetRect);
                 }
                 $(this.__element).css("top", location.top + "px").css("left", location.left + "px");
-                if (this.__options.resize !== "height") {
+                switch (this.__options.resize) {
+                  case "all":
                     this.__resizeWidth(targetRect);
-                }
-                if (this.__options.resize !== "width") {
                     this.__resizeHeight();
+                    break;
+
+                  case "width":
+                    this.__resizeWidth(targetRect);
+                    break;
+
+                  case "height":
+                    this.__resizeHeight();
+                    break;
                 }
             },
             /**
@@ -3009,11 +3237,11 @@ _p[46] = {
 /**
  * Separator(分隔符) Widget
  */
-_p[47] = {
+_p[53] = {
     value: function(require) {
-        var Utils = _p.r(11), separatorTpl = _p.r(26), $ = _p.r(2);
+        var Utils = _p.r(12), separatorTpl = _p.r(31), $ = _p.r(3);
         return Utils.createClass("Separator", {
-            base: _p.r(50),
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -3051,13 +3279,114 @@ _p[47] = {
 };
 
 /**
+ * SpinButton对象
+ * 数值按钮构件
+ */
+_p[54] = {
+    value: function(require) {
+        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(32), Button = _p.r(37), Input = _p.r(45), Panel = _p.r(51), Utils = _p.r(12);
+        return _p.r(12).createClass("SpinButton", {
+            base: _p.r(57),
+            constructor: function(options) {
+                var marker = Utils.getMarker();
+                this.callBase(marker);
+                var defaultOptions = {
+                    suffix: null,
+                    selected: -1,
+                    items: []
+                };
+                this.__extendOptions(defaultOptions, options);
+                this.widgetName = "SpinButton";
+                this.__tpl = tpl;
+                this.__buttons = [];
+                this.__panelWidget = null;
+                this.__inputWidget = null;
+                this.__currentSelected = -1;
+                if (options !== marker) {
+                    this.__render();
+                }
+            },
+            getValue: function() {
+                return this.__options.items[this.__currentSelected] || null;
+            },
+            // Overload
+            setValue: function(value) {},
+            select: function(index) {
+                this.__update(index);
+            },
+            // 根据值进行选择
+            selectByValue: function(value) {
+                value = value + "";
+                this.__update($.inArray(value, this.__options.items));
+            },
+            __render: function() {
+                if (this.__rendered) {
+                    return this;
+                }
+                this.__initOptions();
+                this.callBase();
+                this.__buttons = [ new Button({
+                    className: CONF.classPrefix + "spin-up-btn"
+                }), new Button({
+                    className: CONF.classPrefix + "spin-down-btn"
+                }) ];
+                this.__inputWidget = new Input();
+                this.__panelWidget = new Panel({
+                    "break": true
+                });
+                this.__inputWidget.appendTo(this.__element);
+                this.__panelWidget.appendWidget(this.__buttons[0]);
+                this.__panelWidget.appendWidget(this.__buttons[1]);
+                this.__panelWidget.appendTo(this.__element);
+                this.__initSelected(this.__options.selected);
+                this.__initSpinButtonEvent();
+            },
+            __initSpinButtonEvent: function() {
+                var _self = this;
+                this.__buttons[0].on("btnclick", function() {
+                    _self.__update(_self.__currentSelected - 1);
+                });
+                this.__buttons[1].on("btnclick", function() {
+                    _self.__update(_self.__currentSelected + 1);
+                });
+            },
+            __initSelected: function(index) {
+                this.__update(index, false);
+            },
+            __update: function(index, isTrigger) {
+                var oldIndex = -1, toValue = null;
+                if (index < 0 || index >= this.__options.items.length) {
+                    return;
+                }
+                oldIndex = this.__currentSelected;
+                this.__currentSelected = index;
+                toValue = this.__options.items[this.__currentSelected];
+                this.__inputWidget.setValue(toValue + " " + (this.__options.suffix || ""));
+                if (isTrigger !== false) {
+                    this.trigger("change", {
+                        from: this.__options.items[oldIndex] || null,
+                        to: toValue
+                    });
+                }
+            },
+            __initOptions: function() {
+                var items = this.__options.items;
+                $.each(items, function(index, val) {
+                    items[index] = val + "";
+                });
+            }
+        });
+    }
+};
+
+/**
  * Tabs Widget
  */
-_p[48] = {
+_p[55] = {
     value: function(require) {
-        var $ = _p.r(2), CONF = _p.r(10), tpl = _p.r(27), Button = _p.r(31), Panel = _p.r(45), Utils = _p.r(11);
-        return _p.r(11).createClass("Tabs", {
-            base: _p.r(50),
+        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(33), Button = _p.r(37), Panel = _p.r(51), Utils = _p.r(12);
+        return _p.r(12).createClass("Tabs", {
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -3206,11 +3535,11 @@ _p[48] = {
  * ToggleButton对象
  * 可切换按钮构件
  */
-_p[49] = {
+_p[56] = {
     value: function(require) {
-        var $ = _p.r(2), CONF = _p.r(10), Utils = _p.r(11);
-        return _p.r(11).createClass("ToggleButton", {
-            base: _p.r(31),
+        var $ = _p.r(3), CONF = _p.r(11), Utils = _p.r(12);
+        return _p.r(12).createClass("ToggleButton", {
+            base: _p.r(37),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -3293,10 +3622,10 @@ _p[49] = {
  * widget对象
  * 所有的UI组件都是widget对象
  */
-_p[50] = {
+_p[57] = {
     value: function(require) {
-        var prefix = "_fui_", uid = 0, CONF = _p.r(10), FUI_NS = _p.r(9), $ = _p.r(2), Utils = _p.r(11);
-        var Widget = _p.r(11).createClass("Widget", {
+        var prefix = "_fui_", uid = 0, CONF = _p.r(11), FUI_NS = _p.r(10), $ = _p.r(3), Utils = _p.r(12);
+        var Widget = _p.r(12).createClass("Widget", {
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -3507,14 +3836,15 @@ _p[50] = {
 /**
  * 模块暴露
  */
-_p[51] = {
+_p[58] = {
     value: function(require) {
         _p.r(1);
+        _p.r(2);
     }
 };
 
 var moduleMapping = {
-    "fui.export": 51
+    "fui.export": 58
 };
 
 function use(name) {

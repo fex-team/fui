@@ -5,6 +5,7 @@
 define( function ( require ) {
 
     var prefix = '_fui_',
+        CONF = require( "base/sysconf" ),
         $ = require( "base/jquery" ),
         tpl = require( 'tpl/input' ),
         Utils = require( "base/utils" );
@@ -90,6 +91,8 @@ define( function ( require ) {
 
             this.callBase();
 
+            this.__element.removeAttribute( "unselectable" );
+            this.addClass( CONF.classPrefix + "selectable" );
             this.__initInputEvent();
 
         },

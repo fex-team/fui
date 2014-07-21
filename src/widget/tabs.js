@@ -11,7 +11,7 @@ define( function ( require ) {
         Panel = require( "widget/panel" ),
         Utils = require( "base/utils" );
 
-    return require( "base/utils" ).createClass( "Tabs", {
+    return require( "base/utils" ).createClass( "tabss", {
 
         base: require( "widget/widget" ),
 
@@ -87,11 +87,11 @@ define( function ( require ) {
 
             toInfo = this.__getInfo( index );
 
-            this.trigger( "tabselect", toInfo );
+            this.trigger( "tabsselect", toInfo );
 
             if ( this.__prevSelected !== this.__selected ) {
 
-                this.trigger( "tabchange", {
+                this.trigger( "tabschange", {
                     from: this.__getInfo( this.__prevSelected ),
                     toInfo: toInfo
                 } );

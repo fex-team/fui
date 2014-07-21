@@ -40,10 +40,6 @@ define( function ( require ) {
 
             var returnValue = this.callBase( widget );
 
-            if ( this.__options.margin ) {
-                widget.getElement().style.margin = this.__options.margin;
-            }
-
             return returnValue;
 
         },

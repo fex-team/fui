@@ -78,7 +78,18 @@ define( function ( require ) {
         },
 
         getRect: function ( node ) {
-            return node.getBoundingClientRect();
+
+            var rect = node.getBoundingClientRect();
+
+            return {
+                width: rect.width,
+                height: rect.height,
+                top: rect.top,
+                bottom: rect.bottom,
+                left: rect.left,
+                right: rect.right
+            };
+
         },
 
         getBound: function ( node ) {
@@ -103,7 +114,7 @@ define( function ( require ) {
 
             } else {
 
-                return node.getBoundingClientRect();
+                return this.getRect( node );
 
             }
 

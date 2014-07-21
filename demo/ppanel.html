@@ -6,6 +6,13 @@
 
     <link rel="stylesheet" type="text/css" href="../theme/default/fui.all.css">
 
+    <style>
+        .fui-ppanel {
+            background: red;
+            height: 100px;
+        }
+    </style>
+
     <script src="../dev-lib/vash.js"></script>
     <script src="../dev-lib/jquery-1.11.1.js"></script>
     <script src="../dev-lib/dev-define.js"></script>
@@ -20,13 +27,11 @@
         window.onload = function () {
 
             var ppanel = new FUI.PPanel( {
-                width: 100,
-                height: 100,
 //                layout: 'left'
                 target: document.getElementById( "test" )
             } );
 
-            ppanel.appendTo( document.body );
+//            ppanel.appendTo( document.body );
 //            ppanel.positionTo( document.getElementById( "test" ) );
 
             ppanel.show();

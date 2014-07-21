@@ -1,5 +1,5 @@
 define( function () {
-return '<div unselectable="on" class="fui-colorpicker-container" @h.toCssText( m.__css )>' +
+return '<div unselectable="on" class="fui-colorpicker-container">' +
 '<div unselectable="on" class="fui-colorpicker-toolbar">' +
 '<div unselectable="on" class="fui-colorpicker-preview"></div>' +
 '<div unselectable="on" class="fui-colorpicker-clear">@m.clearText</div>' +

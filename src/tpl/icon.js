@@ -1,7 +1,7 @@
 define( function () {
-return '<div unselectable="on" class="fui-icon" @h.toCssText( m.__css )>' +
+return '<div unselectable="on" class="fui-icon" >' +
 '@if ( m.img ) {' +
-'<img unselectable="on" src="@m.img" @h.toCssText( m.__css )>' +
+'<img unselectable="on" src="@m.img" >' +
 '}' +
 '</div>'
 } );

@@ -31,13 +31,13 @@
 
             } );
 
-            tabs.on( "tabselect", function ( e, info ) {
+            tabs.on( "tabsselect", function ( e, info ) {
 
                 console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
 
             } );
 
-            tabs.on( "tabchange", function ( e, info ) {
+            tabs.on( "tabschange", function ( e, info ) {
 
                 console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
 
@@ -59,13 +59,13 @@
             tabs2.appendButtonTo( document.getElementById( "buttons" ) );
             tabs2.appendPanelTo( document.getElementById( "panels" ) );
 
-            tabs2.on( "tabselect", function ( e, info ) {
+            tabs2.on( "tabsselect", function ( e, info ) {
 
                 console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
 
             } );
 
-            tabs2.on( "tabchange", function ( e, info ) {
+            tabs2.on( "tabschange", function ( e, info ) {
 
                 console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
 

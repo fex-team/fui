@@ -45,6 +45,9 @@ define( function ( require ) {
             this.__target = this.__options.target;
             this.__layout = this.__options.layout;
 
+            // 记录是否已调整过高度
+            this.__height_resized = false;
+
             if ( this.__target instanceof Widget ) {
                 this.__target = this.__target.getElement();
             }
@@ -135,7 +138,6 @@ define( function ( require ) {
 
             $( this.__element ).css( 'top', location.top + 'px' ).css( 'left', location.left + 'px' );
 
-
             switch ( this.__options.resize ) {
 
                 case 'all':
@@ -163,7 +165,7 @@ define( function ( require ) {
          */
         __resizeWidth: function ( targetRect ) {
 
-            if ( !this.__target || this.__options.width !== null ) {
+            if ( !this.__target ) {
                 return;
             }
 
@@ -190,11 +192,9 @@ define( function ( require ) {
                 panelRect = null,
                 diff = 0;
 
-            if ( this.__options.height !== null ) {
-                return;
-            }
-
             panelRect = Utils.getRect( this.__element );
+            panelRect.height = this.__element.scrollHeight;
+            panelRect.bottom = panelRect.top + panelRect.height;
 
             if ( this.__options.bound.tagName.toLowerCase() === 'body' ) {
 
@@ -211,7 +211,12 @@ define( function ( require ) {
 
             if ( diff > 0 ) {
 
+                this.__height_resized = true;
                 $( this.__element ).css( "height", panelRect.height - diff - this.__options.diff + 'px' );
+
+            } else if ( this.__height_resized ) {
+
+                this.__element.style.height = null;
 
             }
 
