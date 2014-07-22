@@ -88,8 +88,6 @@ define( function ( require ) {
 
             var label = this.__options.label;
 
-            this.callBase();
-
             if ( typeof label !== "object" ) {
                 this.__options.label = {
                     text: label

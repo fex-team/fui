@@ -20,8 +20,6 @@ define( function ( require ) {
             this.callBase( marker );
 
             var defaultOptions = {
-                width: null,
-                height: null,
                 img: null
             };
 
@@ -31,6 +29,8 @@ define( function ( require ) {
             this.__tpl = iconTpl;
             this.__prevIcon = null;
             this.__currentIcon = this.__options.img;
+
+            this.__image = null;
 
             if ( options !== marker ) {
                 this.__render();
@@ -51,17 +51,9 @@ define( function ( require ) {
                 return this;
             }
 
-            this.__prevIcon = this.__currentIcon;
-            this.__currentIcon = imageSrc;
-
-            tpl = Utils.Tpl.compile( this.__tpl, $.extend( {}, this.__options, {
-                img: this.__currentIcon
-            } ) );
-
-            node = $( tpl )[ 0 ];
-
-            this.__element.innerHTML = node.innerHTML;
-            node = null;
+            if ( this.__image ) {
+                this.__image.src = imageSrc;
+            }
 
             this.trigger( "iconchange", {
                 prevImage: this.__prevIcon,
@@ -80,7 +72,27 @@ define( function ( require ) {
                 return this;
             }
 
+            this.__options.__width = this.__options.width;
+            this.__options.__height = this.__options.height;
+
+            this.__options.width = null;
+            this.__options.height = null;
+
             this.callBase();
+
+            if ( !this.__options.img ) {
+                return;
+            }
+
+            this.__image = $( "img", this.__element )[ 0 ];
+
+            if ( this.__options.__width !== null ) {
+                this.__image.width = this.__options.__width;
+            }
+
+            if ( this.__options.__height !== null ) {
+                this.__image.height = this.__options.__height;
+            }
 
         }
 

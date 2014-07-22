@@ -131,6 +131,10 @@ define( function ( require ) {
 
                 container.appendChild( this.__element );
 
+            } else if ( container instanceof Widget ) {
+
+                container.__appendChild( this );
+
             } else {
 
                 throw new Error( 'TypeError: Widget.appendTo()' );
@@ -208,6 +212,16 @@ define( function ( require ) {
             this.__initWidgetEvent();
 
             return this;
+
+        },
+
+        /**
+         * 该方法将被appendTo调用， 用于根据各组件自身的规则插入节点,  子类可根据需要覆盖该方法
+         * @param childWidget 将被追加的子构件对象
+         */
+        __appendChild: function ( childWidget ) {
+
+            return this.__element.appendChild( childWidget.getElement() );
 
         },
 

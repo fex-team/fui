@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-07-20
+ * Flex UI - v1.0.0 - 2014-07-22
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -42,26 +42,28 @@ var _p = {
  */
 _p[0] = {
     value: function(require) {
-        var Creator = {}, $ = _p.r(3), FUI_NS = _p.r(10);
+        var Creator = {}, $ = _p.r(4), FUI_NS = _p.r(11);
         $.extend(Creator, {
             parse: function(options) {
-                var pool = {}, instance = null, optionList = null;
+                var pool = {}, key = null, optionList = null;
                 for (var widgetClazz in options) {
                     if (!options.hasOwnProperty(widgetClazz)) {
                         continue;
                     }
                     optionList = options[widgetClazz];
+                    key = widgetClazz;
                     widgetClazz = FUI_NS[widgetClazz];
                     if (!widgetClazz) {
                         continue;
                     }
                     if (!$.isArray(optionList)) {
-                        optionList = [ optionList ];
+                        pool[key] = new widgetClazz(optionList);
+                    } else {
+                        pool[key] = [];
+                        $.each(optionList, function(i, opt) {
+                            pool[key].push(new widgetClazz(opt));
+                        });
                     }
-                    $.each(optionList, function(i, opt) {
-                        instance = new widgetClazz(opt);
-                        pool[instance.getId()] = instance;
-                    });
                 }
                 return pool;
             }
@@ -75,7 +77,7 @@ _p[0] = {
  */
 _p[1] = {
     value: function(require) {
-        var FUI_NS = _p.r(10);
+        var FUI_NS = _p.r(11);
         FUI_NS.___register({
             Widget: _p.r(57),
             Icon: _p.r(42),
@@ -100,7 +102,7 @@ _p[1] = {
             ButtonMenu: _p.r(34),
             DropPanel: _p.r(41),
             Dialog: _p.r(40),
-            Utils: _p.r(12),
+            Utils: _p.r(13),
             Creator: _p.r(0)
         });
         FUI_NS.__export();
@@ -112,7 +114,7 @@ _p[1] = {
  */
 _p[2] = {
     value: function(require) {
-        var FUI_NS = _p.r(10);
+        var FUI_NS = _p.r(11);
         FUI_NS.___register({
             TablePicker: _p.r(17)
         });
@@ -120,9 +122,18 @@ _p[2] = {
 };
 
 /**
- * jquery模块封装
+ * jhtmls模板引擎
  */
 _p[3] = {
+    value: function() {
+        return window.jhtmls;
+    }
+};
+
+/**
+ * jquery模块封装
+ */
+_p[4] = {
     value: function(require) {
         return window.jQuery;
     }
@@ -140,7 +151,7 @@ _p[3] = {
  * TODO:
  *     Mixin 构造函数调用支持
  */
-_p[4] = {
+_p[5] = {
     value: function(require, exports) {
         // just to bind context
         Function.prototype.bind = Function.prototype.bind || function(thisObj) {
@@ -299,9 +310,9 @@ _p[4] = {
 /**
  * 通用工具包
  */
-_p[5] = {
+_p[6] = {
     value: function(require) {
-        var $ = _p.r(3), __marker = "__fui__marker__" + +new Date();
+        var $ = _p.r(4), __marker = "__fui__marker__" + +new Date();
         return {
             isElement: function(target) {
                 return target.nodeType === 1;
@@ -346,7 +357,15 @@ _p[5] = {
                 return __marker;
             },
             getRect: function(node) {
-                return node.getBoundingClientRect();
+                var rect = node.getBoundingClientRect();
+                return {
+                    width: rect.width,
+                    height: rect.height,
+                    top: rect.top,
+                    bottom: rect.bottom,
+                    left: rect.left,
+                    right: rect.right
+                };
             },
             getBound: function(node) {
                 var w = 0, h = 0;
@@ -363,7 +382,7 @@ _p[5] = {
                         height: h
                     };
                 } else {
-                    return node.getBoundingClientRect();
+                    return this.getRect(node);
                 }
             },
             getCssValue: function(props, node) {
@@ -376,52 +395,23 @@ _p[5] = {
 /**
  * 模板编译器
  */
-_p[6] = {
+_p[7] = {
     value: function(require) {
-        var vash = _p.r(13), $ = _p.r(3), defaultOptions = {
-            htmlEscape: false,
-            helpersName: "h",
-            modelName: "m"
-        };
-        $.extend(vash.helpers, {
-            toSpaceStyle: function(space) {
-                var styleText = [];
-                if ($.isNumeric(space.width)) {
-                    styleText.push("width:" + space.width + "px");
-                }
-                if ($.isNumeric(space.height)) {
-                    styleText.push("height:" + space.height + "px");
-                }
-                return styleText.join(";");
-            },
-            // css序列化
-            toCssText: function(cssMapping) {
-                var rules = [], value = null;
-                if (!cssMapping) {
-                    return "";
-                }
-                for (var key in cssMapping) {
-                    if (!cssMapping.hasOwnProperty(key)) {
-                        continue;
-                    }
-                    value = cssMapping[key];
-                    rules.push(key + ": " + value + ($.isNumeric(value) ? "px" : ""));
-                }
-                if (rules.length === 0) {
-                    return "";
-                }
-                return 'style="' + rules.join(";") + '"';
+        var jhtmls = _p.r(3), $ = _p.r(4);
+        var Helper = {
+            forEach: function(arras, cb) {
+                $.each(arras, function(i, item) {
+                    cb.call(null, i, item);
+                });
             }
-        });
+        };
         return {
-            compile: function(tpl, data, compileOptions) {
+            compile: function(tpl, data) {
                 tpl = $.trim(tpl);
                 if (tpl.length === 0) {
                     return "";
                 }
-                compileOptions = $.extend(true, {}, defaultOptions, compileOptions);
-                var tpl = vash.compile(tpl, compileOptions);
-                return tpl(data);
+                return jhtmls.render(tpl, data, Helper);
             }
         };
     }
@@ -430,9 +420,9 @@ _p[6] = {
 /**
  * Draggable Lib
  */
-_p[7] = {
+_p[8] = {
     value: function(require, exports) {
-        var $ = _p.r(3), common = _p.r(5), DEFAULT_OPTIONS = {
+        var $ = _p.r(4), common = _p.r(6), DEFAULT_OPTIONS = {
             handler: null,
             target: null,
             axis: "all",
@@ -570,9 +560,9 @@ _p[7] = {
 /**
  * 弥补jQuery的extend在克隆对象和数组时存在的问题
  */
-_p[8] = {
+_p[9] = {
     value: function(require) {
-        var $ = _p.r(3);
+        var $ = _p.r(4);
         function extend(target) {
             var type = null, isPlainObject = false, isArray = false, sourceObj = null;
             if (arguments.length === 1) {
@@ -625,7 +615,7 @@ _p[8] = {
 /**
  * 构件相关工具方法
  */
-_p[9] = {
+_p[10] = {
     value: function(require) {
         return {
             isContainer: function(widget) {
@@ -638,7 +628,7 @@ _p[9] = {
 /**
  * FUI名称空间
  */
-_p[10] = {
+_p[11] = {
     value: function() {
         // 容纳所有构件的实例池
         var WIDGET_POOL = {};
@@ -674,7 +664,7 @@ _p[10] = {
 /**
  * UI系统配置
  */
-_p[11] = {
+_p[12] = {
     value: function() {
         return {
             classPrefix: "fui-",
@@ -693,35 +683,26 @@ _p[11] = {
 /**
  * utils类包， 提供常用操作的封装，补充jQuery的不足
  */
-_p[12] = {
-    value: function(require) {
-        var $ = _p.r(3), Utils = {
-            Tpl: _p.r(6),
-            Widget: _p.r(9),
-            createDraggable: _p.r(7)
-        };
-        return $.extend(Utils, _p.r(5), _p.r(4));
-    }
-};
-
-/**
- * vash模板引擎
- */
 _p[13] = {
-    value: function() {
-        return window.vash;
+    value: function(require) {
+        var $ = _p.r(4), Utils = {
+            Tpl: _p.r(7),
+            Widget: _p.r(10),
+            createDraggable: _p.r(8)
+        };
+        return $.extend(Utils, _p.r(6), _p.r(5));
     }
 };
 
 _p[14] = {
     value: function() {
-        return '<div unselectable="on" class="fui-t-picker"></div>';
+        return '<div unselectable="on" class="fui-t-picker"></div>\n';
     }
 };
 
 _p[15] = {
     value: function() {
-        return '<div unselectable="on" class="fui-table-picker"></div>';
+        return '<div unselectable="on" class="fui-table-picker"></div>\n';
     }
 };
 
@@ -730,8 +711,8 @@ _p[15] = {
  */
 _p[16] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(14), Utils = _p.r(12);
-        return _p.r(12).createClass("TPicker", {
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(14), Utils = _p.r(13);
+        return _p.r(13).createClass("TPicker", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -820,8 +801,8 @@ _p[16] = {
  */
 _p[17] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(15), Label = _p.r(48), TPicker = _p.r(16), Button = _p.r(37), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(12);
-        return _p.r(12).createClass("TablePicker", {
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(15), Label = _p.r(48), TPicker = _p.r(16), Button = _p.r(37), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(13);
+        return _p.r(13).createClass("TablePicker", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -916,97 +897,97 @@ _p[17] = {
 
 _p[18] = {
     value: function() {
-        return '<div unselectable="on" class="fui-button-menu"></div>';
+        return '<div unselectable="on" class="fui-button-menu"></div>\n';
     }
 };
 
 _p[19] = {
     value: function() {
-        return '<div unselectable="on" class="fui-button"></div>';
+        return '<div unselectable="on" class="fui-button"></div>\n';
     }
 };
 
 _p[20] = {
     value: function() {
-        return '<div unselectable="on" class="fui-colorpicker-container">' + '<div unselectable="on" class="fui-colorpicker-toolbar">' + '<div unselectable="on" class="fui-colorpicker-preview"></div>' + '<div unselectable="on" class="fui-colorpicker-clear">@m.clearText</div>' + "</div>" + '<div unselectable="on" class="fui-colorpicker-title">@m.commonText</div>' + '<div unselectable="on" class="fui-colorpicker-commoncolor">' + "@m.commonColor.forEach(function(colors, i){" + '<div unselectable="on" class="fui-colorpicker-colors fui-colorpicker-colors-line@i">' + "@colors.forEach(function(color){" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: @color; border-color: @(color.toLowerCase() == \'#ffffff\' ? \'#eeeeee\':color);" data-color="@color"></span>' + "})" + "</div>" + "})" + "</div>" + '<div unselectable="on" class="fui-colorpicker-title">@m.standardText</div>' + '<div unselectable="on" class="fui-colorpicker-standardcolor fui-colorpicker-colors">' + "@m.standardColor.forEach(function(color){" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: @color; border-color: @color;" data-color="@color"></span>' + "})" + "</div>" + "</div>";
+        return '<div unselectable="on" class="fui-colorpicker-container">\n' + '<div unselectable="on" class="fui-colorpicker-toolbar">\n' + '<div unselectable="on" class="fui-colorpicker-preview"></div>\n' + '<div unselectable="on" class="fui-colorpicker-clear">$clearText</div>\n' + "</div>\n" + '<div unselectable="on" class="fui-colorpicker-title">$commonText</div>\n' + '<div unselectable="on" class="fui-colorpicker-commoncolor">\n' + "helper.forEach( commonColor, function ( index, colors ) {\n" + '<div unselectable="on" class="fui-colorpicker-colors fui-colorpicker-colors-line$index">\n' + "helper.forEach( colors, function( i, color ) {\n" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: $color; border-color: #{color.toLowerCase() == \'#ffffff\' ? \'#eeeeee\': color};" data-color="$color"></span>\n' + "});\n" + "</div>\n" + "} );\n" + "</div>\n" + '<div unselectable="on" class="fui-colorpicker-title">$standardText</div>\n' + '<div unselectable="on" class="fui-colorpicker-standardcolor fui-colorpicker-colors">\n' + "helper.forEach( standardColor, function ( i, color ) {\n" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: $color; border-color: $color;" data-color="$color"></span>\n' + "} );\n" + "</div>\n" + "</div>\n";
     }
 };
 
 _p[21] = {
     value: function() {
-        return '<div unselectable="on" class="fui-dialog-wrap">' + '<div unselectable="on" class="fui-dialog-head">' + '<h1 unselectable="on" class="fui-dialog-caption">@(m.caption)</h1>' + "</div>" + '<div unselectable="on" class="fui-dialog-body"></div>' + '<div unselectable="on" class="fui-dialog-foot"></div>' + "</div>";
+        return '<div unselectable="on" class="fui-dialog-wrap">\n' + '<div unselectable="on" class="fui-dialog-head">\n' + '<h1 unselectable="on" class="fui-dialog-caption">$caption</h1>\n' + "</div>\n" + '<div unselectable="on" class="fui-dialog-body"></div>\n' + '<div unselectable="on" class="fui-dialog-foot"></div>\n' + "</div>\n";
     }
 };
 
 _p[22] = {
     value: function() {
-        return "<div unselectable=\"on\" class=\"fui-drop-panel\"  @( m.text ? 'title=\"' + m.text + '\"' : '' )></div>";
+        return "<div unselectable=\"on\" class=\"fui-drop-panel\"  #{ text ? 'title=\"' + m.text + '\"' : '' }></div>\n";
     }
 };
 
 _p[23] = {
     value: function() {
-        return '<div unselectable="on" class="fui-icon" >' + "@if ( m.img ) {" + '<img unselectable="on" src="@m.img" >' + "}" + "</div>";
+        return '<div unselectable="on" class="fui-icon" >\n' + "if ( this.img ) {\n" + '<img unselectable="on" src="#{this.img}" >\n' + "}\n" + "</div>\n";
     }
 };
 
 _p[24] = {
     value: function() {
-        return '<div unselectable="on" class="fui-input-button" ></div>';
+        return '<div unselectable="on" class="fui-input-button"></div>\n';
     }
 };
 
 _p[25] = {
     value: function() {
-        return '<div unselectable="on" class="fui-input-menu"></div>';
+        return '<div unselectable="on" class="fui-input-menu"></div>\n';
     }
 };
 
 _p[26] = {
     value: function() {
-        return '<input unselectable="on" class="fui-input"  autocomplete="off" @( m.value ? \'value="\' + m.value + \'"\' : \'\')>';
+        return '<input unselectable="on" class="fui-input"  autocomplete="off" !#{ value ? \'value="\' + value + \'"\' : \'\'}>\n';
     }
 };
 
 _p[27] = {
     value: function() {
-        return "<div unselectable=\"on\" class=\"fui-item@( m.selected ? ' fui-item-selected': '' )\" ></div>";
+        return "<div unselectable=\"on\" class=\"fui-item!#{ selected ? ' fui-item-selected': '' }\" ></div>\n";
     }
 };
 
 _p[28] = {
     value: function() {
-        return '<div unselectable="on" class="fui-label" >@(m.text)</div>';
+        return '<div unselectable="on" class="fui-label">$text</div>\n';
     }
 };
 
 _p[29] = {
     value: function() {
-        return '<div unselectable="on" class="fui-mask" style="background-color: @m.bgcolor; opacity: @m.opacity;"></div>';
+        return '<div unselectable="on" class="fui-mask" style="background-color: $bgcolor; opacity: $opacity;"></div>\n';
     }
 };
 
 _p[30] = {
     value: function() {
-        return '<div unselectable="on" class="fui-panel" ></div>';
+        return '<div unselectable="on" class="fui-panel"></div>\n';
     }
 };
 
 _p[31] = {
     value: function() {
-        return '<div unselectable="on" class="fui-separator" ></div>';
+        return '<div unselectable="on" class="fui-separator"></div>\n';
     }
 };
 
 _p[32] = {
     value: function() {
-        return '<div unselectable="on" class="fui-spin-button" ></div>';
+        return '<div unselectable="on" class="fui-spin-button"></div>\n';
     }
 };
 
 _p[33] = {
     value: function() {
-        return '<div unselectable="on" class="fui-tabs">' + '<div unselectable="on" class="fui-tabs-button-wrap"></div>' + '<div unselectable="on" class="fui-tabs-panel-wrap"></div>' + "</div>";
+        return '<div unselectable="on" class="fui-tabs">\n' + '<div unselectable="on" class="fui-tabs-button-wrap"></div>\n' + '<div unselectable="on" class="fui-tabs-panel-wrap"></div>\n' + "</div>\n";
     }
 };
 
@@ -1016,8 +997,8 @@ _p[33] = {
  */
 _p[34] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(18), Button = _p.r(37), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(12), LAYOUT = CONF.layout;
-        return _p.r(12).createClass("ButtonMenu", {
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(18), Button = _p.r(37), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13), LAYOUT = CONF.layout;
+        return _p.r(13).createClass("ButtonMenu", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -1140,8 +1121,8 @@ _p[34] = {
  */
 _p[35] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(12);
-        return _p.r(12).createClass("InputMenu", {
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
+        return _p.r(13).createClass("InputMenu", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -1306,8 +1287,8 @@ _p[35] = {
  */
 _p[36] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), Utils = _p.r(12), ToggleButton = _p.r(56);
-        return _p.r(12).createClass("Buttonset", {
+        var $ = _p.r(4), CONF = _p.r(12), Utils = _p.r(13), ToggleButton = _p.r(56);
+        return _p.r(13).createClass("Buttonset", {
             base: _p.r(51),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -1319,7 +1300,7 @@ _p[36] = {
                 this.__extendOptions(defaultOptions, options);
                 this.widgetName = "Buttonset";
                 // 当前选中项
-                this.__currentIndex = -1;
+                this.__currentIndex = this.__options.selected;
                 // 前一次选中项
                 this.__prevIndex = -1;
                 if (options !== marker) {
@@ -1331,6 +1312,15 @@ _p[36] = {
             },
             getButton: function(index) {
                 return this.getWidgets()[index] || null;
+            },
+            getValue: function() {
+                if (this.__currentIndex > -1) {
+                    return this.__widgets[this.__currentIndex].getValue();
+                }
+                return null;
+            },
+            getSelectedIndex: function() {
+                return this.__currentIndex;
             },
             appendButton: function() {
                 return this.appendWidget.apply(this, arguments);
@@ -1451,8 +1441,8 @@ _p[36] = {
  */
 _p[37] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), buttonTpl = _p.r(19), Icon = _p.r(42), Label = _p.r(48), Utils = _p.r(12);
-        return _p.r(12).createClass("Button", {
+        var $ = _p.r(4), CONF = _p.r(12), buttonTpl = _p.r(19), Icon = _p.r(42), Label = _p.r(48), Utils = _p.r(13);
+        return _p.r(13).createClass("Button", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -1461,9 +1451,6 @@ _p[37] = {
                     label: null,
                     text: null,
                     icon: null,
-                    width: null,
-                    height: null,
-                    padding: null,
                     // label相对icon的位置
                     layout: "right"
                 };
@@ -1510,13 +1497,12 @@ _p[37] = {
                 this.__initButtonEvent();
             },
             __initOptions: function() {
-                this.__options.__css = Utils.getCssRules([ "width", "height", "padding" ], this.__options);
-                if (typeof this.__options.label === "string") {
+                if (typeof this.__options.label !== "object") {
                     this.__options.label = {
                         text: this.__options.label
                     };
                 }
-                if (typeof this.__options.icon === "string") {
+                if (typeof this.__options.icon !== "object") {
                     this.__options.icon = {
                         img: this.__options.icon
                     };
@@ -1536,17 +1522,13 @@ _p[37] = {
  */
 _p[38] = {
     value: function(require) {
-        var Utils = _p.r(12), CONF = _p.r(11), Mask = _p.r(49), tpl = _p.r(20), $ = _p.r(3);
+        var Utils = _p.r(13), CONF = _p.r(12), Mask = _p.r(49), tpl = _p.r(20), $ = _p.r(4);
         return Utils.createClass("ColorPicker", {
             base: _p.r(52),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
                 var defaultOptions = {
-                    width: null,
-                    height: null,
-                    padding: null,
-                    margin: 0,
                     clearText: "",
                     commonText: "",
                     commonColor: [ [ "#ffffff", "#000000", "#eeece1", "#1f497d", "#4f81bd", "#c0504d", "#9bbb59", "#8064a2", "#4bacc6", "#f79646" ], [ "#f2f2f2", "#808080", "#ddd8c2", "#c6d9f1", "#dbe5f1", "#f2dbdb", "#eaf1dd", "#e5dfec", "#daeef3", "#fde9d9" ], [ "#d9d9d9", "#595959", "#c4bc96", "#8db3e2", "#b8cce4", "#e5b8b7", "#d6e3bc", "#ccc0d9", "#b6dde8", "#fbd4b4" ], [ "#bfbfbf", "#404040", "#938953", "#548dd4", "#95b3d7", "#d99594", "#c2d69b", "#b2a1c7", "#92cddc", "#fabf8f" ], [ "#a6a6a6", "#262626", "#4a442a", "#17365d", "#365f91", "#943634", "#76923c", "#5f497a", "#31849b", "#e36c0a" ], [ "#7f7f7f", "#0d0d0d", "#1c1a10", "#0f243e", "#243f60", "#622423", "#4e6128", "#3f3151", "#205867", "#974706" ] ],
@@ -1635,7 +1617,7 @@ _p[38] = {
  */
 _p[39] = {
     value: function(require) {
-        var Utils = _p.r(12), CONF = _p.r(11), Widget = _p.r(57), $ = _p.r(3);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), $ = _p.r(4);
         return Utils.createClass("Container", {
             base: Widget,
             constructor: function(options) {
@@ -1654,18 +1636,6 @@ _p[39] = {
             },
             indexOf: function(widget) {
                 return $.inArray(widget, this.__widgets);
-            },
-            __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
-                this.callBase();
-                this.__contentElement = this.__element;
-                $(this.__element).addClass(CONF.classPrefix + "container");
-                if (this.__options.break) {
-                    $(this.__element).addClass(CONF.classPrefix + "container-break");
-                }
-                return this;
             },
             disable: function() {
                 this.callBase();
@@ -1733,6 +1703,22 @@ _p[39] = {
                 $(widget.getElement()).removeClass(CONF.classPrefix + "panel-break-widget");
                 return widget;
             },
+            __render: function() {
+                if (this.__rendered) {
+                    return this;
+                }
+                this.callBase();
+                this.__contentElement = this.__element;
+                $(this.__element).addClass(CONF.classPrefix + "container");
+                if (this.__options.break) {
+                    $(this.__element).addClass(CONF.classPrefix + "container-break");
+                }
+                return this;
+            },
+            // Overload
+            __appendChild: function(childWidget) {
+                return this.appendWidget(childWidget);
+            },
             /**
          * 验证元素给定元素是否可以插入当前容器中
          * @param ele 需要验证的元素
@@ -1751,7 +1737,7 @@ _p[39] = {
  */
 _p[40] = {
     value: function(require) {
-        var Utils = _p.r(12), CONF = _p.r(11), Widget = _p.r(57), Mask = _p.r(49), tpl = _p.r(21), Button = _p.r(37), LAYOUT = CONF.layout, $ = _p.r(3);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), Mask = _p.r(49), tpl = _p.r(21), Button = _p.r(37), LAYOUT = CONF.layout, $ = _p.r(4);
         return Utils.createClass("Dialog", {
             base: _p.r(52),
             constructor: function(options) {
@@ -1902,8 +1888,8 @@ _p[40] = {
  */
 _p[41] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(22), Button = _p.r(37), Panel = _p.r(51), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(12);
-        return _p.r(12).createClass("DropPanel", {
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(22), Button = _p.r(37), Panel = _p.r(51), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(13);
+        return _p.r(13).createClass("DropPanel", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -1965,18 +1951,12 @@ _p[41] = {
                 // 初始化content
                 $content = $('<div class="' + CONF.classPrefix + 'drop-panel-content"></div>').append(this.__panelWidget.getElement());
                 this.__contentElement = $content[0];
-                // 设置样式
-                $content.css(Utils.getCssRules([ "width", "height", "padding" ], this.__options));
-                if (this.__options.margin) {
-                    $(this.elements).css("margin", this.__options.margin);
-                }
                 // 插入按钮到element
                 $(this.__element).append($content).append(this.__buttonWidget.getElement());
                 this.__initDropPanelEvent();
             },
             __initOptions: function() {
-                this.__options.__css = Utils.getCssRules([ "height" ], this.__options);
-                if (typeof this.__options.button === "string") {
+                if (typeof this.__options.button !== "object") {
                     this.__options.input = {
                         icon: this.__options.button
                     };
@@ -2013,15 +1993,13 @@ _p[41] = {
  */
 _p[42] = {
     value: function(require) {
-        var prefix = "_fui_", $ = _p.r(3), iconTpl = _p.r(23), Utils = _p.r(12);
-        return _p.r(12).createClass("Icon", {
+        var prefix = "_fui_", $ = _p.r(4), iconTpl = _p.r(23), Utils = _p.r(13);
+        return _p.r(13).createClass("Icon", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
                 var defaultOptions = {
-                    width: null,
-                    height: null,
                     img: null
                 };
                 this.__extendOptions(defaultOptions, options);
@@ -2029,6 +2007,7 @@ _p[42] = {
                 this.__tpl = iconTpl;
                 this.__prevIcon = null;
                 this.__currentIcon = this.__options.img;
+                this.__image = null;
                 if (options !== marker) {
                     this.__render();
                 }
@@ -2041,14 +2020,9 @@ _p[42] = {
                 if (this.__options.img === imageSrc) {
                     return this;
                 }
-                this.__prevIcon = this.__currentIcon;
-                this.__currentIcon = imageSrc;
-                tpl = Utils.Tpl.compile(this.__tpl, $.extend({}, this.__options, {
-                    img: this.__currentIcon
-                }));
-                node = $(tpl)[0];
-                this.__element.innerHTML = node.innerHTML;
-                node = null;
+                if (this.__image) {
+                    this.__image.src = imageSrc;
+                }
                 this.trigger("iconchange", {
                     prevImage: this.__prevIcon,
                     currentImage: this.__currentIcon
@@ -2061,11 +2035,21 @@ _p[42] = {
                 if (this.__rendered) {
                     return this;
                 }
-                this.__initOptions();
+                this.__options.__width = this.__options.width;
+                this.__options.__height = this.__options.height;
+                this.__options.width = null;
+                this.__options.height = null;
                 this.callBase();
-            },
-            __initOptions: function() {
-                this.__options.__css = Utils.getCssRules([ "width", "height" ], this.__options);
+                if (!this.__options.img) {
+                    return;
+                }
+                this.__image = $("img", this.__element)[0];
+                if (this.__options.__width !== null) {
+                    this.__image.width = this.__options.__width;
+                }
+                if (this.__options.__height !== null) {
+                    this.__image.height = this.__options.__height;
+                }
             }
         });
     }
@@ -2077,8 +2061,8 @@ _p[42] = {
  */
 _p[43] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(24), Button = _p.r(37), Input = _p.r(45), Utils = _p.r(12);
-        return _p.r(12).createClass("InputButton", {
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(24), Button = _p.r(37), Input = _p.r(45), Utils = _p.r(13);
+        return _p.r(13).createClass("InputButton", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -2086,9 +2070,6 @@ _p[43] = {
                 var defaultOptions = {
                     button: null,
                     input: null,
-                    width: null,
-                    height: null,
-                    padding: null,
                     // label相对icon的位置
                     layout: "right"
                 };
@@ -2154,7 +2135,6 @@ _p[43] = {
                 });
             },
             __initOptions: function() {
-                this.__options.__css = Utils.getCssRules([ "width", "height", "padding" ], this.__options);
                 if (typeof this.__options.button !== "object") {
                     this.__options.button = {
                         icon: this.__options.button
@@ -2171,8 +2151,8 @@ _p[43] = {
  */
 _p[44] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(12);
-        return _p.r(12).createClass("InputMenu", {
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
+        return _p.r(13).createClass("InputMenu", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -2351,19 +2331,13 @@ _p[44] = {
  */
 _p[45] = {
     value: function(require) {
-        var prefix = "_fui_", $ = _p.r(3), tpl = _p.r(26), Utils = _p.r(12);
-        return _p.r(12).createClass("Input", {
+        var prefix = "_fui_", CONF = _p.r(12), $ = _p.r(4), tpl = _p.r(26), Utils = _p.r(13);
+        return _p.r(13).createClass("Input", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
-                var defaultOptions = {
-                    width: null,
-                    height: null,
-                    border: null,
-                    padding: null,
-                    color: null
-                };
+                var defaultOptions = {};
                 this.__extendOptions(defaultOptions, options);
                 this.widgetName = "Input";
                 this.__tpl = tpl;
@@ -2404,8 +2378,9 @@ _p[45] = {
                 if (this.__rendered) {
                     return this;
                 }
-                this.__initOptions();
                 this.callBase();
+                this.__element.removeAttribute("unselectable");
+                this.addClass(CONF.classPrefix + "selectable");
                 this.__initInputEvent();
             },
             __initInputEvent: function() {
@@ -2416,9 +2391,6 @@ _p[45] = {
                         });
                     }
                 });
-            },
-            __initOptions: function() {
-                this.__options.__css = Utils.getCssRules([ "width", "height", "border", "padding", "color" ], this.__options);
             }
         });
     }
@@ -2429,7 +2401,7 @@ _p[45] = {
  */
 _p[46] = {
     value: function(require) {
-        var Utils = _p.r(12), itemTpl = _p.r(27), Icon = _p.r(42), Label = _p.r(48), CONF = _p.r(11), $ = _p.r(3);
+        var Utils = _p.r(13), itemTpl = _p.r(27), Icon = _p.r(42), Label = _p.r(48), CONF = _p.r(12), $ = _p.r(4);
         return Utils.createClass("Item", {
             base: _p.r(57),
             constructor: function(options) {
@@ -2438,9 +2410,6 @@ _p[46] = {
                 var defaultOptions = {
                     label: "",
                     icon: null,
-                    width: null,
-                    height: null,
-                    padding: null,
                     selected: false,
                     textAlign: "left"
                 };
@@ -2465,7 +2434,7 @@ _p[46] = {
                 this.__update(false);
                 return this;
             },
-            isSelect: function() {
+            isSelected: function() {
                 return this.__selectState;
             },
             setLabel: function(text) {
@@ -2511,7 +2480,6 @@ _p[46] = {
          * @private
          */
             __initOptions: function() {
-                this.__options.__css = Utils.getCssRules([ "width", "height", "padding" ], this.__options);
                 if (typeof this.__options.label !== "object") {
                     this.__options.label = {
                         text: this.__options.label
@@ -2536,7 +2504,7 @@ _p[46] = {
  */
 _p[47] = {
     value: function(require) {
-        var Utils = _p.r(12), CONF = _p.r(11), Label = _p.r(48), $ = _p.r(3);
+        var Utils = _p.r(13), CONF = _p.r(12), Label = _p.r(48), $ = _p.r(4);
         return Utils.createClass("LabelPanel", {
             base: _p.r(51),
             constructor: function(options) {
@@ -2584,8 +2552,7 @@ _p[47] = {
             },
             __initOptions: function() {
                 var label = this.__options.label;
-                this.callBase();
-                if (typeof label === "string") {
+                if (typeof label !== "object") {
                     this.__options.label = {
                         text: label
                     };
@@ -2604,7 +2571,7 @@ _p[47] = {
  */
 _p[48] = {
     value: function(require) {
-        var Utils = _p.r(12), labelTpl = _p.r(28), $ = _p.r(3);
+        var Utils = _p.r(13), labelTpl = _p.r(28), $ = _p.r(4);
         return Utils.createClass("Label", {
             base: _p.r(57),
             constructor: function(options) {
@@ -2612,9 +2579,6 @@ _p[48] = {
                 this.callBase(marker);
                 var defaultOptions = {
                     text: "",
-                    width: null,
-                    height: null,
-                    padding: null,
                     textAlign: "center"
                 };
                 this.__extendOptions(defaultOptions, options);
@@ -2657,9 +2621,6 @@ _p[48] = {
          */
             __initOptions: function() {
                 this.__options.text = this.__options.text.toString();
-                this.__options.__css = Utils.getCssRules([ "width", "height", "padding", {
-                    textAlign: "text-align"
-                } ], this.__options);
             }
         });
     }
@@ -2670,7 +2631,7 @@ _p[48] = {
  */
 _p[49] = {
     value: function(require) {
-        var Utils = _p.r(12), tpl = _p.r(29), Widget = _p.r(57), $ = _p.r(3), __cache_inited = false, __MASK_CACHE = [];
+        var Utils = _p.r(13), tpl = _p.r(29), Widget = _p.r(57), $ = _p.r(4), __cache_inited = false, __MASK_CACHE = [];
         return Utils.createClass("Mask", {
             base: _p.r(57),
             constructor: function(options) {
@@ -2808,7 +2769,7 @@ _p[49] = {
  */
 _p[50] = {
     value: function(require) {
-        var Utils = _p.r(12), Item = _p.r(46), CONF = _p.r(11), $ = _p.r(3);
+        var Utils = _p.r(13), Item = _p.r(46), CONF = _p.r(12), $ = _p.r(4);
         return Utils.createClass("Menu", {
             base: _p.r(52),
             constructor: function(options) {
@@ -2950,18 +2911,13 @@ _p[50] = {
  */
 _p[51] = {
     value: function(require) {
-        var Utils = _p.r(12), panelTpl = _p.r(30), $ = _p.r(3);
+        var Utils = _p.r(13), panelTpl = _p.r(30), $ = _p.r(4);
         return Utils.createClass("Panel", {
             base: _p.r(39),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
-                var defaultOptions = {
-                    width: null,
-                    height: null,
-                    padding: null,
-                    margin: 0
-                };
+                var defaultOptions = {};
                 this.__extendOptions(defaultOptions, options);
                 this.widgetName = "Panel";
                 this.__tpl = panelTpl;
@@ -2969,41 +2925,15 @@ _p[51] = {
                     this.__render();
                 }
             },
-            appendWidget: function(widget) {
-                var returnValue = this.callBase(widget);
-                return returnValue;
-            },
-            insertWidget: function(index, widget) {
-                var returnValue = this.callBase(index, widget);
-                if (this.__options.margin) {
-                    widget.getElement().style.margin = this.__options.margin;
-                }
-                return returnValue;
-            },
             __render: function() {
                 var $content = null;
                 if (this.__rendered) {
                     return this;
                 }
-                this.__initOptions();
                 this.callBase();
                 $content = $('<div class="fui-panel-content"></div>');
                 this.__contentElement.appendChild($content[0]);
                 this.__contentElement = $content[0];
-            },
-            __initOptions: function() {
-                var cssMapping = {}, options = this.__options, value = null;
-                $.each([ "width", "height", "padding" ], function(i, item) {
-                    value = options[item];
-                    if (value !== null && value !== undefined) {
-                        cssMapping[item] = value;
-                    }
-                });
-                options.__css = cssMapping;
-                // margin
-                if (typeof this.__options.margin === "number") {
-                    this.__options.margin += "px";
-                }
             }
         });
     }
@@ -3014,7 +2944,7 @@ _p[51] = {
  */
 _p[52] = {
     value: function(require) {
-        var Utils = _p.r(12), CONF = _p.r(11), Widget = _p.r(57), $ = _p.r(3);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), $ = _p.r(4);
         var LAYOUT = {
             TOP: "top",
             LEFT: "left",
@@ -3042,6 +2972,8 @@ _p[52] = {
                 this.widgetName = "PPanel";
                 this.__target = this.__options.target;
                 this.__layout = this.__options.layout;
+                // 记录是否已调整过高度
+                this.__height_resized = false;
                 if (this.__target instanceof Widget) {
                     this.__target = this.__target.getElement();
                 }
@@ -3119,7 +3051,7 @@ _p[52] = {
          * @private
          */
             __resizeWidth: function(targetRect) {
-                if (!this.__target || this.__options.width !== null) {
+                if (!this.__target) {
                     return;
                 }
                 var $ele = $(this.__element), vals = {
@@ -3136,10 +3068,9 @@ _p[52] = {
          */
             __resizeHeight: function() {
                 var boundRect = null, panelRect = null, diff = 0;
-                if (this.__options.height !== null) {
-                    return;
-                }
                 panelRect = Utils.getRect(this.__element);
+                panelRect.height = this.__element.scrollHeight;
+                panelRect.bottom = panelRect.top + panelRect.height;
                 if (this.__options.bound.tagName.toLowerCase() === "body") {
                     boundRect = {
                         top: 0,
@@ -3150,7 +3081,10 @@ _p[52] = {
                 }
                 diff = panelRect.bottom - boundRect.bottom;
                 if (diff > 0) {
+                    this.__height_resized = true;
                     $(this.__element).css("height", panelRect.height - diff - this.__options.diff + "px");
+                } else if (this.__height_resized) {
+                    this.__element.style.height = null;
                 }
             },
             /**
@@ -3239,14 +3173,13 @@ _p[52] = {
  */
 _p[53] = {
     value: function(require) {
-        var Utils = _p.r(12), separatorTpl = _p.r(31), $ = _p.r(3);
+        var Utils = _p.r(13), separatorTpl = _p.r(31), $ = _p.r(4);
         return Utils.createClass("Separator", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
                 var defaultOptions = {
-                    padding: null,
                     width: 1,
                     height: "100%",
                     bgcolor: "#e1e1e1"
@@ -3257,22 +3190,6 @@ _p[53] = {
                 if (options !== marker) {
                     this.__render();
                 }
-            },
-            __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__initOptions();
-                this.callBase();
-            },
-            /**
-         * 初始化模板所用的css值
-         * @private
-         */
-            __initOptions: function() {
-                this.__options.__css = Utils.getCssRules([ "width", "height", "padding", "margin", {
-                    bgcolor: "background-color"
-                } ], this.__options);
             }
         });
     }
@@ -3284,8 +3201,8 @@ _p[53] = {
  */
 _p[54] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(32), Button = _p.r(37), Input = _p.r(45), Panel = _p.r(51), Utils = _p.r(12);
-        return _p.r(12).createClass("SpinButton", {
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(32), Button = _p.r(37), Input = _p.r(45), Panel = _p.r(51), Utils = _p.r(13);
+        return _p.r(13).createClass("SpinButton", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -3384,8 +3301,8 @@ _p[54] = {
  */
 _p[55] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), tpl = _p.r(33), Button = _p.r(37), Panel = _p.r(51), Utils = _p.r(12);
-        return _p.r(12).createClass("Tabs", {
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(33), Button = _p.r(37), Panel = _p.r(51), Utils = _p.r(13);
+        return _p.r(13).createClass("tabss", {
             base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -3438,9 +3355,9 @@ _p[55] = {
                     return this;
                 }
                 toInfo = this.__getInfo(index);
-                this.trigger("tabselect", toInfo);
+                this.trigger("tabsselect", toInfo);
                 if (this.__prevSelected !== this.__selected) {
-                    this.trigger("tabchange", {
+                    this.trigger("tabschange", {
                         from: this.__getInfo(this.__prevSelected),
                         toInfo: toInfo
                     });
@@ -3491,6 +3408,7 @@ _p[55] = {
                     opt = opt || {
                         hide: true
                     };
+                    opt.hide = true;
                     panel = new Panel(opt);
                     _self.__panels.push(panel);
                     panel.appendTo(panelWrap);
@@ -3537,8 +3455,8 @@ _p[55] = {
  */
 _p[56] = {
     value: function(require) {
-        var $ = _p.r(3), CONF = _p.r(11), Utils = _p.r(12);
-        return _p.r(12).createClass("ToggleButton", {
+        var $ = _p.r(4), CONF = _p.r(12), Utils = _p.r(13);
+        return _p.r(13).createClass("ToggleButton", {
             base: _p.r(37),
             constructor: function(options) {
                 var marker = Utils.getMarker();
@@ -3624,8 +3542,8 @@ _p[56] = {
  */
 _p[57] = {
     value: function(require) {
-        var prefix = "_fui_", uid = 0, CONF = _p.r(11), FUI_NS = _p.r(10), $ = _p.r(3), Utils = _p.r(12);
-        var Widget = _p.r(12).createClass("Widget", {
+        var prefix = "_fui_", uid = 0, CONF = _p.r(12), FUI_NS = _p.r(11), $ = _p.r(4), Utils = _p.r(13);
+        var Widget = _p.r(13).createClass("Widget", {
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -3636,7 +3554,9 @@ _p[57] = {
                     preventDefault: false,
                     text: "",
                     value: null,
-                    hide: false
+                    hide: false,
+                    width: null,
+                    height: null
                 };
                 this.__widgetType = "widget";
                 this.__tpl = "";
@@ -3711,6 +3631,8 @@ _p[57] = {
             appendTo: function(container) {
                 if (Utils.isElement(container)) {
                     container.appendChild(this.__element);
+                } else if (container instanceof Widget) {
+                    container.__appendChild(this);
                 } else {
                     throw new Error("TypeError: Widget.appendTo()");
                 }
@@ -3755,14 +3677,19 @@ _p[57] = {
                         $ele.addClass(className);
                     }
                 }
-                if (this.__options.text && this.__allowShowTitle()) {
-                    this.__element.setAttribute("title", this.__options.text);
-                }
+                this.__initCommonStyle();
                 if (this.__options.hide) {
                     this.__hide();
                 }
                 this.__initWidgetEvent();
                 return this;
+            },
+            /**
+         * 该方法将被appendTo调用， 用于根据各组件自身的规则插入节点,  子类可根据需要覆盖该方法
+         * @param childWidget 将被追加的子构件对象
+         */
+            __appendChild: function(childWidget) {
+                return this.__element.appendChild(childWidget.getElement());
             },
             __initWidgetEvent: function() {
                 this.on("mousedown", function(e) {
@@ -3820,6 +3747,17 @@ _p[57] = {
             },
             __show: function() {
                 $(this.__element).removeClass(CONF.classPrefix + "hide");
+            },
+            __initCommonStyle: function() {
+                if (this.__options.text && this.__allowShowTitle()) {
+                    this.__element.setAttribute("title", this.__options.text);
+                }
+                if (this.__options.width) {
+                    this.__element.style.width = this.__options.width + "px";
+                }
+                if (this.__options.height) {
+                    this.__element.style.height = this.__options.height + "px";
+                }
             },
             __id: function() {
                 return this.__options.id || generatorId();

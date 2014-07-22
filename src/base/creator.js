@@ -13,7 +13,7 @@ define( function ( require ) {
         parse: function ( options ) {
 
             var pool = {},
-                instance = null,
+                key = null,
                 optionList = null;
 
             for ( var widgetClazz in options ) {
@@ -23,6 +23,7 @@ define( function ( require ) {
                 }
 
                 optionList = options[ widgetClazz ];
+                key = widgetClazz;
                 widgetClazz = FUI_NS[ widgetClazz ];
 
                 if ( !widgetClazz ) {
@@ -30,16 +31,18 @@ define( function ( require ) {
                 }
 
                 if ( !$.isArray( optionList ) ) {
-                    optionList = [ optionList ];
+                    pool[ key ] = new widgetClazz( optionList );
+                } else {
+
+                    pool[ key ] = [];
+
+                    $.each( optionList, function ( i, opt ) {
+
+                        pool[ key ].push( new widgetClazz( opt ) );
+
+                    } );
+
                 }
-
-                $.each( optionList, function ( i, opt ) {
-
-                    instance = new widgetClazz( opt );
-
-                    pool[ instance.getId() ] = instance;
-
-                } );
 
             }
 

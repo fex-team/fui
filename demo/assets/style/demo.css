@@ -4,70 +4,8 @@ html, body {
     background-color: #2b579a;
 }
 
-.toolbar {
-    border-bottom: 1px solid #f2f2f2;
+.bw-toolbar-wrap {
+    border: 1px solid #d3d3d3;
+    background-color: #e1e1e1;
     border-width: 1px 0;
-}
-
-.operator-area {
-    background-color: #fff;
-}
-
-.classify {
-    background-color: #e1e1e1;
-}
-
-.classify .fui-button {
-    line-height: 30px;
-    padding: 2px 20px!important;
-    background-color: #e1e1e1;
-}
-
-.classify .fui-button:HOVER {
-    background-color: #e1e1e1!important;
-}
-
-.classify .fui-button:ACTIVE {
-    background-color: #e1e1e1!important;
-}
-
-.classify .fui-button:HOVER .fui-label {
-    color: #2b579a;
-}
-
-.classify .fui-selected {
-    background-color: #fff!important;
-}
-
-.classify .fui-selected .fui-label {
-    color: #2b579a;
-}
-
-.classify .fui-selected:HOVER {
-    background-color: #fff!important;
-}
-
-.classify .fui-selected:ACTIVE {
-    background-color: #fff!important;
-}
-
-.ext-sep {
-    margin-top: 5px!important;
-}
-
-.ext-open-btn .fui-icon{
-    width: 8px;
-    height: 16px;
-    background: url( "../icon-demo/small-down.png" ) no-repeat 0 4px;
-}
-
-.ext-list-btn .fui-icon{
-    width: 16px;
-    height: 16px;
-    background: url( "../icon-demo/list.png" ) no-repeat 0 0;
-}
-
-.ext-spelling {
-    width: 60px;
-    text-align: center;
 }

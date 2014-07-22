@@ -1,0 +1,218 @@
+.bw-toolbar .bw-paragraph .bw-down-open-btn {
+  padding: 7px 0;
+}
+.bw-toolbar .bw-paragraph .bw-down-open-btn .fui-icon {
+  width: 10px;
+  height: 10px;
+  background: url("images/down-open-small.png") no-repeat 0 0;
+}
+
+.bw-toolbar .fui-button {
+  padding: 2px;
+}
+
+.bw-toolbar .bw-redo-btn .fui-icon,
+.bw-toolbar .bw-undo-btn .fui-icon,
+.bw-toolbar .bw-copy-btn .fui-icon,
+.bw-toolbar .bw-cut-btn .fui-icon,
+.bw-toolbar .bw-paste-btn .fui-icon,
+.bw-toolbar .bw-removeformat-btn .fui-icon,
+.bw-toolbar .bw-autotypeset-btn .fui-icon,
+.bw-toolbar .bw-formatmatch-btn .fui-icon,
+.bw-toolbar .bw-fontsize-plus-btn .fui-icon,
+.bw-toolbar .bw-fontsize-minus-btn .fui-icon,
+.bw-toolbar .bw-superscript-btn .fui-icon,
+.bw-toolbar .bw-subscript-btn .fui-icon,
+.bw-toolbar .bw-bold-btn .fui-icon,
+.bw-toolbar .bw-italic-btn .fui-icon,
+.bw-toolbar .bw-underline-btn .fui-icon,
+.bw-toolbar .bw-strikethrough-btn .fui-icon,
+.bw-toolbar .bw-forecolor-btn .fui-icon,
+.bw-toolbar .bw-backcolor-btn .fui-icon,
+.bw-toolbar .bw-paragraph-ul-btn .fui-icon,
+.bw-toolbar .bw-paragraph-ol-btn .fui-icon,
+.bw-toolbar .bw-indent-left-btn .fui-icon,
+.bw-toolbar .bw-indent-right-btn .fui-icon,
+.bw-toolbar .bw-justify-left-btn .fui-icon,
+.bw-toolbar .bw-justify-right-btn .fui-icon,
+.bw-toolbar .bw-justify-center-btn .fui-icon,
+.bw-toolbar .bw-justify-full-btn .fui-icon,
+.bw-toolbar .bw-space-line-btn .fui-icon,
+.bw-toolbar .bw-space-paragraph-front-btn .fui-icon,
+.bw-toolbar .bw-space-paragraph-back-btn .fui-icon {
+  width: 20px;
+  height: 20px;
+}
+.bw-toolbar .bw-redo-btn .fui-icon {
+  background: url("images/redo.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-undo-btn .fui-icon {
+  background: url("images/undo.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-copy-btn .fui-icon {
+  background: url("images/copy.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-cut-btn .fui-icon {
+  background: url("images/cut.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-paste-btn .fui-icon {
+  width: 32px;
+  height: 32px;
+  background: url("images/paste.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-removeformat-btn .fui-icon {
+  background: url("images/removeformat.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-autotypeset-btn .fui-icon {
+  background: url("images/autotypeset.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-formatmatch-btn .fui-icon {
+  background: url("images/formatmatch.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-fontsize-plus-btn .fui-icon {
+  background: url("images/a-plus.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-fontsize-minus-btn .fui-icon {
+  background: url("images/a-minus.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-superscript-btn .fui-icon {
+  background: url("images/superscript.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-subscript-btn .fui-icon {
+  background: url("images/subscript.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-bold-btn .fui-icon {
+  background: url("images/bold.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-italic-btn .fui-icon {
+  background: url("images/italic.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-underline-btn .fui-icon {
+  background: url("images/underline.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-strikethrough-btn .fui-icon {
+  background: url("images/strikethrough.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-forecolor-btn .fui-icon {
+  background: url("images/forecolor.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-backcolor-btn .fui-icon {
+  background: url("images/backcolor.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-paragraph-ul-btn .fui-icon {
+  background: url("images/unorderlist.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-paragraph-ol-btn .fui-icon {
+  background: url("images/orderlist.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-indent-left-btn .fui-icon {
+  background: url("images/left-indent.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-indent-right-btn .fui-icon {
+  background: url("images/right-indent.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-justify-left-btn .fui-icon {
+  background: url("images/justify-left.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-justify-center-btn .fui-icon {
+  background: url("images/justify-center.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-justify-right-btn .fui-icon {
+  background: url("images/justify-right.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-justify-full-btn .fui-icon {
+  background: url("images/justify-full.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-space-line-btn .fui-icon {
+  background: url("images/space-line.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-space-paragraph-front-btn .fui-icon {
+  background: url("images/space-pf.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-space-paragraph-back-btn .fui-icon {
+  background: url("images/space-pb.png") no-repeat 0 0;
+}
+/*--------------------- paragraph icon */
+.bw-paragraph-ul-disc .fui-icon,
+.bw-paragraph-ul-circle .fui-icon,
+.bw-paragraph-ul-square .fui-icon {
+  margin-right: 5px;
+  width: 6px;
+  height: 6px;
+}
+.bw-paragraph-ul-disc .fui-icon {
+  background: url("images/ul-disc.png") no-repeat 0 0;
+}
+.bw-paragraph-ul-circle .fui-icon {
+  background: url("images/ul-circle.png") no-repeat 0 0;
+}
+.bw-paragraph-ul-square .fui-icon {
+  background: url("images/ul-square.png") no-repeat 0 0;
+}
+
+.bw-toolbar .bw-down-open-btn {
+  padding: 6px 0;
+}
+.bw-toolbar .bw-down-open-btn .fui-icon {
+  width: 16px;
+  height: 16px;
+  background: url("images/down-open.png") no-repeat 0 0;
+}
+.bw-toolbar .bw-font-family .fui-input,
+.bw-toolbar .bw-font-size .fui-input {
+  width: 80px;
+}
+
+.bw-toolbar {
+  /*------------------------ font-panel ------*/
+  /**---------------------- paragarph panel -------*/
+}
+.bw-toolbar .fui-label-panel {
+  text-align: center;
+  height: 80px;
+  margin: 0 10px;
+}
+.bw-toolbar .bw-font {
+  text-align: left;
+}
+.bw-toolbar .bw-font-top-panel,
+.bw-toolbar .bw-font-bottom-panel {
+  padding: 5px 0;
+}
+.bw-toolbar .bw-font-top-panel > .fui-panel-content > .fui-widget,
+.bw-toolbar .bw-font-bottom-panel > .fui-panel-content > .fui-widget {
+  margin-right: 5px;
+}
+.bw-toolbar .bw-superscript-btn {
+  margin-right: 2px;
+}
+.bw-toolbar .bw-justify .fui-button {
+  margin-right: 2px;
+}
+.bw-toolbar .bw-justify .bw-justify-full-btn {
+  margin-right: 0;
+}
+
+.bw-toolbar .fui-separator {
+  height: 70px;
+  background: #ececec;
+  margin-top: 5px;
+}
+
+.bw-toolbar {
+  border: 1px solid #c3c3c3;
+  border-width: 1px 0;
+}
+.bw-toolbar .tabs-buttons {
+  background: #e1e1e1;
+}
+.bw-toolbar .tabs-buttons .bw-tabs-btn {
+  padding: 7px 14px;
+}
+.bw-toolbar .tabs-buttons .bw-tabs-btn.fui-selected {
+  background-color: #fff;
+}
+.bw-toolbar .tabs-panels {
+  background: #fff;
+  padding: 5px;
+}

@@ -28,7 +28,7 @@ define( function ( require ) {
 
             this.widgetName = 'Buttonset';
             // 当前选中项
-            this.__currentIndex = -1;
+            this.__currentIndex = this.__options.selected;
             // 前一次选中项
             this.__prevIndex = -1;
 
@@ -44,6 +44,20 @@ define( function ( require ) {
 
         getButton: function ( index ) {
             return this.getWidgets()[ index ] || null;
+        },
+
+        getValue: function () {
+
+            if ( this.__currentIndex > -1 ) {
+                return this.__widgets[ this.__currentIndex ].getValue();
+            }
+
+            return null;
+
+        },
+
+        getSelectedIndex: function () {
+            return this.__currentIndex;
         },
 
         appendButton: function () {

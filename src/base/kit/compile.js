@@ -17,52 +17,6 @@ define( function ( require ) {
 
             } );
 
-        },
-
-        toSpaceStyle: function ( space ) {
-
-            var styleText = [];
-
-            if ( $.isNumeric( space.width ) ) {
-                styleText.push( 'width:' + space.width + 'px' );
-            }
-
-            if ( $.isNumeric( space.height ) ) {
-                styleText.push( 'height:' + space.height + 'px' );
-            }
-
-            return styleText.join( ';' );
-
-        },
-
-        // css序列化
-        toCssText: function ( cssMapping ) {
-
-            var rules = [],
-                value = null;
-
-            if ( !cssMapping ) {
-                return '';
-            }
-
-            for ( var key in cssMapping ) {
-
-                if ( !cssMapping.hasOwnProperty( key ) ) {
-                    continue;
-                }
-
-                value = cssMapping[ key ];
-
-                rules.push( key + ': ' + value + ( $.isNumeric( value ) ? 'px' : '' ) );
-
-            }
-
-            if ( rules.length === 0 ) {
-                return '';
-            }
-
-            return 'style="' + rules.join( ";" ) + '"';
-
         }
 
     };

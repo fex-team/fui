@@ -173,6 +173,8 @@ define( function ( require ) {
                     hide: true
                 };
 
+                opt.hide = true;
+
                 panel= new Panel( opt );
 
                 _self.__panels.push( panel );

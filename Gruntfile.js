@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                 files: [ 'src/tpl/origin/**/*.html', 'src/ext/**/tpl/origin/**/*.html' ]
             },
             less: {
-                files: [ "theme/default/**.less" ],
+                files: [ "theme/**/*.less" ],
                 tasks: [ 'less:develop' ]
             },
             "ext-word": {
@@ -44,7 +44,8 @@ module.exports = function(grunt) {
         less: {
             develop: {
                 files: {
-                    'theme/default/fui.all.css': [ "theme/default/widget.less", "theme/default/container.less", "theme/default/**.less" ]
+                    'theme/default/fui.all.css': [ "theme/default/widget.less", "theme/default/container.less", "theme/default/**.less" ],
+                    'theme/word/word.all.css': [ "theme/word/**/*.less" ]
                 }
             },
             build: {

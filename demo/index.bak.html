@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI完整demo</title>
+
+    <link rel="stylesheet" type="text/css" href="../dist/theme/default/fui.css">
+    <link rel="stylesheet" type="text/css" href="../theme/word/word.all.css">
+    <link rel="stylesheet" type="text/css" href="assets/style/demo.css">
+    <script src="../dev-lib/jhtmls.min.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <!--<script src="../dev-lib/dev-define.js"></script>-->
+    <!--<script>-->
+        <!--inc.config({-->
+            <!--base: '../src'-->
+        <!--});-->
+    <!--</script>-->
+    <!--<script src="../dev-lib/exports.js"></script>-->
+    <!--<script src="../dev-lib/dev-start.js"></script>-->
+    <script src="../dist/fui.all.min.js"></script>
+    <script src="conf.js"></script>
+    <script>
+        window.onload = function () {
+
+            var tabs = new FUI.Tabs( {
+                buttons: [ "开始", "插入", "页面布局", "审阅", "视图" ]
+            }),
+            fileButton = new FUI.Button( {
+                label: "文件"
+            } );
+
+            var toolbar = new FUI.Panel( {
+                    className: 'toolbar',
+                    width: 1000,
+                    height: 100,
+                    margin: '0 2px'
+                } ),
+
+                undoRedoPanel = new FUI.LabelPanel( {
+                    break: true,
+                    height: 100,
+                    margin: 2,
+                    label: '撤销'
+                } ),
+
+                clipboardPanel = new FUI.LabelPanel( {
+                    label: '剪贴板',
+                    height: 100,
+                    margin: 2
+                } ),
+                fontPanel = new FUI.LabelPanel( {
+                    label: '字体',
+                    height: 100,
+                    margin: 2,
+                    break: true
+                } ),
+                filePanel = new FUI.LabelPanel( {
+                    label: '图片',
+                    height: 100,
+                    margin: 2,
+                    break: true
+                } ),
+                stylePanel = new FUI.LabelPanel( {
+                    label: '样式',
+                    height: 100,
+                    margin: '5px 1px',
+                    break: true
+                } );
+
+            var sep1 = new FUI.Separator( {
+                        className: 'ext-sep',
+                        height: 90
+                    } ),
+                sep2 = new FUI.Separator( {
+                    className: 'ext-sep',
+                    height: 90
+                } ),
+                sep3 = new FUI.Separator( {
+                    className: 'ext-sep',
+                    height: 90
+                }),
+                sep4 = new FUI.Separator( {
+                    className: 'ext-sep',
+                    height: 90
+                } );
+
+            initUndoRedoWidget( undoRedoPanel );
+            initClipboardWidget( clipboardPanel );
+            initFontWidget( fontPanel );
+            initFileWidget( filePanel );
+            initStyleWidget( stylePanel );
+
+            toolbar.appendWidget( sep1 );
+            toolbar.insertWidget( toolbar.indexOf( sep1 ), undoRedoPanel );
+            toolbar.appendWidget( clipboardPanel );
+            toolbar.appendWidget( sep2 );
+            toolbar.appendWidget( fontPanel );
+            toolbar.appendWidget( sep3 );
+            toolbar.appendWidget( filePanel );
+            toolbar.appendWidget( stylePanel );
+            toolbar.appendWidget( sep4 );
+
+            fileButton.appendTo( document.getElementById( "classify" ) );
+            tabs.appendButtonTo( document.getElementById( "classify" ) );
+            tabs.appendPanelTo( document.getElementById( "opArea" ) );
+
+            toolbar.appendTo( tabs.getPanel( 0 ).getElement() );
+
+        };
+
+        function initUndoRedoWidget ( panel ) {
+
+            var undoButton = new FUI.Button( {
+                    disabled: true,
+                    padding: '5px',
+                    icon: 'assets/icon-demo/undo.png',
+                    text: '撤销'
+                } ),
+                redoButton = new FUI.Button( {
+                    padding: '5px',
+                    icon: 'assets/icon-demo/redo.png',
+                    text: '恢复'
+                } );
+
+            panel.appendWidget( undoButton );
+            panel.appendWidget( redoButton );
+
+        }
+
+
+        function initClipboardWidget ( panel ) {
+
+            var panel1 = new FUI.Panel(),
+                panel2 = new FUI.Panel( {
+                    break: true
+                } );
+
+            var pasteButton = new FUI.Button( {
+                    padding: '7px',
+                    label: '粘贴',
+                    text: '粘贴',
+                    icon: 'assets/icon-demo/paste.png',
+                    layout: 'bottom'
+                } ),
+                cutButton = new FUI.Button( {
+                    padding: '2px',
+                    label: '剪切',
+                    text: '剪切',
+                    icon: 'assets/icon-demo/cut.png'
+                }),
+                copyButton = new FUI.Button( {
+                    padding: '2px',
+                    label: '复制',
+                    text: '复制',
+                    icon: 'assets/icon-demo/copy.png'
+                } );
+
+            panel1.insertWidget( 0, pasteButton );
+
+            panel2.appendWidget( cutButton );
+            panel2.appendWidget( copyButton );
+
+            panel.appendWidget( panel1 );
+            panel.appendWidget( panel2 );
+
+        }
+
+        function initFontWidget ( panel ) {
+
+            var biuPanel = new FUI.Panel( {
+                    padding: 5,
+                    margin: '0 3px'
+                } ),
+                boldButton = new FUI.ToggleButton( {
+                    padding: '5px',
+                    text: '加粗',
+                    icon: 'assets/icon-demo/bold.png'
+                } ),
+
+                italicButton = new FUI.ToggleButton( {
+                    padding: '5px',
+                    text: '倾斜',
+                    icon: 'assets/icon-demo/italic.png'
+                } ),
+
+                underlineButton = new FUI.ToggleButton( {
+                    padding: '5px',
+                    pressed: true,
+                    text: '下划线',
+                    icon: 'assets/icon-demo/underline.png'
+                } ),
+
+                strikethroughButton = new FUI.ToggleButton( {
+                    padding: '5px',
+                    text: '删除线',
+                    icon: 'assets/icon-demo/strikethrough.png'
+                } ),
+
+                scriptButton = new FUI.Buttonset( {
+                    selected: 0,
+                    margin: '0 2px',
+                    buttons: [ {
+                        text: '上标',
+                        icon: 'assets/icon-demo/superscript.png'
+                    }, {
+                        text: '下标',
+                        // 无效
+                        pressed: true,
+                        icon: 'assets/icon-demo/superscript.png'
+                    } ]
+                } ),
+
+                colorButton = new FUI.Button({
+                    text: '文字颜色',
+                    icon: {
+                        img: 'assets/icon-demo/forecolor.png'
+                    },
+                    padding: 5,
+                    layout: 'left'
+                }),
+                colorpicker = new FUI.ColorPicker({
+                    clearText: '清除颜色',
+                    commonText: '通用颜色',
+                    standardText: '标准颜色'
+                });
+
+            colorpicker.attachTo(colorButton);
+
+            biuPanel.appendWidget( boldButton );
+            biuPanel.appendWidget( italicButton );
+            biuPanel.appendWidget( underlineButton );
+            biuPanel.appendWidget( strikethroughButton );
+            biuPanel.appendWidget( scriptButton );
+            biuPanel.appendWidget( colorButton );
+
+            var fontsizePanel = new FUI.Panel( {
+                        margin: '5px'
+                    } ),
+                familyMenu = new FUI.InputMenu( {
+                    text: '字体名称',
+                    selected: 0,
+                    input: {
+                        button: {
+                            padding: '6px 3px',
+                            icon: {
+                                width: 10,
+                                height: 10,
+                                img: "assets/icon-demo/down.png"
+                            }
+                        },
+                        input: {
+                            padding: 2
+                        }
+                    },
+                    menu: {
+                        items: [ {
+                            className: "ext-songti",
+                            label: "宋体"
+                        }, {
+                            className: "ext-yahei",
+                            label: "微软雅黑"
+                        }, {
+                            className: "ext-kaiti",
+                            label: "楷体"
+                        }, {
+                            className: "ext-calibri-light",
+                            label: "Calibri Light"
+                        }, {
+                            className: "ext-arial",
+                            label: "Arial"
+                        }, {
+                            className: "ext-symbol",
+                            label: "Symbol"
+                        }, {
+                            className: "ext-times",
+                            label: "Times"
+                        }, {
+                            className: "ext-times-new-roman",
+                            label: "Times New Roman"
+                        }
+                        ]
+                    }
+                }),
+                sizeMenu = new FUI.InputMenu( {
+                    text: '字号',
+                    selected: 4,
+                    input: {
+                        button: {
+                            padding: '6px 3px',
+                            icon: {
+                                width: 10,
+                                height: 10,
+                                img: "assets/icon-demo/down.png"
+                            }
+                        },
+                        input: {
+                            width: 50,
+                            padding: 2
+                        }
+                    },
+                    menu: {
+                        items: [ 8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 26, 36, 48, 72 ]
+                    }
+                } ),
+                btnpanel = new FUI.Panel(),
+                upsizeBtn = new FUI.Button( {
+                    text: '增大字体',
+                    padding: 5,
+                    icon: "assets/icon-demo/a-plus.png"
+                }),
+                downsizeBtn = new FUI.Button( {
+                    text: '缩小字体',
+                    padding: 5,
+                    icon: "assets/icon-demo/b-plus.png"
+                }),
+                cleanBtn = new FUI.Button( {
+                    text: '清除格式',
+                    padding: 5,
+                    icon: "assets/icon-demo/clean.png"
+                });
+
+            fontsizePanel.appendWidget( familyMenu );
+            fontsizePanel.appendWidget( sizeMenu );
+
+            btnpanel.appendWidget( upsizeBtn );
+            btnpanel.appendWidget( downsizeBtn );
+            btnpanel.appendWidget( cleanBtn );
+
+            fontsizePanel.appendWidget( btnpanel );
+
+            panel.appendWidget( fontsizePanel );
+            panel.appendWidget( biuPanel );
+
+        }
+
+        function initFileWidget ( panel ) {
+
+            var btn = new FUI.Button( {
+                    padding: 5,
+                    label: '图片',
+                    icon: 'assets/icon-demo/img.png',
+                    layout: 'bottom'
+                } ),
+                dialog = new FUI.Dialog( {
+                    width: 600,
+                    height: 400,
+                    caption: '上传图片'
+                } ),
+                btnMenu = new FUI.ButtonMenu( {
+                    text: "编号",
+                    buttons: [ {
+                        className: 'ext-list-btn'
+                    }, {
+                        className: 'ext-open-btn'
+                    } ],
+                    menu: {
+                        items: [ "圆点", "实心点", "方框" ]
+                    }
+                } );
+
+
+            btn.on( "click", function () {
+                dialog.open();
+            } );
+
+            panel.appendWidget( btn );
+            panel.appendWidget( btnMenu );
+        }
+
+        function initStyleWidget ( panel ) {
+
+            var droppanel = new FUI.DropPanel( {
+                        button: {
+                            padding: '40px 3px 5px 3px',
+                            icon: {
+                                width: 10,
+                                height: 10,
+                                img: "assets/icon-demo/down.png"
+                            },
+                            height: 15
+                        },
+                        content: {
+                            width: 255,
+                            height: 200,
+                            margin: 3,
+                            padding: 2
+                        },
+                        height: 60,
+                        padding: '0 0 5px 0',
+                        width: 245
+                    }),
+                    buttonset= new FUI.Buttonset( {
+                        selected: 2,
+                        padding: '5px',
+                        margin: '5px',
+                        buttons: [{
+                            text: '左对齐',
+                            pressed: true,
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        }, {
+                            text: '左对齐',
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        }, {
+                            text: '左对齐',
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        }, {
+                            text: '左对齐',
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        }, {
+                            text: '左对齐',
+                            icon: "assets/icon/align-left.png"
+                        }, {
+                            text: '居中对齐',
+                            icon: "assets/icon/align-center.png"
+                        }, {
+                            text: '右对齐',
+                            icon: "assets/icon/align-right.png"
+                        }, {
+                            text: '两端对齐',
+                            icon: "assets/icon/align-justify.png"
+                        }]
+
+                    });
+
+
+            buttonset.on( "click", function ( e, info ) {
+
+                droppanel.close();
+
+            } );
+
+            droppanel.appendWidget(buttonset);
+            panel.appendWidget( droppanel );
+
+        }
+
+    </script>
+</head>
+<body>
+<h1>FUI 完整demo</h1>
+<div id="toolbar">
+
+    <div id="classify" class="classify"></div>
+    <div id="opArea" class="operator-area"></div>
+
+</div>
+</body>
+</html>

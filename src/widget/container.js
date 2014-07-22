@@ -41,26 +41,6 @@ define( function ( require ) {
 
         },
 
-        __render: function () {
-
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.callBase();
-
-            this.__contentElement = this.__element;
-
-            $( this.__element ).addClass( CONF.classPrefix + "container" );
-
-            if ( this.__options.break ) {
-                $( this.__element ).addClass( CONF.classPrefix + "container-break" );
-            }
-
-            return this;
-
-        },
-
         disable: function () {
 
             this.callBase();
@@ -166,6 +146,33 @@ define( function ( require ) {
             $( widget.getElement() ).removeClass( CONF.classPrefix + "panel-break-widget" );
 
             return widget;
+
+        },
+
+        __render: function () {
+
+            if ( this.__rendered ) {
+                return this;
+            }
+
+            this.callBase();
+
+            this.__contentElement = this.__element;
+
+            $( this.__element ).addClass( CONF.classPrefix + "container" );
+
+            if ( this.__options.break ) {
+                $( this.__element ).addClass( CONF.classPrefix + "container-break" );
+            }
+
+            return this;
+
+        },
+
+        // Overload
+        __appendChild: function ( childWidget ) {
+
+            return this.appendWidget( childWidget );
 
         },
 

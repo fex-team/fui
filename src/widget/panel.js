@@ -17,10 +17,7 @@ define( function ( require ) {
             var marker = Utils.getMarker();
             this.callBase( marker );
 
-            var defaultOptions = {
-                width: null,
-                height: null
-            };
+            var defaultOptions = {};
 
             this.__extendOptions( defaultOptions, options );
 

@@ -109,7 +109,6 @@
 /*------------ mixin*/
 .fui-button {
   overflow: hidden;
-  background-color: #ffffff;
   cursor: default;
   font-size: 0;
 }
@@ -161,6 +160,9 @@
  */
 /*------------ var*/
 /*------------ mixin*/
+.fui-colorpicker {
+  background-color: #fff;
+}
 .fui-colorpicker-container {
   border: 1px solid #d3d3d3;
 }
@@ -239,12 +241,6 @@
   height: auto!important;
   padding: 2px;
 }
-.fui-dialog .fui-dialog-head {
-  display: table-row;
-}
-.fui-dialog .fui-dialog-head > * {
-  vertical-align: middle;
-}
 .fui-dialog .fui-dialog-caption {
   margin: 0;
   padding: 5px;
@@ -253,7 +249,10 @@
   line-height: 1;
   display: inline-block;
 }
-.fui-dialog .fui-close-button .fui-close-button-icon {
+.fui-dialog .fui-dialog-head .fui-close-button {
+  float: right;
+}
+.fui-dialog .fui-dialog-head .fui-close-button .fui-close-button-icon {
   width: 16px;
   height: 16px;
   background: url("images/close.png") no-repeat 0 0;
@@ -378,6 +377,9 @@
  */
 /*------------ var*/
 /*------------ mixin*/
+.fui-item {
+  font-size: 0;
+}
 .fui-item .fui-icon {
   vertical-align: middle;
 }
@@ -428,6 +430,7 @@
 /*------------ var*/
 /*------------ mixin*/
 .fui-menu {
+  background-color: #fff;
   border: 1px solid #d3d3d3;
 }
 .fui-menu .fui-item {
@@ -451,7 +454,6 @@
   vertical-align: top;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #fff;
 }
 .fui-panel .fui-panel-content {
   position: relative;
@@ -485,6 +487,15 @@
 .fui-ppanel.fui-ppanel-position {
   position: fixed;
   z-index: 99999;
+}
+
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-separator {
+  background: #6d6d6d;
 }
 
 /**
