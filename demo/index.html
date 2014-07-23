@@ -22,41 +22,10 @@
     <script>
         window.onload = function () {
 
-           var toolbar = new FUI.Tabs( {
-                className: 'bw-tabs',
-                buttons: [ {
-                    className: 'bw-tabs-btn',
-                    label: "编辑"
-                }, {
-                    className: 'bw-tabs-btn',
-                    label: "页面布局"
-                }, {
-                    className: 'bw-tabs-btn',
-                    label: "审阅"
-                }, {
-                    className: 'bw-tabs-btn',
-                    label: "视图"
-                } ]
-            } );
+           var toolbar = new FUI.Tabs( config );
 
             toolbar.appendButtonTo( document.getElementById( "tabsButtons" ) );
             toolbar.appendPanelTo( document.getElementById( "tabsPanels" ) );
-
-            var historyWidgets = FUI.Creator.parse( configList[ 0 ] );
-            toolbar.getPanel( 0 ).appendWidget( historyWidgets.LabelPanel );
-            toolbar.getPanel( 0 ).appendWidget( historyWidgets.Separator );
-
-            var clipboardWidgets = FUI.Creator.parse( configList[ 1 ] );
-            toolbar.getPanel( 0 ).appendWidget( clipboardWidgets.LabelPanel );
-            toolbar.getPanel( 0 ).appendWidget( clipboardWidgets.Separator );
-
-            var fontWidgets = FUI.Creator.parse( configList[ 2 ] );
-            toolbar.getPanel( 0 ).appendWidget( fontWidgets.LabelPanel );
-            toolbar.getPanel( 0 ).appendWidget( fontWidgets.Separator );
-
-            var paragraphWidgets = FUI.Creator.parse( configList[ 3 ] );
-            toolbar.getPanel( 0 ).appendWidget( paragraphWidgets.LabelPanel );
-            toolbar.getPanel( 0 ).appendWidget( paragraphWidgets.Separator );
 
         };
     </script>

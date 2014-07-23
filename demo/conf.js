@@ -2,181 +2,198 @@
  * Created by hn on 14-7-22.
  */
 
+var config = {
+    className: 'bw-tabs',
+    buttons: [ {
+        className: 'bw-tabs-btn',
+        label: "编辑"
+    }, {
+        className: 'bw-tabs-btn',
+        label: "页面布局"
+    }, {
+        className: 'bw-tabs-btn',
+        label: "审阅"
+    }, {
+        className: 'bw-tabs-btn',
+        label: "视图"
+    } ],
 
-var configList = [
+    panels: [ {
 
-    {
+        widgets: [
 
-        // history
-        LabelPanel: {
-            className: 'bw-history',
-            label: '历史记录',
-            break: true,
-            widgets: {
-                Button: [ {
+            // history
+            {
+                name: 'LabelPanel',
+                className: 'bw-history',
+                label: '历史记录',
+                break: true,
+                widgets: [ {
+                    name: 'Button',
                     className: 'bw-undo-btn'
                 }, {
+                    name: 'Button',
                     className: 'bw-redo-btn'
                 } ]
-            }
-        },
+            },
 
-        Separator: null
+            {
+                name: 'Separator'
+            },
 
-    },
-
-    {
-        // Clipboard
-        LabelPanel: {
-            className: 'bw-clipboard',
-            label: '剪贴板',
-            widgets: {
-                Panel: [ {
-                    break: true,
-                    widgets: {
-                        Button: [ {
+            // Clipboard
+            {
+                name: 'LabelPanel',
+                className: 'bw-clipboard',
+                label: '剪贴板',
+                widgets: [ {
+                        name: 'Panel',
+                        break: true,
+                        widgets: [ {
+                            name: 'Button',
                             className: 'bw-copy-btn',
                             label: '复制'
                         }, {
+                            name: 'Button',
                             className: 'bw-cut-btn',
                             label: '剪切'
                         } ]
-                    }
-                }, {
-                    widgets: {
-                        Button: {
+                    }, {
+                        name: 'Panel',
+                        widgets: {
+                            name: 'Button',
                             className: 'bw-paste-btn',
                             label: '粘贴',
                             layout: 'bottom'
                         }
-                    }
-                } ]
-            }
-        },
+                    } ]
 
-        Separator: null
+            },
 
-    },
+            {
+                name: 'Separator'
+            },
 
-    // font
-    {
-        LabelPanel: {
-            className: 'bw-font',
-            label: '字体',
-            break: true,
-            widgets: {
-                Panel: [ {
-                    className: 'bw-font-top-panel',
-                    widgets: {
-                        InputMenu: {
-                            className: 'bw-font-family',
-                            input: {
-                                placeholder: '字体',
-                                button: {
-                                    className: 'bw-down-open-btn'
+            // Font
+            {
+                name: 'LabelPanel',
+                className: 'bw-font',
+                label: '字体',
+                break: true,
+                widgets: [ {
+                        name: 'Panel',
+                        className: 'bw-font-top-panel',
+                        widgets: [ {
+                                name: 'InputMenu',
+                                className: 'bw-font-family',
+                                input: {
+                                    placeholder: '字体',
+                                    button: {
+                                        className: 'bw-down-open-btn'
+                                    }
+                                },
+                                menu: {
+                                    items: [ {
+                                        className: 'bw-font-arial',
+                                        label: 'Arial'
+                                    }, {
+                                        className: 'bw-font-yahei',
+                                        label: '微软雅黑'
+                                    }, {
+                                        className: 'bw-font-kaiti',
+                                        label: '楷体'
+                                    }, {
+                                        className: 'bw-font-calibri-light',
+                                        label: 'Calibri Light'
+                                    }, {
+                                        className: 'bw-font-symbol',
+                                        label: 'Symbol'
+                                    }, {
+                                        className: 'bw-font-times',
+                                        label: 'Times'
+                                    }, {
+                                        className: 'bw-font-times-new-roman',
+                                        label: 'Times New Roman'
+                                    } ]
                                 }
-                            },
-                            menu: {
-                                items: [ {
-                                    className: 'bw-font-arial',
-                                    label: 'Arial'
-                                }, {
-                                    className: 'bw-font-yahei',
-                                    label: '微软雅黑'
-                                }, {
-                                    className: 'bw-font-kaiti',
-                                    label: '楷体'
-                                }, {
-                                    className: 'bw-font-calibri-light',
-                                    label: 'Calibri Light'
-                                }, {
-                                    className: 'bw-font-symbol',
-                                    label: 'Symbol'
-                                }, {
-                                    className: 'bw-font-times',
-                                    label: 'Times'
-                                }, {
-                                    className: 'bw-font-times-new-roman',
-                                    label: 'Times New Roman'
-                                } ]
-                            }
-                        },
-
-                        Button: [ {
-                            className: 'bw-removeformat-btn',
-                            label: '清除格式'
-                        }, {
-                            className: 'bw-autotypeset-btn',
-                            label: '自动格式化'
-                        }, {
-                            className: 'bw-formatmatch-btn',
-                            label: '格式刷'
-                        } ]
-                    }
-                }, {
-                    className: 'bw-font-bottom-panel',
-                    widgets: {
-                        InputMenu: {
-                            className: 'bw-font-size',
-                            input: {
-                                placeholder: '字号',
-                                button: {
-                                    className: 'bw-down-open-btn'
-                                }
-                            },
-                            menu: {
-                                items: [ 8, 9, 10, 12, 14, 16, 18, 20, 24, 26, 36, 48, 72 ]
-                            }
-                        },
-                        Button: [ {
-                            className: 'bw-fontsize-plus-btn'
-                        }, {
-                            className: 'bw-fontsize-minus-btn'
-                        } ],
-                        Buttonset: {
-                            className: 'bw-script-btn-set',
-                            buttons: [ {
-                                className: 'bw-superscript-btn'
                             }, {
-                                className: 'bw-subscript-btn'
+                                namw: 'Button',
+                                className: 'bw-removeformat-btn',
+                                label: '清除格式'
+                            }, {
+                                namw: 'Button',
+                                className: 'bw-autotypeset-btn',
+                                label: '自动格式化'
+                            }, {
+                                namw: 'Button',
+                                className: 'bw-formatmatch-btn',
+                                label: '格式刷'
                             } ]
-                        },
-                        ToggleButton: [ {
-                            className: 'bw-bold-btn'
-                        }, {
-                            className: 'bw-italic-btn'
-                        }, {
-                            className: 'bw-underline-btn'
-                        }, {
-                            className: 'bw-strikethrough-btn'
-                        }, {
-                            className: 'bw-forecolor-btn'
-                        }, {
-                            className: 'bw-backcolor-btn'
-                        } ],
-                        ColorPicker: [ {
+                        }
+                    }, {
+                        name: 'Panel',
+                        className: 'bw-font-bottom-panel',
+                        widgets: {
+                            InputMenu: {
+                                className: 'bw-font-size',
+                                input: {
+                                    placeholder: '字号',
+                                    button: {
+                                        className: 'bw-down-open-btn'
+                                    }
+                                },
+                                menu: {
+                                    items: [ 8, 9, 10, 12, 14, 16, 18, 20, 24, 26, 36, 48, 72 ]
+                                }
+                            },
+                            Button: [ {
+                                className: 'bw-fontsize-plus-btn'
+                            }, {
+                                className: 'bw-fontsize-minus-btn'
+                            } ],
+                            Buttonset: {
+                                className: 'bw-script-btn-set',
+                                buttons: [ {
+                                    className: 'bw-superscript-btn'
+                                }, {
+                                    className: 'bw-subscript-btn'
+                                } ]
+                            },
+                            ToggleButton: [ {
+                                className: 'bw-bold-btn'
+                            }, {
+                                className: 'bw-italic-btn'
+                            }, {
+                                className: 'bw-underline-btn'
+                            }, {
+                                className: 'bw-strikethrough-btn'
+                            }, {
+                                className: 'bw-forecolor-btn'
+                            }, {
+                                className: 'bw-backcolor-btn'
+                            } ],
+                            ColorPicker: [ {
 
-                        }, {
+                            }, {
 
-                        } ]
-                    }
-                } ]
+                            } ]
+                        }
+                    } ]
 
-            }
-        },
+            },
 
-        Separator: null
+            {
+                name: 'Separator'
+            },
 
-    },
-
-    //Paragraph
-    {
-        LabelPanel: {
-            className: 'bw-paragraph',
-            label: '段落',
-            break: true,
-            widgets: {
-                Panel: [ {
+            // Paragraph
+            {
+                name: 'LabelPanel',
+                className: 'bw-paragraph',
+                label: '段落',
+                break: true,
+                widgets: [ {
+                    name: 'Panel',
                     className: "bw-paragraph-top-panel",
                     widgets: {
                         ButtonMenu: [ {
@@ -235,6 +252,7 @@ var configList = [
                         } ]
                     }
                 }, {
+                    name: 'Panel',
                     className: "bw-paragraph-bottom-panel",
                     widgets: {
                         Buttonset: {
@@ -263,15 +281,13 @@ var configList = [
 
                     }
                 } ]
+            },
+
+            {
+                name: 'Separator'
             }
-        },
 
-        Separator: null
+        ]
+    } ]
 
-    }
-
-];
-
-//
-//
-//];
+};

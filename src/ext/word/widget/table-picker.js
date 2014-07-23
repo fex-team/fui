@@ -67,6 +67,10 @@ define( function ( require ) {
 
         },
 
+        getButton: function () {
+            return this.__buttonWidget;
+        },
+
         __render: function () {
 
             var _self = this;
