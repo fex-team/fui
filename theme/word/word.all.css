@@ -10,6 +10,9 @@
 .bw-toolbar .fui-button {
   padding: 2px;
 }
+.bw-toolbar .bw-paste-btn {
+  text-align: center;
+}
 
 .bw-toolbar .bw-redo-btn .fui-icon,
 .bw-toolbar .bw-undo-btn .fui-icon,
