@@ -12,45 +12,39 @@ define( function ( require ) {
 
         parse: function ( options ) {
 
-            var pool = {},
-                key = null,
-                optionList = null;
+            var pool = [];
 
-            for ( var widgetClazz in options ) {
+            if ( $.isArray( options ) ) {
 
-                if ( !options.hasOwnProperty( widgetClazz ) ) {
-                    continue;
-                }
+                $.each( options, function ( i, opt ) {
 
-                optionList = options[ widgetClazz ];
-                key = widgetClazz;
-                widgetClazz = FUI_NS[ widgetClazz ];
+                    pool.push( getInstance( opt ) );
 
-                if ( !widgetClazz ) {
-                    continue;
-                }
+                } );
 
-                if ( !$.isArray( optionList ) ) {
-                    pool[ key ] = new widgetClazz( optionList );
-                } else {
+                return pool;
 
-                    pool[ key ] = [];
+            } else {
 
-                    $.each( optionList, function ( i, opt ) {
-
-                        pool[ key ].push( new widgetClazz( opt ) );
-
-                    } );
-
-                }
+                return getInstance( options );
 
             }
-
-            return pool;
 
         }
 
     } );
+
+    function getInstance ( option ) {
+
+        var Constructor = FUI_NS[ option.clazz ];
+
+        if ( !Constructor ) {
+            return null;
+        }
+
+        return new Constructor( option );
+
+    }
 
     return Creator;
 

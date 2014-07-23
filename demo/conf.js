@@ -63,6 +63,7 @@ var config = {
                             widgets: [
                                 {
                                     clazz: 'Button',
+                                    disabled: true,
                                     className: 'bw-copy-btn',
                                     label: '复制'
                                 },
@@ -243,7 +244,7 @@ var config = {
                     className: 'bw-paragraph',
                     label: '段落',
                     break: true,
-                    widgets: {
+                    widgets: [ {
                         clazz: 'Panel',
                         className: "bw-paragraph-top-panel",
                         widgets: [
@@ -325,55 +326,57 @@ var config = {
                                 text: '引用'
                             }
                         ]
-                    }
-                },
-                {
-                    clazz: 'Panel',
-                    className: "bw-paragraph-bottom-panel",
-                    widgets: [
-                        {
-                            clazz: 'Buttonset',
-                            className: 'bw-justify',
-                            buttons: [
-                                {
-                                    className: 'bw-justify-left-btn'
-                                },
-                                {
-                                    className: 'bw-justify-right-btn'
-                                },
-                                {
-                                    className: 'bw-justify-center-btn'
-                                },
-                                {
-                                    className: 'bw-justify-full-btn'
-                                }
-                            ]
-                        },
+                    }, {
+                        clazz: 'Panel',
+                        className: "bw-paragraph-bottom-panel",
+                        widgets: [
+                            {
+                                clazz: 'Buttonset',
+                                className: 'bw-justify',
+                                buttons: [
+                                    {
+                                        className: 'bw-justify-left-btn'
+                                    },
+                                    {
+                                        className: 'bw-justify-right-btn'
+                                    },
+                                    {
+                                        className: 'bw-justify-center-btn'
+                                    },
+                                    {
+                                        className: 'bw-justify-full-btn'
+                                    }
+                                ]
+                            },
 
-                        {
-                            clazz: 'Button',
-                            className: 'bw-space-line-btn',
-                            text: '行距'
-                        },
-                        {
-                            clazz: 'Button',
-                            className: 'bw-space-paragraph-front-btn',
-                            text: '段前距'
-                        },
-                        {
-                            clazz: 'Button',
-                            className: 'bw-space-paragraph-back-btn',
-                            text: '段后距'
-                        }
-                    ]
+                            {
+                                clazz: 'Button',
+                                className: 'bw-space-line-btn',
+                                text: '行距'
+                            },
+                            {
+                                clazz: 'Button',
+                                className: 'bw-space-paragraph-front-btn',
+                                text: '段前距'
+                            },
+                            {
+                                clazz: 'Button',
+                                className: 'bw-space-paragraph-back-btn',
+                                text: '段后距'
+                            }
+                        ]
 
+                    } ]
                 },
                 {
                     clazz: 'Separator'
                 }
             ]
 
-        }
+        },
+        null,
+        null,
+        null
 
     ]
 };

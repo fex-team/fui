@@ -181,28 +181,16 @@ define( function ( require ) {
             }
 
             var widgets = Creator.parse( this.__options.widgets ),
-                widget = null,
                 _self = this;
 
-            for ( var key in widgets ) {
 
-                if ( !widgets.hasOwnProperty( key ) ) {
-                    return;
-                }
-
-                widget = widgets[ key ];
-
-                if ( !$.isArray( widget ) ) {
-                    widget = [ widget ];
-                }
-
-                $.each( widget, function ( i, w ) {
-
-                    _self.appendWidget( w );
-
-                } );
-
+            if ( !$.isArray( widgets ) ) {
+                widgets = [ widgets ];
             }
+
+            $.each( widgets, function ( i, widget ) {
+                _self.appendWidget( widget );
+            } );
 
         },
 
