@@ -22,7 +22,7 @@
     <script>
         window.onload = function () {
 
-           var toolbar = new FUI.Tabs( config );
+           var toolbar = FUI.Creator.parse( config );
 
             toolbar.appendButtonTo( document.getElementById( "tabsButtons" ) );
             toolbar.appendPanelTo( document.getElementById( "tabsPanels" ) );
