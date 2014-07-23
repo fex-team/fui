@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-07-22
+ * Flex UI - v1.0.0 - 2014-07-23
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -45,29 +45,24 @@ _p[0] = {
         var Creator = {}, $ = _p.r(4), FUI_NS = _p.r(11);
         $.extend(Creator, {
             parse: function(options) {
-                var pool = {}, key = null, optionList = null;
-                for (var widgetClazz in options) {
-                    if (!options.hasOwnProperty(widgetClazz)) {
-                        continue;
-                    }
-                    optionList = options[widgetClazz];
-                    key = widgetClazz;
-                    widgetClazz = FUI_NS[widgetClazz];
-                    if (!widgetClazz) {
-                        continue;
-                    }
-                    if (!$.isArray(optionList)) {
-                        pool[key] = new widgetClazz(optionList);
-                    } else {
-                        pool[key] = [];
-                        $.each(optionList, function(i, opt) {
-                            pool[key].push(new widgetClazz(opt));
-                        });
-                    }
+                var pool = [];
+                if ($.isArray(options)) {
+                    $.each(options, function(i, opt) {
+                        pool.push(getInstance(opt));
+                    });
+                    return pool;
+                } else {
+                    return getInstance(options);
                 }
-                return pool;
             }
         });
+        function getInstance(option) {
+            var Constructor = FUI_NS[option.clazz];
+            if (!Constructor) {
+                return null;
+            }
+            return new Constructor(option);
+        }
         return Creator;
     }
 };
@@ -674,7 +669,12 @@ _p[12] = {
                 BOTTOM: "bottom",
                 RIGHT: "right",
                 CENTER: "center",
-                MIDDLE: "middle"
+                MIDDLE: "middle",
+                // 内部定位
+                LEFT_TOP: "left-top",
+                RIGHT_TOP: "right-top",
+                LEFT_BOTTOM: "left-bottom",
+                RIGHT_BOTTOM: "right-bottom"
             }
         };
     }
@@ -835,6 +835,9 @@ _p[17] = {
             // Overload
             appendTo: function(container) {
                 container.appendChild(this.__buttonWidget.getElement());
+            },
+            getButton: function() {
+                return this.__buttonWidget;
             },
             __render: function() {
                 var _self = this;
@@ -1305,6 +1308,7 @@ _p[36] = {
                 this.__prevIndex = -1;
                 if (options !== marker) {
                     this.__render();
+                    this.__initWidgets();
                 }
             },
             getButtons: function() {
@@ -1617,22 +1621,20 @@ _p[38] = {
  */
 _p[39] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), Creator = _p.r(0), $ = _p.r(4);
         return Utils.createClass("Container", {
             base: Widget,
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
                 var defaultOptions = {
-                    "break": false
+                    "break": false,
+                    widgets: null
                 };
                 this.widgetName = "Icon";
                 this.__widgets = [];
                 this.__contentElement = null;
                 this.__extendOptions(defaultOptions, options);
-                if (options !== marker) {
-                    this.__render();
-                }
             },
             indexOf: function(widget) {
                 return $.inArray(widget, this.__widgets);
@@ -1718,6 +1720,18 @@ _p[39] = {
             // Overload
             __appendChild: function(childWidget) {
                 return this.appendWidget(childWidget);
+            },
+            __initWidgets: function() {
+                if (!this.__options.widgets) {
+                    return;
+                }
+                var widgets = Creator.parse(this.__options.widgets), _self = this;
+                if (!$.isArray(widgets)) {
+                    widgets = [ widgets ];
+                }
+                $.each(widgets, function(i, widget) {
+                    _self.appendWidget(widget);
+                });
             },
             /**
          * 验证元素给定元素是否可以插入当前容器中
@@ -2070,6 +2084,7 @@ _p[43] = {
                 var defaultOptions = {
                     button: null,
                     input: null,
+                    placeholder: null,
                     // label相对icon的位置
                     layout: "right"
                 };
@@ -2135,6 +2150,14 @@ _p[43] = {
                 });
             },
             __initOptions: function() {
+                if (typeof this.__options.input !== "object") {
+                    this.__options.input = {
+                        placeholder: this.__options.input
+                    };
+                }
+                this.__options.input = $.extend({}, this.__options.input, {
+                    placeholder: this.__options.placeholder
+                });
                 if (typeof this.__options.button !== "object") {
                     this.__options.button = {
                         icon: this.__options.button
@@ -2213,10 +2236,9 @@ _p[44] = {
             },
             __initInputValue: function() {
                 var selectedItem = this.__menuWidget.getItem(this.__options.selected);
-                if (!selectedItem) {
-                    return;
+                if (selectedItem) {
+                    this.__inputWidget.setValue(selectedItem.getValue());
                 }
-                this.__inputWidget.setValue(selectedItem.getValue());
             },
             __initInputMenuEvent: function() {
                 var _self = this;
@@ -2337,7 +2359,9 @@ _p[45] = {
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
-                var defaultOptions = {};
+                var defaultOptions = {
+                    placeholder: null
+                };
                 this.__extendOptions(defaultOptions, options);
                 this.widgetName = "Input";
                 this.__tpl = tpl;
@@ -2380,6 +2404,9 @@ _p[45] = {
                 }
                 this.callBase();
                 this.__element.removeAttribute("unselectable");
+                if (this.__options.placeholder) {
+                    this.__element.setAttribute("placeholder", this.__options.placeholder);
+                }
                 this.addClass(CONF.classPrefix + "selectable");
                 this.__initInputEvent();
             },
@@ -2518,6 +2545,7 @@ _p[47] = {
                 this.__labelWidget = null;
                 if (options !== marker) {
                     this.__render();
+                    this.__initWidgets();
                 }
             },
             disable: function() {
@@ -2541,11 +2569,6 @@ _p[47] = {
                 $contentElement = $('<div class="fui-label-panel-content"></div>');
                 this.__contentElement.appendChild(this.__labelWidget.getElement());
                 this.__contentElement.appendChild($contentElement[0]);
-                // 容器高度未设置， 则禁用定位属性， 避免自适应布局下的因流布局被破坏造成的重叠问题
-                if (this.__options.height === null) {
-                    $(this.__element).addClass(CONF.classPrefix + "no-position");
-                    this.__contentElement.appendChild(this.__labelWidget.getElement());
-                }
                 // 更新contentElement
                 this.__contentElement = $contentElement[0];
                 return this;
@@ -2923,6 +2946,7 @@ _p[51] = {
                 this.__tpl = panelTpl;
                 if (options !== marker) {
                     this.__render();
+                    this.__initWidgets();
                 }
             },
             __render: function() {
@@ -2944,13 +2968,7 @@ _p[51] = {
  */
 _p[52] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), $ = _p.r(4);
-        var LAYOUT = {
-            TOP: "top",
-            LEFT: "left",
-            BOTTOM: "bottom",
-            RIGHT: "right"
-        };
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), LAYOUT = CONF.layout, $ = _p.r(4);
         return Utils.createClass("PPanel", {
             base: _p.r(51),
             constructor: function(options) {
@@ -2959,8 +2977,6 @@ _p[52] = {
                 var defaultOptions = {
                     layout: LAYOUT.BOTTOM,
                     target: null,
-                    // 布局属性layout是否以target内部为参照
-                    inner: false,
                     // 边界容器
                     bound: null,
                     // 和边界之间的最小距离
@@ -2979,6 +2995,7 @@ _p[52] = {
                 }
                 if (options !== marker) {
                     this.__render();
+                    this.__initWidgets();
                 }
             },
             positionTo: function(target, layout) {
@@ -3006,6 +3023,7 @@ _p[52] = {
                 if ($.contains(docNode, this.__target)) {
                     this.callBase(Utils.getMarker());
                     this.__position();
+                    this.__resize();
                 }
                 return this;
             },
@@ -3018,17 +3036,13 @@ _p[52] = {
             },
             // 执行定位
             __position: function() {
-                var location = null, targetRect = null;
+                var location = null;
                 $(this.__element).addClass(CONF.classPrefix + "ppanel-position");
-                targetRect = Utils.getBound(this.__target);
-                if (this.__layout === "center" || this.__layout === "middle") {
-                    location = this.__getCenterLayout(targetRect);
-                } else if (!this.__options.inner) {
-                    location = this.__getOuterLayout(targetRect);
-                } else {
-                    location = this.__getInnerLayout(targetRect);
-                }
+                location = this.__getLocation();
                 $(this.__element).css("top", location.top + "px").css("left", location.left + "px");
+            },
+            __resize: function() {
+                var targetRect = Utils.getBound(this.__target);
                 switch (this.__options.resize) {
                   case "all":
                     this.__resizeWidth(targetRect);
@@ -3087,6 +3101,23 @@ _p[52] = {
                     this.__element.style.height = null;
                 }
             },
+            __getLocation: function() {
+                var targetRect = Utils.getBound(this.__target), location = null;
+                switch (this.__layout) {
+                  case LAYOUT.CENTER:
+                  case LAYOUT.MIDDLE:
+                    return this.__getCenterLayout(targetRect);
+
+                  case LAYOUT.LEFT:
+                  case LAYOUT.RIGHT:
+                  case LAYOUT.BOTTOM:
+                  case LAYOUT.TOP:
+                    return this.__getOuterLayout(targetRect);
+
+                  default:
+                    return this.__getInnerLayout(targetRect);
+                }
+            },
             /**
          * 居中定位的位置属性
          * @private
@@ -3141,7 +3172,7 @@ _p[52] = {
                 return location;
             },
             /**
-         * 获取内部布局定位属性
+         * 获取内部布局定位属性,并且，内部布局还拥有根据水平空间的大小，自动进行更新定位的功能
          * @private
          */
             __getInnerLayout: function(targetRect) {
@@ -3677,7 +3708,7 @@ _p[57] = {
                         $ele.addClass(className);
                     }
                 }
-                this.__initCommonStyle();
+                this.__initBasicEnv();
                 if (this.__options.hide) {
                     this.__hide();
                 }
@@ -3748,7 +3779,7 @@ _p[57] = {
             __show: function() {
                 $(this.__element).removeClass(CONF.classPrefix + "hide");
             },
-            __initCommonStyle: function() {
+            __initBasicEnv: function() {
                 if (this.__options.text && this.__allowShowTitle()) {
                     this.__element.setAttribute("title", this.__options.text);
                 }
@@ -3757,6 +3788,9 @@ _p[57] = {
                 }
                 if (this.__options.height) {
                     this.__element.style.height = this.__options.height + "px";
+                }
+                if (this.widgetName) {
+                    this.__element.setAttribute("rule", this.widgetName);
                 }
             },
             __id: function() {

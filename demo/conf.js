@@ -1,5 +1,5 @@
 /**
- * Created by hn on 14-7-22.
+ * UI 配置文件
  */
 
 var config = {
