@@ -203,7 +203,7 @@ define( function ( require ) {
                 }
             }
 
-            this.__initCommonStyle();
+            this.__initBasicEnv();
 
             if ( this.__options.hide ) {
                 this.__hide();
@@ -320,7 +320,7 @@ define( function ( require ) {
             $( this.__element ).removeClass( CONF.classPrefix + "hide" );
         },
 
-        __initCommonStyle: function () {
+        __initBasicEnv: function () {
 
             if ( this.__options.text && this.__allowShowTitle() ) {
                 this.__element.setAttribute( "title", this.__options.text );
@@ -332,6 +332,10 @@ define( function ( require ) {
 
             if ( this.__options.height ) {
                 this.__element.style.height = this.__options.height + 'px';
+            }
+
+            if ( this.widgetName ) {
+                this.__element.setAttribute( "rule", this.widgetName );
             }
 
         },

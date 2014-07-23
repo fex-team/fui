@@ -14,7 +14,12 @@ define( function () {
             BOTTOM: 'bottom',
             RIGHT: 'right',
             CENTER: 'center',
-            MIDDLE: 'middle'
+            MIDDLE: 'middle',
+            // 内部定位
+            LEFT_TOP: 'left-top',
+            RIGHT_TOP: 'right-top',
+            LEFT_BOTTOM: 'left-bottom',
+            RIGHT_BOTTOM: 'right-bottom'
         }
 
     };

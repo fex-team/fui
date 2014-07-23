@@ -37,129 +37,28 @@
                     className: 'bw-tabs-btn',
                     label: "视图"
                 } ]
-            } ),
-            seps = FUI.Creator.parse( configList[ 0 ] );
+            } );
 
             toolbar.appendButtonTo( document.getElementById( "tabsButtons" ) );
             toolbar.appendPanelTo( document.getElementById( "tabsPanels" ) );
 
-            initHistory( toolbar );
-            toolbar.getPanel( 0 ).appendWidget( seps.Separator[ 0 ] );
+            var historyWidgets = FUI.Creator.parse( configList[ 0 ] );
+            toolbar.getPanel( 0 ).appendWidget( historyWidgets.LabelPanel );
+            toolbar.getPanel( 0 ).appendWidget( historyWidgets.Separator );
 
+            var clipboardWidgets = FUI.Creator.parse( configList[ 1 ] );
+            toolbar.getPanel( 0 ).appendWidget( clipboardWidgets.LabelPanel );
+            toolbar.getPanel( 0 ).appendWidget( clipboardWidgets.Separator );
 
-            initClipboard( toolbar );
-            toolbar.getPanel( 0 ).appendWidget( seps.Separator[ 1 ] );
+            var fontWidgets = FUI.Creator.parse( configList[ 2 ] );
+            toolbar.getPanel( 0 ).appendWidget( fontWidgets.LabelPanel );
+            toolbar.getPanel( 0 ).appendWidget( fontWidgets.Separator );
 
-            initFont( toolbar );
-            toolbar.getPanel( 0 ).appendWidget( seps.Separator[ 2 ] );
-
-            initParagraph( toolbar );
-            toolbar.getPanel( 0 ).appendWidget( seps.Separator[ 3 ] );
+            var paragraphWidgets = FUI.Creator.parse( configList[ 3 ] );
+            toolbar.getPanel( 0 ).appendWidget( paragraphWidgets.LabelPanel );
+            toolbar.getPanel( 0 ).appendWidget( paragraphWidgets.Separator );
 
         };
-
-        function initHistory ( toolbar ) {
-
-            var config = configList[ 1 ],
-                widgets = FUI.Creator.parse( config );
-
-            $.each( widgets.Button, function ( i, btn ) {
-
-                btn.appendTo( widgets.LabelPanel );
-
-            } );
-
-            toolbar.getPanel( 0 ).appendWidget( widgets.LabelPanel );
-
-        }
-
-        function initClipboard ( toolbar ) {
-
-            var config = configList[ 2 ],
-                widgets = FUI.Creator.parse( config );
-
-            $.each( widgets.Panel, function ( i, panel ) {
-
-                panel.appendTo( widgets.LabelPanel );
-
-            } );
-
-            widgets.Panel[ 0 ].appendWidget( widgets.Button[ 0 ] );
-            widgets.Panel[ 0 ].appendWidget( widgets.Button[ 1 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.Button[ 2 ] );
-
-            toolbar.getPanel( 0 ).appendWidget( widgets.LabelPanel );
-
-        }
-
-        function initFont ( toolbar ) {
-
-            var config = configList[ 3 ],
-                widgets = FUI.Creator.parse( config );
-
-            // font 上面板
-            widgets.LabelPanel.appendWidget( widgets.Panel[ 0 ] );
-
-            widgets.Panel[ 0 ].appendWidget( widgets.InputMenu[ 0 ] );
-            widgets.Panel[ 0 ].appendWidget( widgets.Button[ 0 ] );
-            widgets.Panel[ 0 ].appendWidget( widgets.Button[ 1 ] );
-            widgets.Panel[ 0 ].appendWidget( widgets.Button[ 2 ] );
-
-            // font 下面板
-            widgets.LabelPanel.appendWidget( widgets.Panel[ 1 ] );
-
-            widgets.Panel[ 1 ].appendWidget( widgets.InputMenu[ 1 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.Button[ 3 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.Button[ 4 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.Buttonset );
-            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 0 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 1 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 2 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 3 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 4 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 5 ] );
-
-            // 绑定colorPicker
-            widgets.ColorPicker[ 0 ].attachTo( widgets.ToggleButton[ 4 ] );
-            widgets.ColorPicker[ 1 ].attachTo( widgets.ToggleButton[ 5 ] );
-
-            toolbar.getPanel( 0 ).appendWidget( widgets.LabelPanel );
-
-        }
-
-        function initParagraph ( toolbar ) {
-
-            var config = configList[ 4 ],
-                widgets = FUI.Creator.parse( config );
-
-            // 上面板
-            widgets.LabelPanel.appendWidget( widgets.Panel[ 0 ] );
-
-            widgets.Panel[ 0 ].appendWidget( widgets.ButtonMenu[ 0 ] );
-            widgets.Panel[ 0 ].appendWidget( widgets.ButtonMenu[ 1 ] );
-            widgets.Panel[ 0 ].appendWidget( widgets.Button[ 0 ] );
-            widgets.Panel[ 0 ].appendWidget( widgets.Button[ 1 ] );
-            widgets.Panel[ 0 ].appendWidget( widgets.Button[ 5 ] );
-
-            // 下面板
-            widgets.LabelPanel.appendWidget( widgets.Panel[ 1 ] );
-
-            widgets.Panel[ 1 ].appendWidget( widgets.Buttonset );
-            widgets.Panel[ 1 ].appendWidget( widgets.Button[ 2 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.Button[ 3 ] );
-            widgets.Panel[ 1 ].appendWidget( widgets.Button[ 4 ] );
-//            widgets.Panel[ 1 ].appendWidget( widgets.Buttonset );
-//            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 0 ] );
-//            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 1 ] );
-//            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 2 ] );
-//            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 3 ] );
-//            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 4 ] );
-//            widgets.Panel[ 1 ].appendWidget( widgets.ToggleButton[ 5 ] );
-
-            toolbar.getPanel( 0 ).appendWidget( widgets.LabelPanel );
-
-        }
-
     </script>
 </head>
 <body>

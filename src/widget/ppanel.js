@@ -7,14 +7,8 @@ define( function ( require ) {
     var Utils = require( "base/utils" ),
         CONF = require( "base/sysconf" ),
         Widget = require( "widget/widget" ),
+        LAYOUT = CONF.layout,
         $ = require( "base/jquery" );
-
-    var LAYOUT = {
-        TOP: 'top',
-        LEFT: 'left',
-        BOTTOM: 'bottom',
-        RIGHT: 'right'
-    };
 
     return Utils.createClass( "PPanel", {
 
@@ -28,8 +22,6 @@ define( function ( require ) {
             var defaultOptions = {
                 layout: LAYOUT.BOTTOM,
                 target: null,
-                // 布局属性layout是否以target内部为参照
-                inner: false,
                 // 边界容器
                 bound: null,
                 // 和边界之间的最小距离
@@ -54,6 +46,7 @@ define( function ( require ) {
 
             if ( options !== marker ) {
                 this.__render();
+                this.__initWidgets();
             }
 
         },
@@ -94,6 +87,7 @@ define( function ( require ) {
             if ( $.contains( docNode, this.__target ) ) {
                 this.callBase( Utils.getMarker() );
                 this.__position();
+                this.__resize();
             }
 
             return this;
@@ -115,28 +109,20 @@ define( function ( require ) {
         // 执行定位
         __position: function () {
 
-            var location = null,
-                targetRect = null;
+            var location = null;
 
             $( this.__element ).addClass( CONF.classPrefix + "ppanel-position" );
 
-            targetRect = Utils.getBound( this.__target );
 
-            if ( this.__layout === 'center' || this.__layout === 'middle' ) {
-
-                location = this.__getCenterLayout( targetRect );
-
-            } else if ( !this.__options.inner ) {
-
-                location = this.__getOuterLayout( targetRect );
-
-            } else {
-
-                location = this.__getInnerLayout( targetRect );
-
-            }
+            location = this.__getLocation();
 
             $( this.__element ).css( 'top', location.top + 'px' ).css( 'left', location.left + 'px' );
+
+        },
+
+        __resize: function () {
+
+            var targetRect = Utils.getBound( this.__target );
 
             switch ( this.__options.resize ) {
 
@@ -222,6 +208,30 @@ define( function ( require ) {
 
         },
 
+        __getLocation: function () {
+
+            var targetRect = Utils.getBound( this.__target ),
+                location = null;
+
+            switch ( this.__layout ) {
+
+                case LAYOUT.CENTER:
+                case LAYOUT.MIDDLE:
+                    return this.__getCenterLayout( targetRect );
+
+                case LAYOUT.LEFT:
+                case LAYOUT.RIGHT:
+                case LAYOUT.BOTTOM:
+                case LAYOUT.TOP:
+                    return this.__getOuterLayout( targetRect );
+
+                default:
+                    return this.__getInnerLayout( targetRect );
+
+            }
+
+        },
+
         /**
          * 居中定位的位置属性
          * @private
@@ -294,7 +304,7 @@ define( function ( require ) {
         },
 
         /**
-         * 获取内部布局定位属性
+         * 获取内部布局定位属性,并且，内部布局还拥有根据水平空间的大小，自动进行更新定位的功能
          * @private
          */
         __getInnerLayout: function ( targetRect ) {
@@ -320,6 +330,8 @@ define( function ( require ) {
                     break;
 
             }
+
+
 
             return location;
 

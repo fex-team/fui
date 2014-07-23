@@ -34,6 +34,7 @@ define( function ( require ) {
 
             if ( options !== marker ) {
                 this.__render();
+                this.__initWidgets();
             }
 
         },

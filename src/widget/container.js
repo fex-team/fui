@@ -8,6 +8,7 @@ define( function ( require ) {
     var Utils = require( "base/utils" ),
         CONF = require( "base/sysconf" ),
         Widget = require( "widget/widget" ),
+        Creator = require( "base/creator" ),
         $ = require( "base/jquery" );
 
     return Utils.createClass( "Container", {
@@ -20,7 +21,8 @@ define( function ( require ) {
             this.callBase( marker );
 
             var defaultOptions = {
-                break: false
+                break: false,
+                widgets: null
             };
 
             this.widgetName = 'Icon';
@@ -28,10 +30,6 @@ define( function ( require ) {
             this.__widgets = [];
             this.__contentElement = null;
             this.__extendOptions( defaultOptions, options );
-
-            if ( options !== marker ) {
-                this.__render();
-            }
 
         },
 
@@ -173,6 +171,38 @@ define( function ( require ) {
         __appendChild: function ( childWidget ) {
 
             return this.appendWidget( childWidget );
+
+        },
+
+        __initWidgets: function () {
+
+            if ( !this.__options.widgets ) {
+                return;
+            }
+
+            var widgets = Creator.parse( this.__options.widgets ),
+                widget = null,
+                _self = this;
+
+            for ( var key in widgets ) {
+
+                if ( !widgets.hasOwnProperty( key ) ) {
+                    return;
+                }
+
+                widget = widgets[ key ];
+
+                if ( !$.isArray( widget ) ) {
+                    widget = [ widget ];
+                }
+
+                $.each( widget, function ( i, w ) {
+
+                    _self.appendWidget( w );
+
+                } );
+
+            }
 
         },
 
