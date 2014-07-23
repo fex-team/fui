@@ -24,6 +24,7 @@ define( function ( require ) {
             var defaultOptions = {
                 button: null,
                 input: null,
+                placeholder: null,
                 // label相对icon的位置
                 layout: 'right'
             };
@@ -126,6 +127,16 @@ define( function ( require ) {
         },
 
         __initOptions: function () {
+
+            if ( typeof this.__options.input !== "object" ) {
+                this.__options.input = {
+                    placeholder: this.__options.input
+                }
+            }
+
+            this.__options.input = $.extend( {}, this.__options.input, {
+                placeholder: this.__options.placeholder
+            } );
 
             if ( typeof this.__options.button !== "object" ) {
                 this.__options.button = {

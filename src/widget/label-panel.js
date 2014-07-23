@@ -71,12 +71,6 @@ define( function ( require ) {
             this.__contentElement.appendChild( this.__labelWidget.getElement() );
             this.__contentElement.appendChild( $contentElement[ 0 ] );
 
-            // 容器高度未设置， 则禁用定位属性， 避免自适应布局下的因流布局被破坏造成的重叠问题
-            if ( this.__options.height === null ) {
-                $( this.__element ).addClass( CONF.classPrefix + "no-position" );
-                this.__contentElement.appendChild( this.__labelWidget.getElement() );
-            }
-
             // 更新contentElement
             this.__contentElement = $contentElement[ 0 ];
 

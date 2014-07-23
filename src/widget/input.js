@@ -19,7 +19,9 @@ define( function ( require ) {
             var marker = Utils.getMarker();
             this.callBase( marker );
 
-            var defaultOptions = {};
+            var defaultOptions = {
+                placeholder: null
+            };
 
             this.__extendOptions( defaultOptions, options );
 
@@ -84,6 +86,11 @@ define( function ( require ) {
             this.callBase();
 
             this.__element.removeAttribute( "unselectable" );
+
+            if ( this.__options.placeholder ) {
+                this.__element.setAttribute( "placeholder", this.__options.placeholder );
+            }
+
             this.addClass( CONF.classPrefix + "selectable" );
             this.__initInputEvent();
 

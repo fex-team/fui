@@ -102,11 +102,9 @@ define( function ( require ) {
 
             var selectedItem = this.__menuWidget.getItem( this.__options.selected );
 
-            if ( !selectedItem ) {
-                return;
+            if ( selectedItem ) {
+                this.__inputWidget.setValue( selectedItem.getValue() );
             }
-
-            this.__inputWidget.setValue( selectedItem.getValue() );
 
         },
 

@@ -1,13 +1,39 @@
 .bw-toolbar {
 
   .fui-label-panel {
-    text-align: center;
-    height: 80px;
+    height: 90px;
     margin: 0 10px;
+    .fui-label-panel-label {
+      text-align: center;
+    }
   }
 
-  .bw-font {
-    text-align: left;
+  /*----------------------- history-panel -----------------*/
+  .bw-history {
+
+    text-align: center;
+
+    .bw-undo-btn {
+      margin-bottom: 5px;
+    }
+
+    .fui-label-panel-content {
+      padding: 5px 0;
+    }
+
+  }
+
+  /*------------------------ clipboard-panel ---------------*/
+  .bw-clipboard {
+
+    .bw-copy-btn {
+      margin: 0 5px 5px 0;
+    }
+
+    .fui-label-panel-content {
+      padding: 5px 0;
+    }
+
   }
 
   /*------------------------ font-panel ------*/
@@ -23,6 +49,13 @@
   }
 
   /**---------------------- paragarph panel -------*/
+  .bw-paragraph-top-panel, .bw-paragraph-bottom-panel {
+    padding: 5px 0;
+    >.fui-panel-content>.fui-widget {
+      margin-right: 5px;
+    }
+  }
+
   .bw-justify {
 
     .fui-button {

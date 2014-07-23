@@ -12,6 +12,7 @@ var configList = [
     // History
     {
         LabelPanel: {
+            className: 'bw-history',
             label: '历史记录',
             break: true
         },
@@ -25,6 +26,7 @@ var configList = [
     // Clipboard
     {
         LabelPanel: {
+            className: 'bw-clipboard',
             label: '剪贴板'
         },
         Panel: [ {
@@ -60,6 +62,7 @@ var configList = [
         InputMenu: [ {
             className: 'bw-font-family',
             input: {
+                placeholder: '字体',
                 button: {
                     className: 'bw-down-open-btn'
                 }
@@ -91,6 +94,7 @@ var configList = [
         }, {
             className: 'bw-font-size',
             input: {
+                placeholder: '字号',
                 button: {
                     className: 'bw-down-open-btn'
                 }
@@ -146,7 +150,7 @@ var configList = [
     {
         LabelPanel: {
             className: 'bw-paragraph',
-            label: '字体',
+            label: '段落',
             break: true
         },
         Panel: [ {
@@ -213,6 +217,9 @@ var configList = [
         }, {
             className: 'bw-space-paragraph-back-btn',
             text: '段后距'
+        }, {
+            className: 'bw-blockquote-btn',
+            text: '引用'
         } ],
 
         Buttonset: {
