@@ -182,16 +182,7 @@ define( function ( require ) {
             panelRect.height = this.__element.scrollHeight;
             panelRect.bottom = panelRect.top + panelRect.height;
 
-            if ( this.__options.bound.tagName.toLowerCase() === 'body' ) {
-
-                boundRect = {
-                    top: 0,
-                    bottom: $( this.__options.bound.ownerDocument.defaultView ).height()
-                };
-
-            } else {
-                boundRect = Utils.getRect( this.__options.bound );
-            }
+            boundRect = this.__getBoundRect();
 
             diff = panelRect.bottom - boundRect.bottom;
 
@@ -210,8 +201,7 @@ define( function ( require ) {
 
         __getLocation: function () {
 
-            var targetRect = Utils.getBound( this.__target ),
-                location = null;
+            var targetRect = Utils.getBound( this.__target );
 
             switch ( this.__layout ) {
 
@@ -229,6 +219,10 @@ define( function ( require ) {
                     return this.__getInnerLayout( targetRect );
 
             }
+
+
+
+            return location;
 
         },
 
@@ -317,21 +311,86 @@ define( function ( require ) {
 
             switch ( this.__layout ) {
 
-                case LAYOUT.TOP:
-                case LAYOUT.LEFT:
-                    location.left = targetRect.left;
+                case LAYOUT.LEFT_TOP:
                     location.top = targetRect.top;
+                    location.left = targetRect.left;
                     break;
 
-                case LAYOUT.RIGHT:
-                case LAYOUT.BOTTOM:
-                    location.top = targetRect.bottom - panelRect.height;
-                    location.left = targetRect.right - panelRect.width;
+                case LAYOUT.RIGHT_TOP:
+                    location.top = targetRect.top;
+                    location.left = targetRect.left + targetRect.width - panelRect.width;
+                    break;
+
+                case LAYOUT.LEFT_BOTTOM:
+                    location.top = targetRect.top + targetRect.height - panelRect.height;
+                    location.left = targetRect.left;
+                    break;
+
+                case LAYOUT.RIGHT_BOTTOM:
+                    location.top = targetRect.top + targetRect.height - panelRect.height;
+                    location.left = targetRect.left + targetRect.width - panelRect.width;
                     break;
 
             }
 
+            return this.__correctionLocation( location );
 
+        },
+
+        __getBoundRect: function () {
+
+            var width = -1,
+                height = -1,
+                view = null;
+
+            if ( this.__options.bound.tagName.toLowerCase() === 'body' ) {
+
+                view = this.__options.bound.ownerDocument.defaultView;
+
+                width = $( view ).width();
+                height = $( view ).height();
+
+                return {
+                    top: 0,
+                    left: 0,
+                    right: width,
+                    bottom: height,
+                    width: width,
+                    height: height
+                };
+
+            } else {
+                return Utils.getRect( this.__options.bound );
+            }
+
+        },
+
+        // 如果发生“溢出”，则修正定位
+        __correctionLocation: function ( location ) {
+
+            var panelRect = Utils.getRect( this.__element ),
+                targetRect = Utils.getRect( this.__target ),
+                boundRect = this.__getBoundRect();
+
+            switch ( this.__layout ) {
+
+                case LAYOUT.LEFT_TOP:
+                case LAYOUT.LEFT_BOTTOM:
+
+                    if ( location.left + panelRect.width > boundRect.right  ) {
+                        location.left = location.left + targetRect.width - panelRect.width;
+                    }
+                    break;
+
+                case LAYOUT.RIGHT_TOP:
+                case LAYOUT.RIGHT_BOTTOM:
+
+                    if ( location.left < boundRect.left  ) {
+                        location.left = targetRect.left;
+                    }
+                    break;
+
+            }
 
             return location;
 
