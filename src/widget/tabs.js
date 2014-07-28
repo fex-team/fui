@@ -11,14 +11,11 @@ define( function ( require ) {
         Panel = require( "widget/panel" ),
         Utils = require( "base/utils" );
 
-    return require( "base/utils" ).createClass( "tabss", {
+    return require( "base/utils" ).createClass( "Tabs", {
 
         base: require( "widget/widget" ),
 
         constructor: function ( options ) {
-
-            var marker = Utils.getMarker();
-            this.callBase( marker );
 
             var defaultOptions = {
                 selected: 0,
@@ -26,19 +23,9 @@ define( function ( require ) {
                 panels: null
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Tabs';
-            this.__tpl = tpl;
-
-            this.__btns = [];
-            this.__panels = [];
-            this.__prevSelected = -1;
-            this.__selected = -1;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -131,12 +118,6 @@ define( function ( require ) {
                 btnWrap = null,
                 panelWrap = null;
 
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__initOptions();
-
             this.callBase();
 
             btnWrap = $( ".fui-tabs-button-wrap", this.__element )[ 0 ];
@@ -187,6 +168,16 @@ define( function ( require ) {
         },
 
         __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'Tabs';
+            this.__tpl = tpl;
+
+            this.__btns = [];
+            this.__panels = [];
+            this.__prevSelected = -1;
+            this.__selected = -1;
 
             // panels不设置的情况下， 将根据button创建
             if ( this.__options.panels === null ) {

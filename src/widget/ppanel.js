@@ -16,9 +16,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 layout: LAYOUT.BOTTOM,
                 target: null,
@@ -30,24 +27,9 @@ define( function ( require ) {
                 resize: 'all'
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'PPanel';
-
-            this.__target = this.__options.target;
-            this.__layout = this.__options.layout;
-
-            // 记录是否已调整过高度
-            this.__height_resized = false;
-
-            if ( this.__target instanceof Widget ) {
-                this.__target = this.__target.getElement();
-            }
-
-            if ( options !== marker ) {
-                this.__render();
-                this.__initWidgets();
-            }
+            this.callBase( options );
 
         },
 
@@ -94,11 +76,21 @@ define( function ( require ) {
 
         },
 
-        __render: function () {
+        __initOptions: function () {
 
-            if ( this.__rendered ) {
-                return this;
-            }
+            this.callBase();
+
+            this.widgetName = 'PPanel';
+
+            this.__target = this.__options.target;
+            this.__layout = this.__options.layout;
+
+            // 记录是否已调整过高度
+            this.__height_resized = false;
+
+        },
+
+        __render: function () {
 
             this.callBase();
 

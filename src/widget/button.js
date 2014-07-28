@@ -18,9 +18,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 label: null,
                 text: null,
@@ -29,17 +26,9 @@ define( function ( require ) {
                 layout: 'right'
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Button';
-            this.__tpl = buttonTpl;
-
-            this.__iconWidget = null;
-            this.__labelWidget = null;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -55,11 +44,6 @@ define( function ( require ) {
 
             var _self = this;
 
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__initOptions();
             this.callBase();
 
             this.__iconWidget = new Icon( this.__options.icon );
@@ -85,11 +69,17 @@ define( function ( require ) {
 
             $( this.__element ).addClass( CONF.classPrefix + "button-layout-"+this.__options.layout )
 
-            this.__initButtonEvent();
-
         },
 
         __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'Button';
+            this.__tpl = buttonTpl;
+
+            this.__iconWidget = null;
+            this.__labelWidget = null;
 
             if ( typeof this.__options.label !== "object" ) {
                 this.__options.label = {
@@ -105,7 +95,9 @@ define( function ( require ) {
 
         },
 
-        __initButtonEvent: function () {
+        __initEvent: function () {
+
+            this.callBase();
 
             this.on( "click", function () {
 

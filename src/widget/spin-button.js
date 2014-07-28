@@ -19,28 +19,15 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 suffix: null,
                 selected: -1,
                 items: []
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'SpinButton';
-            this.__tpl = tpl;
-
-            this.__buttons = [];
-            this.__panelWidget = null;
-            this.__inputWidget = null;
-            this.__currentSelected = -1;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -63,11 +50,6 @@ define( function ( require ) {
 
         __render: function () {
 
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__initOptions();
             this.callBase();
 
             this.__buttons = [
@@ -90,13 +72,14 @@ define( function ( require ) {
             this.__panelWidget.appendTo( this.__element );
 
             this.__initSelected( this.__options.selected );
-            this.__initSpinButtonEvent();
 
         },
 
-        __initSpinButtonEvent: function () {
+        __initEvent: function () {
 
             var _self = this;
+
+            this.callBase();
 
             this.__buttons[ 0 ].on( "btnclick", function () {
 
@@ -148,6 +131,16 @@ define( function ( require ) {
         __initOptions: function () {
 
             var items = this.__options.items;
+
+            this.callBase();
+
+            this.widgetName = 'SpinButton';
+            this.__tpl = tpl;
+
+            this.__buttons = [];
+            this.__panelWidget = null;
+            this.__inputWidget = null;
+            this.__currentSelected = -1;
 
             $.each( items, function ( index, val ) {
 

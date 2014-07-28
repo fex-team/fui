@@ -17,19 +17,14 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 column: false,
                 widgets: null
             };
 
-            this.widgetName = 'Icon';
+            options = $.extend( {}, defaultOptions, options );
 
-            this.__widgets = [];
-            this.__contentElement = null;
-            this.__extendOptions( defaultOptions, options );
+            this.callBase( options );
 
         },
 
@@ -147,11 +142,16 @@ define( function ( require ) {
 
         },
 
-        __render: function () {
+        __initOptions: function () {
 
-            if ( this.__rendered ) {
-                return this;
-            }
+            this.widgetName = 'Container';
+
+            this.__widgets = [];
+            this.__contentElement = null;
+
+        },
+
+        __render: function () {
 
             this.callBase();
 

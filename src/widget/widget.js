@@ -16,9 +16,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 id: null,
                 className: '',
@@ -34,7 +31,6 @@ define( function ( require ) {
             this.__widgetType = 'widget';
             this.__tpl = '';
             this.__compiledTpl = '';
-            this.__rendered = false;
             this.__options = {};
             this.__element = null;
             // 禁止获取焦点
@@ -44,9 +40,10 @@ define( function ( require ) {
 
             this.__extendOptions( defaultOptions, options );
 
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.__initOptions();
+            this.__render();
+            this.__initEvent();
+            this.__initWidgets && this.__initWidgets();
 
         },
 
@@ -165,6 +162,8 @@ define( function ( require ) {
 
         },
 
+        __initOptions: function () {},
+
         /**
          * 根据模板渲染构件, 如果该构件已经渲染过, 则不会进行二次渲染
          * @returns {Widget}
@@ -173,12 +172,6 @@ define( function ( require ) {
 
             var $ele = null,
                 className = null;
-
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__rendered = true;
 
             this.id = this.__id();
 
@@ -213,8 +206,6 @@ define( function ( require ) {
                 this.__hide();
             }
 
-            this.__initWidgetEvent();
-
             return this;
 
         },
@@ -229,7 +220,7 @@ define( function ( require ) {
 
         },
 
-        __initWidgetEvent: function () {
+        __initEvent: function () {
 
             this.on( "mousedown", function ( e ) {
 

@@ -15,9 +15,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 column: true,
                 selected: -1,
@@ -25,15 +22,9 @@ define( function ( require ) {
                 items: []
             };
 
-            this.__extendOptions( defaultOptions, options );
-            this.__prevSelect = -1;
-            this.__currentSelect = this.__options.selected;
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Menu';
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -125,15 +116,22 @@ define( function ( require ) {
 
         },
 
+        __initOptions: function () {
+
+            this.callBase();
+
+            this.__prevSelect = -1;
+            this.__currentSelect = this.__options.selected;
+
+            this.widgetName = 'Menu';
+
+        },
+
         __render: function () {
 
             var _self = this,
                 textAlign = this.__options.textAlign,
                 selected = this.__options.selected;
-
-            if ( this.__rendered ) {
-                return this;
-            }
 
             this.callBase();
 
@@ -154,12 +152,12 @@ define( function ( require ) {
 
             } );
 
-            this.__initMenuEvent();
-
         },
 
         // 初始化点击事件
-        __initMenuEvent: function () {
+        __initEvent: function () {
+
+            this.callBase();
 
             this.on( "itemclick", function ( e ) {
 

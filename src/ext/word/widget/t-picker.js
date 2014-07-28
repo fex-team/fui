@@ -15,16 +15,21 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 // 10行 10列
                 row: 10,
                 col: 10
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
+
+            this.callBase( options );
+
+        },
+
+        __initOptions: function () {
+
+            this.callBase();
 
             this.widgetName = 'TPicker';
             this.__tpl = tpl;
@@ -32,19 +37,9 @@ define( function ( require ) {
             // 背板
             this.__backplane = null;
 
-            if ( options !== marker ) {
-                this.__render();
-            }
-
         },
 
         __render: function () {
-
-            var _self = this;
-
-            if ( this.__rendered ) {
-                return this;
-            }
 
             this.callBase();
 
@@ -52,13 +47,13 @@ define( function ( require ) {
 
             this.__element.appendChild( this.__backplane );
 
-            this.__initTPickerEvent();
-
         },
 
-        __initTPickerEvent: function () {
+        __initEvent: function () {
 
             var _self = this;
+
+            this.callBase();
 
             $( this.__backplane ).delegate( 'td', 'mousemove click', function ( e ) {
 

@@ -16,25 +16,13 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 img: null
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Icon';
-            this.__tpl = iconTpl;
-            this.__prevIcon = null;
-            this.__currentIcon = this.__options.img;
-
-            this.__image = null;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -66,11 +54,20 @@ define( function ( require ) {
             return this.__currentIcon;
         },
 
-        __render: function () {
+        __initOptions: function () {
 
-            if ( this.__rendered ) {
-                return this;
-            }
+            this.callBase();
+
+            this.widgetName = 'Icon';
+            this.__tpl = iconTpl;
+            this.__prevIcon = null;
+            this.__currentIcon = this.__options.img;
+
+            this.__image = null;
+
+        },
+
+        __render: function () {
 
             this.__options.__width = this.__options.width;
             this.__options.__height = this.__options.height;

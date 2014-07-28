@@ -5,6 +5,7 @@
 define( function ( require ) {
 
     var Utils = require( "base/utils" ),
+        CONF = require( "base/sysconf" ),
         panelTpl = require( "tpl/panel" ),
         $ = require( "base/jquery" );
 
@@ -14,31 +15,17 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {};
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Panel';
-
-            this.__tpl = panelTpl;
-
-            if ( options !== marker ) {
-                this.__render();
-                this.__initWidgets();
-            }
+            this.callBase( options );
 
         },
 
         __render: function () {
 
             var $content = null;
-
-            if ( this.__rendered ) {
-                return this;
-            }
 
             this.callBase();
 
@@ -47,6 +34,15 @@ define( function ( require ) {
             this.__contentElement.appendChild( $content[ 0 ] );
 
             this.__contentElement = $content[ 0 ];
+
+        },
+
+        __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'Panel';
+            this.__tpl = panelTpl;
 
         }
 

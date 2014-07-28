@@ -14,23 +14,24 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 width: 1,
                 height: '100%',
                 bgcolor: '#e1e1e1'
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
+
+            this.callBase( options );
+
+        },
+
+        __initOptions: function () {
+
+            this.callBase();
 
             this.widgetName = 'Separator';
             this.__tpl = separatorTpl;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
 
         }
 

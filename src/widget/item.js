@@ -17,9 +17,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 label: '',
                 icon: null,
@@ -27,18 +24,9 @@ define( function ( require ) {
                 textAlign: 'left'
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Item';
-            this.__tpl = itemTpl;
-
-            this.__iconWidget = null;
-            this.__labelWidget = null;
-            this.__selectState = this.__options.selected;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -90,12 +78,6 @@ define( function ( require ) {
 
         __render: function () {
 
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__initOptions();
-
             this.callBase();
 
             this.__iconWidget = new Icon( this.__options.icon );
@@ -103,8 +85,6 @@ define( function ( require ) {
 
             this.__iconWidget.appendTo( this.__element );
             this.__labelWidget.appendTo( this.__element );
-
-            this.__initItemEvent();
 
         },
 
@@ -121,7 +101,9 @@ define( function ( require ) {
 
         },
 
-        __initItemEvent: function () {
+        __initEvent: function () {
+
+            this.callBase();
 
             this.on( "click", function () {
 
@@ -136,6 +118,15 @@ define( function ( require ) {
          * @private
          */
         __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'Item';
+            this.__tpl = itemTpl;
+
+            this.__iconWidget = null;
+            this.__labelWidget = null;
+            this.__selectState = this.__options.selected;
 
             if ( typeof this.__options.label !== "object" ) {
                 this.__options.label = {

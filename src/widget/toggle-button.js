@@ -15,66 +15,14 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 // 按钮初始时是否按下
                 pressed: false
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'ToggleButton';
-            // 按钮当前状态
-            this.__state = false;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
-
-        },
-
-        __render: function () {
-
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.callBase();
-
-            $( this.__element ).addClass( CONF.classPrefix + "toggle-button" );
-
-            this.__initButtonState();
-            this.__initToggleButtonEvent();
-
-            return this;
-
-        },
-
-        __initButtonState: function () {
-
-            if ( !this.__options.pressed ) {
-                return;
-            }
-
-            // 不直接调用press方法， 防止初始化时事件的触发
-            $( this.__element ).addClass( CONF.classPrefix + "button-pressed" );
-            this.__state = true;
-
-        },
-
-        /**
-         * 初始化事件监听, 控制状态的切换
-         * @private
-         */
-        __initToggleButtonEvent: function () {
-
-            this.on( "click", function () {
-
-                this.toggle();
-
-            } );
+            this.callBase( options );
 
         },
 
@@ -112,6 +60,56 @@ define( function ( require ) {
             } else {
                 this.press();
             }
+
+        },
+
+        __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'ToggleButton';
+            // 按钮当前状态
+            this.__state = false;
+
+        },
+
+        __render: function () {
+
+            this.callBase();
+
+            $( this.__element ).addClass( CONF.classPrefix + "toggle-button" );
+
+            this.__initButtonState();
+
+            return this;
+
+        },
+
+        __initButtonState: function () {
+
+            if ( !this.__options.pressed ) {
+                return;
+            }
+
+            // 不直接调用press方法， 防止初始化时事件的触发
+            $( this.__element ).addClass( CONF.classPrefix + "button-pressed" );
+            this.__state = true;
+
+        },
+
+        /**
+         * 初始化事件监听, 控制状态的切换
+         * @private
+         */
+        __initEvent: function () {
+
+            this.callBase();
+
+            this.on( "click", function () {
+
+                this.toggle();
+
+            } );
 
         },
 

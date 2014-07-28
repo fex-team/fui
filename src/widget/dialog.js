@@ -23,9 +23,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 layout: LAYOUT.CENTER,
                 caption: null,
@@ -49,30 +46,9 @@ define( function ( require ) {
                 } ]
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Dialog';
-
-            this.__target = this.__options.target;
-            this.__layout = this.__options.layout;
-            this.__inDoc = false;
-            this.__hinting = false;
-            this.__openState = false;
-
-            this.__headElement = null;
-            this.__bodyElement = null;
-            this.__footElement = null;
-            this.__maskWidget = null;
-
-            this.__buttons = [];
-
-            if ( this.__target instanceof Widget ) {
-                this.__target = this.__target.getElement();
-            }
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -153,11 +129,32 @@ define( function ( require ) {
             return this.__footElement;
         },
 
-        __render: function () {
+        __initOptions: function () {
 
-            if ( this.__rendered ) {
-                return this;
+            this.callBase();
+
+            this.widgetName = 'Dialog';
+
+            this.__target = this.__options.target;
+            this.__layout = this.__options.layout;
+            this.__inDoc = false;
+            this.__hinting = false;
+            this.__openState = false;
+
+            this.__headElement = null;
+            this.__bodyElement = null;
+            this.__footElement = null;
+            this.__maskWidget = null;
+
+            this.__buttons = [];
+
+            if ( this.__target instanceof Widget ) {
+                this.__target = this.__target.getElement();
             }
+
+        },
+
+        __render: function () {
 
             this.callBase();
 
@@ -186,8 +183,6 @@ define( function ( require ) {
             this.__initButtons();
 
             this.__initMaskLint();
-
-            this.__initDialogEvent();
 
         },
 
@@ -226,9 +221,11 @@ define( function ( require ) {
 
         },
 
-        __initDialogEvent: function () {
+        __initEvent: function () {
 
             var _self = this;
+
+            this.callBase();
 
             $( [ this.__footElement, this.__headElement ] ).on( "btnclick", function ( e, btn ) {
 

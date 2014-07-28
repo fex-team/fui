@@ -20,9 +20,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 // item选项
                 menu: null,
@@ -32,19 +29,9 @@ define( function ( require ) {
                 layout: LAYOUT.RIGHT
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'ButtonMenu';
-            this.__tpl = tpl;
-
-            this.__buttonWidgets = null;
-            this.__menuWidget = null;
-            this.__maskWidget = null;
-            this.__openState = false;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -82,12 +69,6 @@ define( function ( require ) {
 
             var _self = this;
 
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__initOptions();
-
             this.callBase();
 
             this.__initButtons();
@@ -98,11 +79,19 @@ define( function ( require ) {
             this.__menuWidget.positionTo( this.__element );
             this.__menuWidget.appendTo( this.__element.ownerDocument.body );
 
-            this.__initButtonMenuEvent();
-
         },
 
         __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'ButtonMenu';
+            this.__tpl = tpl;
+
+            this.__buttonWidgets = null;
+            this.__menuWidget = null;
+            this.__maskWidget = null;
+            this.__openState = false;
 
             if ( this.__options.selected !== -1 ) {
                 this.__options.menu.selected = this.__options.selected;
@@ -148,10 +137,12 @@ define( function ( require ) {
 
         },
 
-        __initButtonMenuEvent: function () {
+        __initEvent: function () {
 
             var lastBtn = this.__buttonWidgets[ this.__buttonWidgets.length - 1 ],
                 _self = this;
+
+            this.callBase();
 
             lastBtn.on( "click", function ( e ) {
 

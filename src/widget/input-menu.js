@@ -19,9 +19,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 input: null,
                 menu: null,
@@ -29,25 +26,9 @@ define( function ( require ) {
                 selected: -1
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'InputMenu';
-            this.__tpl = tpl;
-
-            // 最后输入时间
-            this.__lastTime = 0;
-            // 最后选中的记录
-            this.__lastSelect = null;
-
-            this.__inputWidget = null;
-            this.__menuWidget = null;
-            this.__maskWidget = null;
-            // menu状态， 记录是否已经append到dom树上
-            this.__menuState = false;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -78,12 +59,6 @@ define( function ( require ) {
 
         __render: function () {
 
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__initOptions();
-
             this.__inputWidget = new InputButton( this.__options.input );
             this.__menuWidget = new Menu( this.__options.menu );
             this.__maskWidget = new Mask( this.__options.mask );
@@ -94,7 +69,6 @@ define( function ( require ) {
             this.__menuWidget.positionTo( this.__inputWidget );
 
             this.__initInputValue();
-            this.__initInputMenuEvent();
 
         },
 
@@ -108,9 +82,11 @@ define( function ( require ) {
 
         },
 
-        __initInputMenuEvent: function () {
+        __initEvent: function () {
 
             var _self = this;
+
+            this.callBase();
 
             this.on( "buttonclick", function () {
 
@@ -274,6 +250,22 @@ define( function ( require ) {
         },
 
         __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'InputMenu';
+            this.__tpl = tpl;
+
+            // 最后输入时间
+            this.__lastTime = 0;
+            // 最后选中的记录
+            this.__lastSelect = null;
+
+            this.__inputWidget = null;
+            this.__menuWidget = null;
+            this.__maskWidget = null;
+            // menu状态， 记录是否已经append到dom树上
+            this.__menuState = false;
 
             if ( this.__options.selected !== -1 ) {
                 this.__options.menu.selected = this.__options.selected;

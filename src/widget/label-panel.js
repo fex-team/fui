@@ -16,23 +16,13 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 layout: 'bottom'
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'LabelPanel';
-
-            this.__labelWidget = null;
-
-            if ( options !== marker ) {
-                this.__render();
-                this.__initWidgets();
-            }
+            this.callBase( options );
 
         },
 
@@ -53,12 +43,6 @@ define( function ( require ) {
         __render: function () {
 
             var $contentElement = null;
-
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__initOptions();
 
             this.__labelWidget = new Label( this.__options.label );
 
@@ -82,6 +66,12 @@ define( function ( require ) {
         __initOptions: function () {
 
             var label = this.__options.label;
+
+            this.callBase();
+
+            this.widgetName = 'LabelPanel';
+
+            this.__labelWidget = null;
 
             if ( typeof label !== "object" ) {
                 this.__options.label = {

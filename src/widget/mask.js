@@ -17,9 +17,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 bgcolor: '#000',
                 opacity: 0,
@@ -30,42 +27,9 @@ define( function ( require ) {
                 hide: true
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Mask';
-            this.__tpl = tpl;
-
-            this.__cacheId = __MASK_CACHE.length;
-            this.__hideState = true;
-
-            __MASK_CACHE.push( this );
-
-            this.__target = this.__options.target;
-
-            if ( this.__target instanceof Widget ) {
-                this.__target = this.__target.getElement();
-            }
-
-            if ( options !== marker ) {
-                this.__render();
-            }
-
-        },
-
-        __render: function () {
-
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.callBase();
-
-            this.__initMaskEvent();
-
-            if ( !__cache_inited ) {
-                __cache_inited = true;
-                __initCacheEvent();
-            }
+            this.callBase( options );
 
         },
 
@@ -114,6 +78,39 @@ define( function ( require ) {
         isHide: function () {
 
             return this.__hideState;
+
+        },
+
+        __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'Mask';
+            this.__tpl = tpl;
+
+            this.__cacheId = __MASK_CACHE.length;
+            this.__hideState = true;
+
+            __MASK_CACHE.push( this );
+
+            this.__target = this.__options.target;
+
+            if ( this.__target instanceof Widget ) {
+                this.__target = this.__target.getElement();
+            }
+
+        },
+
+        __render: function () {
+
+            this.callBase();
+
+            this.__initMaskEvent();
+
+            if ( !__cache_inited ) {
+                __cache_inited = true;
+                __initCacheEvent();
+            }
 
         },
 

@@ -16,9 +16,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 clearText: '',
                 commonText: '',
@@ -55,17 +52,9 @@ define( function ( require ) {
                 ]
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'ColorPicker';
-
-            this.__contentElement = null;
-            this.__maskWidget = null;
-            this.__inDoc = false;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -105,11 +94,19 @@ define( function ( require ) {
 
         },
 
-        __render: function () {
+        __initOptions: function () {
 
-            if ( this.__rendered ) {
-                return this;
-            }
+            this.callBase();
+
+            this.widgetName = 'ColorPicker';
+
+            this.__contentElement = null;
+            this.__maskWidget = null;
+            this.__inDoc = false;
+
+        },
+
+        __render: function () {
 
             this.callBase();
 
@@ -123,14 +120,14 @@ define( function ( require ) {
 
             this.__maskWidget = new Mask( this.__options.mask );
 
-            this.__initColorPickerEvents();
-
         },
 
         // 初始化点击事件
-        __initColorPickerEvents: function () {
+        __initEvent: function () {
 
             var _self = this;
+
+            this.callBase();
 
             this.on('click', function (e){
 

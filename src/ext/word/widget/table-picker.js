@@ -20,29 +20,15 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 button: null,
                 row: 10,
                 col: 10
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'TablePicker';
-            this.__tpl = tpl;
-
-            this.__pickerWidget = null;
-            this.__labelWidget = null;
-            this.__buttonWidget = null;
-            this.__panelWidget = null;
-            this.__maskWidget = null;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -71,13 +57,22 @@ define( function ( require ) {
             return this.__buttonWidget;
         },
 
+        __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'TablePicker';
+            this.__tpl = tpl;
+
+            this.__pickerWidget = null;
+            this.__labelWidget = null;
+            this.__buttonWidget = null;
+            this.__panelWidget = null;
+            this.__maskWidget = null;
+
+        },
+
         __render: function () {
-
-            var _self = this;
-
-            if ( this.__rendered ) {
-                return this;
-            }
 
             this.callBase();
 
@@ -98,13 +93,13 @@ define( function ( require ) {
 
             this.__panelWidget.positionTo( this.__buttonWidget );
 
-            this.__initTablePickerEvent();
-
         },
 
-        __initTablePickerEvent: function () {
+        __initEvent: function () {
 
             var _self = this;
+
+            this.callBase();
 
             this.__buttonWidget.on( 'btnclick', function ( e ) {
 

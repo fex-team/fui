@@ -14,22 +14,14 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 text: '',
                 textAlign: 'center'
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Label';
-            this.__tpl = labelTpl;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -62,23 +54,16 @@ define( function ( require ) {
             return false;
         },
 
-        __render: function () {
-
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__initOptions();
-
-            this.callBase();
-
-        },
-
         /**
          * 初始化模板所用的css值
          * @private
          */
         __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'Label';
+            this.__tpl = labelTpl;
 
             this.__options.text = this.__options.text.toString();
 

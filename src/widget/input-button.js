@@ -18,9 +18,6 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 button: null,
                 input: null,
@@ -29,17 +26,9 @@ define( function ( require ) {
                 layout: 'right'
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'InputButton';
-            this.__tpl = tpl;
-
-            this.__inputWidget = null;
-            this.__buttonWidget = null;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -85,15 +74,37 @@ define( function ( require ) {
 
         },
 
+        __initOptions: function () {
+
+            this.callBase();
+
+            this.widgetName = 'InputButton';
+            this.__tpl = tpl;
+
+            this.__inputWidget = null;
+            this.__buttonWidget = null;
+
+            if ( typeof this.__options.input !== "object" ) {
+                this.__options.input = {
+                    placeholder: this.__options.input
+                }
+            }
+
+            this.__options.input = $.extend( {}, this.__options.input, {
+                placeholder: this.__options.placeholder
+            } );
+
+            if ( typeof this.__options.button !== "object" ) {
+                this.__options.button = {
+                    icon: this.__options.button
+                }
+            }
+
+        },
+
         __render: function () {
 
             var _self = this;
-
-            if ( this.__rendered ) {
-                return this;
-            }
-
-            this.__initOptions();
 
             this.callBase();
 
@@ -123,26 +134,6 @@ define( function ( require ) {
             this.__buttonWidget.on( "click", function () {
                 _self.trigger( "buttonclick" );
             } );
-
-        },
-
-        __initOptions: function () {
-
-            if ( typeof this.__options.input !== "object" ) {
-                this.__options.input = {
-                    placeholder: this.__options.input
-                }
-            }
-
-            this.__options.input = $.extend( {}, this.__options.input, {
-                placeholder: this.__options.placeholder
-            } );
-
-            if ( typeof this.__options.button !== "object" ) {
-                this.__options.button = {
-                    icon: this.__options.button
-                }
-            }
 
         }
 

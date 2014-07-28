@@ -16,23 +16,13 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 placeholder: null
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Input';
-            this.__tpl = tpl;
-            // input构件允许获取获得
-            this.__allow_focus = true;
-
-            if ( options !== marker ) {
-                this.__render();
-            }
+            this.callBase( options );
 
         },
 
@@ -77,11 +67,18 @@ define( function ( require ) {
 
         },
 
-        __render: function () {
+        __initOptions: function () {
 
-            if ( this.__rendered ) {
-                return this;
-            }
+            this.callBase();
+
+            this.widgetName = 'Input';
+            this.__tpl = tpl;
+            // input构件允许获得焦点
+            this.__allow_focus = true;
+
+        },
+
+        __render: function () {
 
             this.callBase();
 
@@ -92,11 +89,12 @@ define( function ( require ) {
             }
 
             this.addClass( CONF.classPrefix + "selectable" );
-            this.__initInputEvent();
 
         },
 
-        __initInputEvent: function () {
+        __initEvent: function () {
+
+            this.callBase();
 
             this.on( "keydown", function ( e ) {
 

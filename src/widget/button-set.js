@@ -16,26 +16,14 @@ define( function ( require ) {
 
         constructor: function ( options ) {
 
-            var marker = Utils.getMarker();
-            this.callBase( marker );
-
             var defaultOptions = {
                 // 初始选中项, -1表示不选中任何项
                 selected: -1
             };
 
-            this.__extendOptions( defaultOptions, options );
+            options = $.extend( {}, defaultOptions, options );
 
-            this.widgetName = 'Buttonset';
-            // 当前选中项
-            this.__currentIndex = this.__options.selected;
-            // 前一次选中项
-            this.__prevIndex = -1;
-
-            if ( options !== marker ) {
-                this.__render();
-                this.__initWidgets();
-            }
+            this.callBase( options );
 
         },
 
@@ -141,11 +129,19 @@ define( function ( require ) {
 
         },
 
-        __render: function () {
+        __initOptions: function () {
 
-            if ( this.__rendered ) {
-                return this;
-            }
+            this.callBase();
+
+            this.widgetName = 'Buttonset';
+            // 当前选中项
+            this.__currentIndex = this.__options.selected;
+            // 前一次选中项
+            this.__prevIndex = -1;
+
+        },
+
+        __render: function () {
 
             this.callBase();
 
