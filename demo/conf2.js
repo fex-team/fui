@@ -14,7 +14,7 @@ var configList = [
         LabelPanel: {
             className: 'bw-history',
             label: '历史记录',
-            break: true
+            column: true
         },
         Button: [ {
             className: 'bw-undo-btn'
@@ -30,9 +30,9 @@ var configList = [
             label: '剪贴板'
         },
         Panel: [ {
-            break: true
+            column: true
         }, {
-            break: true
+            column: true
         } ],
         Button: [ {
             className: 'bw-copy-btn',
@@ -52,7 +52,7 @@ var configList = [
         LabelPanel: {
             className: 'bw-font',
             label: '字体',
-            break: true
+            column: true
         },
         Panel: [ {
             className: 'bw-font-top-panel'
@@ -151,7 +151,7 @@ var configList = [
         LabelPanel: {
             className: 'bw-paragraph',
             label: '段落',
-            break: true
+            column: true
         },
         Panel: [ {
             className: "bw-paragraph-top-panel"

@@ -19,7 +19,7 @@ define( function ( require ) {
             this.callBase( marker );
 
             var defaultOptions = {
-                break: true,
+                column: true,
                 selected: -1,
                 textAlign: 'left',
                 items: []

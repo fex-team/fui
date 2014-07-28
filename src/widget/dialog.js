@@ -11,7 +11,11 @@ define( function ( require ) {
         tpl = require( "tpl/dialog" ),
         Button = require( "widget/button" ),
         LAYOUT = CONF.layout,
-        $ = require( "base/jquery" );
+        $ = require( "base/jquery" ),
+        ACTION = {
+            CANCEL: 'cancel',
+            OK: 'ok'
+        };
 
     return Utils.createClass( "Dialog", {
 
@@ -32,7 +36,17 @@ define( function ( require ) {
                 mask: {
                     color: '#000',
                     opacity: 0.2
-                }
+                },
+                // 底部按钮
+                buttons: [ {
+                    className: CONF.classPrefix + 'xdialog-ok-btn',
+                    action: 'ok',
+                    label: '确定'
+                }, {
+                    className: CONF.classPrefix + 'xdialog-cancel-btn',
+                    action: 'cancel',
+                    label: '取消'
+                } ]
             };
 
             this.__extendOptions( defaultOptions, options );
@@ -50,6 +64,8 @@ define( function ( require ) {
             this.__footElement = null;
             this.__maskWidget = null;
 
+            this.__buttons = [];
+
             if ( this.__target instanceof Widget ) {
                 this.__target = this.__target.getElement();
             }
@@ -61,11 +77,25 @@ define( function ( require ) {
         },
 
         open: function () {
-            return this.show();
+
+            this.__fire( "open", function () {
+
+                this.show();
+
+            } );
+
+            return this;
         },
 
         close: function () {
-            return this.hide();
+
+            this.__fire( "close", function () {
+
+                this.hide();
+
+            } );
+
+            return this;
         },
 
         show: function () {
@@ -153,7 +183,58 @@ define( function ( require ) {
                 this.__initCloseButton();
             }
 
+            this.__initButtons();
+
             this.__initMaskLint();
+
+            this.__initDialogEvent();
+
+        },
+
+        __action: function ( type, btn ) {
+
+            switch ( type ) {
+
+                case ACTION.OK:
+                    if ( this.__triggerHandler( type ) !== false ) {
+                        this.close();
+                    }
+                    break;
+
+                case ACTION.CANCEL:
+                    this.__triggerHandler( type );
+                    this.close();
+                    break;
+
+            }
+
+        },
+
+        __initButtons: function () {
+
+            var _self = this,
+                button = null,
+                foot = this.__footElement;
+
+            $.each( this.__options.buttons, function ( index, buttonOption ) {
+
+                button = new Button( buttonOption );
+                button.appendTo( foot );
+                _self.__buttons.push( button );
+
+            } );
+
+        },
+
+        __initDialogEvent: function () {
+
+            var _self = this;
+
+            $( [ this.__footElement, this.__headElement ] ).on( "btnclick", function ( e, btn ) {
+
+                _self.__action( btn.getOptions().action, btn );
+
+            } );
 
         },
 
@@ -168,26 +249,12 @@ define( function ( require ) {
 
         __initCloseButton: function () {
 
-            var _self = this,
-                closeButton = new Button( {
-                    className: 'fui-close-button',
-                    icon: {
-                        className: 'fui-close-button-icon'
-                    }
-                } );
-
-            closeButton.on( "mousedown", function ( e ) {
-
-                e.stopPropagation();
-
-            } );
-
-            closeButton.on( "click", function ( e ) {
-
-                e.stopPropagation();
-
-                _self.close();
-
+            var closeButton = new Button( {
+                className: 'fui-close-button',
+                action: 'cancel',
+                icon: {
+                    className: 'fui-close-button-icon'
+                }
             } );
 
             closeButton.appendTo( this.__headElement );

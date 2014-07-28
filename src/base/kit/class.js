@@ -96,7 +96,7 @@ define(function(require, exports) {
             'KityClass.__KityConstructor.apply(this, arguments);' +
             '}' +
             'this.__KityClassName = KityClass.__KityClassName;' +
-            '})');
+            '})||0');
         KityClass.__KityConstructor = constructor;
 
         KityClass.prototype = new BaseClass(KITY_INHERIT_FLAG);

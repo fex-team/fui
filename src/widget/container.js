@@ -21,7 +21,7 @@ define( function ( require ) {
             this.callBase( marker );
 
             var defaultOptions = {
-                break: false,
+                column: false,
                 widgets: null
             };
 
@@ -88,9 +88,9 @@ define( function ( require ) {
             this.__widgets.push( widget );
             widget.appendTo( this.__contentElement );
 
-            if ( this.__options.break ) {
-                this.__contentElement.appendChild( $( '<span class="fui-break">' )[0] );
-                $( widget.getElement() ).addClass( CONF.classPrefix + "panel-break-widget" );
+            if ( this.__options.column ) {
+                this.__contentElement.appendChild( $( '<span class="fui-column"></span>' )[0] );
+                $( widget.getElement() ).addClass( CONF.classPrefix + "panel-column-widget" );
             }
 
             return widget;
@@ -118,9 +118,9 @@ define( function ( require ) {
             this.__widgets.splice( index, 0, widget );
             this.__contentElement.insertBefore( widget.getElement(), oldElement.getElement() );
 
-            if ( this.__options.break ) {
-                this.__contentElement.insertBefore( $( '<span class="fui-break">' )[0], oldElement.getElement() );
-                $( widget.getElement() ).addClass( CONF.classPrefix + "panel-break-widget" );
+            if ( this.__options.column ) {
+                this.__contentElement.insertBefore( $( '<span class="fui-column"></span>' )[0], oldElement.getElement() );
+                $( widget.getElement() ).addClass( CONF.classPrefix + "panel-column-widget" );
             }
 
             return widget;
@@ -141,7 +141,7 @@ define( function ( require ) {
 
             this.__contentElement.removeChild( widget.getElement() );
 
-            $( widget.getElement() ).removeClass( CONF.classPrefix + "panel-break-widget" );
+            $( widget.getElement() ).removeClass( CONF.classPrefix + "panel-column-widget" );
 
             return widget;
 
@@ -159,8 +159,8 @@ define( function ( require ) {
 
             $( this.__element ).addClass( CONF.classPrefix + "container" );
 
-            if ( this.__options.break ) {
-                $( this.__element ).addClass( CONF.classPrefix + "container-break" );
+            if ( this.__options.column ) {
+                $( this.__element ).addClass( CONF.classPrefix + "container-column" );
             }
 
             return this;

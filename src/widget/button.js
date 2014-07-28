@@ -109,7 +109,7 @@ define( function ( require ) {
 
             this.on( "click", function () {
 
-                this.trigger( "btnclick" );
+                this.__trigger( "btnclick" );
 
             } );
 

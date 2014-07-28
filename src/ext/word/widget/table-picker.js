@@ -88,7 +88,7 @@ define( function ( require ) {
             this.__buttonWidget = new Button( this.__options.button );
             this.__panelWidget = new PPanel( {
                 className: CONF.classPrefix + 'table-picker-panel',
-                break: true,
+                column: true,
                 resize: 'none'
             } );
             this.__maskWidget = new Mask();

@@ -152,7 +152,7 @@ define( function ( require ) {
             // body特殊处理
             if ( this.__targetIsBody() ) {
 
-                targetRect = $( this.__target.ownerDocument.defaultView );
+                targetRect = $( Utils.getView( this.__target ) );
                 targetRect = {
                     width: targetRect.width(),
                     height: targetRect.height()

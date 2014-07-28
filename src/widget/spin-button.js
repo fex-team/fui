@@ -81,7 +81,7 @@ define( function ( require ) {
 
             this.__inputWidget = new Input();
             this.__panelWidget = new Panel( {
-                break: true
+                column: true
             } );
 
             this.__inputWidget.appendTo( this.__element );

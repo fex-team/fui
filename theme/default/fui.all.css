@@ -235,6 +235,7 @@
   top: -1000000px;
   left: -100000px;
   border: 1px solid #B1B1B1;
+  background: #fff;
 }
 .fui-dialog .fui-panel-content {
   width: auto!important;
@@ -464,10 +465,10 @@
   width: 100%;
   height: 100%;
 }
-.fui-panel.fui-container-break {
+.fui-panel.fui-container-column {
   font-size: 0;
 }
-.fui-panel.fui-container-break .fui-break {
+.fui-panel.fui-container-column .fui-column {
   display: block;
 }
 

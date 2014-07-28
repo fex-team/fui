@@ -33,7 +33,41 @@
 
             };
 
+            dialog.on( "cancel", function ( e ) {
+
+                console.log(e.type);
+
+            } );
+
+            dialog.on( "ok" , function ( e ) {
+
+                console.log(e.type);
+
+                return false;
+
+            } );
+
+            dialog.on( "beforeclose" , function ( e, state ) {
+
+                state.cancel = true;
+                console.log(e.type)
+
+            } );
+
+            dialog.on( "afterclose" , function ( e ) {
+
+                console.log(e.type)
+
+            } );
+
+            dialog.on( "close" , function ( e ) {
+
+                console.log(e.type)
+
+            } );
+
         };
+
     </script>
 </head>
 <body>

@@ -345,7 +345,7 @@ define( function ( require ) {
 
             if ( this.__options.bound.tagName.toLowerCase() === 'body' ) {
 
-                view = this.__options.bound.ownerDocument.defaultView;
+                view = Utils.getView( this.__options.bound );
 
                 width = $( view ).width();
                 height = $( view ).height();

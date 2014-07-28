@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-07-23
+ * Flex UI - v1.0.0 - 2014-07-28
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -37,6 +37,7 @@ var _p = {
     }
 };
 
+//src/base/creator.js
 /**
  * UI构造工厂, 提供可通过参数配置项创建多个构件的机制.
  */
@@ -67,6 +68,7 @@ _p[0] = {
     }
 };
 
+//src/base/exports.js
 /**
  * 模块暴露
  */
@@ -74,29 +76,29 @@ _p[1] = {
     value: function(require) {
         var FUI_NS = _p.r(11);
         FUI_NS.___register({
-            Widget: _p.r(57),
-            Icon: _p.r(42),
-            Label: _p.r(48),
-            Button: _p.r(37),
-            ToggleButton: _p.r(56),
-            Buttonset: _p.r(36),
-            Separator: _p.r(53),
-            Item: _p.r(46),
-            Input: _p.r(45),
-            InputButton: _p.r(43),
-            Mask: _p.r(49),
-            ColorPicker: _p.r(38),
-            Tabs: _p.r(55),
-            SpinButton: _p.r(54),
-            Container: _p.r(39),
-            Panel: _p.r(51),
-            PPanel: _p.r(52),
-            LabelPanel: _p.r(47),
-            Menu: _p.r(50),
-            InputMenu: _p.r(44),
-            ButtonMenu: _p.r(34),
-            DropPanel: _p.r(41),
-            Dialog: _p.r(40),
+            Widget: _p.r(58),
+            Icon: _p.r(43),
+            Label: _p.r(49),
+            Button: _p.r(38),
+            ToggleButton: _p.r(57),
+            Buttonset: _p.r(37),
+            Separator: _p.r(54),
+            Item: _p.r(47),
+            Input: _p.r(46),
+            InputButton: _p.r(44),
+            Mask: _p.r(50),
+            ColorPicker: _p.r(39),
+            Tabs: _p.r(56),
+            SpinButton: _p.r(55),
+            Container: _p.r(40),
+            Panel: _p.r(52),
+            PPanel: _p.r(53),
+            LabelPanel: _p.r(48),
+            Menu: _p.r(51),
+            InputMenu: _p.r(45),
+            ButtonMenu: _p.r(35),
+            DropPanel: _p.r(42),
+            Dialog: _p.r(41),
             Utils: _p.r(13),
             Creator: _p.r(0)
         });
@@ -104,6 +106,7 @@ _p[1] = {
     }
 };
 
+//src/base/extensions.js
 /**
  * 扩展模块暴露
  */
@@ -111,11 +114,13 @@ _p[2] = {
     value: function(require) {
         var FUI_NS = _p.r(11);
         FUI_NS.___register({
-            TablePicker: _p.r(17)
+            TablePicker: _p.r(17),
+            XDialog: _p.r(18)
         });
     }
 };
 
+//src/base/jhtmls.js
 /**
  * jhtmls模板引擎
  */
@@ -125,6 +130,7 @@ _p[3] = {
     }
 };
 
+//src/base/jquery.js
 /**
  * jquery模块封装
  */
@@ -134,6 +140,7 @@ _p[4] = {
     }
 };
 
+//src/base/kit/class.js
 /**
  * @description 创建一个类
  * @param {String}    fullClassName  类全名，包括命名空间。
@@ -216,7 +223,7 @@ _p[5] = {
         }
         var KITY_INHERIT_FLAG = "__KITY_INHERIT_FLAG_" + +new Date();
         function inherit(constructor, BaseClass, classname) {
-            var KityClass = eval("(function " + classname + "( __inherit__flag ) {" + "if( __inherit__flag != KITY_INHERIT_FLAG ) {" + "KityClass.__KityConstructor.apply(this, arguments);" + "}" + "this.__KityClassName = KityClass.__KityClassName;" + "})");
+            var KityClass = eval("(function " + classname + "( __inherit__flag ) {" + "if( __inherit__flag != KITY_INHERIT_FLAG ) {" + "KityClass.__KityConstructor.apply(this, arguments);" + "}" + "this.__KityClassName = KityClass.__KityClassName;" + "})||0");
             KityClass.__KityConstructor = constructor;
             KityClass.prototype = new BaseClass(KITY_INHERIT_FLAG);
             for (var methodName in BaseClass.prototype) {
@@ -302,6 +309,7 @@ _p[5] = {
     }
 };
 
+//src/base/kit/common.js
 /**
  * 通用工具包
  */
@@ -365,7 +373,7 @@ _p[6] = {
             getBound: function(node) {
                 var w = 0, h = 0;
                 if (node.tagName.toLowerCase() === "body") {
-                    h = $(node.ownerDocument.defaultView);
+                    h = $(this.getView(node));
                     w = h.width();
                     h = h.height();
                     return {
@@ -382,11 +390,15 @@ _p[6] = {
             },
             getCssValue: function(props, node) {
                 var styleList = node.ownerDocument.defaultView.getComputedStyle(node, null);
+            },
+            getView: function(node) {
+                return node.ownerDocument.defaultView || node.ownerDocument.parentWindow;
             }
         };
     }
 };
 
+//src/base/kit/compile.js
 /**
  * 模板编译器
  */
@@ -412,6 +424,7 @@ _p[7] = {
     }
 };
 
+//src/base/kit/draggable.js
 /**
  * Draggable Lib
  */
@@ -552,6 +565,7 @@ _p[8] = {
     }
 };
 
+//src/base/kit/extend.js
 /**
  * 弥补jQuery的extend在克隆对象和数组时存在的问题
  */
@@ -607,6 +621,7 @@ _p[9] = {
     }
 };
 
+//src/base/kit/widget.js
 /**
  * 构件相关工具方法
  */
@@ -620,6 +635,7 @@ _p[10] = {
     }
 };
 
+//src/base/ns.js
 /**
  * FUI名称空间
  */
@@ -656,6 +672,7 @@ _p[11] = {
     }
 };
 
+//src/base/sysconf.js
 /**
  * UI系统配置
  */
@@ -680,6 +697,7 @@ _p[12] = {
     }
 };
 
+//src/base/utils.js
 /**
  * utils类包， 提供常用操作的封装，补充jQuery的不足
  */
@@ -694,18 +712,21 @@ _p[13] = {
     }
 };
 
+//src/ext/word/tpl/t-picker.js
 _p[14] = {
     value: function() {
         return '<div unselectable="on" class="fui-t-picker"></div>\n';
     }
 };
 
+//src/ext/word/tpl/table-picker.js
 _p[15] = {
     value: function() {
         return '<div unselectable="on" class="fui-table-picker"></div>\n';
     }
 };
 
+//src/ext/word/widget/t-picker.js
 /**
  * TPicker -- table 选择器
  */
@@ -713,7 +734,7 @@ _p[16] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(14), Utils = _p.r(13);
         return _p.r(13).createClass("TPicker", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -796,14 +817,15 @@ _p[16] = {
     }
 };
 
+//src/ext/word/widget/table-picker.js
 /**
  * Table选择器构件
  */
 _p[17] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(15), Label = _p.r(48), TPicker = _p.r(16), Button = _p.r(37), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(15), Label = _p.r(49), TPicker = _p.r(16), Button = _p.r(38), PPanel = _p.r(53), Mask = _p.r(50), Utils = _p.r(13);
         return _p.r(13).createClass("TablePicker", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -852,7 +874,7 @@ _p[17] = {
                 this.__buttonWidget = new Button(this.__options.button);
                 this.__panelWidget = new PPanel({
                     className: CONF.classPrefix + "table-picker-panel",
-                    "break": true,
+                    column: true,
                     resize: "none"
                 });
                 this.__maskWidget = new Mask();
@@ -898,111 +920,206 @@ _p[17] = {
     }
 };
 
+//src/ext/word/widget/x-dialog.js
+/**
+ * 扩展dialog
+ */
 _p[18] = {
+    value: function(require) {
+        var $ = _p.r(4), CONF = _p.r(12), Button = _p.r(38), Utils = _p.r(13);
+        var ACTION = {
+            CANCEL: "cancel",
+            OK: "ok"
+        };
+        return _p.r(13).createClass("XDialog", {
+            base: _p.r(41),
+            constructor: function(options) {
+                var marker = Utils.getMarker();
+                this.callBase(marker);
+                var defaultOptions = {
+                    buttons: [ {
+                        className: CONF.classPrefix + "xdialog-ok-btn",
+                        action: "ok",
+                        label: "确定"
+                    }, {
+                        className: CONF.classPrefix + "xdialog-cancel-btn",
+                        action: "cancel",
+                        label: "取消"
+                    } ]
+                };
+                this.__extendOptions(defaultOptions, options);
+                this.widgetName = "XDialog";
+                this.__buttons = [];
+                if (options !== marker) {
+                    this.__render();
+                }
+            },
+            getButton: function(index) {
+                return this.__buttons[index] || null;
+            },
+            __render: function() {
+                var _self = this;
+                if (this.__rendered) {
+                    return this;
+                }
+                this.callBase();
+                this.__initButtons();
+                this.__initXDialogEvent();
+            },
+            __action: function(type, btn) {
+                switch (type) {
+                  case ACTION.OK:
+                    if (this.__triggerHandler(type) !== false) {
+                        this.close();
+                    }
+                    break;
+
+                  case ACTION.CANCEL:
+                    this.__triggerHandler(type);
+                    this.close();
+                    break;
+                }
+            },
+            __initButtons: function() {
+                var _self = this, button = null, foot = this.getFootElement();
+                $.each(this.__options.buttons, function(index, buttonOption) {
+                    button = new Button(buttonOption);
+                    button.appendTo(foot);
+                    _self.__buttons.push(button);
+                });
+            },
+            __initXDialogEvent: function() {
+                var _self = this;
+                $(this.getFootElement()).on("btnclick", function(e, btn) {
+                    _self.__action(btn.getOptions().action, btn);
+                });
+            }
+        });
+    }
+};
+
+//src/tpl/button-menu.js
+_p[19] = {
     value: function() {
         return '<div unselectable="on" class="fui-button-menu"></div>\n';
     }
 };
 
-_p[19] = {
+//src/tpl/button.js
+_p[20] = {
     value: function() {
         return '<div unselectable="on" class="fui-button"></div>\n';
     }
 };
 
-_p[20] = {
+//src/tpl/colorpicker.js
+_p[21] = {
     value: function() {
         return '<div unselectable="on" class="fui-colorpicker-container">\n' + '<div unselectable="on" class="fui-colorpicker-toolbar">\n' + '<div unselectable="on" class="fui-colorpicker-preview"></div>\n' + '<div unselectable="on" class="fui-colorpicker-clear">$clearText</div>\n' + "</div>\n" + '<div unselectable="on" class="fui-colorpicker-title">$commonText</div>\n' + '<div unselectable="on" class="fui-colorpicker-commoncolor">\n' + "helper.forEach( commonColor, function ( index, colors ) {\n" + '<div unselectable="on" class="fui-colorpicker-colors fui-colorpicker-colors-line$index">\n' + "helper.forEach( colors, function( i, color ) {\n" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: $color; border-color: #{color.toLowerCase() == \'#ffffff\' ? \'#eeeeee\': color};" data-color="$color"></span>\n' + "});\n" + "</div>\n" + "} );\n" + "</div>\n" + '<div unselectable="on" class="fui-colorpicker-title">$standardText</div>\n' + '<div unselectable="on" class="fui-colorpicker-standardcolor fui-colorpicker-colors">\n' + "helper.forEach( standardColor, function ( i, color ) {\n" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: $color; border-color: $color;" data-color="$color"></span>\n' + "} );\n" + "</div>\n" + "</div>\n";
     }
 };
 
-_p[21] = {
+//src/tpl/dialog.js
+_p[22] = {
     value: function() {
         return '<div unselectable="on" class="fui-dialog-wrap">\n' + '<div unselectable="on" class="fui-dialog-head">\n' + '<h1 unselectable="on" class="fui-dialog-caption">$caption</h1>\n' + "</div>\n" + '<div unselectable="on" class="fui-dialog-body"></div>\n' + '<div unselectable="on" class="fui-dialog-foot"></div>\n' + "</div>\n";
     }
 };
 
-_p[22] = {
+//src/tpl/drop-panel.js
+_p[23] = {
     value: function() {
         return "<div unselectable=\"on\" class=\"fui-drop-panel\"  #{ text ? 'title=\"' + m.text + '\"' : '' }></div>\n";
     }
 };
 
-_p[23] = {
+//src/tpl/icon.js
+_p[24] = {
     value: function() {
         return '<div unselectable="on" class="fui-icon" >\n' + "if ( this.img ) {\n" + '<img unselectable="on" src="#{this.img}" >\n' + "}\n" + "</div>\n";
     }
 };
 
-_p[24] = {
+//src/tpl/input-button.js
+_p[25] = {
     value: function() {
         return '<div unselectable="on" class="fui-input-button"></div>\n';
     }
 };
 
-_p[25] = {
+//src/tpl/input-menu.js
+_p[26] = {
     value: function() {
         return '<div unselectable="on" class="fui-input-menu"></div>\n';
     }
 };
 
-_p[26] = {
+//src/tpl/input.js
+_p[27] = {
     value: function() {
         return '<input unselectable="on" class="fui-input"  autocomplete="off" !#{ value ? \'value="\' + value + \'"\' : \'\'}>\n';
     }
 };
 
-_p[27] = {
+//src/tpl/item.js
+_p[28] = {
     value: function() {
         return "<div unselectable=\"on\" class=\"fui-item!#{ selected ? ' fui-item-selected': '' }\" ></div>\n";
     }
 };
 
-_p[28] = {
+//src/tpl/label.js
+_p[29] = {
     value: function() {
         return '<div unselectable="on" class="fui-label">$text</div>\n';
     }
 };
 
-_p[29] = {
+//src/tpl/mask.js
+_p[30] = {
     value: function() {
         return '<div unselectable="on" class="fui-mask" style="background-color: $bgcolor; opacity: $opacity;"></div>\n';
     }
 };
 
-_p[30] = {
+//src/tpl/panel.js
+_p[31] = {
     value: function() {
         return '<div unselectable="on" class="fui-panel"></div>\n';
     }
 };
 
-_p[31] = {
+//src/tpl/separator.js
+_p[32] = {
     value: function() {
         return '<div unselectable="on" class="fui-separator"></div>\n';
     }
 };
 
-_p[32] = {
+//src/tpl/spin-button.js
+_p[33] = {
     value: function() {
         return '<div unselectable="on" class="fui-spin-button"></div>\n';
     }
 };
 
-_p[33] = {
+//src/tpl/tabs.js
+_p[34] = {
     value: function() {
         return '<div unselectable="on" class="fui-tabs">\n' + '<div unselectable="on" class="fui-tabs-button-wrap"></div>\n' + '<div unselectable="on" class="fui-tabs-panel-wrap"></div>\n' + "</div>\n";
     }
 };
 
+//src/widget/button-menu.js
 /**
  * Button对象
  * 通用按钮构件
  */
-_p[34] = {
+_p[35] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(18), Button = _p.r(37), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13), LAYOUT = CONF.layout;
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(19), Button = _p.r(38), Menu = _p.r(51), Mask = _p.r(50), Utils = _p.r(13), LAYOUT = CONF.layout;
         return _p.r(13).createClass("ButtonMenu", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1118,15 +1235,16 @@ _p[34] = {
     }
 };
 
+//src/widget/button-set-menu.js
 /**
  * InputMenu构件
  * 可接受输入的下拉菜单构件
  */
-_p[35] = {
+_p[36] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(26), InputButton = _p.r(44), Menu = _p.r(51), Mask = _p.r(50), Utils = _p.r(13);
         return _p.r(13).createClass("InputMenu", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1284,15 +1402,16 @@ _p[35] = {
     }
 };
 
+//src/widget/button-set.js
 /**
  * Button对象
  * 通用按钮构件
  */
-_p[36] = {
+_p[37] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), Utils = _p.r(13), ToggleButton = _p.r(56);
+        var $ = _p.r(4), CONF = _p.r(12), Utils = _p.r(13), ToggleButton = _p.r(57);
         return _p.r(13).createClass("Buttonset", {
-            base: _p.r(51),
+            base: _p.r(52),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1439,15 +1558,16 @@ _p[36] = {
     }
 };
 
+//src/widget/button.js
 /**
  * Button对象
  * 通用按钮构件
  */
-_p[37] = {
+_p[38] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), buttonTpl = _p.r(19), Icon = _p.r(42), Label = _p.r(48), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), buttonTpl = _p.r(20), Icon = _p.r(43), Label = _p.r(49), Utils = _p.r(13);
         return _p.r(13).createClass("Button", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1514,21 +1634,22 @@ _p[37] = {
             },
             __initButtonEvent: function() {
                 this.on("click", function() {
-                    this.trigger("btnclick");
+                    this.__trigger("btnclick");
                 });
             }
         });
     }
 };
 
+//src/widget/colorpicker.js
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[38] = {
+_p[39] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Mask = _p.r(49), tpl = _p.r(20), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Mask = _p.r(50), tpl = _p.r(21), $ = _p.r(4);
         return Utils.createClass("ColorPicker", {
-            base: _p.r(52),
+            base: _p.r(53),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1615,20 +1736,21 @@ _p[38] = {
     }
 };
 
+//src/widget/container.js
 /**
  * Container类， 所有容器类的父类`
  * @abstract
  */
-_p[39] = {
+_p[40] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), Creator = _p.r(0), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), Creator = _p.r(0), $ = _p.r(4);
         return Utils.createClass("Container", {
             base: Widget,
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
                 var defaultOptions = {
-                    "break": false,
+                    column: false,
                     widgets: null
                 };
                 this.widgetName = "Icon";
@@ -1666,9 +1788,9 @@ _p[39] = {
                 }
                 this.__widgets.push(widget);
                 widget.appendTo(this.__contentElement);
-                if (this.__options.break) {
-                    this.__contentElement.appendChild($('<span class="fui-break">')[0]);
-                    $(widget.getElement()).addClass(CONF.classPrefix + "panel-break-widget");
+                if (this.__options.column) {
+                    this.__contentElement.appendChild($('<span class="fui-column"></span>')[0]);
+                    $(widget.getElement()).addClass(CONF.classPrefix + "panel-column-widget");
                 }
                 return widget;
             },
@@ -1686,9 +1808,9 @@ _p[39] = {
                 oldElement = this.__widgets[index];
                 this.__widgets.splice(index, 0, widget);
                 this.__contentElement.insertBefore(widget.getElement(), oldElement.getElement());
-                if (this.__options.break) {
-                    this.__contentElement.insertBefore($('<span class="fui-break">')[0], oldElement.getElement());
-                    $(widget.getElement()).addClass(CONF.classPrefix + "panel-break-widget");
+                if (this.__options.column) {
+                    this.__contentElement.insertBefore($('<span class="fui-column"></span>')[0], oldElement.getElement());
+                    $(widget.getElement()).addClass(CONF.classPrefix + "panel-column-widget");
                 }
                 return widget;
             },
@@ -1702,7 +1824,7 @@ _p[39] = {
                     this.__widgets.splice(this.indexOf(widget), 1);
                 }
                 this.__contentElement.removeChild(widget.getElement());
-                $(widget.getElement()).removeClass(CONF.classPrefix + "panel-break-widget");
+                $(widget.getElement()).removeClass(CONF.classPrefix + "panel-column-widget");
                 return widget;
             },
             __render: function() {
@@ -1712,8 +1834,8 @@ _p[39] = {
                 this.callBase();
                 this.__contentElement = this.__element;
                 $(this.__element).addClass(CONF.classPrefix + "container");
-                if (this.__options.break) {
-                    $(this.__element).addClass(CONF.classPrefix + "container-break");
+                if (this.__options.column) {
+                    $(this.__element).addClass(CONF.classPrefix + "container-column");
                 }
                 return this;
             },
@@ -1746,14 +1868,18 @@ _p[39] = {
     }
 };
 
+//src/widget/dialog.js
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[40] = {
+_p[41] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), Mask = _p.r(49), tpl = _p.r(21), Button = _p.r(37), LAYOUT = CONF.layout, $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), Mask = _p.r(50), tpl = _p.r(22), Button = _p.r(38), LAYOUT = CONF.layout, $ = _p.r(4), ACTION = {
+            CANCEL: "cancel",
+            OK: "ok"
+        };
         return Utils.createClass("Dialog", {
-            base: _p.r(52),
+            base: _p.r(53),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1767,7 +1893,17 @@ _p[40] = {
                     mask: {
                         color: "#000",
                         opacity: .2
-                    }
+                    },
+                    // 底部按钮
+                    buttons: [ {
+                        className: CONF.classPrefix + "xdialog-ok-btn",
+                        action: "ok",
+                        label: "确定"
+                    }, {
+                        className: CONF.classPrefix + "xdialog-cancel-btn",
+                        action: "cancel",
+                        label: "取消"
+                    } ]
                 };
                 this.__extendOptions(defaultOptions, options);
                 this.widgetName = "Dialog";
@@ -1780,6 +1916,7 @@ _p[40] = {
                 this.__bodyElement = null;
                 this.__footElement = null;
                 this.__maskWidget = null;
+                this.__buttons = [];
                 if (this.__target instanceof Widget) {
                     this.__target = this.__target.getElement();
                 }
@@ -1788,10 +1925,16 @@ _p[40] = {
                 }
             },
             open: function() {
-                return this.show();
+                this.__fire("open", function() {
+                    this.show();
+                });
+                return this;
             },
             close: function() {
-                return this.hide();
+                this.__fire("close", function() {
+                    this.hide();
+                });
+                return this;
             },
             show: function() {
                 if (!this.__target) {
@@ -1847,7 +1990,37 @@ _p[40] = {
                 if (this.__options.closeButton) {
                     this.__initCloseButton();
                 }
+                this.__initButtons();
                 this.__initMaskLint();
+                this.__initDialogEvent();
+            },
+            __action: function(type, btn) {
+                switch (type) {
+                  case ACTION.OK:
+                    if (this.__triggerHandler(type) !== false) {
+                        this.close();
+                    }
+                    break;
+
+                  case ACTION.CANCEL:
+                    this.__triggerHandler(type);
+                    this.close();
+                    break;
+                }
+            },
+            __initButtons: function() {
+                var _self = this, button = null, foot = this.__footElement;
+                $.each(this.__options.buttons, function(index, buttonOption) {
+                    button = new Button(buttonOption);
+                    button.appendTo(foot);
+                    _self.__buttons.push(button);
+                });
+            },
+            __initDialogEvent: function() {
+                var _self = this;
+                $([ this.__footElement, this.__headElement ]).on("btnclick", function(e, btn) {
+                    _self.__action(btn.getOptions().action, btn);
+                });
             },
             __initDraggable: function() {
                 Utils.createDraggable({
@@ -1856,18 +2029,12 @@ _p[40] = {
                 }).bind();
             },
             __initCloseButton: function() {
-                var _self = this, closeButton = new Button({
+                var closeButton = new Button({
                     className: "fui-close-button",
+                    action: "cancel",
                     icon: {
                         className: "fui-close-button-icon"
                     }
-                });
-                closeButton.on("mousedown", function(e) {
-                    e.stopPropagation();
-                });
-                closeButton.on("click", function(e) {
-                    e.stopPropagation();
-                    _self.close();
                 });
                 closeButton.appendTo(this.__headElement);
             },
@@ -1896,15 +2063,16 @@ _p[40] = {
     }
 };
 
+//src/widget/drop-panel.js
 /**
  * DropPanel对象
  * 可接受输入的按钮构件
  */
-_p[41] = {
+_p[42] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(22), Button = _p.r(37), Panel = _p.r(51), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(23), Button = _p.r(38), Panel = _p.r(52), PPanel = _p.r(53), Mask = _p.r(50), Utils = _p.r(13);
         return _p.r(13).createClass("DropPanel", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2001,15 +2169,16 @@ _p[41] = {
     }
 };
 
+//src/widget/icon.js
 /**
  * icon widget
  * 封装多种icon方式
  */
-_p[42] = {
+_p[43] = {
     value: function(require) {
-        var prefix = "_fui_", $ = _p.r(4), iconTpl = _p.r(23), Utils = _p.r(13);
+        var prefix = "_fui_", $ = _p.r(4), iconTpl = _p.r(24), Utils = _p.r(13);
         return _p.r(13).createClass("Icon", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2069,15 +2238,16 @@ _p[42] = {
     }
 };
 
+//src/widget/input-button.js
 /**
  * InputButton对象
  * 可接受输入的按钮构件
  */
-_p[43] = {
+_p[44] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(24), Button = _p.r(37), Input = _p.r(45), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(25), Button = _p.r(38), Input = _p.r(46), Utils = _p.r(13);
         return _p.r(13).createClass("InputButton", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2168,15 +2338,16 @@ _p[43] = {
     }
 };
 
+//src/widget/input-menu.js
 /**
  * InputMenu构件
  * 可接受输入的下拉菜单构件
  */
-_p[44] = {
+_p[45] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(26), InputButton = _p.r(44), Menu = _p.r(51), Mask = _p.r(50), Utils = _p.r(13);
         return _p.r(13).createClass("InputMenu", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2348,14 +2519,15 @@ _p[44] = {
     }
 };
 
+//src/widget/input.js
 /**
  * Input widget
  */
-_p[45] = {
+_p[46] = {
     value: function(require) {
-        var prefix = "_fui_", CONF = _p.r(12), $ = _p.r(4), tpl = _p.r(26), Utils = _p.r(13);
+        var prefix = "_fui_", CONF = _p.r(12), $ = _p.r(4), tpl = _p.r(27), Utils = _p.r(13);
         return _p.r(13).createClass("Input", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2423,14 +2595,15 @@ _p[45] = {
     }
 };
 
+//src/widget/item.js
 /**
  * Label Widget
  */
-_p[46] = {
+_p[47] = {
     value: function(require) {
-        var Utils = _p.r(13), itemTpl = _p.r(27), Icon = _p.r(42), Label = _p.r(48), CONF = _p.r(12), $ = _p.r(4);
+        var Utils = _p.r(13), itemTpl = _p.r(28), Icon = _p.r(43), Label = _p.r(49), CONF = _p.r(12), $ = _p.r(4);
         return Utils.createClass("Item", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2525,15 +2698,16 @@ _p[46] = {
     }
 };
 
+//src/widget/label-panel.js
 /**
  * LabelPanel Widget
  * 带标签的面板
  */
-_p[47] = {
+_p[48] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Label = _p.r(48), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Label = _p.r(49), $ = _p.r(4);
         return Utils.createClass("LabelPanel", {
-            base: _p.r(51),
+            base: _p.r(52),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2589,14 +2763,15 @@ _p[47] = {
     }
 };
 
+//src/widget/label.js
 /**
  * Label Widget
  */
-_p[48] = {
+_p[49] = {
     value: function(require) {
-        var Utils = _p.r(13), labelTpl = _p.r(28), $ = _p.r(4);
+        var Utils = _p.r(13), labelTpl = _p.r(29), $ = _p.r(4);
         return Utils.createClass("Label", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2649,14 +2824,15 @@ _p[48] = {
     }
 };
 
+//src/widget/mask.js
 /**
  * Mask Widget
  */
-_p[49] = {
+_p[50] = {
     value: function(require) {
-        var Utils = _p.r(13), tpl = _p.r(29), Widget = _p.r(57), $ = _p.r(4), __cache_inited = false, __MASK_CACHE = [];
+        var Utils = _p.r(13), tpl = _p.r(30), Widget = _p.r(58), $ = _p.r(4), __cache_inited = false, __MASK_CACHE = [];
         return Utils.createClass("Mask", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2743,7 +2919,7 @@ _p[49] = {
                 var targetRect = null;
                 // body特殊处理
                 if (this.__targetIsBody()) {
-                    targetRect = $(this.__target.ownerDocument.defaultView);
+                    targetRect = $(Utils.getView(this.__target));
                     targetRect = {
                         width: targetRect.width(),
                         height: targetRect.height()
@@ -2787,19 +2963,20 @@ _p[49] = {
     }
 };
 
+//src/widget/menu.js
 /**
  * Menu Widget
  */
-_p[50] = {
+_p[51] = {
     value: function(require) {
-        var Utils = _p.r(13), Item = _p.r(46), CONF = _p.r(12), $ = _p.r(4);
+        var Utils = _p.r(13), Item = _p.r(47), CONF = _p.r(12), $ = _p.r(4);
         return Utils.createClass("Menu", {
-            base: _p.r(52),
+            base: _p.r(53),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
                 var defaultOptions = {
-                    "break": true,
+                    column: true,
                     selected: -1,
                     textAlign: "left",
                     items: []
@@ -2929,14 +3106,15 @@ _p[50] = {
     }
 };
 
+//src/widget/panel.js
 /**
  * 容器类： Panel
  */
-_p[51] = {
+_p[52] = {
     value: function(require) {
-        var Utils = _p.r(13), panelTpl = _p.r(30), $ = _p.r(4);
+        var Utils = _p.r(13), panelTpl = _p.r(31), $ = _p.r(4);
         return Utils.createClass("Panel", {
-            base: _p.r(39),
+            base: _p.r(40),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -2963,14 +3141,15 @@ _p[51] = {
     }
 };
 
+//src/widget/ppanel.js
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[52] = {
+_p[53] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), LAYOUT = CONF.layout, $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), LAYOUT = CONF.layout, $ = _p.r(4);
         return Utils.createClass("PPanel", {
-            base: _p.r(51),
+            base: _p.r(52),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -3085,14 +3264,7 @@ _p[52] = {
                 panelRect = Utils.getRect(this.__element);
                 panelRect.height = this.__element.scrollHeight;
                 panelRect.bottom = panelRect.top + panelRect.height;
-                if (this.__options.bound.tagName.toLowerCase() === "body") {
-                    boundRect = {
-                        top: 0,
-                        bottom: $(this.__options.bound.ownerDocument.defaultView).height()
-                    };
-                } else {
-                    boundRect = Utils.getRect(this.__options.bound);
-                }
+                boundRect = this.__getBoundRect();
                 diff = panelRect.bottom - boundRect.bottom;
                 if (diff > 0) {
                     this.__height_resized = true;
@@ -3102,7 +3274,7 @@ _p[52] = {
                 }
             },
             __getLocation: function() {
-                var targetRect = Utils.getBound(this.__target), location = null;
+                var targetRect = Utils.getBound(this.__target);
                 switch (this.__layout) {
                   case LAYOUT.CENTER:
                   case LAYOUT.MIDDLE:
@@ -3117,6 +3289,7 @@ _p[52] = {
                   default:
                     return this.__getInnerLayout(targetRect);
                 }
+                return location;
             },
             /**
          * 居中定位的位置属性
@@ -3181,16 +3354,62 @@ _p[52] = {
                     left: 0
                 }, panelRect = Utils.getRect(this.__element);
                 switch (this.__layout) {
-                  case LAYOUT.TOP:
-                  case LAYOUT.LEFT:
-                    location.left = targetRect.left;
+                  case LAYOUT.LEFT_TOP:
                     location.top = targetRect.top;
+                    location.left = targetRect.left;
                     break;
 
-                  case LAYOUT.RIGHT:
-                  case LAYOUT.BOTTOM:
-                    location.top = targetRect.bottom - panelRect.height;
-                    location.left = targetRect.right - panelRect.width;
+                  case LAYOUT.RIGHT_TOP:
+                    location.top = targetRect.top;
+                    location.left = targetRect.left + targetRect.width - panelRect.width;
+                    break;
+
+                  case LAYOUT.LEFT_BOTTOM:
+                    location.top = targetRect.top + targetRect.height - panelRect.height;
+                    location.left = targetRect.left;
+                    break;
+
+                  case LAYOUT.RIGHT_BOTTOM:
+                    location.top = targetRect.top + targetRect.height - panelRect.height;
+                    location.left = targetRect.left + targetRect.width - panelRect.width;
+                    break;
+                }
+                return this.__correctionLocation(location);
+            },
+            __getBoundRect: function() {
+                var width = -1, height = -1, view = null;
+                if (this.__options.bound.tagName.toLowerCase() === "body") {
+                    view = Utils.getView(this.__options.bound);
+                    width = $(view).width();
+                    height = $(view).height();
+                    return {
+                        top: 0,
+                        left: 0,
+                        right: width,
+                        bottom: height,
+                        width: width,
+                        height: height
+                    };
+                } else {
+                    return Utils.getRect(this.__options.bound);
+                }
+            },
+            // 如果发生“溢出”，则修正定位
+            __correctionLocation: function(location) {
+                var panelRect = Utils.getRect(this.__element), targetRect = Utils.getRect(this.__target), boundRect = this.__getBoundRect();
+                switch (this.__layout) {
+                  case LAYOUT.LEFT_TOP:
+                  case LAYOUT.LEFT_BOTTOM:
+                    if (location.left + panelRect.width > boundRect.right) {
+                        location.left = location.left + targetRect.width - panelRect.width;
+                    }
+                    break;
+
+                  case LAYOUT.RIGHT_TOP:
+                  case LAYOUT.RIGHT_BOTTOM:
+                    if (location.left < boundRect.left) {
+                        location.left = targetRect.left;
+                    }
                     break;
                 }
                 return location;
@@ -3199,14 +3418,15 @@ _p[52] = {
     }
 };
 
+//src/widget/separator.js
 /**
  * Separator(分隔符) Widget
  */
-_p[53] = {
+_p[54] = {
     value: function(require) {
-        var Utils = _p.r(13), separatorTpl = _p.r(31), $ = _p.r(4);
+        var Utils = _p.r(13), separatorTpl = _p.r(32), $ = _p.r(4);
         return Utils.createClass("Separator", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -3226,15 +3446,16 @@ _p[53] = {
     }
 };
 
+//src/widget/spin-button.js
 /**
  * SpinButton对象
  * 数值按钮构件
  */
-_p[54] = {
+_p[55] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(32), Button = _p.r(37), Input = _p.r(45), Panel = _p.r(51), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(33), Button = _p.r(38), Input = _p.r(46), Panel = _p.r(52), Utils = _p.r(13);
         return _p.r(13).createClass("SpinButton", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -3280,7 +3501,7 @@ _p[54] = {
                 }) ];
                 this.__inputWidget = new Input();
                 this.__panelWidget = new Panel({
-                    "break": true
+                    column: true
                 });
                 this.__inputWidget.appendTo(this.__element);
                 this.__panelWidget.appendWidget(this.__buttons[0]);
@@ -3327,14 +3548,15 @@ _p[54] = {
     }
 };
 
+//src/widget/tabs.js
 /**
  * Tabs Widget
  */
-_p[55] = {
+_p[56] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(33), Button = _p.r(37), Panel = _p.r(51), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(34), Button = _p.r(38), Panel = _p.r(52), Utils = _p.r(13);
         return _p.r(13).createClass("tabss", {
-            base: _p.r(57),
+            base: _p.r(58),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -3480,15 +3702,16 @@ _p[55] = {
     }
 };
 
+//src/widget/toggle-button.js
 /**
  * ToggleButton对象
  * 可切换按钮构件
  */
-_p[56] = {
+_p[57] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), Utils = _p.r(13);
         return _p.r(13).createClass("ToggleButton", {
-            base: _p.r(37),
+            base: _p.r(38),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -3567,11 +3790,12 @@ _p[56] = {
     }
 };
 
+//src/widget/widget.js
 /**
  * widget对象
  * 所有的UI组件都是widget对象
  */
-_p[57] = {
+_p[58] = {
     value: function(require) {
         var prefix = "_fui_", uid = 0, CONF = _p.r(12), FUI_NS = _p.r(11), $ = _p.r(4), Utils = _p.r(13);
         var Widget = _p.r(13).createClass("Widget", {
@@ -3608,6 +3832,9 @@ _p[57] = {
             },
             getValue: function() {
                 return this.__options.value;
+            },
+            getOptions: function() {
+                return this.__options;
             },
             setValue: function(value) {
                 this.__options.value = value;
@@ -3742,7 +3969,7 @@ _p[57] = {
                     }
                     e.widget = widget;
                     if (!_self.isDisabled()) {
-                        cb.apply(_self, params);
+                        return cb.apply(_self, params);
                     }
                 };
                 $(this.__element).on(type, cb.__fui_listener);
@@ -3762,6 +3989,31 @@ _p[57] = {
             },
             __trigger: function(type, params) {
                 $(this.__element).trigger(type, [ this ].concat([].slice.call(arguments, 1)));
+                return this;
+            },
+            __triggerHandler: function(type, params) {
+                return $(this.__element).triggerHandler(type, [ this ].concat([].slice.call(arguments, 1)));
+            },
+            /**
+         * 同__trigger，都触发某事件，但是该方法触发的事件会主动触发before和after，
+         * 同时如果before事件返回false，则后续handler都不会执行，且后续事件也不会再触发。
+         * @param type 事件类型
+         * @param handler 该事件所需要执行的函数句柄， 且该函数的返回值将作为该事件的参数发送给事件监听器
+         * */
+            __fire: function(type, handler) {
+                var result = {
+                    cancel: false
+                };
+                if (type.indexOf("before") === 0 || type.indexOf("after") === 0) {
+                    return this;
+                }
+                this.__trigger("before" + type, result);
+                if (result.cancel === true) {
+                    return this;
+                }
+                result = handler.call(this, type);
+                this.__trigger(type);
+                this.__trigger("after" + type, result);
                 return this;
             },
             __extendOptions: function() {
@@ -3805,10 +4057,11 @@ _p[57] = {
     }
 };
 
+//dev-lib/exports.js
 /**
  * 模块暴露
  */
-_p[58] = {
+_p[59] = {
     value: function(require) {
         _p.r(1);
         _p.r(2);
@@ -3816,7 +4069,7 @@ _p[58] = {
 };
 
 var moduleMapping = {
-    "fui.export": 58
+    "fui.export": 59
 };
 
 function use(name) {

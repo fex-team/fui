@@ -58,6 +58,10 @@ define( function ( require ) {
             return this.__options.value;
         },
 
+        getOptions: function () {
+            return this.__options;
+        },
+
         setValue: function ( value ) {
             this.__options.value = value;
             return this;
@@ -258,7 +262,7 @@ define( function ( require ) {
                 e.widget = widget;
 
                 if ( !_self.isDisabled() ) {
-                    cb.apply( _self, params );
+                    return cb.apply( _self, params );
                 }
 
             };
@@ -290,6 +294,43 @@ define( function ( require ) {
         __trigger: function ( type, params ) {
 
             $( this.__element ).trigger( type, [ this ].concat( [].slice.call( arguments, 1 ) ) );
+
+            return this;
+
+        },
+
+        __triggerHandler: function ( type, params ) {
+
+            return $( this.__element ).triggerHandler( type, [ this ].concat( [].slice.call( arguments, 1 ) ) );
+
+        },
+
+        /**
+         * 同__trigger，都触发某事件，但是该方法触发的事件会主动触发before和after，
+         * 同时如果before事件返回false，则后续handler都不会执行，且后续事件也不会再触发。
+         * @param type 事件类型
+         * @param handler 该事件所需要执行的函数句柄， 且该函数的返回值将作为该事件的参数发送给事件监听器
+         * */
+        __fire: function ( type, handler ) {
+
+            var result = {
+                cancel: false
+            };
+
+            if ( type.indexOf( "before" ) === 0 || type.indexOf( "after" ) === 0 ) {
+                return this;
+            }
+
+            this.__trigger( "before" + type, result );
+
+            if ( result.cancel === true ) {
+                return this;
+            }
+
+            result = handler.call( this, type );
+            this.__trigger( type );
+
+            this.__trigger( "after" + type, result );
 
             return this;
 

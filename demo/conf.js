@@ -34,7 +34,7 @@ var config = {
                     clazz: 'LabelPanel',
                     className: 'bw-history',
                     label: '历史记录',
-                    break: true,
+                    column: true,
                     widgets: [
                         {
                             clazz: 'Button',
@@ -59,7 +59,7 @@ var config = {
                     widgets: [
                         {
                             clazz: 'Panel',
-                            break: true,
+                            column: true,
                             widgets: [
                                 {
                                     clazz: 'Button',
@@ -96,7 +96,7 @@ var config = {
                     clazz: 'LabelPanel',
                     className: 'bw-font',
                     label: '字体',
-                    break: true,
+                    column: true,
                     widgets: [
                         {
                             clazz: 'Panel',
@@ -243,7 +243,7 @@ var config = {
                     clazz: 'LabelPanel',
                     className: 'bw-paragraph',
                     label: '段落',
-                    break: true,
+                    column: true,
                     widgets: [ {
                         clazz: 'Panel',
                         className: "bw-paragraph-top-panel",

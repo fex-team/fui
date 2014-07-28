@@ -99,7 +99,7 @@ define( function ( require ) {
 
             if ( node.tagName.toLowerCase() === 'body' ) {
 
-                h = $( node.ownerDocument.defaultView );
+                h = $( this.getView( node ) );
                 w = h.width();
                 h = h.height();
 
@@ -124,6 +124,10 @@ define( function ( require ) {
 
             var styleList = node.ownerDocument.defaultView.getComputedStyle( node, null );
 
+        },
+
+        getView: function ( node ) {
+            return node.ownerDocument.defaultView || node.ownerDocument.parentWindow;
         }
 
     }
