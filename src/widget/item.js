@@ -31,7 +31,7 @@ define( function ( require ) {
         },
 
         getValue: function () {
-            return this.__labelWidget.getValue() || this.__iconWidget.getValue() || null;
+            return this.__options.value || this.__labelWidget.getValue() || this.__iconWidget.getValue() || null;
         },
 
         select: function () {

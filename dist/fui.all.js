@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-07-28
+ * Flex UI - v1.0.0 - 2014-07-31
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -76,29 +76,29 @@ _p[1] = {
     value: function(require) {
         var FUI_NS = _p.r(11);
         FUI_NS.___register({
-            Widget: _p.r(58),
-            Icon: _p.r(43),
-            Label: _p.r(49),
-            Button: _p.r(38),
-            ToggleButton: _p.r(57),
-            Buttonset: _p.r(37),
-            Separator: _p.r(54),
-            Item: _p.r(47),
-            Input: _p.r(46),
-            InputButton: _p.r(44),
-            Mask: _p.r(50),
-            ColorPicker: _p.r(39),
-            Tabs: _p.r(56),
-            SpinButton: _p.r(55),
-            Container: _p.r(40),
-            Panel: _p.r(52),
-            PPanel: _p.r(53),
-            LabelPanel: _p.r(48),
-            Menu: _p.r(51),
-            InputMenu: _p.r(45),
-            ButtonMenu: _p.r(35),
-            DropPanel: _p.r(42),
-            Dialog: _p.r(41),
+            Widget: _p.r(57),
+            Icon: _p.r(42),
+            Label: _p.r(48),
+            Button: _p.r(37),
+            ToggleButton: _p.r(56),
+            Buttonset: _p.r(36),
+            Separator: _p.r(53),
+            Item: _p.r(46),
+            Input: _p.r(45),
+            InputButton: _p.r(43),
+            Mask: _p.r(49),
+            ColorPicker: _p.r(38),
+            Tabs: _p.r(55),
+            SpinButton: _p.r(54),
+            Container: _p.r(39),
+            Panel: _p.r(51),
+            PPanel: _p.r(52),
+            LabelPanel: _p.r(47),
+            Menu: _p.r(50),
+            InputMenu: _p.r(44),
+            ButtonMenu: _p.r(34),
+            DropPanel: _p.r(41),
+            Dialog: _p.r(40),
             Utils: _p.r(13),
             Creator: _p.r(0)
         });
@@ -114,8 +114,7 @@ _p[2] = {
     value: function(require) {
         var FUI_NS = _p.r(11);
         FUI_NS.___register({
-            TablePicker: _p.r(17),
-            XDialog: _p.r(18)
+            TablePicker: _p.r(17)
         });
     }
 };
@@ -734,36 +733,31 @@ _p[16] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(14), Utils = _p.r(13);
         return _p.r(13).createClass("TPicker", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     // 10行 10列
                     row: 10,
                     col: 10
                 };
-                this.__extendOptions(defaultOptions, options);
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
+            },
+            __initOptions: function() {
+                this.callBase();
                 this.widgetName = "TPicker";
                 this.__tpl = tpl;
                 // 背板
                 this.__backplane = null;
-                if (options !== marker) {
-                    this.__render();
-                }
             },
             __render: function() {
-                var _self = this;
-                if (this.__rendered) {
-                    return this;
-                }
                 this.callBase();
                 this.__backplane = this.__createBackplane();
                 this.__element.appendChild(this.__backplane);
-                this.__initTPickerEvent();
             },
-            __initTPickerEvent: function() {
+            __initEvent: function() {
                 var _self = this;
+                this.callBase();
                 $(this.__backplane).delegate("td", "mousemove click", function(e) {
                     var info = e.target.getAttribute("data-index").split(",");
                     info = {
@@ -823,28 +817,17 @@ _p[16] = {
  */
 _p[17] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(15), Label = _p.r(49), TPicker = _p.r(16), Button = _p.r(38), PPanel = _p.r(53), Mask = _p.r(50), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(15), Label = _p.r(48), TPicker = _p.r(16), Button = _p.r(37), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(13);
         return _p.r(13).createClass("TablePicker", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     button: null,
                     row: 10,
                     col: 10
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "TablePicker";
-                this.__tpl = tpl;
-                this.__pickerWidget = null;
-                this.__labelWidget = null;
-                this.__buttonWidget = null;
-                this.__panelWidget = null;
-                this.__maskWidget = null;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             open: function() {
                 this.__panelWidget.show();
@@ -861,11 +844,17 @@ _p[17] = {
             getButton: function() {
                 return this.__buttonWidget;
             },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "TablePicker";
+                this.__tpl = tpl;
+                this.__pickerWidget = null;
+                this.__labelWidget = null;
+                this.__buttonWidget = null;
+                this.__panelWidget = null;
+                this.__maskWidget = null;
+            },
             __render: function() {
-                var _self = this;
-                if (this.__rendered) {
-                    return this;
-                }
                 this.callBase();
                 this.__pickerWidget = new TPicker(this.__options);
                 this.__labelWidget = new Label({
@@ -881,10 +870,10 @@ _p[17] = {
                 this.__panelWidget.appendWidget(this.__labelWidget);
                 this.__panelWidget.appendWidget(this.__pickerWidget);
                 this.__panelWidget.positionTo(this.__buttonWidget);
-                this.__initTablePickerEvent();
             },
-            __initTablePickerEvent: function() {
+            __initEvent: function() {
                 var _self = this;
+                this.callBase();
                 this.__buttonWidget.on("btnclick", function(e) {
                     _self.open();
                 });
@@ -920,191 +909,113 @@ _p[17] = {
     }
 };
 
-//src/ext/word/widget/x-dialog.js
-/**
- * 扩展dialog
- */
-_p[18] = {
-    value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), Button = _p.r(38), Utils = _p.r(13);
-        var ACTION = {
-            CANCEL: "cancel",
-            OK: "ok"
-        };
-        return _p.r(13).createClass("XDialog", {
-            base: _p.r(41),
-            constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
-                var defaultOptions = {
-                    buttons: [ {
-                        className: CONF.classPrefix + "xdialog-ok-btn",
-                        action: "ok",
-                        label: "确定"
-                    }, {
-                        className: CONF.classPrefix + "xdialog-cancel-btn",
-                        action: "cancel",
-                        label: "取消"
-                    } ]
-                };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "XDialog";
-                this.__buttons = [];
-                if (options !== marker) {
-                    this.__render();
-                }
-            },
-            getButton: function(index) {
-                return this.__buttons[index] || null;
-            },
-            __render: function() {
-                var _self = this;
-                if (this.__rendered) {
-                    return this;
-                }
-                this.callBase();
-                this.__initButtons();
-                this.__initXDialogEvent();
-            },
-            __action: function(type, btn) {
-                switch (type) {
-                  case ACTION.OK:
-                    if (this.__triggerHandler(type) !== false) {
-                        this.close();
-                    }
-                    break;
-
-                  case ACTION.CANCEL:
-                    this.__triggerHandler(type);
-                    this.close();
-                    break;
-                }
-            },
-            __initButtons: function() {
-                var _self = this, button = null, foot = this.getFootElement();
-                $.each(this.__options.buttons, function(index, buttonOption) {
-                    button = new Button(buttonOption);
-                    button.appendTo(foot);
-                    _self.__buttons.push(button);
-                });
-            },
-            __initXDialogEvent: function() {
-                var _self = this;
-                $(this.getFootElement()).on("btnclick", function(e, btn) {
-                    _self.__action(btn.getOptions().action, btn);
-                });
-            }
-        });
-    }
-};
-
 //src/tpl/button-menu.js
-_p[19] = {
+_p[18] = {
     value: function() {
         return '<div unselectable="on" class="fui-button-menu"></div>\n';
     }
 };
 
 //src/tpl/button.js
-_p[20] = {
+_p[19] = {
     value: function() {
         return '<div unselectable="on" class="fui-button"></div>\n';
     }
 };
 
 //src/tpl/colorpicker.js
-_p[21] = {
+_p[20] = {
     value: function() {
         return '<div unselectable="on" class="fui-colorpicker-container">\n' + '<div unselectable="on" class="fui-colorpicker-toolbar">\n' + '<div unselectable="on" class="fui-colorpicker-preview"></div>\n' + '<div unselectable="on" class="fui-colorpicker-clear">$clearText</div>\n' + "</div>\n" + '<div unselectable="on" class="fui-colorpicker-title">$commonText</div>\n' + '<div unselectable="on" class="fui-colorpicker-commoncolor">\n' + "helper.forEach( commonColor, function ( index, colors ) {\n" + '<div unselectable="on" class="fui-colorpicker-colors fui-colorpicker-colors-line$index">\n' + "helper.forEach( colors, function( i, color ) {\n" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: $color; border-color: #{color.toLowerCase() == \'#ffffff\' ? \'#eeeeee\': color};" data-color="$color"></span>\n' + "});\n" + "</div>\n" + "} );\n" + "</div>\n" + '<div unselectable="on" class="fui-colorpicker-title">$standardText</div>\n' + '<div unselectable="on" class="fui-colorpicker-standardcolor fui-colorpicker-colors">\n' + "helper.forEach( standardColor, function ( i, color ) {\n" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: $color; border-color: $color;" data-color="$color"></span>\n' + "} );\n" + "</div>\n" + "</div>\n";
     }
 };
 
 //src/tpl/dialog.js
-_p[22] = {
+_p[21] = {
     value: function() {
         return '<div unselectable="on" class="fui-dialog-wrap">\n' + '<div unselectable="on" class="fui-dialog-head">\n' + '<h1 unselectable="on" class="fui-dialog-caption">$caption</h1>\n' + "</div>\n" + '<div unselectable="on" class="fui-dialog-body"></div>\n' + '<div unselectable="on" class="fui-dialog-foot"></div>\n' + "</div>\n";
     }
 };
 
 //src/tpl/drop-panel.js
-_p[23] = {
+_p[22] = {
     value: function() {
         return "<div unselectable=\"on\" class=\"fui-drop-panel\"  #{ text ? 'title=\"' + m.text + '\"' : '' }></div>\n";
     }
 };
 
 //src/tpl/icon.js
-_p[24] = {
+_p[23] = {
     value: function() {
         return '<div unselectable="on" class="fui-icon" >\n' + "if ( this.img ) {\n" + '<img unselectable="on" src="#{this.img}" >\n' + "}\n" + "</div>\n";
     }
 };
 
 //src/tpl/input-button.js
-_p[25] = {
+_p[24] = {
     value: function() {
         return '<div unselectable="on" class="fui-input-button"></div>\n';
     }
 };
 
 //src/tpl/input-menu.js
-_p[26] = {
+_p[25] = {
     value: function() {
         return '<div unselectable="on" class="fui-input-menu"></div>\n';
     }
 };
 
 //src/tpl/input.js
-_p[27] = {
+_p[26] = {
     value: function() {
         return '<input unselectable="on" class="fui-input"  autocomplete="off" !#{ value ? \'value="\' + value + \'"\' : \'\'}>\n';
     }
 };
 
 //src/tpl/item.js
-_p[28] = {
+_p[27] = {
     value: function() {
         return "<div unselectable=\"on\" class=\"fui-item!#{ selected ? ' fui-item-selected': '' }\" ></div>\n";
     }
 };
 
 //src/tpl/label.js
-_p[29] = {
+_p[28] = {
     value: function() {
         return '<div unselectable="on" class="fui-label">$text</div>\n';
     }
 };
 
 //src/tpl/mask.js
-_p[30] = {
+_p[29] = {
     value: function() {
         return '<div unselectable="on" class="fui-mask" style="background-color: $bgcolor; opacity: $opacity;"></div>\n';
     }
 };
 
 //src/tpl/panel.js
-_p[31] = {
+_p[30] = {
     value: function() {
         return '<div unselectable="on" class="fui-panel"></div>\n';
     }
 };
 
 //src/tpl/separator.js
-_p[32] = {
+_p[31] = {
     value: function() {
         return '<div unselectable="on" class="fui-separator"></div>\n';
     }
 };
 
 //src/tpl/spin-button.js
-_p[33] = {
+_p[32] = {
     value: function() {
         return '<div unselectable="on" class="fui-spin-button"></div>\n';
     }
 };
 
 //src/tpl/tabs.js
-_p[34] = {
+_p[33] = {
     value: function() {
         return '<div unselectable="on" class="fui-tabs">\n' + '<div unselectable="on" class="fui-tabs-button-wrap"></div>\n' + '<div unselectable="on" class="fui-tabs-panel-wrap"></div>\n' + "</div>\n";
     }
@@ -1115,14 +1026,12 @@ _p[34] = {
  * Button对象
  * 通用按钮构件
  */
-_p[35] = {
+_p[34] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(19), Button = _p.r(38), Menu = _p.r(51), Mask = _p.r(50), Utils = _p.r(13), LAYOUT = CONF.layout;
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(18), Button = _p.r(37), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13), LAYOUT = CONF.layout;
         return _p.r(13).createClass("ButtonMenu", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     // item选项
                     menu: null,
@@ -1131,16 +1040,8 @@ _p[35] = {
                     selected: -1,
                     layout: LAYOUT.RIGHT
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "ButtonMenu";
-                this.__tpl = tpl;
-                this.__buttonWidgets = null;
-                this.__menuWidget = null;
-                this.__maskWidget = null;
-                this.__openState = false;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             open: function() {
                 this.__openState = true;
@@ -1168,19 +1069,21 @@ _p[35] = {
             },
             __render: function() {
                 var _self = this;
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__initOptions();
                 this.callBase();
                 this.__initButtons();
                 this.__menuWidget = new Menu(this.__options.menu);
                 this.__maskWidget = new Mask(this.__options.mask);
                 this.__menuWidget.positionTo(this.__element);
                 this.__menuWidget.appendTo(this.__element.ownerDocument.body);
-                this.__initButtonMenuEvent();
             },
             __initOptions: function() {
+                this.callBase();
+                this.widgetName = "ButtonMenu";
+                this.__tpl = tpl;
+                this.__buttonWidgets = null;
+                this.__menuWidget = null;
+                this.__maskWidget = null;
+                this.__openState = false;
                 if (this.__options.selected !== -1) {
                     this.__options.menu.selected = this.__options.selected;
                 }
@@ -1206,8 +1109,9 @@ _p[35] = {
                 buttons[buttons.length - 1].addClass(CONF.classPrefix + "open-btn");
                 this.__buttonWidgets = buttons;
             },
-            __initButtonMenuEvent: function() {
+            __initEvent: function() {
                 var lastBtn = this.__buttonWidgets[this.__buttonWidgets.length - 1], _self = this;
+                this.callBase();
                 lastBtn.on("click", function(e) {
                     _self.open();
                 });
@@ -1240,11 +1144,11 @@ _p[35] = {
  * InputMenu构件
  * 可接受输入的下拉菜单构件
  */
-_p[36] = {
+_p[35] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(26), InputButton = _p.r(44), Menu = _p.r(51), Mask = _p.r(50), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
         return _p.r(13).createClass("InputMenu", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1407,28 +1311,18 @@ _p[36] = {
  * Button对象
  * 通用按钮构件
  */
-_p[37] = {
+_p[36] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), Utils = _p.r(13), ToggleButton = _p.r(57);
+        var $ = _p.r(4), CONF = _p.r(12), Utils = _p.r(13), ToggleButton = _p.r(56);
         return _p.r(13).createClass("Buttonset", {
-            base: _p.r(52),
+            base: _p.r(51),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     // 初始选中项, -1表示不选中任何项
                     selected: -1
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "Buttonset";
-                // 当前选中项
-                this.__currentIndex = this.__options.selected;
-                // 前一次选中项
-                this.__prevIndex = -1;
-                if (options !== marker) {
-                    this.__render();
-                    this.__initWidgets();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             getButtons: function() {
                 return this.getWidgets();
@@ -1499,10 +1393,15 @@ _p[37] = {
                 }
                 return widget;
             },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "Buttonset";
+                // 当前选中项
+                this.__currentIndex = this.__options.selected;
+                // 前一次选中项
+                this.__prevIndex = -1;
+            },
             __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
                 this.callBase();
                 $(this.__element).addClass(CONF.classPrefix + "buttonset");
                 this.__initButtons();
@@ -1563,14 +1462,12 @@ _p[37] = {
  * Button对象
  * 通用按钮构件
  */
-_p[38] = {
+_p[37] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), buttonTpl = _p.r(20), Icon = _p.r(43), Label = _p.r(49), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), buttonTpl = _p.r(19), Icon = _p.r(42), Label = _p.r(48), Utils = _p.r(13);
         return _p.r(13).createClass("Button", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     label: null,
                     text: null,
@@ -1578,14 +1475,8 @@ _p[38] = {
                     // label相对icon的位置
                     layout: "right"
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "Button";
-                this.__tpl = buttonTpl;
-                this.__iconWidget = null;
-                this.__labelWidget = null;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             getLabel: function() {
                 return this.__labelWidget.getText();
@@ -1595,10 +1486,6 @@ _p[38] = {
             },
             __render: function() {
                 var _self = this;
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__initOptions();
                 this.callBase();
                 this.__iconWidget = new Icon(this.__options.icon);
                 this.__labelWidget = new Label(this.__options.label);
@@ -1618,9 +1505,13 @@ _p[38] = {
                     break;
                 }
                 $(this.__element).addClass(CONF.classPrefix + "button-layout-" + this.__options.layout);
-                this.__initButtonEvent();
             },
             __initOptions: function() {
+                this.callBase();
+                this.widgetName = "Button";
+                this.__tpl = buttonTpl;
+                this.__iconWidget = null;
+                this.__labelWidget = null;
                 if (typeof this.__options.label !== "object") {
                     this.__options.label = {
                         text: this.__options.label
@@ -1632,7 +1523,8 @@ _p[38] = {
                     };
                 }
             },
-            __initButtonEvent: function() {
+            __initEvent: function() {
+                this.callBase();
                 this.on("click", function() {
                     this.__trigger("btnclick");
                 });
@@ -1645,14 +1537,12 @@ _p[38] = {
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[39] = {
+_p[38] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Mask = _p.r(50), tpl = _p.r(21), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Mask = _p.r(49), tpl = _p.r(20), $ = _p.r(4);
         return Utils.createClass("ColorPicker", {
-            base: _p.r(53),
+            base: _p.r(52),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     clearText: "",
                     commonText: "",
@@ -1660,14 +1550,8 @@ _p[39] = {
                     standardText: "",
                     standardColor: [ "#c00000", "#ff0000", "#ffc000", "#ffff00", "#92d050", "#00b050", "#00b0f0", "#0070c0", "#002060", "#7030a0" ]
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "ColorPicker";
-                this.__contentElement = null;
-                this.__maskWidget = null;
-                this.__inDoc = false;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             show: function() {
                 if (!this.__inDoc) {
@@ -1691,10 +1575,14 @@ _p[39] = {
                     _self.show();
                 });
             },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "ColorPicker";
+                this.__contentElement = null;
+                this.__maskWidget = null;
+                this.__inDoc = false;
+            },
             __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
                 this.callBase();
                 $(this.__element).addClass(CONF.classPrefix + "colorpicker");
                 var contentHtml = Utils.Tpl.compile(tpl, this.__options);
@@ -1702,11 +1590,11 @@ _p[39] = {
                 this.__previewElement = $(this.__contentElement).find("." + CONF.classPrefix + "colorpicker-preview");
                 this.__clearElement = $(this.__contentElement).find("." + CONF.classPrefix + "colorpicker-clear");
                 this.__maskWidget = new Mask(this.__options.mask);
-                this.__initColorPickerEvents();
             },
             // 初始化点击事件
-            __initColorPickerEvents: function() {
+            __initEvent: function() {
                 var _self = this;
+                this.callBase();
                 this.on("click", function(e) {
                     var color, $target = $(e.target);
                     if ($target.hasClass(CONF.classPrefix + "colorpicker-item")) {
@@ -1741,22 +1629,18 @@ _p[39] = {
  * Container类， 所有容器类的父类`
  * @abstract
  */
-_p[40] = {
+_p[39] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), Creator = _p.r(0), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), Creator = _p.r(0), $ = _p.r(4);
         return Utils.createClass("Container", {
             base: Widget,
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     column: false,
                     widgets: null
                 };
-                this.widgetName = "Icon";
-                this.__widgets = [];
-                this.__contentElement = null;
-                this.__extendOptions(defaultOptions, options);
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             indexOf: function(widget) {
                 return $.inArray(widget, this.__widgets);
@@ -1827,10 +1711,12 @@ _p[40] = {
                 $(widget.getElement()).removeClass(CONF.classPrefix + "panel-column-widget");
                 return widget;
             },
+            __initOptions: function() {
+                this.widgetName = "Container";
+                this.__widgets = [];
+                this.__contentElement = null;
+            },
             __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
                 this.callBase();
                 this.__contentElement = this.__element;
                 $(this.__element).addClass(CONF.classPrefix + "container");
@@ -1872,17 +1758,15 @@ _p[40] = {
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[41] = {
+_p[40] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), Mask = _p.r(50), tpl = _p.r(22), Button = _p.r(38), LAYOUT = CONF.layout, $ = _p.r(4), ACTION = {
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), Mask = _p.r(49), tpl = _p.r(21), Button = _p.r(37), LAYOUT = CONF.layout, $ = _p.r(4), ACTION = {
             CANCEL: "cancel",
             OK: "ok"
         };
         return Utils.createClass("Dialog", {
-            base: _p.r(53),
+            base: _p.r(52),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     layout: LAYOUT.CENTER,
                     caption: null,
@@ -1905,24 +1789,8 @@ _p[41] = {
                         label: "取消"
                     } ]
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "Dialog";
-                this.__target = this.__options.target;
-                this.__layout = this.__options.layout;
-                this.__inDoc = false;
-                this.__hinting = false;
-                this.__openState = false;
-                this.__headElement = null;
-                this.__bodyElement = null;
-                this.__footElement = null;
-                this.__maskWidget = null;
-                this.__buttons = [];
-                if (this.__target instanceof Widget) {
-                    this.__target = this.__target.getElement();
-                }
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             open: function() {
                 this.__fire("open", function() {
@@ -1935,6 +1803,12 @@ _p[41] = {
                     this.hide();
                 });
                 return this;
+            },
+            getButtons: function() {
+                return this.__buttons;
+            },
+            getButton: function(index) {
+                return this.__buttons[index];
             },
             show: function() {
                 if (!this.__target) {
@@ -1971,10 +1845,24 @@ _p[41] = {
             getFootElement: function() {
                 return this.__footElement;
             },
-            __render: function() {
-                if (this.__rendered) {
-                    return this;
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "Dialog";
+                this.__target = this.__options.target;
+                this.__layout = this.__options.layout;
+                this.__inDoc = false;
+                this.__hinting = false;
+                this.__openState = false;
+                this.__headElement = null;
+                this.__bodyElement = null;
+                this.__footElement = null;
+                this.__maskWidget = null;
+                this.__buttons = [];
+                if (this.__target instanceof Widget) {
+                    this.__target = this.__target.getElement();
                 }
+            },
+            __render: function() {
                 this.callBase();
                 this.__innerTpl = Utils.Tpl.compile(tpl, this.__options);
                 this.__contentElement.appendChild($(this.__innerTpl)[0]);
@@ -1992,7 +1880,6 @@ _p[41] = {
                 }
                 this.__initButtons();
                 this.__initMaskLint();
-                this.__initDialogEvent();
             },
             __action: function(type, btn) {
                 switch (type) {
@@ -2016,8 +1903,9 @@ _p[41] = {
                     _self.__buttons.push(button);
                 });
             },
-            __initDialogEvent: function() {
+            __initEvent: function() {
                 var _self = this;
+                this.callBase();
                 $([ this.__footElement, this.__headElement ]).on("btnclick", function(e, btn) {
                     _self.__action(btn.getOptions().action, btn);
                 });
@@ -2068,32 +1956,20 @@ _p[41] = {
  * DropPanel对象
  * 可接受输入的按钮构件
  */
-_p[42] = {
+_p[41] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(23), Button = _p.r(38), Panel = _p.r(52), PPanel = _p.r(53), Mask = _p.r(50), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(22), Button = _p.r(37), Panel = _p.r(51), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(13);
         return _p.r(13).createClass("DropPanel", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     button: null,
                     panel: null,
                     width: null,
                     height: null
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "DropPanel";
-                this.__tpl = tpl;
-                this.__buttonWidget = null;
-                this.__popupWidget = null;
-                this.__panelWidget = null;
-                this.__contentElement = null;
-                this.__maskWidget = null;
-                this.__popupState = false;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             disable: function() {
                 this.callBase();
@@ -2119,9 +1995,6 @@ _p[42] = {
                 this.__panelWidget.appendWidget(widget);
             },
             __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
                 this.__initOptions();
                 this.__buttonWidget = new Button(this.__options.button);
                 this.__panelWidget = new Panel(this.__options.content);
@@ -2131,13 +2004,21 @@ _p[42] = {
                 this.__popupWidget.positionTo(this.__element);
                 $(this.__popupWidget.getElement()).addClass(CONF.classPrefix + "drop-panel-popup");
                 // 初始化content
-                $content = $('<div class="' + CONF.classPrefix + 'drop-panel-content"></div>').append(this.__panelWidget.getElement());
+                var $content = $('<div class="' + CONF.classPrefix + 'drop-panel-content"></div>').append(this.__panelWidget.getElement());
                 this.__contentElement = $content[0];
                 // 插入按钮到element
                 $(this.__element).append($content).append(this.__buttonWidget.getElement());
                 this.__initDropPanelEvent();
             },
             __initOptions: function() {
+                this.widgetName = "DropPanel";
+                this.__tpl = tpl;
+                this.__buttonWidget = null;
+                this.__popupWidget = null;
+                this.__panelWidget = null;
+                this.__contentElement = null;
+                this.__maskWidget = null;
+                this.__popupState = false;
                 if (typeof this.__options.button !== "object") {
                     this.__options.input = {
                         icon: this.__options.button
@@ -2174,26 +2055,17 @@ _p[42] = {
  * icon widget
  * 封装多种icon方式
  */
-_p[43] = {
+_p[42] = {
     value: function(require) {
-        var prefix = "_fui_", $ = _p.r(4), iconTpl = _p.r(24), Utils = _p.r(13);
+        var prefix = "_fui_", $ = _p.r(4), iconTpl = _p.r(23), Utils = _p.r(13);
         return _p.r(13).createClass("Icon", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     img: null
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "Icon";
-                this.__tpl = iconTpl;
-                this.__prevIcon = null;
-                this.__currentIcon = this.__options.img;
-                this.__image = null;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             getValue: function() {
                 return this.__options.value || this.__options.img;
@@ -2214,10 +2086,15 @@ _p[43] = {
             getImage: function() {
                 return this.__currentIcon;
             },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "Icon";
+                this.__tpl = iconTpl;
+                this.__prevIcon = null;
+                this.__currentIcon = this.__options.img;
+                this.__image = null;
+            },
             __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
                 this.__options.__width = this.__options.width;
                 this.__options.__height = this.__options.height;
                 this.__options.width = null;
@@ -2243,14 +2120,12 @@ _p[43] = {
  * InputButton对象
  * 可接受输入的按钮构件
  */
-_p[44] = {
+_p[43] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(25), Button = _p.r(38), Input = _p.r(46), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(24), Button = _p.r(37), Input = _p.r(45), Utils = _p.r(13);
         return _p.r(13).createClass("InputButton", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     button: null,
                     input: null,
@@ -2258,14 +2133,8 @@ _p[44] = {
                     // label相对icon的位置
                     layout: "right"
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "InputButton";
-                this.__tpl = tpl;
-                this.__inputWidget = null;
-                this.__buttonWidget = null;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             getValue: function() {
                 return this.__inputWidget.getValue();
@@ -2290,12 +2159,28 @@ _p[44] = {
                 this.__inputWidget.unfocus();
                 return this;
             },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "InputButton";
+                this.__tpl = tpl;
+                this.__inputWidget = null;
+                this.__buttonWidget = null;
+                if (typeof this.__options.input !== "object") {
+                    this.__options.input = {
+                        placeholder: this.__options.input
+                    };
+                }
+                this.__options.input = $.extend({}, this.__options.input, {
+                    placeholder: this.__options.placeholder
+                });
+                if (typeof this.__options.button !== "object") {
+                    this.__options.button = {
+                        icon: this.__options.button
+                    };
+                }
+            },
             __render: function() {
                 var _self = this;
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__initOptions();
                 this.callBase();
                 this.__buttonWidget = new Button(this.__options.button);
                 this.__inputWidget = new Input(this.__options.input);
@@ -2318,21 +2203,6 @@ _p[44] = {
                 this.__buttonWidget.on("click", function() {
                     _self.trigger("buttonclick");
                 });
-            },
-            __initOptions: function() {
-                if (typeof this.__options.input !== "object") {
-                    this.__options.input = {
-                        placeholder: this.__options.input
-                    };
-                }
-                this.__options.input = $.extend({}, this.__options.input, {
-                    placeholder: this.__options.placeholder
-                });
-                if (typeof this.__options.button !== "object") {
-                    this.__options.button = {
-                        icon: this.__options.button
-                    };
-                }
             }
         });
     }
@@ -2343,35 +2213,20 @@ _p[44] = {
  * InputMenu构件
  * 可接受输入的下拉菜单构件
  */
-_p[45] = {
+_p[44] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(26), InputButton = _p.r(44), Menu = _p.r(51), Mask = _p.r(50), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
         return _p.r(13).createClass("InputMenu", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     input: null,
                     menu: null,
                     mask: null,
                     selected: -1
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "InputMenu";
-                this.__tpl = tpl;
-                // 最后输入时间
-                this.__lastTime = 0;
-                // 最后选中的记录
-                this.__lastSelect = null;
-                this.__inputWidget = null;
-                this.__menuWidget = null;
-                this.__maskWidget = null;
-                // menu状态， 记录是否已经append到dom树上
-                this.__menuState = false;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             select: function(index) {
                 this.__menuWidget.select(index);
@@ -2392,10 +2247,6 @@ _p[45] = {
                 this.__menuWidget.hide();
             },
             __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__initOptions();
                 this.__inputWidget = new InputButton(this.__options.input);
                 this.__menuWidget = new Menu(this.__options.menu);
                 this.__maskWidget = new Mask(this.__options.mask);
@@ -2403,7 +2254,6 @@ _p[45] = {
                 this.__inputWidget.appendTo(this.__element);
                 this.__menuWidget.positionTo(this.__inputWidget);
                 this.__initInputValue();
-                this.__initInputMenuEvent();
             },
             __initInputValue: function() {
                 var selectedItem = this.__menuWidget.getItem(this.__options.selected);
@@ -2411,8 +2261,9 @@ _p[45] = {
                     this.__inputWidget.setValue(selectedItem.getValue());
                 }
             },
-            __initInputMenuEvent: function() {
+            __initEvent: function() {
                 var _self = this;
+                this.callBase();
                 this.on("buttonclick", function() {
                     if (!this.__menuState) {
                         this.__appendMenu();
@@ -2511,6 +2362,18 @@ _p[45] = {
                 this.__menuWidget.appendTo(this.__inputWidget.getElement().ownerDocument.body);
             },
             __initOptions: function() {
+                this.callBase();
+                this.widgetName = "InputMenu";
+                this.__tpl = tpl;
+                // 最后输入时间
+                this.__lastTime = 0;
+                // 最后选中的记录
+                this.__lastSelect = null;
+                this.__inputWidget = null;
+                this.__menuWidget = null;
+                this.__maskWidget = null;
+                // menu状态， 记录是否已经append到dom树上
+                this.__menuState = false;
                 if (this.__options.selected !== -1) {
                     this.__options.menu.selected = this.__options.selected;
                 }
@@ -2523,25 +2386,17 @@ _p[45] = {
 /**
  * Input widget
  */
-_p[46] = {
+_p[45] = {
     value: function(require) {
-        var prefix = "_fui_", CONF = _p.r(12), $ = _p.r(4), tpl = _p.r(27), Utils = _p.r(13);
+        var prefix = "_fui_", CONF = _p.r(12), $ = _p.r(4), tpl = _p.r(26), Utils = _p.r(13);
         return _p.r(13).createClass("Input", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     placeholder: null
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "Input";
-                this.__tpl = tpl;
-                // input构件允许获取获得
-                this.__allow_focus = true;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             getValue: function() {
                 return this.__element.value;
@@ -2570,19 +2425,23 @@ _p[46] = {
                 this.__element.blur();
                 return this;
             },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "Input";
+                this.__tpl = tpl;
+                // input构件允许获得焦点
+                this.__allow_focus = true;
+            },
             __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
                 this.callBase();
                 this.__element.removeAttribute("unselectable");
                 if (this.__options.placeholder) {
                     this.__element.setAttribute("placeholder", this.__options.placeholder);
                 }
                 this.addClass(CONF.classPrefix + "selectable");
-                this.__initInputEvent();
             },
-            __initInputEvent: function() {
+            __initEvent: function() {
+                this.callBase();
                 this.on("keydown", function(e) {
                     if (e.keyCode === 13) {
                         this.trigger("inputcomplete", {
@@ -2599,32 +2458,23 @@ _p[46] = {
 /**
  * Label Widget
  */
-_p[47] = {
+_p[46] = {
     value: function(require) {
-        var Utils = _p.r(13), itemTpl = _p.r(28), Icon = _p.r(43), Label = _p.r(49), CONF = _p.r(12), $ = _p.r(4);
+        var Utils = _p.r(13), itemTpl = _p.r(27), Icon = _p.r(42), Label = _p.r(48), CONF = _p.r(12), $ = _p.r(4);
         return Utils.createClass("Item", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     label: "",
                     icon: null,
                     selected: false,
                     textAlign: "left"
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "Item";
-                this.__tpl = itemTpl;
-                this.__iconWidget = null;
-                this.__labelWidget = null;
-                this.__selectState = this.__options.selected;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             getValue: function() {
-                return this.__labelWidget.getValue() || this.__iconWidget.getValue() || null;
+                return this.__options.value || this.__labelWidget.getValue() || this.__iconWidget.getValue() || null;
             },
             select: function() {
                 this.__update(true);
@@ -2652,16 +2502,11 @@ _p[47] = {
                 return this.__iconWidget.getImage();
             },
             __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__initOptions();
                 this.callBase();
                 this.__iconWidget = new Icon(this.__options.icon);
                 this.__labelWidget = new Label(this.__options.label);
                 this.__iconWidget.appendTo(this.__element);
                 this.__labelWidget.appendTo(this.__element);
-                this.__initItemEvent();
             },
             __update: function(state) {
                 state = !!state;
@@ -2670,7 +2515,8 @@ _p[47] = {
                 this.trigger(state ? "itemselect" : "itemunselect");
                 return this;
             },
-            __initItemEvent: function() {
+            __initEvent: function() {
+                this.callBase();
                 this.on("click", function() {
                     this.trigger("itemclick");
                 });
@@ -2680,6 +2526,12 @@ _p[47] = {
          * @private
          */
             __initOptions: function() {
+                this.callBase();
+                this.widgetName = "Item";
+                this.__tpl = itemTpl;
+                this.__iconWidget = null;
+                this.__labelWidget = null;
+                this.__selectState = this.__options.selected;
                 if (typeof this.__options.label !== "object") {
                     this.__options.label = {
                         text: this.__options.label
@@ -2703,24 +2555,17 @@ _p[47] = {
  * LabelPanel Widget
  * 带标签的面板
  */
-_p[48] = {
+_p[47] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Label = _p.r(49), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Label = _p.r(48), $ = _p.r(4);
         return Utils.createClass("LabelPanel", {
-            base: _p.r(52),
+            base: _p.r(51),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     layout: "bottom"
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "LabelPanel";
-                this.__labelWidget = null;
-                if (options !== marker) {
-                    this.__render();
-                    this.__initWidgets();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             disable: function() {
                 this.callBase();
@@ -2732,10 +2577,6 @@ _p[48] = {
             },
             __render: function() {
                 var $contentElement = null;
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__initOptions();
                 this.__labelWidget = new Label(this.__options.label);
                 this.callBase();
                 $(this.__element).addClass(CONF.classPrefix + "label-panel");
@@ -2749,6 +2590,9 @@ _p[48] = {
             },
             __initOptions: function() {
                 var label = this.__options.label;
+                this.callBase();
+                this.widgetName = "LabelPanel";
+                this.__labelWidget = null;
                 if (typeof label !== "object") {
                     this.__options.label = {
                         text: label
@@ -2767,24 +2611,18 @@ _p[48] = {
 /**
  * Label Widget
  */
-_p[49] = {
+_p[48] = {
     value: function(require) {
-        var Utils = _p.r(13), labelTpl = _p.r(29), $ = _p.r(4);
+        var Utils = _p.r(13), labelTpl = _p.r(28), $ = _p.r(4);
         return Utils.createClass("Label", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     text: "",
                     textAlign: "center"
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "Label";
-                this.__tpl = labelTpl;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             getValue: function() {
                 return this.__options.text;
@@ -2806,18 +2644,14 @@ _p[49] = {
             __allowShowTitle: function() {
                 return false;
             },
-            __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__initOptions();
-                this.callBase();
-            },
             /**
          * 初始化模板所用的css值
          * @private
          */
             __initOptions: function() {
+                this.callBase();
+                this.widgetName = "Label";
+                this.__tpl = labelTpl;
                 this.__options.text = this.__options.text.toString();
             }
         });
@@ -2828,14 +2662,12 @@ _p[49] = {
 /**
  * Mask Widget
  */
-_p[50] = {
+_p[49] = {
     value: function(require) {
-        var Utils = _p.r(13), tpl = _p.r(30), Widget = _p.r(58), $ = _p.r(4), __cache_inited = false, __MASK_CACHE = [];
+        var Utils = _p.r(13), tpl = _p.r(29), Widget = _p.r(57), $ = _p.r(4), __cache_inited = false, __MASK_CACHE = [];
         return Utils.createClass("Mask", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     bgcolor: "#000",
                     opacity: 0,
@@ -2845,30 +2677,8 @@ _p[50] = {
                     scroll: false,
                     hide: true
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "Mask";
-                this.__tpl = tpl;
-                this.__cacheId = __MASK_CACHE.length;
-                this.__hideState = true;
-                __MASK_CACHE.push(this);
-                this.__target = this.__options.target;
-                if (this.__target instanceof Widget) {
-                    this.__target = this.__target.getElement();
-                }
-                if (options !== marker) {
-                    this.__render();
-                }
-            },
-            __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
-                this.callBase();
-                this.__initMaskEvent();
-                if (!__cache_inited) {
-                    __cache_inited = true;
-                    __initCacheEvent();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             maskTo: function(target) {
                 if (target) {
@@ -2897,6 +2707,26 @@ _p[50] = {
             },
             isHide: function() {
                 return this.__hideState;
+            },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "Mask";
+                this.__tpl = tpl;
+                this.__cacheId = __MASK_CACHE.length;
+                this.__hideState = true;
+                __MASK_CACHE.push(this);
+                this.__target = this.__options.target;
+                if (this.__target instanceof Widget) {
+                    this.__target = this.__target.getElement();
+                }
+            },
+            __render: function() {
+                this.callBase();
+                this.__initMaskEvent();
+                if (!__cache_inited) {
+                    __cache_inited = true;
+                    __initCacheEvent();
+                }
             },
             __initMaskEvent: function() {
                 this.on("mousewheel", function(e) {
@@ -2967,27 +2797,20 @@ _p[50] = {
 /**
  * Menu Widget
  */
-_p[51] = {
+_p[50] = {
     value: function(require) {
-        var Utils = _p.r(13), Item = _p.r(47), CONF = _p.r(12), $ = _p.r(4);
+        var Utils = _p.r(13), Item = _p.r(46), CONF = _p.r(12), $ = _p.r(4);
         return Utils.createClass("Menu", {
-            base: _p.r(53),
+            base: _p.r(52),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     column: true,
                     selected: -1,
                     textAlign: "left",
                     items: []
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.__prevSelect = -1;
-                this.__currentSelect = this.__options.selected;
-                this.widgetName = "Menu";
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             select: function(index) {
                 var item = this.__widgets[index];
@@ -3049,11 +2872,14 @@ _p[51] = {
                 }
                 return widget;
             },
+            __initOptions: function() {
+                this.callBase();
+                this.__prevSelect = -1;
+                this.__currentSelect = this.__options.selected;
+                this.widgetName = "Menu";
+            },
             __render: function() {
                 var _self = this, textAlign = this.__options.textAlign, selected = this.__options.selected;
-                if (this.__rendered) {
-                    return this;
-                }
                 this.callBase();
                 $(this.__element).addClass(CONF.classPrefix + "menu");
                 $.each(this.__options.items, function(index, itemOption) {
@@ -3066,10 +2892,10 @@ _p[51] = {
                     itemOption.textAlign = textAlign;
                     _self.appendItem(new Item(itemOption));
                 });
-                this.__initMenuEvent();
             },
             // 初始化点击事件
-            __initMenuEvent: function() {
+            __initEvent: function() {
+                this.callBase();
                 this.on("itemclick", function(e) {
                     this.__selectItem(e.widget);
                 });
@@ -3110,32 +2936,27 @@ _p[51] = {
 /**
  * 容器类： Panel
  */
-_p[52] = {
+_p[51] = {
     value: function(require) {
-        var Utils = _p.r(13), panelTpl = _p.r(31), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), panelTpl = _p.r(30), $ = _p.r(4);
         return Utils.createClass("Panel", {
-            base: _p.r(40),
+            base: _p.r(39),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {};
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "Panel";
-                this.__tpl = panelTpl;
-                if (options !== marker) {
-                    this.__render();
-                    this.__initWidgets();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             __render: function() {
                 var $content = null;
-                if (this.__rendered) {
-                    return this;
-                }
                 this.callBase();
                 $content = $('<div class="fui-panel-content"></div>');
                 this.__contentElement.appendChild($content[0]);
                 this.__contentElement = $content[0];
+            },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "Panel";
+                this.__tpl = panelTpl;
             }
         });
     }
@@ -3145,14 +2966,12 @@ _p[52] = {
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[53] = {
+_p[52] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), LAYOUT = CONF.layout, $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(57), LAYOUT = CONF.layout, $ = _p.r(4);
         return Utils.createClass("PPanel", {
-            base: _p.r(52),
+            base: _p.r(51),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     layout: LAYOUT.BOTTOM,
                     target: null,
@@ -3163,19 +2982,8 @@ _p[53] = {
                     hide: true,
                     resize: "all"
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "PPanel";
-                this.__target = this.__options.target;
-                this.__layout = this.__options.layout;
-                // 记录是否已调整过高度
-                this.__height_resized = false;
-                if (this.__target instanceof Widget) {
-                    this.__target = this.__target.getElement();
-                }
-                if (options !== marker) {
-                    this.__render();
-                    this.__initWidgets();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             positionTo: function(target, layout) {
                 if (target instanceof Widget) {
@@ -3206,10 +3014,15 @@ _p[53] = {
                 }
                 return this;
             },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "PPanel";
+                this.__target = this.__options.target;
+                this.__layout = this.__options.layout;
+                // 记录是否已调整过高度
+                this.__height_resized = false;
+            },
             __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
                 this.callBase();
                 $(this.__element).addClass(CONF.classPrefix + "ppanel");
             },
@@ -3422,25 +3235,24 @@ _p[53] = {
 /**
  * Separator(分隔符) Widget
  */
-_p[54] = {
+_p[53] = {
     value: function(require) {
-        var Utils = _p.r(13), separatorTpl = _p.r(32), $ = _p.r(4);
+        var Utils = _p.r(13), separatorTpl = _p.r(31), $ = _p.r(4);
         return Utils.createClass("Separator", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     width: 1,
                     height: "100%",
                     bgcolor: "#e1e1e1"
                 };
-                this.__extendOptions(defaultOptions, options);
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
+            },
+            __initOptions: function() {
+                this.callBase();
                 this.widgetName = "Separator";
                 this.__tpl = separatorTpl;
-                if (options !== marker) {
-                    this.__render();
-                }
             }
         });
     }
@@ -3451,29 +3263,19 @@ _p[54] = {
  * SpinButton对象
  * 数值按钮构件
  */
-_p[55] = {
+_p[54] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(33), Button = _p.r(38), Input = _p.r(46), Panel = _p.r(52), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(32), Button = _p.r(37), Input = _p.r(45), Panel = _p.r(51), Utils = _p.r(13);
         return _p.r(13).createClass("SpinButton", {
-            base: _p.r(58),
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     suffix: null,
                     selected: -1,
                     items: []
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "SpinButton";
-                this.__tpl = tpl;
-                this.__buttons = [];
-                this.__panelWidget = null;
-                this.__inputWidget = null;
-                this.__currentSelected = -1;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             getValue: function() {
                 return this.__options.items[this.__currentSelected] || null;
@@ -3489,10 +3291,6 @@ _p[55] = {
                 this.__update($.inArray(value, this.__options.items));
             },
             __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__initOptions();
                 this.callBase();
                 this.__buttons = [ new Button({
                     className: CONF.classPrefix + "spin-up-btn"
@@ -3508,10 +3306,10 @@ _p[55] = {
                 this.__panelWidget.appendWidget(this.__buttons[1]);
                 this.__panelWidget.appendTo(this.__element);
                 this.__initSelected(this.__options.selected);
-                this.__initSpinButtonEvent();
             },
-            __initSpinButtonEvent: function() {
+            __initEvent: function() {
                 var _self = this;
+                this.callBase();
                 this.__buttons[0].on("btnclick", function() {
                     _self.__update(_self.__currentSelected - 1);
                 });
@@ -3540,6 +3338,13 @@ _p[55] = {
             },
             __initOptions: function() {
                 var items = this.__options.items;
+                this.callBase();
+                this.widgetName = "SpinButton";
+                this.__tpl = tpl;
+                this.__buttons = [];
+                this.__panelWidget = null;
+                this.__inputWidget = null;
+                this.__currentSelected = -1;
                 $.each(items, function(index, val) {
                     items[index] = val + "";
                 });
@@ -3552,29 +3357,19 @@ _p[55] = {
 /**
  * Tabs Widget
  */
-_p[56] = {
+_p[55] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(34), Button = _p.r(38), Panel = _p.r(52), Utils = _p.r(13);
-        return _p.r(13).createClass("tabss", {
-            base: _p.r(58),
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(33), Button = _p.r(37), Panel = _p.r(51), Utils = _p.r(13);
+        return _p.r(13).createClass("Tabs", {
+            base: _p.r(57),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     selected: 0,
                     buttons: [],
                     panels: null
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "Tabs";
-                this.__tpl = tpl;
-                this.__btns = [];
-                this.__panels = [];
-                this.__prevSelected = -1;
-                this.__selected = -1;
-                if (options !== marker) {
-                    this.__render();
-                }
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             getButtons: function() {
                 return this.__btns;
@@ -3635,10 +3430,6 @@ _p[56] = {
             },
             __render: function() {
                 var _self = this, btnWrap = null, panelWrap = null;
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__initOptions();
                 this.callBase();
                 btnWrap = $(".fui-tabs-button-wrap", this.__element)[0];
                 panelWrap = $(".fui-tabs-panel-wrap", this.__element)[0];
@@ -3669,6 +3460,13 @@ _p[56] = {
                 this.__selectItem(this.__options.selected);
             },
             __initOptions: function() {
+                this.callBase();
+                this.widgetName = "Tabs";
+                this.__tpl = tpl;
+                this.__btns = [];
+                this.__panels = [];
+                this.__prevSelected = -1;
+                this.__selected = -1;
                 // panels不设置的情况下， 将根据button创建
                 if (this.__options.panels === null) {
                     this.__options.panels = [];
@@ -3707,52 +3505,18 @@ _p[56] = {
  * ToggleButton对象
  * 可切换按钮构件
  */
-_p[57] = {
+_p[56] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), Utils = _p.r(13);
         return _p.r(13).createClass("ToggleButton", {
-            base: _p.r(38),
+            base: _p.r(37),
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     // 按钮初始时是否按下
                     pressed: false
                 };
-                this.__extendOptions(defaultOptions, options);
-                this.widgetName = "ToggleButton";
-                // 按钮当前状态
-                this.__state = false;
-                if (options !== marker) {
-                    this.__render();
-                }
-            },
-            __render: function() {
-                if (this.__rendered) {
-                    return this;
-                }
-                this.callBase();
-                $(this.__element).addClass(CONF.classPrefix + "toggle-button");
-                this.__initButtonState();
-                this.__initToggleButtonEvent();
-                return this;
-            },
-            __initButtonState: function() {
-                if (!this.__options.pressed) {
-                    return;
-                }
-                // 不直接调用press方法， 防止初始化时事件的触发
-                $(this.__element).addClass(CONF.classPrefix + "button-pressed");
-                this.__state = true;
-            },
-            /**
-         * 初始化事件监听, 控制状态的切换
-         * @private
-         */
-            __initToggleButtonEvent: function() {
-                this.on("click", function() {
-                    this.toggle();
-                });
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
             },
             /**
          * 当前按钮是否已按下
@@ -3781,6 +3545,36 @@ _p[57] = {
                     this.press();
                 }
             },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "ToggleButton";
+                // 按钮当前状态
+                this.__state = false;
+            },
+            __render: function() {
+                this.callBase();
+                $(this.__element).addClass(CONF.classPrefix + "toggle-button");
+                this.__initButtonState();
+                return this;
+            },
+            __initButtonState: function() {
+                if (!this.__options.pressed) {
+                    return;
+                }
+                // 不直接调用press方法， 防止初始化时事件的触发
+                $(this.__element).addClass(CONF.classPrefix + "button-pressed");
+                this.__state = true;
+            },
+            /**
+         * 初始化事件监听, 控制状态的切换
+         * @private
+         */
+            __initEvent: function() {
+                this.callBase();
+                this.on("click", function() {
+                    this.toggle();
+                });
+            },
             __updateState: function(state) {
                 state = !!state;
                 this.__state = state;
@@ -3795,13 +3589,11 @@ _p[57] = {
  * widget对象
  * 所有的UI组件都是widget对象
  */
-_p[58] = {
+_p[57] = {
     value: function(require) {
         var prefix = "_fui_", uid = 0, CONF = _p.r(12), FUI_NS = _p.r(11), $ = _p.r(4), Utils = _p.r(13);
         var Widget = _p.r(13).createClass("Widget", {
             constructor: function(options) {
-                var marker = Utils.getMarker();
-                this.callBase(marker);
                 var defaultOptions = {
                     id: null,
                     className: "",
@@ -3816,16 +3608,16 @@ _p[58] = {
                 this.__widgetType = "widget";
                 this.__tpl = "";
                 this.__compiledTpl = "";
-                this.__rendered = false;
                 this.__options = {};
                 this.__element = null;
                 // 禁止获取焦点
                 this.__allow_focus = false;
                 this.widgetName = "Widget";
                 this.__extendOptions(defaultOptions, options);
-                if (options !== marker) {
-                    this.__render();
-                }
+                this.__initOptions();
+                this.__render();
+                this.__initEvent();
+                this.__initWidgets && this.__initWidgets();
             },
             getId: function() {
                 return this.id;
@@ -3905,16 +3697,13 @@ _p[58] = {
                 }
                 return this;
             },
+            __initOptions: function() {},
             /**
          * 根据模板渲染构件, 如果该构件已经渲染过, 则不会进行二次渲染
          * @returns {Widget}
          */
             __render: function() {
                 var $ele = null, className = null;
-                if (this.__rendered) {
-                    return this;
-                }
-                this.__rendered = true;
                 this.id = this.__id();
                 // 向NS注册自己
                 FUI_NS.__registerInstance(this);
@@ -3939,7 +3728,6 @@ _p[58] = {
                 if (this.__options.hide) {
                     this.__hide();
                 }
-                this.__initWidgetEvent();
                 return this;
             },
             /**
@@ -3949,7 +3737,7 @@ _p[58] = {
             __appendChild: function(childWidget) {
                 return this.__element.appendChild(childWidget.getElement());
             },
-            __initWidgetEvent: function() {
+            __initEvent: function() {
                 this.on("mousedown", function(e) {
                     if (!this.__allowFocus()) {
                         e.preventDefault();
@@ -4061,7 +3849,7 @@ _p[58] = {
 /**
  * 模块暴露
  */
-_p[59] = {
+_p[58] = {
     value: function(require) {
         _p.r(1);
         _p.r(2);
@@ -4069,7 +3857,7 @@ _p[59] = {
 };
 
 var moduleMapping = {
-    "fui.export": 59
+    "fui.export": 58
 };
 
 function use(name) {

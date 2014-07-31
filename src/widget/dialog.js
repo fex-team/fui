@@ -74,6 +74,14 @@ define( function ( require ) {
             return this;
         },
 
+        getButtons: function () {
+            return this.__buttons;
+        },
+
+        getButton: function ( index ) {
+            return this.__buttons[ index ];
+        },
+
         show: function () {
 
             if ( !this.__target ) {
