@@ -42,16 +42,20 @@
   -webkit-user-drag: none;
 }
 .fui-widget.fui-disabled {
-  opacity: 0.3!important;
+  opacity: 0.3;
 }
 .fui-widget.fui-hide {
-  display: none!important;
+  display: none;
 }
 .fui-widget.fui-mask-animate {
   -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
 }
 .fui-widget.fui-mask-hint {
   -webkit-transform: perspective(600px) translateZ(30px);
+  -moz-transform: perspective(600px) translateZ(30px);
+  transform: perspective(600px) translateZ(30px);
 }
 
 /**
@@ -69,7 +73,7 @@
   left: 0;
 }
 .fui-container.fui-disabled {
-  opacity: 1!important;
+  opacity: 1;
 }
 
 /**
@@ -139,20 +143,20 @@
   display: block;
 }
 .fui-button:HOVER {
-  background-color: #d5e1f2 !important;
-  color: #000000 !important;
+  background-color: #d5e1f2;
+  color: #000000;
 }
 .fui-button:ACTIVE {
-  background-color: #87a9da !important;
-  color: #000000 !important;
+  background-color: #87a9da;
+  color: #000000;
 }
 .fui-button.fui-disabled:HOVER {
-  background-color: #ffffff !important;
-  color: #000000 !important;
+  background-color: #ffffff;
+  color: #000000;
 }
 .fui-button.fui-disabled:ACTIVE {
-  background-color: #ffffff !important;
-  color: #000000 !important;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 /**
@@ -238,8 +242,8 @@
   background: #fff;
 }
 .fui-dialog .fui-panel-content {
-  width: auto!important;
-  height: auto!important;
+  width: auto;
+  height: auto;
   padding: 2px;
 }
 .fui-dialog .fui-dialog-caption {
@@ -346,7 +350,7 @@
 }
 .fui-input-button .fui-input {
   vertical-align: middle;
-  border: none!important;
+  border: none;
 }
 .fui-input-button .fui-button {
   vertical-align: middle;
@@ -370,7 +374,7 @@
 }
 .fui-input:HOVER,
 .fui-input:FOCUS {
-  border-color: #4d90fe!important;
+  border-color: #4d90fe;
 }
 
 /**
@@ -401,7 +405,7 @@
   color: #666;
 }
 .fui-label-panel.fui-no-position .fui-label-panel-label {
-  position: static!important;
+  position: static;
 }
 .fui-label-panel.fui-layout-bottom .fui-label-panel-label {
   position: absolute;
@@ -436,7 +440,7 @@
 }
 .fui-menu .fui-item {
   padding: 2px 5px;
-  display: block!important;
+  display: block;
 }
 .fui-menu .fui-item:HOVER {
   background: #d5e1f2;
@@ -536,5 +540,13 @@
   background-color: #aec5e6;
 }
 .fui-toggle-button.fui-button-pressed.fui-disabled {
-  background-color: #aec5e6 !important;
+  background-color: #aec5e6;
+}
+.fui-toggle-button:HOVER {
+  background-color: #d5e1f2;
+  color: #000000;
+}
+.fui-toggle-button:ACTIVE {
+  background-color: #87a9da;
+  color: #000000;
 }

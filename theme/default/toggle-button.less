@@ -9,8 +9,18 @@
   &.fui-button-pressed {
     background-color: darken( @hoverBgColor, 10% );
     &.fui-disabled {
-      background-color: darken( @hoverBgColor, 10% )!important;
+      background-color: darken( @hoverBgColor, 10% );
     }
+  }
+
+  &:HOVER {
+    background-color: @hoverBgColor;
+    color: @hoverColor;
+  }
+
+  &:ACTIVE {
+    background-color: @activeBgColor;
+    color: @activeColor;
   }
 
 }

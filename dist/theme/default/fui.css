@@ -139,20 +139,20 @@
   display: block;
 }
 .fui-button:HOVER {
-  background-color: #d5e1f2 !important;
-  color: #000000 !important;
+  background-color: #d5e1f2;
+  color: #000000;
 }
 .fui-button:ACTIVE {
-  background-color: #87a9da !important;
-  color: #000000 !important;
+  background-color: #87a9da;
+  color: #000000;
 }
 .fui-button.fui-disabled:HOVER {
-  background-color: #ffffff !important;
-  color: #000000 !important;
+  background-color: #ffffff;
+  color: #000000;
 }
 .fui-button.fui-disabled:ACTIVE {
-  background-color: #ffffff !important;
-  color: #000000 !important;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 /**

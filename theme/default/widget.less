@@ -43,15 +43,19 @@
   }
 
   &.fui-hide {
-    display: none!important;
+    display: none;
   }
 
   &.fui-mask-animate {
     -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
   }
 
   &.fui-mask-hint {
     -webkit-transform: perspective(600px) translateZ(30px);
+    -moz-transform: perspective(600px) translateZ(30px);
+    transform: perspective(600px) translateZ(30px);
   }
 
 }
