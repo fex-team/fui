@@ -3731,6 +3731,7 @@ _p[57] = {
                 } else {
                     throw new Error("TypeError: Widget.appendTo()");
                 }
+                return this;
             },
             off: function(type, cb) {
                 $(this.__element).off(cb && cb.__fui_listener);

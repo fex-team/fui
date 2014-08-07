@@ -142,6 +142,8 @@ define( function ( require ) {
 
             }
 
+            return this;
+
         },
 
         off: function ( type, cb ) {
