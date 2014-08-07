@@ -109,6 +109,20 @@ define( function ( require ) {
 
         },
 
+        appendWidgets: function ( widgetArray ) {
+
+            var _self = this;
+
+            $.each( widgetArray, function ( widget ) {
+
+                _self.appendWidget( widget );
+
+            } );
+
+            return this;
+
+        },
+
         insertWidget: function ( index, widget ) {
 
             var oldElement = null;
@@ -136,6 +150,20 @@ define( function ( require ) {
             }
 
             return widget;
+
+        },
+
+        insertWidgets: function ( widgetArray ) {
+
+            var _self = this;
+
+            $.each( widgetArray, function ( widget ) {
+
+                _self.insertWidget( widget );
+
+            } );
+
+            return this;
 
         },
 
