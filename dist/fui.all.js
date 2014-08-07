@@ -1688,6 +1688,13 @@ _p[39] = {
                 }
                 return widget;
             },
+            appendWidgets: function(widgetArray) {
+                var _self = this;
+                $.each(widgetArray, function(widget) {
+                    _self.appendWidget(widget);
+                });
+                return this;
+            },
             insertWidget: function(index, widget) {
                 var oldElement = null;
                 if (this.__widgets.length === 0) {
@@ -1707,6 +1714,14 @@ _p[39] = {
                     $(widget.getElement()).addClass(CONF.classPrefix + "panel-column-widget");
                 }
                 return widget;
+            },
+            insertWidgets: function(index, widgetArray) {
+                var _self = this;
+                $.each(widgetArray, function(widget) {
+                    _self.insertWidget(index, widget);
+                    index++;
+                });
+                return this;
             },
             getContentElement: function() {
                 return this.__contentElement;
