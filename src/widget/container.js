@@ -153,13 +153,14 @@ define( function ( require ) {
 
         },
 
-        insertWidgets: function ( widgetArray ) {
+        insertWidgets: function ( index, widgetArray ) {
 
             var _self = this;
 
             $.each( widgetArray, function ( widget ) {
 
-                _self.insertWidget( widget );
+                _self.insertWidget( index, widget );
+                index++;
 
             } );
 
