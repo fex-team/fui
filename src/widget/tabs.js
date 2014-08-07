@@ -37,12 +37,46 @@ define( function ( require ) {
             return this.getButtons()[ index ] || null;
         },
 
+        getButtonByValue: function ( value ) {
+
+            var button = null;
+
+            $.each( this.__btns, function ( btn ) {
+
+                if ( btn.getValue() === value ) {
+                    button = btn;
+                    return false;
+                }
+
+            } );
+
+            return button;
+
+        },
+
         getPanels: function () {
             return this.__panels;
         },
 
         getPanel: function ( index ) {
             return this.getPanels()[ index ] || null;
+        },
+
+        getPanelByValue: function ( value ) {
+
+            var panel = null;
+
+            $.each( this.__panels, function ( pan ) {
+
+                if ( pan.getValue() === value ) {
+                    panel = pan;
+                    return false;
+                }
+
+            } );
+
+            return panel;
+
         },
 
         getSelectedIndex: function () {

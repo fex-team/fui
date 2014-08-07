@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-07-31
+ * Flex UI - v1.0.0 - 2014-08-07
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -1308,7 +1308,7 @@ _p[35] = {
 
 //src/widget/button-set.js
 /**
- * Button对象
+ * Buttonset对象
  * 通用按钮构件
  */
 _p[36] = {
@@ -1662,6 +1662,16 @@ _p[39] = {
             },
             getWidget: function(index) {
                 return this.__widgets[index] || null;
+            },
+            getWidgetByValue: function(value) {
+                var widget = null;
+                $.each(this.__widgets, function(wgt) {
+                    if (wgt.getValue() === value) {
+                        widget = wgt;
+                        return false;
+                    }
+                });
+                return widget;
             },
             appendWidget: function(widget) {
                 if (!this.__valid(widget)) {
@@ -3377,11 +3387,31 @@ _p[55] = {
             getButton: function(index) {
                 return this.getButtons()[index] || null;
             },
+            getButtonByValue: function(value) {
+                var button = null;
+                $.each(this.__btns, function(btn) {
+                    if (btn.getValue() === value) {
+                        button = btn;
+                        return false;
+                    }
+                });
+                return button;
+            },
             getPanels: function() {
                 return this.__panels;
             },
             getPanel: function(index) {
                 return this.getPanels()[index] || null;
+            },
+            getPanelByValue: function(value) {
+                var panel = null;
+                $.each(this.__panels, function(pan) {
+                    if (pan.getValue() === value) {
+                        panel = pan;
+                        return false;
+                    }
+                });
+                return panel;
             },
             getSelectedIndex: function() {
                 return this.__selected;

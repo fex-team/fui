@@ -1,5 +1,5 @@
 /**
- * Button对象
+ * Buttonset对象
  * 通用按钮构件
  */
 

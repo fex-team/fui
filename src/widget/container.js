@@ -70,6 +70,23 @@ define( function ( require ) {
 
         },
 
+        getWidgetByValue: function ( value ) {
+
+            var widget = null;
+
+            $.each( this.__widgets, function ( wgt ) {
+
+                if ( wgt.getValue() === value ) {
+                    widget = wgt;
+                    return false;
+                }
+
+            } );
+
+            return widget;
+
+        },
+
         appendWidget: function ( widget ) {
 
             if ( !this.__valid( widget ) ) {
