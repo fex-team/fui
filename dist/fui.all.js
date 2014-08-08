@@ -2256,12 +2256,17 @@ _p[44] = {
             select: function(index) {
                 this.__menuWidget.select(index);
             },
+            selectByValue: function(value) {
+                return this.__selectBy("values", value);
+            },
+            selectByLabel: function(value) {
+                return this.__selectBy("labels", value);
+            },
             setValue: function(value) {
-                this.__inputWidget.setValue(value);
                 return this;
             },
             getValue: function() {
-                return this.__inputWidget.getValue();
+                return this.__menuWidget.getSelectedItem().getValue();
             },
             open: function() {
                 this.__maskWidget.show();
@@ -2280,10 +2285,24 @@ _p[44] = {
                 this.__menuWidget.positionTo(this.__inputWidget);
                 this.__initInputValue();
             },
+            __selectBy: function(type, value) {
+                var values = this.__getItemValues()[type], index = -1;
+                $.each(values, function(i, val) {
+                    if (value === val) {
+                        index = i;
+                        return false;
+                    }
+                });
+                if (index !== -1) {
+                    this.select(index);
+                    return this.__menuWidget.getSelectedItem();
+                }
+                return null;
+            },
             __initInputValue: function() {
                 var selectedItem = this.__menuWidget.getItem(this.__options.selected);
                 if (selectedItem) {
-                    this.__inputWidget.setValue(selectedItem.getValue());
+                    this.__inputWidget.setValue(selectedItem.getLabel());
                 }
             },
             __initEvent: function() {
@@ -2311,7 +2330,7 @@ _p[44] = {
                 });
                 this.__menuWidget.on("select", function(e, info) {
                     e.stopPropagation();
-                    _self.setValue(info.value);
+                    _self.__inputWidget.setValue(info.label);
                     _self.trigger("select", info);
                     _self.close();
                 });
@@ -2334,7 +2353,7 @@ _p[44] = {
             },
             // 更新输入框内容
             __update: function() {
-                var inputValue = this.getValue(), lowerCaseValue = inputValue.toLowerCase(), values = this.__getItemValues(), targetValue = null;
+                var inputValue = this.__inputWidget.getValue(), lowerCaseValue = inputValue.toLowerCase(), values = this.__getItemValues().labels, targetValue = null;
                 if (!inputValue) {
                     return;
                 }
@@ -2351,34 +2370,41 @@ _p[44] = {
             },
             // 获取所有item的值列表
             __getItemValues: function() {
-                var vals = [];
+                var vals = [], labels = [];
                 $.each(this.__menuWidget.getWidgets(), function(index, item) {
+                    labels.push(item.getLabel());
                     vals.push(item.getValue());
                 });
-                return vals;
+                return {
+                    labels: labels,
+                    values: vals
+                };
             },
             // 用户输入完成
             __inputComplete: function() {
-                var values = this.__getItemValues(), targetIndex = -1, inputValue = this.getValue(), lastSelect = this.__lastSelect;
-                $.each(values, function(i, val) {
-                    if (val === inputValue) {
+                var itemsInfo = this.__getItemValues(), labels = itemsInfo.labels, targetIndex = -1, inputValue = this.__inputWidget.getValue(), lastSelect = this.__lastSelect;
+                $.each(labels, function(i, label) {
+                    if (label === inputValue) {
                         targetIndex = i;
                         return false;
                     }
                 });
                 this.trigger("select", {
                     index: targetIndex,
-                    value: inputValue
+                    label: inputValue,
+                    value: itemsInfo.values[targetIndex]
                 });
                 if (!lastSelect || lastSelect.value !== inputValue) {
                     this.trigger("change", {
                         from: lastSelect || {
                             index: -1,
+                            label: null,
                             value: null
                         },
                         to: {
                             index: targetIndex,
-                            value: inputValue
+                            label: inputValue,
+                            value: itemsInfo.values[targetIndex]
                         }
                     });
                 }
@@ -2934,18 +2960,21 @@ _p[50] = {
                 item.select();
                 this.trigger("select", {
                     index: this.__currentSelect,
-                    value: this.__widgets[this.__currentSelect].getValue()
+                    label: item.getLabel(),
+                    value: item.getValue()
                 });
                 if (this.__prevSelect !== this.__currentSelect) {
                     var fromItem = this.__widgets[this.__prevSelect] || null;
                     this.trigger("change", {
                         from: {
                             index: this.__prevSelect,
+                            label: fromItem && fromItem.getLabel(),
                             value: fromItem && fromItem.getValue()
                         },
                         to: {
                             index: this.__currentSelect,
-                            value: this.__widgets[this.__currentSelect].getValue()
+                            label: item.getLabel(),
+                            value: item.getValue()
                         }
                     });
                 }
