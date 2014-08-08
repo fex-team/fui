@@ -35,6 +35,11 @@ define( function ( require ) {
             return this;
         },
 
+        reset: function () {
+            this.__element.value = this.__options.value || "";
+            return this;
+        },
+
         selectAll: function () {
             this.__element.select();
         },

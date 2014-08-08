@@ -42,6 +42,19 @@ define( function ( require ) {
 
         },
 
+        clearSelect: function () {
+
+            var selectedItem = this.getSelectedItem();
+
+            if ( selectedItem ) {
+                selectedItem.unselect();
+            }
+
+            this.__currentSelect = -1;
+            this.__prevSelect = -1;
+
+        },
+
         getItems: function () {
             return this.getWidgets.apply( this, arguments );
         },

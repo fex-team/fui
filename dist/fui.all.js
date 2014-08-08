@@ -2168,6 +2168,9 @@ _p[43] = {
                 this.__inputWidget.setValue(value);
                 return this;
             },
+            reset: function() {
+                this.__inputWidget.reset();
+            },
             selectAll: function() {
                 this.__inputWidget.selectAll();
                 return this;
@@ -2208,6 +2211,7 @@ _p[43] = {
                 var _self = this;
                 this.callBase();
                 this.__buttonWidget = new Button(this.__options.button);
+                console.log(this.__options.input);
                 this.__inputWidget = new Input(this.__options.input);
                 // layout
                 switch (this.__options.layout) {
@@ -2257,7 +2261,16 @@ _p[44] = {
                 this.__menuWidget.select(index);
             },
             selectByValue: function(value) {
-                $.each(this.__menuWidget);
+                return this.__selectBy("values", value);
+            },
+            selectByLabel: function(value) {
+                return this.__selectBy("labels", value);
+            },
+            clearSelect: function() {
+                this.__lastSelect = -1;
+                this.__menuWidget.clearSelect();
+                this.__inputWidget.reset();
+                return this;
             },
             setValue: function(value) {
                 return this;
@@ -2281,6 +2294,20 @@ _p[44] = {
                 this.__inputWidget.appendTo(this.__element);
                 this.__menuWidget.positionTo(this.__inputWidget);
                 this.__initInputValue();
+            },
+            __selectBy: function(type, value) {
+                var values = this.__getItemValues()[type], index = -1;
+                $.each(values, function(i, val) {
+                    if (value === val) {
+                        index = i;
+                        return false;
+                    }
+                });
+                if (index !== -1) {
+                    this.select(index);
+                    return this.__menuWidget.getSelectedItem();
+                }
+                return null;
             },
             __initInputValue: function() {
                 var selectedItem = this.__menuWidget.getItem(this.__options.selected);
@@ -2437,6 +2464,10 @@ _p[45] = {
             },
             setValue: function(value) {
                 this.__element.value = value;
+                return this;
+            },
+            reset: function() {
+                this.__element.value = this.__options.value || "";
                 return this;
             },
             selectAll: function() {
@@ -2853,6 +2884,14 @@ _p[50] = {
                 }
                 this.__selectItem(item);
                 return this;
+            },
+            clearSelect: function() {
+                var selectedItem = this.getSelectedItem();
+                if (selectedItem) {
+                    selectedItem.unselect();
+                }
+                this.__currentSelect = -1;
+                this.__prevSelect = -1;
             },
             getItems: function() {
                 return this.getWidgets.apply(this, arguments);

@@ -37,8 +37,21 @@ define( function ( require ) {
         },
 
         selectByValue: function ( value ) {
+            return this.__selectBy( "values", value );
+        },
 
-            $.each( this.__menuWidget );
+        selectByLabel: function ( value ) {
+            return this.__selectBy( "labels", value );
+        },
+
+        clearSelect: function () {
+
+            this.__lastSelect = -1;
+
+            this.__menuWidget.clearSelect();
+            this.__inputWidget.reset();
+
+            return this;
 
         },
 
@@ -72,6 +85,29 @@ define( function ( require ) {
             this.__menuWidget.positionTo( this.__inputWidget );
 
             this.__initInputValue();
+
+        },
+
+        __selectBy: function ( type, value ) {
+
+            var values = this.__getItemValues()[ type ],
+                index = -1;
+
+            $.each( values, function ( i, val ) {
+
+                if ( value === val ) {
+                    index = i;
+                    return false;
+                }
+
+            } );
+
+            if ( index !== -1 ) {
+                this.select( index );
+                return this.__menuWidget.getSelectedItem();
+            }
+
+            return null;
 
         },
 
