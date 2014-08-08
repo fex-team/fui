@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-08-07
+ * Flex UI - v1.0.0 - 2014-08-08
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -1690,7 +1690,7 @@ _p[39] = {
             },
             appendWidgets: function(widgetArray) {
                 var _self = this;
-                $.each(widgetArray, function(widget) {
+                $.each(widgetArray, function(index, widget) {
                     _self.appendWidget(widget);
                 });
                 return this;

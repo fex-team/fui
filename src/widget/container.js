@@ -113,7 +113,7 @@ define( function ( require ) {
 
             var _self = this;
 
-            $.each( widgetArray, function ( widget ) {
+            $.each( widgetArray, function ( index, widget ) {
 
                 _self.appendWidget( widget );
 
