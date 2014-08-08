@@ -41,7 +41,7 @@ define( function ( require ) {
 
             var button = null;
 
-            $.each( this.__btns, function ( btn ) {
+            $.each( this.__btns, function ( i, btn ) {
 
                 if ( btn.getValue() === value ) {
                     button = btn;
@@ -66,7 +66,7 @@ define( function ( require ) {
 
             var panel = null;
 
-            $.each( this.__panels, function ( pan ) {
+            $.each( this.__panels, function ( i, pan ) {
 
                 if ( pan.getValue() === value ) {
                     panel = pan;

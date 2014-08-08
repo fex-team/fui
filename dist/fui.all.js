@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-08-07
+ * Flex UI - v1.0.0 - 2014-08-08
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -1665,7 +1665,7 @@ _p[39] = {
             },
             getWidgetByValue: function(value) {
                 var widget = null;
-                $.each(this.__widgets, function(wgt) {
+                $.each(this.__widgets, function(i, wgt) {
                     if (wgt.getValue() === value) {
                         widget = wgt;
                         return false;
@@ -1690,7 +1690,7 @@ _p[39] = {
             },
             appendWidgets: function(widgetArray) {
                 var _self = this;
-                $.each(widgetArray, function(widget) {
+                $.each(widgetArray, function(i, widget) {
                     _self.appendWidget(widget);
                 });
                 return this;
@@ -1717,7 +1717,7 @@ _p[39] = {
             },
             insertWidgets: function(index, widgetArray) {
                 var _self = this;
-                $.each(widgetArray, function(widget) {
+                $.each(widgetArray, function(i, widget) {
                     _self.insertWidget(index, widget);
                     index++;
                 });
@@ -3404,7 +3404,7 @@ _p[55] = {
             },
             getButtonByValue: function(value) {
                 var button = null;
-                $.each(this.__btns, function(btn) {
+                $.each(this.__btns, function(i, btn) {
                     if (btn.getValue() === value) {
                         button = btn;
                         return false;
@@ -3420,7 +3420,7 @@ _p[55] = {
             },
             getPanelByValue: function(value) {
                 var panel = null;
-                $.each(this.__panels, function(pan) {
+                $.each(this.__panels, function(i, pan) {
                     if (pan.getValue() === value) {
                         panel = pan;
                         return false;
