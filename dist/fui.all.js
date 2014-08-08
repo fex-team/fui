@@ -2257,7 +2257,10 @@ _p[44] = {
                 this.__menuWidget.select(index);
             },
             selectByValue: function(value) {
-                $.each(this.__menuWidget);
+                return this.__selectBy("values", value);
+            },
+            selectByLabel: function(value) {
+                return this.__selectBy("labels", value);
             },
             setValue: function(value) {
                 return this;
@@ -2281,6 +2284,20 @@ _p[44] = {
                 this.__inputWidget.appendTo(this.__element);
                 this.__menuWidget.positionTo(this.__inputWidget);
                 this.__initInputValue();
+            },
+            __selectBy: function(type, value) {
+                var values = this.__getItemValues()[type], index = -1;
+                $.each(values, function(i, val) {
+                    if (value === val) {
+                        index = i;
+                        return false;
+                    }
+                });
+                if (index !== -1) {
+                    this.select(index);
+                    return this.__menuWidget.getSelectedItem();
+                }
+                return null;
             },
             __initInputValue: function() {
                 var selectedItem = this.__menuWidget.getItem(this.__options.selected);
