@@ -74,7 +74,7 @@ define( function ( require ) {
 
             var widget = null;
 
-            $.each( this.__widgets, function ( wgt ) {
+            $.each( this.__widgets, function ( i, wgt ) {
 
                 if ( wgt.getValue() === value ) {
                     widget = wgt;
@@ -157,7 +157,7 @@ define( function ( require ) {
 
             var _self = this;
 
-            $.each( widgetArray, function ( widget ) {
+            $.each( widgetArray, function ( i, widget ) {
 
                 _self.insertWidget( index, widget );
                 index++;

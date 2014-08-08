@@ -20,7 +20,7 @@
         window.onload = function () {
 
             var inputMenu = new FUI.InputMenu( {
-                selected: 2,
+                selected: 1,
                 input: {
                     button: {
                         icon: {
@@ -34,7 +34,14 @@
                     }
                 },
                 menu: {
-                    items: [ "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi" ]
+                        items: [ {
+                            label: "宋体",
+                            value: "songti"
+                        }, {
+                            label: "微软雅黑",
+                            value: "Microsoft Yahei"
+                        }, "Hello", "Hi" ]
+//                    items: [ "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi", "你好", "Hello", "Hi" ]
                 }
             } );
 
@@ -42,6 +49,7 @@
 
             inputMenu.on( "select", function ( e, info ) {
 
+                console.log( inputMenu.getValue() )
                 console.log(e.type, info )
 
             } );

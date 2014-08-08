@@ -180,7 +180,8 @@ define( function ( require ) {
 
             this.trigger( "select", {
                 index: this.__currentSelect,
-                value: this.__widgets[ this.__currentSelect ].getValue()
+                label: item.getLabel(),
+                value: item.getValue()
             } );
 
             if ( this.__prevSelect !== this.__currentSelect ) {
@@ -190,11 +191,13 @@ define( function ( require ) {
                 this.trigger( "change", {
                     from: {
                         index: this.__prevSelect,
+                        label: fromItem && fromItem.getLabel(),
                         value: fromItem && fromItem.getValue()
                     },
                     to: {
                         index: this.__currentSelect,
-                        value: this.__widgets[ this.__currentSelect ].getValue()
+                        label: item.getLabel(),
+                        value: item.getValue()
                     }
                 } );
 

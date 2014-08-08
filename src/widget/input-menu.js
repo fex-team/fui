@@ -36,15 +36,18 @@ define( function ( require ) {
             this.__menuWidget.select( index );
         },
 
-        setValue: function ( value ) {
+        selectByValue: function ( value ) {
 
-            this.__inputWidget.setValue( value );
-            return this;
+            $.each( this.__menuWidget );
 
         },
 
+        setValue: function ( value ) {
+            return this;
+        },
+
         getValue: function () {
-            return this.__inputWidget.getValue();
+            return this.__menuWidget.getSelectedItem().getValue();
         },
 
         open: function () {
@@ -77,7 +80,7 @@ define( function ( require ) {
             var selectedItem = this.__menuWidget.getItem( this.__options.selected );
 
             if ( selectedItem ) {
-                this.__inputWidget.setValue( selectedItem.getValue() );
+                this.__inputWidget.setValue( selectedItem.getLabel() );
             }
 
         },
@@ -124,7 +127,7 @@ define( function ( require ) {
 
                 e.stopPropagation();
 
-                _self.setValue( info.value );
+                _self.__inputWidget.setValue( info.label );
 
                 _self.trigger( "select", info );
 
@@ -162,9 +165,9 @@ define( function ( require ) {
         // 更新输入框内容
         __update: function () {
 
-            var inputValue = this.getValue(),
+            var inputValue = this.__inputWidget.getValue(),
                 lowerCaseValue = inputValue.toLowerCase(),
-                values = this.__getItemValues(),
+                values = this.__getItemValues().labels,
                 targetValue = null;
 
             if ( !inputValue ) {
@@ -192,29 +195,35 @@ define( function ( require ) {
         // 获取所有item的值列表
         __getItemValues: function () {
 
-            var vals = [];
+            var vals = [],
+                labels = [];
 
             $.each( this.__menuWidget.getWidgets(), function ( index, item ) {
 
+                labels.push( item.getLabel() );
                 vals.push( item.getValue() );
 
             } );
 
-            return vals;
+            return {
+                labels: labels,
+                values: vals
+            };
 
         },
 
         // 用户输入完成
         __inputComplete: function () {
 
-            var values = this.__getItemValues(),
+            var itemsInfo = this.__getItemValues(),
+                labels = itemsInfo.labels,
                 targetIndex = -1,
-                inputValue = this.getValue(),
+                inputValue = this.__inputWidget.getValue(),
                 lastSelect = this.__lastSelect;
 
-            $.each( values, function ( i, val ) {
+            $.each( labels, function ( i, label ) {
 
-                if ( val === inputValue ) {
+                if ( label === inputValue ) {
                     targetIndex = i;
                     return false;
                 }
@@ -223,7 +232,8 @@ define( function ( require ) {
 
             this.trigger( "select", {
                 index: targetIndex,
-                value: inputValue
+                label: inputValue,
+                value: itemsInfo.values[ targetIndex ]
             } );
 
             if ( !lastSelect || lastSelect.value !== inputValue ) {
@@ -231,11 +241,13 @@ define( function ( require ) {
                 this.trigger( "change", {
                     from: lastSelect || {
                         index: -1,
+                        label: null,
                         value: null
                     },
                     to: {
                         index: targetIndex,
-                        value: inputValue
+                        label: inputValue,
+                        value: itemsInfo.values[ targetIndex ]
                     }
                 } );
 

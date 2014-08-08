@@ -1665,7 +1665,7 @@ _p[39] = {
             },
             getWidgetByValue: function(value) {
                 var widget = null;
-                $.each(this.__widgets, function(wgt) {
+                $.each(this.__widgets, function(i, wgt) {
                     if (wgt.getValue() === value) {
                         widget = wgt;
                         return false;
@@ -1717,7 +1717,7 @@ _p[39] = {
             },
             insertWidgets: function(index, widgetArray) {
                 var _self = this;
-                $.each(widgetArray, function(widget) {
+                $.each(widgetArray, function(i, widget) {
                     _self.insertWidget(index, widget);
                     index++;
                 });
@@ -2256,12 +2256,14 @@ _p[44] = {
             select: function(index) {
                 this.__menuWidget.select(index);
             },
+            selectByValue: function(value) {
+                $.each(this.__menuWidget);
+            },
             setValue: function(value) {
-                this.__inputWidget.setValue(value);
                 return this;
             },
             getValue: function() {
-                return this.__inputWidget.getValue();
+                return this.__menuWidget.getSelectedItem().getValue();
             },
             open: function() {
                 this.__maskWidget.show();
@@ -2283,7 +2285,7 @@ _p[44] = {
             __initInputValue: function() {
                 var selectedItem = this.__menuWidget.getItem(this.__options.selected);
                 if (selectedItem) {
-                    this.__inputWidget.setValue(selectedItem.getValue());
+                    this.__inputWidget.setValue(selectedItem.getLabel());
                 }
             },
             __initEvent: function() {
@@ -2311,7 +2313,7 @@ _p[44] = {
                 });
                 this.__menuWidget.on("select", function(e, info) {
                     e.stopPropagation();
-                    _self.setValue(info.value);
+                    _self.__inputWidget.setValue(info.label);
                     _self.trigger("select", info);
                     _self.close();
                 });
@@ -2334,7 +2336,7 @@ _p[44] = {
             },
             // 更新输入框内容
             __update: function() {
-                var inputValue = this.getValue(), lowerCaseValue = inputValue.toLowerCase(), values = this.__getItemValues(), targetValue = null;
+                var inputValue = this.__inputWidget.getValue(), lowerCaseValue = inputValue.toLowerCase(), values = this.__getItemValues().labels, targetValue = null;
                 if (!inputValue) {
                     return;
                 }
@@ -2351,34 +2353,41 @@ _p[44] = {
             },
             // 获取所有item的值列表
             __getItemValues: function() {
-                var vals = [];
+                var vals = [], labels = [];
                 $.each(this.__menuWidget.getWidgets(), function(index, item) {
+                    labels.push(item.getLabel());
                     vals.push(item.getValue());
                 });
-                return vals;
+                return {
+                    labels: labels,
+                    values: vals
+                };
             },
             // 用户输入完成
             __inputComplete: function() {
-                var values = this.__getItemValues(), targetIndex = -1, inputValue = this.getValue(), lastSelect = this.__lastSelect;
-                $.each(values, function(i, val) {
-                    if (val === inputValue) {
+                var itemsInfo = this.__getItemValues(), labels = itemsInfo.labels, targetIndex = -1, inputValue = this.__inputWidget.getValue(), lastSelect = this.__lastSelect;
+                $.each(labels, function(i, label) {
+                    if (label === inputValue) {
                         targetIndex = i;
                         return false;
                     }
                 });
                 this.trigger("select", {
                     index: targetIndex,
-                    value: inputValue
+                    label: inputValue,
+                    value: itemsInfo.values[targetIndex]
                 });
                 if (!lastSelect || lastSelect.value !== inputValue) {
                     this.trigger("change", {
                         from: lastSelect || {
                             index: -1,
+                            label: null,
                             value: null
                         },
                         to: {
                             index: targetIndex,
-                            value: inputValue
+                            label: inputValue,
+                            value: itemsInfo.values[targetIndex]
                         }
                     });
                 }
@@ -2934,18 +2943,21 @@ _p[50] = {
                 item.select();
                 this.trigger("select", {
                     index: this.__currentSelect,
-                    value: this.__widgets[this.__currentSelect].getValue()
+                    label: item.getLabel(),
+                    value: item.getValue()
                 });
                 if (this.__prevSelect !== this.__currentSelect) {
                     var fromItem = this.__widgets[this.__prevSelect] || null;
                     this.trigger("change", {
                         from: {
                             index: this.__prevSelect,
+                            label: fromItem && fromItem.getLabel(),
                             value: fromItem && fromItem.getValue()
                         },
                         to: {
                             index: this.__currentSelect,
-                            value: this.__widgets[this.__currentSelect].getValue()
+                            label: item.getLabel(),
+                            value: item.getValue()
                         }
                     });
                 }
@@ -3404,7 +3416,7 @@ _p[55] = {
             },
             getButtonByValue: function(value) {
                 var button = null;
-                $.each(this.__btns, function(btn) {
+                $.each(this.__btns, function(i, btn) {
                     if (btn.getValue() === value) {
                         button = btn;
                         return false;
@@ -3420,7 +3432,7 @@ _p[55] = {
             },
             getPanelByValue: function(value) {
                 var panel = null;
-                $.each(this.__panels, function(pan) {
+                $.each(this.__panels, function(i, pan) {
                     if (pan.getValue() === value) {
                         panel = pan;
                         return false;
