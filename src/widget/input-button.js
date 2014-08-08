@@ -44,6 +44,10 @@ define( function ( require ) {
 
         },
 
+        reset: function () {
+            this.__inputWidget.reset();
+        },
+
         selectAll: function () {
 
             this.__inputWidget.selectAll();
@@ -109,6 +113,7 @@ define( function ( require ) {
             this.callBase();
 
             this.__buttonWidget = new Button( this.__options.button );
+            console.log(this.__options.input)
             this.__inputWidget = new Input( this.__options.input );
 
             // layout

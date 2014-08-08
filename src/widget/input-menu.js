@@ -44,6 +44,17 @@ define( function ( require ) {
             return this.__selectBy( "labels", value );
         },
 
+        clearSelect: function () {
+
+            this.__lastSelect = -1;
+
+            this.__menuWidget.clearSelect();
+            this.__inputWidget.reset();
+
+            return this;
+
+        },
+
         setValue: function ( value ) {
             return this;
         },
