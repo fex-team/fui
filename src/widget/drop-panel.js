@@ -72,6 +72,14 @@ define( function ( require ) {
 
         },
 
+        getWidgets: function () {
+            return this.__panelWidget.getWidgets();
+        },
+
+        getWidget: function ( index ) {
+            return this.__panelWidget.getWidget( index );
+        },
+        
         __render: function () {
 
             this.__initOptions();

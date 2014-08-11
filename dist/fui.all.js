@@ -2019,6 +2019,12 @@ _p[41] = {
             appendWidget: function(widget) {
                 this.__panelWidget.appendWidget(widget);
             },
+            getWidgets: function() {
+                return this.__panelWidget.getWidgets();
+            },
+            getWidget: function(index) {
+                return this.__panelWidget.getWidget(index);
+            },
             __render: function() {
                 this.__initOptions();
                 this.__buttonWidget = new Button(this.__options.button);
