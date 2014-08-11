@@ -90,6 +90,15 @@ define( function ( require ) {
 
         },
 
+        setStyle: function() {
+            $.fn.css.apply($(this.__element), arguments);
+            return this;
+        },
+
+        getStyle: function() {
+            return $.fn.css.apply($(this.__element), arguments);
+        },
+
         /**
          * 当前构件是否是处于禁用状态
          * @returns {boolean|disabled|jsl.$.disabled|id.disabled}
@@ -206,6 +215,10 @@ define( function ( require ) {
 
             if ( this.__options.hide ) {
                 this.__hide();
+            }
+
+            if ( this.__options.style ) {
+                this.setStyle(this.__options.style);
             }
 
             return this;

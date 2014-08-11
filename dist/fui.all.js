@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-08-08
+ * Flex UI - v1.0.0 - 2014-08-11
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -2211,7 +2211,6 @@ _p[43] = {
                 var _self = this;
                 this.callBase();
                 this.__buttonWidget = new Button(this.__options.button);
-                console.log(this.__options.input);
                 this.__inputWidget = new Input(this.__options.input);
                 // layout
                 switch (this.__options.layout) {
@@ -3742,6 +3741,13 @@ _p[57] = {
             removeClass: function(className) {
                 $(this.__element).removeClass(className);
             },
+            setStyle: function() {
+                $.fn.css.apply($(this.__element), arguments);
+                return this;
+            },
+            getStyle: function() {
+                return $.fn.css.apply($(this.__element), arguments);
+            },
             /**
          * 当前构件是否是处于禁用状态
          * @returns {boolean|disabled|jsl.$.disabled|id.disabled}
@@ -3824,6 +3830,9 @@ _p[57] = {
                 this.__initBasicEnv();
                 if (this.__options.hide) {
                     this.__hide();
+                }
+                if (this.__options.style) {
+                    this.setStyle(this.__options.style);
                 }
                 return this;
             },
