@@ -81,7 +81,7 @@ define( function ( require ) {
         },
 
         appendWidgets: function ( widgets ) {
-            this.__panelWidget.appendWidgets.call( this, arguments );
+            this.__panelWidget.appendWidgets.apply( this, arguments );
             return this;
         },
 
