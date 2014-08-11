@@ -226,7 +226,7 @@ define( function ( require ) {
 
             this.on( "mousedown", function ( e ) {
 
-                if ( !this.__allowFocus() ) {
+                if ( !CONF.control[ e.target.tagName.toLowerCase() ] && !this.__allowFocus() ) {
                     e.preventDefault();
                 } else {
                     e.stopPropagation();

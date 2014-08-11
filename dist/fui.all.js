@@ -691,6 +691,13 @@ _p[12] = {
                 RIGHT_TOP: "right-top",
                 LEFT_BOTTOM: "left-bottom",
                 RIGHT_BOTTOM: "right-bottom"
+            },
+            control: {
+                input: 1,
+                textarea: 1,
+                button: 1,
+                select: 1,
+                option: 1
             }
         };
     }
@@ -3862,7 +3869,7 @@ _p[57] = {
             },
             __initEvent: function() {
                 this.on("mousedown", function(e) {
-                    if (!this.__allowFocus()) {
+                    if (!CONF.control[e.target.tagName.toLowerCase()] && !this.__allowFocus()) {
                         e.preventDefault();
                     } else {
                         e.stopPropagation();

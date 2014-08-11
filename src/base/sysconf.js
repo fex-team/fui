@@ -20,6 +20,14 @@ define( function () {
             RIGHT_TOP: 'right-top',
             LEFT_BOTTOM: 'left-bottom',
             RIGHT_BOTTOM: 'right-bottom'
+        },
+
+        control: {
+            input: 1,
+            textarea: 1,
+            button: 1,
+            select: 1,
+            option: 1
         }
 
     };
