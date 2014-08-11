@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-08-08
+ * Flex UI - v1.0.0 - 2014-08-11
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -2018,6 +2018,12 @@ _p[41] = {
             },
             appendWidget: function(widget) {
                 this.__panelWidget.appendWidget(widget);
+            },
+            getWidgets: function() {
+                return this.__panelWidget.getWidgets();
+            },
+            getWidget: function(index) {
+                return this.__panelWidget.getWidget(index);
             },
             __render: function() {
                 this.__initOptions();
