@@ -79,6 +79,24 @@ define( function ( require ) {
         getWidget: function ( index ) {
             return this.__panelWidget.getWidget( index );
         },
+
+        appendWidgets: function ( widgets ) {
+            this.__panelWidget.appendWidgets.call( this, arguments );
+            return this;
+        },
+
+        insertWidget: function ( index, widget ) {
+            this.__panelWidget.insertWidget( index, widget );
+        },
+
+        insertWidgets: function ( index, widgets ) {
+            this.__panelWidget.insertWidgets.call( this, arguments );
+            return this;
+        },
+
+        removeWidget: function ( widget ) {
+            return this.__panelWidget.removeWidget( widget );
+        },
         
         __render: function () {
 

@@ -1690,6 +1690,9 @@ _p[39] = {
             },
             appendWidgets: function(widgetArray) {
                 var _self = this;
+                if (!$.isArray(widgetArray)) {
+                    widgetArray = arguments;
+                }
                 $.each(widgetArray, function(i, widget) {
                     _self.appendWidget(widget);
                 });
@@ -1717,6 +1720,9 @@ _p[39] = {
             },
             insertWidgets: function(index, widgetArray) {
                 var _self = this;
+                if (!$.isArray(widgetArray)) {
+                    widgetArray = [].slice.call(widgetArray, 1);
+                }
                 $.each(widgetArray, function(i, widget) {
                     _self.insertWidget(index, widget);
                     index++;
@@ -2024,6 +2030,20 @@ _p[41] = {
             },
             getWidget: function(index) {
                 return this.__panelWidget.getWidget(index);
+            },
+            appendWidgets: function(widgets) {
+                this.__panelWidget.appendWidgets.call(this, arguments);
+                return this;
+            },
+            insertWidget: function(index, widget) {
+                this.__panelWidget.insertWidget(index, widget);
+            },
+            insertWidgets: function(index, widgets) {
+                this.__panelWidget.insertWidgets.call(this, arguments);
+                return this;
+            },
+            removeWidget: function(widget) {
+                return this.__panelWidget.removeWidget(widget);
             },
             __render: function() {
                 this.__initOptions();

@@ -113,6 +113,10 @@ define( function ( require ) {
 
             var _self = this;
 
+            if ( !$.isArray( widgetArray ) ) {
+                widgetArray = arguments;
+            }
+
             $.each( widgetArray, function ( i, widget ) {
 
                 _self.appendWidget( widget );
@@ -156,6 +160,10 @@ define( function ( require ) {
         insertWidgets: function ( index, widgetArray ) {
 
             var _self = this;
+
+            if ( !$.isArray( widgetArray ) ) {
+                widgetArray = [].slice.call( widgetArray, 1 );
+            }
 
             $.each( widgetArray, function ( i, widget ) {
 
