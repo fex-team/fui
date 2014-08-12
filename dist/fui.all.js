@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-08-11
+ * Flex UI - v1.0.0 - 2014-08-12
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -691,6 +691,13 @@ _p[12] = {
                 RIGHT_TOP: "right-top",
                 LEFT_BOTTOM: "left-bottom",
                 RIGHT_BOTTOM: "right-bottom"
+            },
+            control: {
+                input: 1,
+                textarea: 1,
+                button: 1,
+                select: 1,
+                option: 1
             }
         };
     }
@@ -2004,11 +2011,9 @@ _p[41] = {
             },
             disable: function() {
                 this.callBase();
-                this.__labelWidget.disable();
             },
             enable: function() {
                 this.callBase();
-                this.__labelWidget.enable();
             },
             open: function() {
                 this.__popupWidget.appendWidget(this.__panelWidget);
@@ -2022,6 +2027,9 @@ _p[41] = {
                 this.__popupWidget.hide();
                 this.__panelWidget.appendTo(this.__contentElement);
             },
+            getPanelElement: function() {
+                return this.__panelWidget.getElement();
+            },
             appendWidget: function(widget) {
                 this.__panelWidget.appendWidget(widget);
             },
@@ -2032,7 +2040,7 @@ _p[41] = {
                 return this.__panelWidget.getWidget(index);
             },
             appendWidgets: function(widgets) {
-                this.__panelWidget.appendWidgets.call(this, arguments);
+                this.__panelWidget.appendWidgets.apply(this, arguments);
                 return this;
             },
             insertWidget: function(index, widget) {
@@ -3871,7 +3879,7 @@ _p[57] = {
             },
             __initEvent: function() {
                 this.on("mousedown", function(e) {
-                    if (!this.__allowFocus()) {
+                    if (!CONF.control[e.target.tagName.toLowerCase()] && !this.__allowFocus()) {
                         e.preventDefault();
                     } else {
                         e.stopPropagation();
