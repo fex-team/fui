@@ -1706,11 +1706,11 @@ _p[39] = {
                 return widget;
             },
             appendWidgets: function(widgetArray) {
-                var _self = this;
+                var _self = this, widgets = widgetArray;
                 if (!$.isArray(widgetArray)) {
-                    widgetArray = arguments;
+                    widgets = arguments;
                 }
-                $.each(widgetArray, function(i, widget) {
+                $.each(widgets, function(i, widget) {
                     _self.appendWidget(widget);
                 });
                 return this;
@@ -1736,11 +1736,11 @@ _p[39] = {
                 return widget;
             },
             insertWidgets: function(index, widgetArray) {
-                var _self = this;
+                var _self = this, widgets = widgetArray;
                 if (!$.isArray(widgetArray)) {
-                    widgetArray = [].slice.call(widgetArray, 1);
+                    widgets = [].slice.call(arguments, 1);
                 }
-                $.each(widgetArray, function(i, widget) {
+                $.each(widgets, function(i, widget) {
                     _self.insertWidget(index, widget);
                     index++;
                 });
