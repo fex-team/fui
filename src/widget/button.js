@@ -9,8 +9,7 @@ define( function ( require ) {
         CONF = require( "base/sysconf" ),
         buttonTpl = require( "tpl/button" ),
         Icon = require( "widget/icon" ),
-        Label = require( "widget/label" ),
-        Utils = require( "base/utils" );
+        Label = require( "widget/label" );
 
     return require( "base/utils" ).createClass( "Button", {
 
@@ -42,8 +41,6 @@ define( function ( require ) {
 
         __render: function () {
 
-            var _self = this;
-
             this.callBase();
 
             this.__iconWidget = new Icon( this.__options.icon );
@@ -53,13 +50,16 @@ define( function ( require ) {
             switch ( this.__options.layout ) {
 
                 case 'left':
+                /* falls through */
                 case 'top':
                     this.__element.appendChild( this.__labelWidget.getElement() );
                     this.__element.appendChild( this.__iconWidget.getElement() );
                     break;
 
                 case 'right':
+                /* falls through */
                 case 'bottom':
+                /* falls through */
                 default:
                     this.__element.appendChild( this.__iconWidget.getElement() );
                     this.__element.appendChild( this.__labelWidget.getElement() );
@@ -67,7 +67,7 @@ define( function ( require ) {
 
             }
 
-            $( this.__element ).addClass( CONF.classPrefix + "button-layout-"+this.__options.layout )
+            $( this.__element ).addClass( CONF.classPrefix + "button-layout-"+this.__options.layout );
 
         },
 
@@ -90,7 +90,7 @@ define( function ( require ) {
             if ( typeof this.__options.icon !== "object" ) {
                 this.__options.icon = {
                     img: this.__options.icon
-                }
+                };
             }
 
         },

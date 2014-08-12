@@ -42,19 +42,24 @@ define( function ( require ) {
 
         __render: function () {
 
-            var $contentElement = null;
+            var $contentElement = null,
+                opts = this.__options,
+                ele = this.__element,
+                classPrefix = CONF.classPrefix,
+                labelClass = 'fui-label-panel-content',
+                originEle = this.__contentElement;
 
-            this.__labelWidget = new Label( this.__options.label );
+            this.__labelWidget = new Label( opts.label );
 
             this.callBase();
 
-            $( this.__element ).addClass( CONF.classPrefix + "label-panel" );
-            $( this.__element ).addClass( CONF.classPrefix + "layout-" + this.__options.layout );
+            $( ele ).addClass( classPrefix + "label-panel" );
+            $( ele ).addClass( classPrefix + "layout-" + opts.layout );
 
-            $contentElement = $( '<div class="fui-label-panel-content"></div>' );
+            $contentElement = $( '<div class="' + labelClass + '"></div>' );
 
-            this.__contentElement.appendChild( this.__labelWidget.getElement() );
-            this.__contentElement.appendChild( $contentElement[ 0 ] );
+            originEle.appendChild( this.__labelWidget.getElement() );
+            originEle.appendChild( $contentElement[ 0 ] );
 
             // 更新contentElement
             this.__contentElement = $contentElement[ 0 ];
@@ -76,7 +81,7 @@ define( function ( require ) {
             if ( typeof label !== "object" ) {
                 this.__options.label = {
                     text: label
-                }
+                };
             }
 
             if ( !this.__options.label.className ) {

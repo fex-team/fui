@@ -63,8 +63,7 @@ define( function ( require, exports ) {
 
         __initEvent: function () {
 
-            var target = this.__target,
-                handler = this.__handler,
+            var handler = this.__handler,
                 _self = this;
 
             $( handler ).on( "mousedown", function ( e ) {
@@ -87,7 +86,7 @@ define( function ( require, exports ) {
                 _self.__location = {
                     x: location.left,
                     y: location.top
-                }
+                };
 
                 _self.__range = _self.__getRange();
 
@@ -165,8 +164,6 @@ define( function ( require, exports ) {
         },
 
         __initOptions: function () {
-
-            var axis = this.__options.axis.toLowerCase();
 
             if ( !this.__handler ) {
                 this.__handler = this.__target;

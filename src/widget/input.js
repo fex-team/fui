@@ -1,14 +1,13 @@
- /**
- * Input widget
- */
+/*jshint camelcase:false*/
+/**
+* Input widget
+*/
 
 define( function ( require ) {
 
-    var prefix = '_fui_',
-        CONF = require( "base/sysconf" ),
+    var CONF = require( "base/sysconf" ),
         $ = require( "base/jquery" ),
-        tpl = require( 'tpl/input' ),
-        Utils = require( "base/utils" );
+        tpl = require( 'tpl/input' );
 
     return require( "base/utils" ).createClass( "Input", {
 

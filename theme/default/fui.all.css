@@ -45,7 +45,7 @@
   opacity: 0.3;
 }
 .fui-widget.fui-hide {
-  display: none !important;
+  display: none;
 }
 .fui-widget.fui-mask-animate {
   -webkit-transition: all 0.2s;

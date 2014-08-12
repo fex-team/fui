@@ -8,8 +8,7 @@ define( function ( require ) {
         CONF = require( "base/sysconf" ),
         tpl = require( "tpl/tabs" ),
         Button = require( "widget/button" ),
-        Panel = require( "widget/panel" ),
-        Utils = require( "base/utils" );
+        Panel = require( "widget/panel" );
 
     return require( "base/utils" ).createClass( "Tabs", {
 
@@ -253,8 +252,7 @@ define( function ( require ) {
                 index: index,
                 button: this.getButton( index ),
                 panel: this.getPanel( index )
-            }
-
+            };
 
         }
 

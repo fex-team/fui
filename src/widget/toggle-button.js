@@ -6,8 +6,7 @@
 define( function ( require ) {
 
     var $ = require( "base/jquery" ),
-        CONF = require( "base/sysconf" ),
-        Utils = require( "base/utils" );
+        CONF = require( "base/sysconf" );
 
     return require( "base/utils" ).createClass( "ToggleButton", {
 
@@ -38,7 +37,9 @@ define( function ( require ) {
          */
         press: function () {
 
-            $( this.__element ).addClass( CONF.classPrefix + "button-pressed" );
+            var className = CONF.classPrefix + "button-pressed";
+
+            $( this.__element ).addClass( className );
             this.__updateState( true );
 
         },
@@ -48,7 +49,9 @@ define( function ( require ) {
          */
         bounce: function () {
 
-            $( this.__element ).removeClass( CONF.classPrefix + "button-pressed" );
+            var className = CONF.classPrefix + "button-pressed";
+
+            $( this.__element ).removeClass( className );
             this.__updateState( false );
 
         },

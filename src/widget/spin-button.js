@@ -10,8 +10,7 @@ define( function ( require ) {
         tpl = require( "tpl/spin-button" ),
         Button = require( "widget/button" ),
         Input = require( "widget/input" ),
-        Panel = require( "widget/panel" ),
-        Utils = require( "base/utils" );
+        Panel = require( "widget/panel" );
 
     return require( "base/utils" ).createClass( "SpinButton", {
 
@@ -104,6 +103,7 @@ define( function ( require ) {
         __update: function ( index, isTrigger ) {
 
             var oldIndex = -1,
+                value = null,
                 toValue = null;
 
             if ( index < 0 || index >= this.__options.items.length ) {
@@ -115,7 +115,8 @@ define( function ( require ) {
 
             toValue = this.__options.items[ this.__currentSelected ];
 
-            this.__inputWidget.setValue( toValue + ' ' + ( this.__options.suffix || '' ) );
+            value = toValue + ' ' + ( this.__options.suffix || '' );
+            this.__inputWidget.setValue( value );
 
             if ( isTrigger !== false ) {
 

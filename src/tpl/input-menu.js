@@ -1,3 +1,3 @@
 define( function () {
-return '<div unselectable="on" class="fui-input-menu"></div>\n'
+return '<div unselectable="on" class="fui-input-menu"></div>\n';
 } );

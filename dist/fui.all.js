@@ -319,42 +319,6 @@ _p[6] = {
             isElement: function(target) {
                 return target.nodeType === 1;
             },
-            /**
-         * 根据传递进来的key列表， 从source中获取对应的key， 并进行处理，最终生成一个css声明映射表
-         * 该方法处理过的结果可以交由模板调用Helper.toCssText方法生成inline style样式规则
-         * @param keys 可以是数组， 也可以是object。 如果是数组， 则最终生成的css声明映射中将以该数组中的元素作为其属性名；
-         *              如果是object, 则取值时以object的key作为source中的key， 在生成css声明映射时，则以keys参数中的key所对应的值作为css声明的属性名.
-         * @returns {{}}
-         */
-            getCssRules: function(keys, source) {
-                var mapping = {}, tmp = {}, value = null;
-                if ($.isArray(keys)) {
-                    for (var i = 0, len = keys.length; i < len; i++) {
-                        value = keys[i];
-                        if (typeof value === "string") {
-                            tmp[value] = value;
-                        } else {
-                            for (var key in value) {
-                                if (value.hasOwnProperty(key)) {
-                                    tmp[key] = value[key];
-                                    // 只取一个
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    keys = tmp;
-                }
-                for (var key in keys) {
-                    if (keys.hasOwnProperty(key)) {
-                        value = source[key];
-                        if (value !== null && value !== undefined) {
-                            mapping[keys[key]] = value;
-                        }
-                    }
-                }
-                return mapping;
-            },
             getMarker: function() {
                 return __marker;
             },
@@ -386,9 +350,6 @@ _p[6] = {
                 } else {
                     return this.getRect(node);
                 }
-            },
-            getCssValue: function(props, node) {
-                var styleList = node.ownerDocument.defaultView.getComputedStyle(node, null);
             },
             getView: function(node) {
                 return node.ownerDocument.defaultView || node.ownerDocument.parentWindow;
@@ -469,7 +430,7 @@ _p[8] = {
                 this.__initEvent();
             },
             __initEvent: function() {
-                var target = this.__target, handler = this.__handler, _self = this;
+                var handler = this.__handler, _self = this;
                 $(handler).on("mousedown", function(e) {
                     if (e.which !== 1) {
                         return;
@@ -527,7 +488,6 @@ _p[8] = {
                 $handler.css("cursor", "move");
             },
             __initOptions: function() {
-                var axis = this.__options.axis.toLowerCase();
                 if (!this.__handler) {
                     this.__handler = this.__target;
                 }
@@ -572,7 +532,7 @@ _p[9] = {
     value: function(require) {
         var $ = _p.r(4);
         function extend(target) {
-            var type = null, isPlainObject = false, isArray = false, sourceObj = null;
+            var isPlainObject = false, isArray = false, sourceObj = null;
             if (arguments.length === 1) {
                 return copy(target);
             }
@@ -657,10 +617,9 @@ _p[11] = {
                 } else {
                     widget = widgetName;
                     for (var key in widget) {
-                        if (!widget.hasOwnProperty(key)) {
-                            continue;
+                        if (widget.hasOwnProperty(key)) {
+                            this[key] = widget[key];
                         }
-                        this[key] = widget[key];
                     }
                 }
             },
@@ -738,7 +697,7 @@ _p[15] = {
  */
 _p[16] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(14), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(14);
         return _p.r(13).createClass("TPicker", {
             base: _p.r(57),
             constructor: function(options) {
@@ -824,7 +783,7 @@ _p[16] = {
  */
 _p[17] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(15), Label = _p.r(48), TPicker = _p.r(16), Button = _p.r(37), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(15), Label = _p.r(48), TPicker = _p.r(16), Button = _p.r(37), PPanel = _p.r(52), Mask = _p.r(49);
         return _p.r(13).createClass("TablePicker", {
             base: _p.r(57),
             constructor: function(options) {
@@ -1035,7 +994,7 @@ _p[33] = {
  */
 _p[34] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(18), Button = _p.r(37), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13), LAYOUT = CONF.layout;
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(18), Button = _p.r(37), Menu = _p.r(50), Mask = _p.r(49), LAYOUT = CONF.layout;
         return _p.r(13).createClass("ButtonMenu", {
             base: _p.r(57),
             constructor: function(options) {
@@ -1075,7 +1034,6 @@ _p[34] = {
                 return this.getSelectedItem().getValue();
             },
             __render: function() {
-                var _self = this;
                 this.callBase();
                 this.__initButtons();
                 this.__menuWidget = new Menu(this.__options.menu);
@@ -1153,7 +1111,7 @@ _p[34] = {
  */
 _p[35] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
+        var $ = _p.r(4), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
         return _p.r(13).createClass("InputMenu", {
             base: _p.r(57),
             constructor: function(options) {
@@ -1320,7 +1278,7 @@ _p[35] = {
  */
 _p[36] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), Utils = _p.r(13), ToggleButton = _p.r(56);
+        var $ = _p.r(4), CONF = _p.r(12), ToggleButton = _p.r(56);
         return _p.r(13).createClass("Buttonset", {
             base: _p.r(51),
             constructor: function(options) {
@@ -1455,7 +1413,9 @@ _p[36] = {
                 if (this.__currentIndex === this.__prevIndex) {
                     return;
                 }
-                if (button) button.press();
+                if (button) {
+                    button.press();
+                }
                 // 弹起其他按钮
                 $.each(this.__widgets, function(i, otherButton) {
                     if (otherButton !== button) {
@@ -1481,7 +1441,7 @@ _p[36] = {
  */
 _p[37] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), buttonTpl = _p.r(19), Icon = _p.r(42), Label = _p.r(48), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), buttonTpl = _p.r(19), Icon = _p.r(42), Label = _p.r(48);
         return _p.r(13).createClass("Button", {
             base: _p.r(57),
             constructor: function(options) {
@@ -1502,21 +1462,23 @@ _p[37] = {
                 return this.__labelWidget.setText(text);
             },
             __render: function() {
-                var _self = this;
                 this.callBase();
                 this.__iconWidget = new Icon(this.__options.icon);
                 this.__labelWidget = new Label(this.__options.label);
                 // layout
                 switch (this.__options.layout) {
                   case "left":
-                  case "top":
+                  /* falls through */
+                    case "top":
                     this.__element.appendChild(this.__labelWidget.getElement());
                     this.__element.appendChild(this.__iconWidget.getElement());
                     break;
 
                   case "right":
-                  case "bottom":
-                  default:
+                  /* falls through */
+                    case "bottom":
+                  /* falls through */
+                    default:
                     this.__element.appendChild(this.__iconWidget.getElement());
                     this.__element.appendChild(this.__labelWidget.getElement());
                     break;
@@ -2006,7 +1968,7 @@ _p[40] = {
  */
 _p[41] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(22), Button = _p.r(37), Panel = _p.r(51), PPanel = _p.r(52), Mask = _p.r(49), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(22), Button = _p.r(37), Panel = _p.r(51), PPanel = _p.r(52), Mask = _p.r(49);
         return _p.r(13).createClass("DropPanel", {
             base: _p.r(57),
             constructor: function(options) {
@@ -2126,7 +2088,7 @@ _p[41] = {
  */
 _p[42] = {
     value: function(require) {
-        var prefix = "_fui_", $ = _p.r(4), iconTpl = _p.r(23), Utils = _p.r(13);
+        var $ = _p.r(4), iconTpl = _p.r(23);
         return _p.r(13).createClass("Icon", {
             base: _p.r(57),
             constructor: function(options) {
@@ -2140,7 +2102,6 @@ _p[42] = {
                 return this.__options.value || this.__options.img;
             },
             setImage: function(imageSrc) {
-                var tpl = null, node = null;
                 if (this.__options.img === imageSrc) {
                     return this;
                 }
@@ -2191,7 +2152,7 @@ _p[42] = {
  */
 _p[43] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(24), Button = _p.r(37), Input = _p.r(45), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(24), Button = _p.r(37), Input = _p.r(45);
         return _p.r(13).createClass("InputButton", {
             base: _p.r(57),
             constructor: function(options) {
@@ -2259,14 +2220,17 @@ _p[43] = {
                 // layout
                 switch (this.__options.layout) {
                   case "left":
-                  case "top":
+                  /* falls through */
+                    case "top":
                     this.__buttonWidget.appendTo(this.__element);
                     this.__inputWidget.appendTo(this.__element);
                     break;
 
                   case "right":
-                  case "bottom":
-                  default:
+                  /* falls through */
+                    case "bottom":
+                  /* falls through */
+                    default:
                     this.__inputWidget.appendTo(this.__element);
                     this.__buttonWidget.appendTo(this.__element);
                     break;
@@ -2287,7 +2251,7 @@ _p[43] = {
  */
 _p[44] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
+        var $ = _p.r(4), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49);
         return _p.r(13).createClass("InputMenu", {
             base: _p.r(57),
             constructor: function(options) {
@@ -2487,12 +2451,13 @@ _p[44] = {
 };
 
 //src/widget/input.js
+/*jshint camelcase:false*/
 /**
- * Input widget
- */
+* Input widget
+*/
 _p[45] = {
     value: function(require) {
-        var prefix = "_fui_", CONF = _p.r(12), $ = _p.r(4), tpl = _p.r(26), Utils = _p.r(13);
+        var CONF = _p.r(12), $ = _p.r(4), tpl = _p.r(26);
         return _p.r(13).createClass("Input", {
             base: _p.r(57),
             constructor: function(options) {
@@ -2625,8 +2590,9 @@ _p[46] = {
                 this.__labelWidget.appendTo(this.__element);
             },
             __update: function(state) {
+                var fn = state ? "addClass" : "removeClass";
                 state = !!state;
-                $(this.__element)[state ? "addClass" : "removeClass"](CONF.classPrefix + "item-selected");
+                $(this.__element)[fn](CONF.classPrefix + "item-selected");
                 this.__selectState = state;
                 this.trigger(state ? "itemselect" : "itemunselect");
                 return this;
@@ -2692,14 +2658,14 @@ _p[47] = {
                 this.__labelWidget.enable();
             },
             __render: function() {
-                var $contentElement = null;
-                this.__labelWidget = new Label(this.__options.label);
+                var $contentElement = null, opts = this.__options, ele = this.__element, classPrefix = CONF.classPrefix, labelClass = "fui-label-panel-content", originEle = this.__contentElement;
+                this.__labelWidget = new Label(opts.label);
                 this.callBase();
-                $(this.__element).addClass(CONF.classPrefix + "label-panel");
-                $(this.__element).addClass(CONF.classPrefix + "layout-" + this.__options.layout);
-                $contentElement = $('<div class="fui-label-panel-content"></div>');
-                this.__contentElement.appendChild(this.__labelWidget.getElement());
-                this.__contentElement.appendChild($contentElement[0]);
+                $(ele).addClass(classPrefix + "label-panel");
+                $(ele).addClass(classPrefix + "layout-" + opts.layout);
+                $contentElement = $('<div class="' + labelClass + '"></div>');
+                originEle.appendChild(this.__labelWidget.getElement());
+                originEle.appendChild($contentElement[0]);
                 // 更新contentElement
                 this.__contentElement = $contentElement[0];
                 return this;
@@ -2775,6 +2741,7 @@ _p[48] = {
 };
 
 //src/widget/mask.js
+/*jshint camelcase:false*/
 /**
  * Mask Widget
  */
@@ -3065,7 +3032,7 @@ _p[50] = {
  */
 _p[51] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), panelTpl = _p.r(30), $ = _p.r(4);
+        var Utils = _p.r(13), panelTpl = _p.r(30), $ = _p.r(4);
         return Utils.createClass("Panel", {
             base: _p.r(39),
             constructor: function(options) {
@@ -3090,6 +3057,7 @@ _p[51] = {
 };
 
 //src/widget/ppanel.js
+/*jshint camelcase:false*/
 /**
  * 容器类： PPanel = Positioning Panel
  */
@@ -3155,8 +3123,8 @@ _p[52] = {
             },
             // 执行定位
             __position: function() {
-                var location = null;
-                $(this.__element).addClass(CONF.classPrefix + "ppanel-position");
+                var location = null, className = CONF.classPrefix + "ppanel-position";
+                $(this.__element).addClass(className);
                 location = this.__getLocation();
                 $(this.__element).css("top", location.top + "px").css("left", location.left + "px");
             },
@@ -3187,12 +3155,7 @@ _p[52] = {
                 if (!this.__target) {
                     return;
                 }
-                var $ele = $(this.__element), vals = {
-                    bl: parseInt($ele.css("border-left-width"), 10) || 0,
-                    br: parseInt($ele.css("border-right-width"), 10) || 0,
-                    pl: parseInt($ele.css("padding-left"), 10) || 0,
-                    pr: parseInt($ele.css("padding-right"), 10) || 0
-                }, minWidth = targetRect.width - vals.bl - vals.br - vals.pl - vals.pr;
+                var $ele = $(this.__element), w = $ele.outerWidth(), h = $ele.outerHeight(), minWidth = targetRect.width - w - h;
                 this.__element.style.minWidth = minWidth + "px";
             },
             /**
@@ -3208,7 +3171,8 @@ _p[52] = {
                 diff = panelRect.bottom - boundRect.bottom;
                 if (diff > 0) {
                     this.__height_resized = true;
-                    $(this.__element).css("height", panelRect.height - diff - this.__options.diff + "px");
+                    diff = panelRect.height - diff - this.__options.diff;
+                    $(this.__element).css("height", diff + "px");
                 } else if (this.__height_resized) {
                     this.__element.style.height = null;
                 }
@@ -3277,7 +3241,8 @@ _p[52] = {
                     break;
 
                   case LAYOUT.BOTTOM:
-                  default:
+                  /* falls through */
+                    default:
                     location.left = targetRect.left;
                     location.top = targetRect.bottom;
                     break;
@@ -3292,26 +3257,26 @@ _p[52] = {
                 var location = {
                     top: 0,
                     left: 0
-                }, panelRect = Utils.getRect(this.__element);
+                }, rect = targetRect, panelRect = Utils.getRect(this.__element);
                 switch (this.__layout) {
                   case LAYOUT.LEFT_TOP:
-                    location.top = targetRect.top;
-                    location.left = targetRect.left;
+                    location.top = rect.top;
+                    location.left = rect.left;
                     break;
 
                   case LAYOUT.RIGHT_TOP:
-                    location.top = targetRect.top;
-                    location.left = targetRect.left + targetRect.width - panelRect.width;
+                    location.top = rect.top;
+                    location.left = rect.left + rect.width - panelRect.width;
                     break;
 
                   case LAYOUT.LEFT_BOTTOM:
-                    location.top = targetRect.top + targetRect.height - panelRect.height;
-                    location.left = targetRect.left;
+                    location.top = rect.top + rect.height - panelRect.height;
+                    location.left = rect.left;
                     break;
 
                   case LAYOUT.RIGHT_BOTTOM:
-                    location.top = targetRect.top + targetRect.height - panelRect.height;
-                    location.left = targetRect.left + targetRect.width - panelRect.width;
+                    location.top = rect.top + rect.height - panelRect.height;
+                    location.left = rect.left + rect.width - panelRect.width;
                     break;
                 }
                 return this.__correctionLocation(location);
@@ -3341,7 +3306,7 @@ _p[52] = {
                   case LAYOUT.LEFT_TOP:
                   case LAYOUT.LEFT_BOTTOM:
                     if (location.left + panelRect.width > boundRect.right) {
-                        location.left = location.left + targetRect.width - panelRect.width;
+                        location.left += targetRect.width - panelRect.width;
                     }
                     break;
 
@@ -3392,7 +3357,7 @@ _p[53] = {
  */
 _p[54] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(32), Button = _p.r(37), Input = _p.r(45), Panel = _p.r(51), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(32), Button = _p.r(37), Input = _p.r(45), Panel = _p.r(51);
         return _p.r(13).createClass("SpinButton", {
             base: _p.r(57),
             constructor: function(options) {
@@ -3448,14 +3413,15 @@ _p[54] = {
                 this.__update(index, false);
             },
             __update: function(index, isTrigger) {
-                var oldIndex = -1, toValue = null;
+                var oldIndex = -1, value = null, toValue = null;
                 if (index < 0 || index >= this.__options.items.length) {
                     return;
                 }
                 oldIndex = this.__currentSelected;
                 this.__currentSelected = index;
                 toValue = this.__options.items[this.__currentSelected];
-                this.__inputWidget.setValue(toValue + " " + (this.__options.suffix || ""));
+                value = toValue + " " + (this.__options.suffix || "");
+                this.__inputWidget.setValue(value);
                 if (isTrigger !== false) {
                     this.trigger("change", {
                         from: this.__options.items[oldIndex] || null,
@@ -3486,7 +3452,7 @@ _p[54] = {
  */
 _p[55] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(33), Button = _p.r(37), Panel = _p.r(51), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(33), Button = _p.r(37), Panel = _p.r(51);
         return _p.r(13).createClass("Tabs", {
             base: _p.r(57),
             constructor: function(options) {
@@ -3654,7 +3620,7 @@ _p[55] = {
  */
 _p[56] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), Utils = _p.r(13);
+        var $ = _p.r(4), CONF = _p.r(12);
         return _p.r(13).createClass("ToggleButton", {
             base: _p.r(37),
             constructor: function(options) {
@@ -3675,14 +3641,16 @@ _p[56] = {
          * 按下按钮
          */
             press: function() {
-                $(this.__element).addClass(CONF.classPrefix + "button-pressed");
+                var className = CONF.classPrefix + "button-pressed";
+                $(this.__element).addClass(className);
                 this.__updateState(true);
             },
             /**
          * 弹起按钮
          */
             bounce: function() {
-                $(this.__element).removeClass(CONF.classPrefix + "button-pressed");
+                var className = CONF.classPrefix + "button-pressed";
+                $(this.__element).removeClass(className);
                 this.__updateState(false);
             },
             toggle: function() {
@@ -3732,6 +3700,7 @@ _p[56] = {
 };
 
 //src/widget/widget.js
+/*jshint camelcase:false*/
 /**
  * widget对象
  * 所有的UI组件都是widget对象
@@ -3858,20 +3827,20 @@ _p[57] = {
          * @returns {Widget}
          */
             __render: function() {
-                var $ele = null, className = null;
+                var $ele = null, tpl = this.__tpl, opts = this.__options, className = null;
                 this.id = this.__id();
                 // 向NS注册自己
                 FUI_NS.__registerInstance(this);
-                this.__compiledTpl = Utils.Tpl.compile(this.__tpl, this.__options);
+                this.__compiledTpl = Utils.Tpl.compile(tpl, opts);
                 this.__element = $(this.__compiledTpl)[0];
                 this.__element.setAttribute("id", this.id);
                 $ele = $(this.__element);
-                if (this.__options.disabled) {
+                if (opts.disabled) {
                     $ele.addClass(CONF.classPrefix + "disabled");
                 }
                 $ele.addClass(CONF.classPrefix + "widget");
                 // add custom class-name
-                className = this.__options.className;
+                className = opts.className;
                 if (className.length > 0) {
                     if ($.isArray(className)) {
                         $ele.addClass(className.join(" "));
@@ -3880,11 +3849,11 @@ _p[57] = {
                     }
                 }
                 this.__initBasicEnv();
-                if (this.__options.hide) {
+                if (opts.hide) {
                     this.__hide();
                 }
-                if (this.__options.style) {
-                    this.setStyle(this.__options.style);
+                if (opts.style) {
+                    this.setStyle(opts.style);
                 }
                 return this;
             },
@@ -3897,7 +3866,8 @@ _p[57] = {
             },
             __initEvent: function() {
                 this.on("mousedown", function(e) {
-                    if (!CONF.control[e.target.tagName.toLowerCase()] && !this.__allowFocus()) {
+                    var tagName = e.target.tagName.toLowerCase();
+                    if (!CONF.control[tagName] && !this.__allowFocus()) {
                         e.preventDefault();
                     } else {
                         e.stopPropagation();
@@ -3934,11 +3904,13 @@ _p[57] = {
                 return !!this.__allow_focus;
             },
             __trigger: function(type, params) {
-                $(this.__element).trigger(type, [ this ].concat([].slice.call(arguments, 1)));
+                var args = [].slice.call(arguments, 1);
+                $(this.__element).trigger(type, [ this ].concat(args));
                 return this;
             },
             __triggerHandler: function(type, params) {
-                return $(this.__element).triggerHandler(type, [ this ].concat([].slice.call(arguments, 1)));
+                var args = [ this ].concat([].slice.call(arguments, 1));
+                return $(this.__element).triggerHandler(type, args);
             },
             /**
          * 同__trigger，都触发某事件，但是该方法触发的事件会主动触发before和after，
@@ -3950,7 +3922,7 @@ _p[57] = {
                 var result = {
                     cancel: false
                 };
-                if (type.indexOf("before") === 0 || type.indexOf("after") === 0) {
+                if (/^(before|after)/.test(type)) {
                     return this;
                 }
                 this.__trigger("before" + type, result);
@@ -3963,7 +3935,8 @@ _p[57] = {
                 return this;
             },
             __extendOptions: function() {
-                var args = [ {}, this.__options ].concat([].slice.call(arguments, 0)), params = [ true ];
+                var args = [ {}, this.__options ], params = [ true ];
+                args = args.concat([].slice.call(arguments, 0));
                 for (var i = 0, len = args.length; i < len; i++) {
                     if (typeof args[i] !== "string") {
                         params.push(args[i]);

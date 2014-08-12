@@ -1,3 +1,4 @@
+/*jshint camelcase:false*/
 /**
  * 容器类： PPanel = Positioning Panel
  */
@@ -101,14 +102,16 @@ define( function ( require ) {
         // 执行定位
         __position: function () {
 
-            var location = null;
+            var location = null,
+                className = CONF.classPrefix + "ppanel-position";
 
-            $( this.__element ).addClass( CONF.classPrefix + "ppanel-position" );
+            $( this.__element ).addClass( className );
 
 
             location = this.__getLocation();
 
-            $( this.__element ).css( 'top', location.top + 'px' ).css( 'left', location.left + 'px' );
+            $( this.__element ).css( 'top', location.top + 'px' )
+                               .css( 'left', location.left + 'px' );
 
         },
 
@@ -148,13 +151,9 @@ define( function ( require ) {
             }
 
             var $ele = $( this.__element ),
-                vals = {
-                    bl: parseInt( $ele.css( 'border-left-width' ), 10 ) || 0,
-                    br: parseInt( $ele.css( 'border-right-width' ), 10 ) || 0,
-                    pl: parseInt( $ele.css( 'padding-left' ), 10 ) || 0,
-                    pr: parseInt( $ele.css( 'padding-right' ), 10 ) || 0
-                },
-                minWidth = targetRect.width - vals.bl - vals.br - vals.pl - vals.pr;
+                w = $ele.outerWidth(),
+                h = $ele.outerHeight(),
+                minWidth = targetRect.width - w - h;
 
             this.__element.style.minWidth = minWidth + 'px';
 
@@ -181,7 +180,8 @@ define( function ( require ) {
             if ( diff > 0 ) {
 
                 this.__height_resized = true;
-                $( this.__element ).css( "height", panelRect.height - diff - this.__options.diff + 'px' );
+                diff = panelRect.height - diff - this.__options.diff;
+                $( this.__element ).css( "height", diff + 'px' );
 
             } else if ( this.__height_resized ) {
 
@@ -278,6 +278,7 @@ define( function ( require ) {
                     break;
 
                 case LAYOUT.BOTTOM:
+                /* falls through */
                 default:
                     location.left = targetRect.left;
                     location.top = targetRect.bottom;
@@ -299,28 +300,29 @@ define( function ( require ) {
                     top: 0,
                     left: 0
                 },
+                rect = targetRect,
                 panelRect = Utils.getRect( this.__element );
 
             switch ( this.__layout ) {
 
                 case LAYOUT.LEFT_TOP:
-                    location.top = targetRect.top;
-                    location.left = targetRect.left;
+                    location.top = rect.top;
+                    location.left = rect.left;
                     break;
 
                 case LAYOUT.RIGHT_TOP:
-                    location.top = targetRect.top;
-                    location.left = targetRect.left + targetRect.width - panelRect.width;
+                    location.top = rect.top;
+                    location.left = rect.left + rect.width - panelRect.width;
                     break;
 
                 case LAYOUT.LEFT_BOTTOM:
-                    location.top = targetRect.top + targetRect.height - panelRect.height;
-                    location.left = targetRect.left;
+                    location.top = rect.top + rect.height - panelRect.height;
+                    location.left = rect.left;
                     break;
 
                 case LAYOUT.RIGHT_BOTTOM:
-                    location.top = targetRect.top + targetRect.height - panelRect.height;
-                    location.left = targetRect.left + targetRect.width - panelRect.width;
+                    location.top = rect.top + rect.height - panelRect.height;
+                    location.left = rect.left + rect.width - panelRect.width;
                     break;
 
             }
@@ -370,7 +372,7 @@ define( function ( require ) {
                 case LAYOUT.LEFT_BOTTOM:
 
                     if ( location.left + panelRect.width > boundRect.right  ) {
-                        location.left = location.left + targetRect.width - panelRect.width;
+                        location.left += targetRect.width - panelRect.width;
                     }
                     break;
 

@@ -1,3 +1,4 @@
+/*jshint camelcase:false*/
 /**
  * widget对象
  * 所有的UI组件都是widget对象
@@ -182,6 +183,8 @@ define( function ( require ) {
         __render: function () {
 
             var $ele = null,
+                tpl = this.__tpl,
+                opts = this.__options,
                 className = null;
 
             this.id = this.__id();
@@ -189,20 +192,20 @@ define( function ( require ) {
             // 向NS注册自己
             FUI_NS.__registerInstance( this );
 
-            this.__compiledTpl = Utils.Tpl.compile( this.__tpl, this.__options );
+            this.__compiledTpl = Utils.Tpl.compile( tpl, opts );
             this.__element = $( this.__compiledTpl )[ 0 ];
             this.__element.setAttribute( "id", this.id );
 
             $ele = $( this.__element );
 
-            if ( this.__options.disabled ) {
+            if ( opts.disabled ) {
                 $ele.addClass( CONF.classPrefix + "disabled" );
             }
 
             $ele.addClass( CONF.classPrefix + "widget" );
 
             // add custom class-name
-            className = this.__options.className;
+            className = opts.className;
             if ( className.length > 0 ) {
                 if ( $.isArray( className ) ) {
                     $ele.addClass( className.join( " " ) );
@@ -213,12 +216,12 @@ define( function ( require ) {
 
             this.__initBasicEnv();
 
-            if ( this.__options.hide ) {
+            if ( opts.hide ) {
                 this.__hide();
             }
 
-            if ( this.__options.style ) {
-                this.setStyle(this.__options.style);
+            if ( opts.style ) {
+                this.setStyle( opts.style );
             }
 
             return this;
@@ -239,7 +242,9 @@ define( function ( require ) {
 
             this.on( "mousedown", function ( e ) {
 
-                if ( !CONF.control[ e.target.tagName.toLowerCase() ] && !this.__allowFocus() ) {
+                var tagName = e.target.tagName.toLowerCase();
+
+                if ( !CONF.control[ tagName ] && !this.__allowFocus() ) {
                     e.preventDefault();
                 } else {
                     e.stopPropagation();
@@ -299,7 +304,9 @@ define( function ( require ) {
 
         __trigger: function ( type, params ) {
 
-            $( this.__element ).trigger( type, [ this ].concat( [].slice.call( arguments, 1 ) ) );
+            var args = [].slice.call( arguments, 1 );
+
+            $( this.__element ).trigger( type, [ this ].concat( args ) );
 
             return this;
 
@@ -307,7 +314,9 @@ define( function ( require ) {
 
         __triggerHandler: function ( type, params ) {
 
-            return $( this.__element ).triggerHandler( type, [ this ].concat( [].slice.call( arguments, 1 ) ) );
+            var args = [ this ].concat( [].slice.call( arguments, 1 ) );
+
+            return $( this.__element ).triggerHandler( type, args );
 
         },
 
@@ -323,7 +332,7 @@ define( function ( require ) {
                 cancel: false
             };
 
-            if ( type.indexOf( "before" ) === 0 || type.indexOf( "after" ) === 0 ) {
+            if ( /^(before|after)/.test( type ) ) {
                 return this;
             }
 
@@ -344,8 +353,10 @@ define( function ( require ) {
 
         __extendOptions: function () {
 
-            var args = [ {}, this.__options ].concat( [].slice.call( arguments, 0 ) ),
+            var args = [ {}, this.__options ],
                 params = [ true ];
+
+            args = args.concat( [].slice.call( arguments, 0 ) );
 
             for ( var i = 0, len = args.length; i < len; i++ ) {
                 if ( typeof args[ i ] !== "string" ) {

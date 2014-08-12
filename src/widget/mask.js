@@ -1,3 +1,4 @@
+/*jshint camelcase:false*/
 /**
  * Mask Widget
  */
@@ -153,7 +154,7 @@ define( function ( require ) {
                 targetRect = {
                     width: targetRect.width(),
                     height: targetRect.height()
-                }
+                };
 
             } else {
                 targetRect = Utils.getRect( this.__target );
@@ -187,7 +188,8 @@ define( function ( require ) {
 
             }
 
-            $( this.__element ).css( 'top', location.top + 'px' ).css( 'left', location.left + 'px' );
+            $( this.__element ).css( 'top', location.top + 'px' )
+                               .css( 'left', location.left + 'px' );
 
         },
 

@@ -20,5 +20,5 @@ return '<div unselectable="on" class="fui-colorpicker-container">\n' +
 '<span unselectable="on" class="fui-colorpicker-item" style="background-color: $color; border-color: $color;" data-color="$color"></span>\n' +
 '} );\n' +
 '</div>\n' +
-'</div>\n'
+'</div>\n';
 } );

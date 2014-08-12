@@ -11,8 +11,7 @@ define( function ( require ) {
         TPicker = require( "ext/word/widget/t-picker" ),
         Button = require( "widget/button" ),
         PPanel = require( "widget/ppanel" ),
-        Mask = require( "widget/mask" ),
-        Utils = require( "base/utils" );
+        Mask = require( "widget/mask" );
 
     return require( "base/utils" ).createClass( "TablePicker", {
 
@@ -123,7 +122,7 @@ define( function ( require ) {
             } ).on( "pickerselect", function ( e, info ) {
 
                 var row = info.row + 1,
-                    col = info.col + 1
+                    col = info.col + 1;
 
                 _self.close();
                 _self.trigger( "pickerselect", {

@@ -31,11 +31,9 @@ define( function () {
 
                 for ( var key in widget ) {
 
-                    if ( !widget.hasOwnProperty( key ) ) {
-                        continue;
+                    if ( widget.hasOwnProperty( key ) ) {
+                        this[ key ] = widget[ key ];
                     }
-
-                    this[ key ] = widget[ key ];
 
                 }
 
