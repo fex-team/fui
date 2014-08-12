@@ -68,7 +68,7 @@ define( function ( require ) {
             }
 
             if ( indexOrWidget < 0 ) {
-                return this;
+                return this.clearSelect();
             }
 
             indexOrWidget = this.__widgets[ indexOrWidget ];
@@ -77,6 +77,18 @@ define( function ( require ) {
 
             return this;
 
+        },
+
+        selectByValue: function(value) {
+            var values = this.__widgets.map(function(button) {
+                return button.getValue();
+            });
+            return this.select(values.indexOf(value));
+        },
+
+        clearSelect: function() {
+            this.__pressButton(null);
+            return this;
         },
 
         removeButton: function () {
@@ -201,7 +213,7 @@ define( function ( require ) {
                 return;
             }
 
-            button.press();
+            if ( button ) button.press();
 
             // 弹起其他按钮
             $.each( this.__widgets, function ( i, otherButton ) {

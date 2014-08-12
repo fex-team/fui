@@ -36,14 +36,12 @@ define( function ( require ) {
         disable: function () {
 
             this.callBase();
-            this.__labelWidget.disable();
 
         },
 
         enable: function () {
 
             this.callBase();
-            this.__labelWidget.enable();
 
         },
 
@@ -54,7 +52,7 @@ define( function ( require ) {
             this.__popupWidget.show();
 
             var $popup = $(this.__popupWidget.getElement());
-            $popup.css('top', parseInt($popup.css('top')) - $(this.__element).height() - 1);
+            $popup.css('top', parseInt($popup.css('top')) - $(this.__element).outerHeight());
 
         },
 
@@ -64,6 +62,10 @@ define( function ( require ) {
             this.__popupWidget.hide();
             this.__panelWidget.appendTo(this.__contentElement);
 
+        },
+
+        getPanelElement: function() {
+            return this.__panelWidget.getElement();
         },
 
         appendWidget: function (widget){

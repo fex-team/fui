@@ -1360,10 +1360,20 @@ _p[36] = {
                     indexOrWidget = $.inArray(indexOrWidget, this.__widgets);
                 }
                 if (indexOrWidget < 0) {
-                    return this;
+                    return this.clearSelect();
                 }
                 indexOrWidget = this.__widgets[indexOrWidget];
                 this.__pressButton(indexOrWidget);
+                return this;
+            },
+            selectByValue: function(value) {
+                var values = this.__widgets.map(function(button) {
+                    return button.getValue();
+                });
+                return this.select(values.indexOf(value));
+            },
+            clearSelect: function() {
+                this.__pressButton(null);
                 return this;
             },
             removeButton: function() {
@@ -1445,7 +1455,7 @@ _p[36] = {
                 if (this.__currentIndex === this.__prevIndex) {
                     return;
                 }
-                button.press();
+                if (button) button.press();
                 // 弹起其他按钮
                 $.each(this.__widgets, function(i, otherButton) {
                     if (otherButton !== button) {
@@ -2011,23 +2021,24 @@ _p[41] = {
             },
             disable: function() {
                 this.callBase();
-                this.__labelWidget.disable();
             },
             enable: function() {
                 this.callBase();
-                this.__labelWidget.enable();
             },
             open: function() {
                 this.__popupWidget.appendWidget(this.__panelWidget);
                 this.__maskWidget.show();
                 this.__popupWidget.show();
                 var $popup = $(this.__popupWidget.getElement());
-                $popup.css("top", parseInt($popup.css("top")) - $(this.__element).height() - 1);
+                $popup.css("top", parseInt($popup.css("top")) - $(this.__element).outerHeight());
             },
             close: function() {
                 this.__maskWidget.hide();
                 this.__popupWidget.hide();
                 this.__panelWidget.appendTo(this.__contentElement);
+            },
+            getPanelElement: function() {
+                return this.__panelWidget.getElement();
             },
             appendWidget: function(widget) {
                 this.__panelWidget.appendWidget(widget);
@@ -2244,7 +2255,6 @@ _p[43] = {
                 var _self = this;
                 this.callBase();
                 this.__buttonWidget = new Button(this.__options.button);
-                console.log(this.__options.input);
                 this.__inputWidget = new Input(this.__options.input);
                 // layout
                 switch (this.__options.layout) {
@@ -3783,6 +3793,13 @@ _p[57] = {
             removeClass: function(className) {
                 $(this.__element).removeClass(className);
             },
+            setStyle: function() {
+                $.fn.css.apply($(this.__element), arguments);
+                return this;
+            },
+            getStyle: function() {
+                return $.fn.css.apply($(this.__element), arguments);
+            },
             /**
          * 当前构件是否是处于禁用状态
          * @returns {boolean|disabled|jsl.$.disabled|id.disabled}
@@ -3865,6 +3882,9 @@ _p[57] = {
                 this.__initBasicEnv();
                 if (this.__options.hide) {
                     this.__hide();
+                }
+                if (this.__options.style) {
+                    this.setStyle(this.__options.style);
                 }
                 return this;
             },

@@ -91,7 +91,7 @@ define( function ( require ) {
             if ( typeof this.__options.input !== "object" ) {
                 this.__options.input = {
                     placeholder: this.__options.input
-                }
+                };
             }
 
             this.__options.input = $.extend( {}, this.__options.input, {
@@ -101,7 +101,7 @@ define( function ( require ) {
             if ( typeof this.__options.button !== "object" ) {
                 this.__options.button = {
                     icon: this.__options.button
-                }
+                };
             }
 
         },
@@ -113,7 +113,6 @@ define( function ( require ) {
             this.callBase();
 
             this.__buttonWidget = new Button( this.__options.button );
-            console.log(this.__options.input)
             this.__inputWidget = new Input( this.__options.input );
 
             // layout
