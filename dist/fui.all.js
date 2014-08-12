@@ -1360,10 +1360,20 @@ _p[36] = {
                     indexOrWidget = $.inArray(indexOrWidget, this.__widgets);
                 }
                 if (indexOrWidget < 0) {
-                    return this;
+                    return this.clearSelect();
                 }
                 indexOrWidget = this.__widgets[indexOrWidget];
                 this.__pressButton(indexOrWidget);
+                return this;
+            },
+            selectByValue: function(value) {
+                var values = this.__widgets.map(function(button) {
+                    return button.getValue();
+                });
+                return this.select(values.indexOf(value));
+            },
+            clearSelect: function() {
+                this.__pressButton(null);
                 return this;
             },
             removeButton: function() {
@@ -1445,7 +1455,7 @@ _p[36] = {
                 if (this.__currentIndex === this.__prevIndex) {
                     return;
                 }
-                button.press();
+                if (button) button.press();
                 // 弹起其他按钮
                 $.each(this.__widgets, function(i, otherButton) {
                     if (otherButton !== button) {
@@ -2020,7 +2030,7 @@ _p[41] = {
                 this.__maskWidget.show();
                 this.__popupWidget.show();
                 var $popup = $(this.__popupWidget.getElement());
-                $popup.css("top", parseInt($popup.css("top")) - $(this.__element).height() - 1);
+                $popup.css("top", parseInt($popup.css("top")) - $(this.__element).outerHeight());
             },
             close: function() {
                 this.__maskWidget.hide();

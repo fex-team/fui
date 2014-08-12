@@ -52,7 +52,7 @@ define( function ( require ) {
             this.__popupWidget.show();
 
             var $popup = $(this.__popupWidget.getElement());
-            $popup.css('top', parseInt($popup.css('top')) - $(this.__element).height() - 1);
+            $popup.css('top', parseInt($popup.css('top')) - $(this.__element).outerHeight());
 
         },
 
