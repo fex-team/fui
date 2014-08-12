@@ -2499,6 +2499,14 @@ _p[45] = {
                 this.__element.value = value;
                 return this;
             },
+            disable: function() {
+                this.callBase();
+                this.__element.disabled = true;
+            },
+            enable: function() {
+                this.__element.disabled = false;
+                this.callBase();
+            },
             reset: function() {
                 this.__element.value = this.__options.value || "";
                 return this;
