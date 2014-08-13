@@ -2661,9 +2661,10 @@ _p[47] = {
                 this.__labelWidget.enable();
             },
             __render: function() {
-                var $contentElement = null, opts = this.__options, ele = this.__element, classPrefix = CONF.classPrefix, labelClass = "fui-label-panel-content", originEle = this.__contentElement;
+                var $contentElement = null, opts = this.__options, ele = this.__element, classPrefix = CONF.classPrefix, labelClass = "fui-label-panel-content", originEle = null;
                 this.__labelWidget = new Label(opts.label);
                 this.callBase();
+                originEle = this.__contentElement;
                 $(ele).addClass(classPrefix + "label-panel");
                 $(ele).addClass(classPrefix + "layout-" + opts.layout);
                 $contentElement = $('<div class="' + labelClass + '"></div>');
