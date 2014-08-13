@@ -47,11 +47,13 @@ define( function ( require ) {
                 ele = this.__element,
                 classPrefix = CONF.classPrefix,
                 labelClass = 'fui-label-panel-content',
-                originEle = this.__contentElement;
+                originEle = null;
 
             this.__labelWidget = new Label( opts.label );
 
             this.callBase();
+
+            originEle = this.__contentElement;
 
             $( ele ).addClass( classPrefix + "label-panel" );
             $( ele ).addClass( classPrefix + "layout-" + opts.layout );
