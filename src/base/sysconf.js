@@ -27,7 +27,9 @@ define( function () {
             textarea: 1,
             button: 1,
             select: 1,
-            option: 1
+            option: 1,
+            object: 1,
+            embed: 1
         }
 
     };

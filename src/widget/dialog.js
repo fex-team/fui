@@ -85,6 +85,7 @@ define( function ( require ) {
         appendTo: function ( container ) {
 
             this.callBase( container );
+            this.__maskWidget.appendTo( container );
             this.__inDoc = true;
 
             return this;

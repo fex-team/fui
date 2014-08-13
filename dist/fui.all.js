@@ -656,7 +656,9 @@ _p[12] = {
                 textarea: 1,
                 button: 1,
                 select: 1,
-                option: 1
+                option: 1,
+                object: 1,
+                embed: 1
             }
         };
     }
@@ -1822,6 +1824,7 @@ _p[40] = {
             },
             appendTo: function(container) {
                 this.callBase(container);
+                this.__maskWidget.appendTo(container);
                 this.__inDoc = true;
                 return this;
             },
@@ -1997,6 +2000,8 @@ _p[41] = {
                 this.__popupWidget.show();
                 var $popup = $(this.__popupWidget.getElement());
                 $popup.css("top", parseInt($popup.css("top")) - $(this.__element).outerHeight());
+                $popup.css("min-width", $(this.__element).outerWidth());
+                $popup.css("min-height", $(this.__element).height());
             },
             close: function() {
                 this.__maskWidget.hide();
@@ -3763,9 +3768,11 @@ _p[57] = {
             },
             addClass: function(className) {
                 $(this.__element).addClass(className);
+                return this;
             },
             removeClass: function(className) {
                 $(this.__element).removeClass(className);
+                return this;
             },
             setStyle: function() {
                 $.fn.css.apply($(this.__element), arguments);
