@@ -1820,12 +1820,15 @@ _p[40] = {
             getButton: function(index) {
                 return this.__buttons[index];
             },
+            appendTo: function(container) {
+                this.callBase(container);
+                this.__inDoc = true;
+            },
             show: function() {
                 if (!this.__target) {
                     this.__target = this.__element.ownerDocument.body;
                 }
                 if (!this.__inDoc) {
-                    this.__inDoc = true;
                     this.appendTo(this.__element.ownerDocument.body);
                 }
                 this.__maskWidget.show();
