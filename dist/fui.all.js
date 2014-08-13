@@ -1823,6 +1823,7 @@ _p[40] = {
             appendTo: function(container) {
                 this.callBase(container);
                 this.__inDoc = true;
+                return this;
             },
             show: function() {
                 if (!this.__target) {

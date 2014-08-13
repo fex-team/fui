@@ -83,8 +83,12 @@ define( function ( require ) {
         },
 
         appendTo: function ( container ) {
+
             this.callBase( container );
             this.__inDoc = true;
+
+            return this;
+
         },
 
         show: function () {
