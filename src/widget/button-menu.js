@@ -11,7 +11,6 @@ define( function ( require ) {
         Button = require( "widget/button" ),
         Menu = require( "widget/menu" ),
         Mask = require( "widget/mask" ),
-        Utils = require( "base/utils" ),
         LAYOUT = CONF.layout;
 
     return require( "base/utils" ).createClass( "ButtonMenu", {
@@ -66,8 +65,6 @@ define( function ( require ) {
         },
 
         __render: function () {
-
-            var _self = this;
 
             this.callBase();
 

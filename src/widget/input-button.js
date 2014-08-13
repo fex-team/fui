@@ -9,8 +9,7 @@ define( function ( require ) {
         CONF = require( "base/sysconf" ),
         tpl = require( "tpl/input-button" ),
         Button = require( "widget/button" ),
-        Input = require( "widget/input" ),
-        Utils = require( "base/utils" );
+        Input = require( "widget/input" );
 
     return require( "base/utils" ).createClass( "InputButton", {
 
@@ -119,13 +118,16 @@ define( function ( require ) {
             switch ( this.__options.layout ) {
 
                 case 'left':
+                /* falls through */
                 case 'top':
                     this.__buttonWidget.appendTo( this.__element );
                     this.__inputWidget.appendTo( this.__element );
                     break;
 
                 case 'right':
+                /* falls through */
                 case 'bottom':
+                /* falls through */
                 default:
                     this.__inputWidget.appendTo( this.__element );
                     this.__buttonWidget.appendTo( this.__element );
@@ -133,7 +135,7 @@ define( function ( require ) {
 
             }
 
-            $( this.__element ).addClass( CONF.classPrefix + "layout-"+this.__options.layout )
+            $( this.__element ).addClass( CONF.classPrefix + "layout-"+this.__options.layout );
 
             this.__buttonWidget.on( "click", function () {
                 _self.trigger( "buttonclick" );

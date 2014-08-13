@@ -5,7 +5,6 @@
 define( function ( require ) {
 
     var Utils = require( "base/utils" ),
-        CONF = require( "base/sysconf" ),
         panelTpl = require( "tpl/panel" ),
         $ = require( "base/jquery" );
 

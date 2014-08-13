@@ -33,6 +33,7 @@
 
             input.on( "inputcomplete", function ( e, info ) {
 
+                input.disable();
                 console.log( this.widgetName, info.value )
 
             } );

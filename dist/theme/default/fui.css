@@ -376,6 +376,12 @@
 .fui-input:FOCUS {
   border-color: #4d90fe;
 }
+.fui-input.fui-disabled {
+  border-color: #d3d3d3;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 
 /**
  * FUI 通用样式定义

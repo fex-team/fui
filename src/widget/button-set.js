@@ -7,7 +7,6 @@ define( function ( require ) {
 
     var $ = require( "base/jquery" ),
         CONF = require( "base/sysconf" ),
-        Utils = require( "base/utils" ),
         ToggleButton = require( "widget/toggle-button" );
 
     return require( "base/utils" ).createClass( "Buttonset", {
@@ -157,7 +156,7 @@ define( function ( require ) {
 
             this.callBase();
 
-            $( this.__element ).addClass( CONF.classPrefix + "buttonset" )
+            $( this.__element ).addClass( CONF.classPrefix + "buttonset" );
 
             this.__initButtons();
 
@@ -213,7 +212,9 @@ define( function ( require ) {
                 return;
             }
 
-            if ( button ) button.press();
+            if ( button ) {
+                button.press();
+            }
 
             // 弹起其他按钮
             $.each( this.__widgets, function ( i, otherButton ) {

@@ -9,8 +9,7 @@ define( function ( require ) {
 
     function extend ( target ) {
 
-        var type = null,
-            isPlainObject = false,
+        var isPlainObject = false,
             isArray = false,
             sourceObj = null;
 
@@ -33,7 +32,7 @@ define( function ( require ) {
 
                 if ( !isPlainObject && !isArray ) {
 
-                    target[ key ] = source[ key ]
+                    target[ key ] = source[ key ];
 
                 } else if ( isPlainObject ) {
 

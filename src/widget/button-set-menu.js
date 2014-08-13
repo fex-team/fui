@@ -6,7 +6,6 @@
 define( function ( require ) {
 
     var $ = require( "base/jquery" ),
-        CONF = require( "base/sysconf" ),
         tpl = require( "tpl/input-menu" ),
         InputButton = require( "widget/input-button" ),
         Menu = require( "widget/menu" ),

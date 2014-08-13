@@ -6,8 +6,7 @@ define( function ( require ) {
 
     var $ = require( "base/jquery" ),
         CONF = require( "base/sysconf" ),
-        tpl = require( "ext/word/tpl/t-picker" ),
-        Utils = require( "base/utils" );
+        tpl = require( "ext/word/tpl/t-picker" );
 
     return require( "base/utils" ).createClass( "TPicker", {
 
@@ -62,7 +61,7 @@ define( function ( require ) {
                 info = {
                     row: parseInt( info[ 0 ], 10 ),
                     col: parseInt( info[ 1 ], 10 )
-                }
+                };
 
                 if ( e.type === "click" ) {
                     _self.__select( info.row, info.col );

@@ -90,9 +90,11 @@ define( function ( require ) {
 
         __update: function ( state ) {
 
+            var fn = state ? "addClass" : "removeClass";
+
             state = !!state;
 
-            $( this.__element )[ state ? "addClass" : "removeClass" ]( CONF.classPrefix + "item-selected" );
+            $( this.__element )[ fn ]( CONF.classPrefix + "item-selected" );
             this.__selectState = state;
 
             this.trigger( state ? "itemselect" : "itemunselect" );

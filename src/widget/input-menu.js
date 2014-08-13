@@ -6,12 +6,10 @@
 define( function ( require ) {
 
     var $ = require( "base/jquery" ),
-        CONF = require( "base/sysconf" ),
         tpl = require( "tpl/input-menu" ),
         InputButton = require( "widget/input-button" ),
         Menu = require( "widget/menu" ),
-        Mask = require( "widget/mask" ),
-        Utils = require( "base/utils" );
+        Mask = require( "widget/mask" );
 
     return require( "base/utils" ).createClass( "InputMenu", {
 

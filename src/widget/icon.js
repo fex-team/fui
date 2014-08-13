@@ -5,10 +5,8 @@
 
 define( function ( require ) {
 
-    var prefix = '_fui_',
-        $ = require( "base/jquery" ),
-        iconTpl = require( 'tpl/icon' ),
-        Utils = require( "base/utils" );
+    var $ = require( "base/jquery" ),
+        iconTpl = require( 'tpl/icon' );
 
     return require( "base/utils" ).createClass( "Icon", {
 
@@ -31,9 +29,6 @@ define( function ( require ) {
         },
 
         setImage: function ( imageSrc ) {
-
-            var tpl = null,
-                node = null;
 
             if ( this.__options.img === imageSrc ) {
                 return this;

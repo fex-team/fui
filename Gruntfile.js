@@ -133,7 +133,7 @@ module.exports = function(grunt) {
         // hint检查
         jshint: {
             options: {
-                ignores: [ 'src/base/canvg.js' ],
+                ignores: [ 'src/base/kit/class.js' ],
                 jshintrc: '.jshintrc'
             },
             check: [ 'src/**/*.js' ]
@@ -210,6 +210,7 @@ module.exports = function(grunt) {
                 tplSouceArr.join( ' +\n' ).replace( /<[^\/\s>]+/g, function ( match ) {
                     return match + ' unselectable="on"';
                 } ) +
+                ';'+
                 '\n} );';
 
     }
@@ -242,6 +243,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask( 'default', [ 'jshint' ] );
     grunt.registerTask( 'dev', [ 'less', 'tpl', 'watch' ] );
-    grunt.registerTask( 'build', [ /*'jshint', */'dependence:replace', 'concat:full', 'uglify:minimize', 'less:build', 'cssmin', 'copy', 'clean' ] );
+    grunt.registerTask( 'build', [ 'jshint', 'dependence:replace', 'concat:full', 'uglify:minimize', 'less:build', 'cssmin', 'copy', 'clean' ] );
 
 };

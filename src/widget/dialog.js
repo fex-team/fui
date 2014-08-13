@@ -82,6 +82,11 @@ define( function ( require ) {
             return this.__buttons[ index ];
         },
 
+        appendTo: function ( container ) {
+            this.callBase( container );
+            this.__inDoc = true;
+        },
+
         show: function () {
 
             if ( !this.__target ) {
@@ -89,7 +94,6 @@ define( function ( require ) {
             }
 
             if ( !this.__inDoc ) {
-                this.__inDoc = true;
                 this.appendTo( this.__element.ownerDocument.body );
             }
 

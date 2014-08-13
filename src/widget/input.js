@@ -1,14 +1,13 @@
- /**
- * Input widget
- */
+/*jshint camelcase:false*/
+/**
+* Input widget
+*/
 
 define( function ( require ) {
 
-    var prefix = '_fui_',
-        CONF = require( "base/sysconf" ),
+    var CONF = require( "base/sysconf" ),
         $ = require( "base/jquery" ),
-        tpl = require( 'tpl/input' ),
-        Utils = require( "base/utils" );
+        tpl = require( 'tpl/input' );
 
     return require( "base/utils" ).createClass( "Input", {
 
@@ -33,6 +32,16 @@ define( function ( require ) {
         setValue: function ( value ) {
             this.__element.value = value;
             return this;
+        },
+
+        disable: function () {
+            this.callBase();
+            this.__element.disabled = true;
+        },
+
+        enable: function () {
+            this.__element.disabled = false;
+            this.callBase();
         },
 
         reset: function () {

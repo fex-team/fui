@@ -11,8 +11,7 @@ define( function ( require ) {
         Button = require( "widget/button" ),
         Panel = require( "widget/panel" ),
         PPanel = require( "widget/ppanel" ),
-        Mask = require( "widget/mask" ),
-        Utils = require( "base/utils" );
+        Mask = require( "widget/mask" );
 
     return require( "base/utils" ).createClass( "DropPanel", {
 
@@ -93,7 +92,7 @@ define( function ( require ) {
         },
 
         insertWidgets: function ( index, widgets ) {
-            this.__panelWidget.insertWidgets.call( this, arguments );
+            this.__panelWidget.insertWidgets.apply( this, arguments );
             return this;
         },
 
