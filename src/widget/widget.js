@@ -82,12 +82,14 @@ define( function ( require ) {
 
             $( this.__element).addClass( className );
 
+            return this;
         },
 
         removeClass: function ( className ) {
 
             $( this.__element).removeClass( className );
 
+            return this;
         },
 
         setStyle: function() {

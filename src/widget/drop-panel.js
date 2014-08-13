@@ -53,7 +53,8 @@ define( function ( require ) {
 
             var $popup = $(this.__popupWidget.getElement());
             $popup.css('top', parseInt($popup.css('top')) - $(this.__element).outerHeight());
-
+            $popup.css('min-width', $(this.__element).outerWidth());
+            $popup.css('min-height', $(this.__element).height());
         },
 
         close: function (){
