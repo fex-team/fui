@@ -2019,7 +2019,7 @@ _p[41] = {
                 this.__panelWidget.insertWidget(index, widget);
             },
             insertWidgets: function(index, widgets) {
-                this.__panelWidget.insertWidgets.call(this, arguments);
+                this.__panelWidget.insertWidgets.apply(this, arguments);
                 return this;
             },
             removeWidget: function(widget) {

@@ -91,7 +91,7 @@ define( function ( require ) {
         },
 
         insertWidgets: function ( index, widgets ) {
-            this.__panelWidget.insertWidgets.call( this, arguments );
+            this.__panelWidget.insertWidgets.apply( this, arguments );
             return this;
         },
 
