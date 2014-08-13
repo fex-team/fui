@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-08-12
+ * Flex UI - v1.0.0 - 2014-08-13
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -1735,7 +1735,7 @@ _p[39] = {
                 }
                 return this;
             },
-            // Overload
+            // Override
             __appendChild: function(childWidget) {
                 return this.appendWidget(childWidget);
             },

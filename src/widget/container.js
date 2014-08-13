@@ -223,7 +223,7 @@ define( function ( require ) {
 
         },
 
-        // Overload
+        // Override
         __appendChild: function ( childWidget ) {
 
             return this.appendWidget( childWidget );
