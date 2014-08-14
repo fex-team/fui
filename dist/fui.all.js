@@ -37,6 +37,7 @@ var _p = {
     }
 };
 
+//src/base/creator.js
 /**
  * UI构造工厂, 提供可通过参数配置项创建多个构件的机制.
  */
@@ -67,6 +68,7 @@ _p[0] = {
     }
 };
 
+//src/base/exports.js
 /**
  * 模块暴露
  */
@@ -105,6 +107,7 @@ _p[1] = {
     }
 };
 
+//src/base/extensions.js
 /**
  * 扩展模块暴露
  */
@@ -117,15 +120,18 @@ _p[2] = {
     }
 };
 
+//src/base/jhtmls.js
 /**
  * jhtmls模板引擎
  */
 _p[3] = {
     value: function() {
-        return window.jhtmls;
+        /* global jhtmls: true */
+        return jhtmls;
     }
 };
 
+//src/base/jquery.js
 /**
  * jquery模块封装
  */
@@ -135,6 +141,7 @@ _p[4] = {
     }
 };
 
+//src/base/kit/class.js
 /**
  * @description 创建一个类
  * @param {String}    fullClassName  类全名，包括命名空间。
@@ -303,6 +310,7 @@ _p[5] = {
     }
 };
 
+//src/base/kit/common.js
 /**
  * 通用工具包
  */
@@ -352,6 +360,7 @@ _p[6] = {
     }
 };
 
+//src/base/kit/compile.js
 /**
  * 模板编译器
  */
@@ -377,6 +386,7 @@ _p[7] = {
     }
 };
 
+//src/base/kit/draggable.js
 /**
  * Draggable Lib
  */
@@ -516,6 +526,7 @@ _p[8] = {
     }
 };
 
+//src/base/kit/extend.js
 /**
  * 弥补jQuery的extend在克隆对象和数组时存在的问题
  */
@@ -571,6 +582,7 @@ _p[9] = {
     }
 };
 
+//src/base/kit/widget.js
 /**
  * 构件相关工具方法
  */
@@ -584,6 +596,7 @@ _p[10] = {
     }
 };
 
+//src/base/ns.js
 /**
  * FUI名称空间
  */
@@ -619,6 +632,7 @@ _p[11] = {
     }
 };
 
+//src/base/sysconf.js
 /**
  * UI系统配置
  */
@@ -652,6 +666,7 @@ _p[12] = {
     }
 };
 
+//src/base/utils.js
 /**
  * utils类包， 提供常用操作的封装，补充jQuery的不足
  */
@@ -666,18 +681,21 @@ _p[13] = {
     }
 };
 
+//src/ext/word/tpl/t-picker.js
 _p[14] = {
     value: function() {
         return '<div unselectable="on" class="fui-t-picker"></div>\n';
     }
 };
 
+//src/ext/word/tpl/table-picker.js
 _p[15] = {
     value: function() {
         return '<div unselectable="on" class="fui-table-picker"></div>\n';
     }
 };
 
+//src/ext/word/widget/t-picker.js
 /**
  * TPicker -- table 选择器
  */
@@ -763,6 +781,7 @@ _p[16] = {
     }
 };
 
+//src/ext/word/widget/table-picker.js
 /**
  * Table选择器构件
  */
@@ -860,102 +879,119 @@ _p[17] = {
     }
 };
 
+//src/tpl/button-menu.js
 _p[18] = {
     value: function() {
         return '<div unselectable="on" class="fui-button-menu"></div>\n';
     }
 };
 
+//src/tpl/button.js
 _p[19] = {
     value: function() {
         return '<div unselectable="on" class="fui-button"></div>\n';
     }
 };
 
+//src/tpl/colorpicker.js
 _p[20] = {
     value: function() {
         return '<div unselectable="on" class="fui-colorpicker-container">\n' + '<div unselectable="on" class="fui-colorpicker-toolbar">\n' + '<div unselectable="on" class="fui-colorpicker-preview"></div>\n' + '<div unselectable="on" class="fui-colorpicker-clear">$clearText</div>\n' + "</div>\n" + '<div unselectable="on" class="fui-colorpicker-title">$commonText</div>\n' + '<div unselectable="on" class="fui-colorpicker-commoncolor">\n' + "helper.forEach( commonColor, function ( index, colors ) {\n" + '<div unselectable="on" class="fui-colorpicker-colors fui-colorpicker-colors-line$index">\n' + "helper.forEach( colors, function( i, color ) {\n" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: $color; border-color: #{color.toLowerCase() == \'#ffffff\' ? \'#eeeeee\': color};" data-color="$color"></span>\n' + "});\n" + "</div>\n" + "} );\n" + "</div>\n" + '<div unselectable="on" class="fui-colorpicker-title">$standardText</div>\n' + '<div unselectable="on" class="fui-colorpicker-standardcolor fui-colorpicker-colors">\n' + "helper.forEach( standardColor, function ( i, color ) {\n" + '<span unselectable="on" class="fui-colorpicker-item" style="background-color: $color; border-color: $color;" data-color="$color"></span>\n' + "} );\n" + "</div>\n" + "</div>\n";
     }
 };
 
+//src/tpl/dialog.js
 _p[21] = {
     value: function() {
         return '<div unselectable="on" class="fui-dialog-wrap">\n' + '<div unselectable="on" class="fui-dialog-head">\n' + '<h1 unselectable="on" class="fui-dialog-caption">$caption</h1>\n' + "</div>\n" + '<div unselectable="on" class="fui-dialog-body"></div>\n' + '<div unselectable="on" class="fui-dialog-foot"></div>\n' + "</div>\n";
     }
 };
 
+//src/tpl/drop-panel.js
 _p[22] = {
     value: function() {
         return "<div unselectable=\"on\" class=\"fui-drop-panel\"  #{ text ? 'title=\"' + m.text + '\"' : '' }></div>\n";
     }
 };
 
+//src/tpl/icon.js
 _p[23] = {
     value: function() {
         return '<div unselectable="on" class="fui-icon" >\n' + "if ( this.img ) {\n" + '<img unselectable="on" src="#{this.img}" >\n' + "}\n" + "</div>\n";
     }
 };
 
+//src/tpl/input-button.js
 _p[24] = {
     value: function() {
         return '<div unselectable="on" class="fui-input-button"></div>\n';
     }
 };
 
+//src/tpl/input-menu.js
 _p[25] = {
     value: function() {
         return '<div unselectable="on" class="fui-input-menu"></div>\n';
     }
 };
 
+//src/tpl/input.js
 _p[26] = {
     value: function() {
         return '<input unselectable="on" class="fui-input"  autocomplete="off" !#{ value ? \'value="\' + value + \'"\' : \'\'}>\n';
     }
 };
 
+//src/tpl/item.js
 _p[27] = {
     value: function() {
         return "<div unselectable=\"on\" class=\"fui-item!#{ selected ? ' fui-item-selected': '' }\" ></div>\n";
     }
 };
 
+//src/tpl/label.js
 _p[28] = {
     value: function() {
         return '<div unselectable="on" class="fui-label">$text</div>\n';
     }
 };
 
+//src/tpl/mask.js
 _p[29] = {
     value: function() {
         return '<div unselectable="on" class="fui-mask" style="background-color: $bgcolor; opacity: $opacity;"></div>\n';
     }
 };
 
+//src/tpl/panel.js
 _p[30] = {
     value: function() {
         return '<div unselectable="on" class="fui-panel"></div>\n';
     }
 };
 
+//src/tpl/separator.js
 _p[31] = {
     value: function() {
         return '<div unselectable="on" class="fui-separator"></div>\n';
     }
 };
 
+//src/tpl/spin-button.js
 _p[32] = {
     value: function() {
         return '<div unselectable="on" class="fui-spin-button"></div>\n';
     }
 };
 
+//src/tpl/tabs.js
 _p[33] = {
     value: function() {
         return '<div unselectable="on" class="fui-tabs">\n' + '<div unselectable="on" class="fui-tabs-button-wrap"></div>\n' + '<div unselectable="on" class="fui-tabs-panel-wrap"></div>\n' + "</div>\n";
     }
 };
 
+//src/widget/button-menu.js
 /**
  * Button对象
  * 通用按钮构件
@@ -1072,6 +1108,7 @@ _p[34] = {
     }
 };
 
+//src/widget/button-set-menu.js
 /**
  * InputMenu构件
  * 可接受输入的下拉菜单构件
@@ -1238,6 +1275,7 @@ _p[35] = {
     }
 };
 
+//src/widget/button-set.js
 /**
  * Buttonset对象
  * 通用按钮构件
@@ -1400,6 +1438,7 @@ _p[36] = {
     }
 };
 
+//src/widget/button.js
 /**
  * Button对象
  * 通用按钮构件
@@ -1477,6 +1516,7 @@ _p[37] = {
     }
 };
 
+//src/widget/colorpicker.js
 /**
  * 容器类： PPanel = Positioning Panel
  */
@@ -1567,6 +1607,7 @@ _p[38] = {
     }
 };
 
+//src/widget/container.js
 /**
  * Container类， 所有容器类的父类`
  * @abstract
@@ -1727,6 +1768,7 @@ _p[39] = {
     }
 };
 
+//src/widget/dialog.js
 /**
  * 容器类： PPanel = Positioning Panel
  */
@@ -1928,6 +1970,7 @@ _p[40] = {
     }
 };
 
+//src/widget/drop-panel.js
 /**
  * DropPanel对象
  * 可接受输入的按钮构件
@@ -2049,6 +2092,7 @@ _p[41] = {
     }
 };
 
+//src/widget/icon.js
 /**
  * icon widget
  * 封装多种icon方式
@@ -2112,6 +2156,7 @@ _p[42] = {
     }
 };
 
+//src/widget/input-button.js
 /**
  * InputButton对象
  * 可接受输入的按钮构件
@@ -2210,6 +2255,7 @@ _p[43] = {
     }
 };
 
+//src/widget/input-menu.js
 /**
  * InputMenu构件
  * 可接受输入的下拉菜单构件
@@ -2415,6 +2461,7 @@ _p[44] = {
     }
 };
 
+//src/widget/input.js
 /*jshint camelcase:false*/
 /**
 * Input widget
@@ -2499,6 +2546,7 @@ _p[45] = {
     }
 };
 
+//src/widget/item.js
 /**
  * Label Widget
  */
@@ -2595,6 +2643,7 @@ _p[46] = {
     }
 };
 
+//src/widget/label-panel.js
 /**
  * LabelPanel Widget
  * 带标签的面板
@@ -2652,6 +2701,7 @@ _p[47] = {
     }
 };
 
+//src/widget/label.js
 /**
  * Label Widget
  */
@@ -2702,6 +2752,7 @@ _p[48] = {
     }
 };
 
+//src/widget/mask.js
 /*jshint camelcase:false*/
 /**
  * Mask Widget
@@ -2837,6 +2888,7 @@ _p[49] = {
     }
 };
 
+//src/widget/menu.js
 /**
  * Menu Widget
  */
@@ -2986,6 +3038,7 @@ _p[50] = {
     }
 };
 
+//src/widget/panel.js
 /**
  * 容器类： Panel
  */
@@ -3015,13 +3068,14 @@ _p[51] = {
     }
 };
 
+//src/widget/popup.js
 /**
  * 容器类： PPanel = Positioning Panel
  */
 _p[52] = {
     value: function(require) {
         var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), Mask = _p.r(49), $ = _p.r(4);
-        return Utils.createClass("PPanel", {
+        return Utils.createClass("Popup", {
             base: _p.r(53),
             constructor: function(options) {
                 var defaultOptions = {
@@ -3070,7 +3124,7 @@ _p[52] = {
             },
             __initOptions: function() {
                 this.callBase();
-                this.widgetName = "Dialog";
+                this.widgetName = "Popup";
                 this.__target = this.__options.target;
                 this.__layout = this.__options.layout;
                 this.__inDoc = false;
@@ -3099,6 +3153,7 @@ _p[52] = {
     }
 };
 
+//src/widget/ppanel.js
 /*jshint camelcase:false*/
 /**
  * 容器类： PPanel = Positioning Panel
@@ -3365,6 +3420,7 @@ _p[53] = {
     }
 };
 
+//src/widget/separator.js
 /**
  * Separator(分隔符) Widget
  */
@@ -3391,6 +3447,7 @@ _p[54] = {
     }
 };
 
+//src/widget/spin-button.js
 /**
  * SpinButton对象
  * 数值按钮构件
@@ -3486,6 +3543,7 @@ _p[55] = {
     }
 };
 
+//src/widget/tabs.js
 /**
  * Tabs Widget
  */
@@ -3652,6 +3710,7 @@ _p[56] = {
     }
 };
 
+//src/widget/toggle-button.js
 /**
  * ToggleButton对象
  * 可切换按钮构件
@@ -3737,6 +3796,7 @@ _p[57] = {
     }
 };
 
+//src/widget/widget.js
 /*jshint camelcase:false*/
 /**
  * widget对象
@@ -4015,6 +4075,7 @@ _p[58] = {
     }
 };
 
+//dev-lib/exports.js
 /**
  * 模块暴露
  */
