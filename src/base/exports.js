@@ -31,6 +31,7 @@ define( function ( require ) {
         InputMenu: require( "widget/input-menu" ),
         ButtonMenu: require( "widget/button-menu" ),
         DropPanel: require( "widget/drop-panel" ),
+        Popup: require( "widget/popup" ),
         Dialog: require( "widget/dialog" ),
 
         Utils: require( "base/utils" ),
