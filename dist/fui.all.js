@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-08-14
+ * Flex UI - v1.0.0 - 2014-08-15
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -76,29 +76,30 @@ _p[1] = {
     value: function(require) {
         var FUI_NS = _p.r(11);
         FUI_NS.___register({
-            Widget: _p.r(58),
+            Widget: _p.r(59),
             Icon: _p.r(42),
             Label: _p.r(48),
             Button: _p.r(37),
-            ToggleButton: _p.r(57),
+            ToggleButton: _p.r(58),
             Buttonset: _p.r(36),
-            Separator: _p.r(54),
+            Separator: _p.r(55),
             Item: _p.r(46),
             Input: _p.r(45),
             InputButton: _p.r(43),
             Mask: _p.r(49),
             ColorPicker: _p.r(38),
-            Tabs: _p.r(56),
-            SpinButton: _p.r(55),
+            Tabs: _p.r(57),
+            SpinButton: _p.r(56),
             Container: _p.r(39),
             Panel: _p.r(51),
-            PPanel: _p.r(53),
+            PPanel: _p.r(54),
             LabelPanel: _p.r(47),
             Menu: _p.r(50),
             InputMenu: _p.r(44),
             ButtonMenu: _p.r(34),
             DropPanel: _p.r(41),
-            Popup: _p.r(52),
+            Popup: _p.r(53),
+            PopupMenu: _p.r(52),
             Dialog: _p.r(40),
             Utils: _p.r(13),
             Creator: _p.r(0)
@@ -703,7 +704,7 @@ _p[16] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(14);
         return _p.r(13).createClass("TPicker", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     // 10行 10列
@@ -787,9 +788,9 @@ _p[16] = {
  */
 _p[17] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(15), Label = _p.r(48), TPicker = _p.r(16), Button = _p.r(37), PPanel = _p.r(53), Mask = _p.r(49);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(15), Label = _p.r(48), TPicker = _p.r(16), Button = _p.r(37), PPanel = _p.r(54), Mask = _p.r(49);
         return _p.r(13).createClass("TablePicker", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     button: null,
@@ -1000,7 +1001,7 @@ _p[34] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(18), Button = _p.r(37), Menu = _p.r(50), Mask = _p.r(49), LAYOUT = CONF.layout;
         return _p.r(13).createClass("ButtonMenu", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     // item选项
@@ -1117,7 +1118,7 @@ _p[35] = {
     value: function(require) {
         var $ = _p.r(4), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
         return _p.r(13).createClass("InputMenu", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1282,7 +1283,7 @@ _p[35] = {
  */
 _p[36] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), ToggleButton = _p.r(57);
+        var $ = _p.r(4), CONF = _p.r(12), ToggleButton = _p.r(58);
         return _p.r(13).createClass("Buttonset", {
             base: _p.r(51),
             constructor: function(options) {
@@ -1447,7 +1448,7 @@ _p[37] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), buttonTpl = _p.r(19), Icon = _p.r(42), Label = _p.r(48);
         return _p.r(13).createClass("Button", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     label: null,
@@ -1464,6 +1465,12 @@ _p[37] = {
             },
             setLabel: function(text) {
                 return this.__labelWidget.setText(text);
+            },
+            getLabelWidget: function() {
+                return this.__labelWidget;
+            },
+            getIconWidget: function() {
+                return this.__iconWidget;
             },
             __render: function() {
                 this.callBase();
@@ -1524,7 +1531,7 @@ _p[38] = {
     value: function(require) {
         var Utils = _p.r(13), CONF = _p.r(12), Mask = _p.r(49), tpl = _p.r(20), $ = _p.r(4);
         return Utils.createClass("ColorPicker", {
-            base: _p.r(53),
+            base: _p.r(54),
             constructor: function(options) {
                 var defaultOptions = {
                     clearText: "",
@@ -1614,7 +1621,7 @@ _p[38] = {
  */
 _p[39] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), Creator = _p.r(0), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(59), Creator = _p.r(0), $ = _p.r(4);
         return Utils.createClass("Container", {
             base: Widget,
             constructor: function(options) {
@@ -1774,12 +1781,12 @@ _p[39] = {
  */
 _p[40] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), Mask = _p.r(49), tpl = _p.r(21), Button = _p.r(37), LAYOUT = CONF.layout, $ = _p.r(4), ACTION = {
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(59), Mask = _p.r(49), tpl = _p.r(21), Button = _p.r(37), LAYOUT = CONF.layout, $ = _p.r(4), ACTION = {
             CANCEL: "cancel",
             OK: "ok"
         };
         return Utils.createClass("Dialog", {
-            base: _p.r(53),
+            base: _p.r(54),
             constructor: function(options) {
                 var defaultOptions = {
                     layout: LAYOUT.CENTER,
@@ -1977,9 +1984,9 @@ _p[40] = {
  */
 _p[41] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(22), Button = _p.r(37), Panel = _p.r(51), PPanel = _p.r(53), Mask = _p.r(49);
+        var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(22), Button = _p.r(37), Panel = _p.r(51), PPanel = _p.r(54), Mask = _p.r(49);
         return _p.r(13).createClass("DropPanel", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     button: null,
@@ -2101,7 +2108,7 @@ _p[42] = {
     value: function(require) {
         var $ = _p.r(4), iconTpl = _p.r(23);
         return _p.r(13).createClass("Icon", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     img: null
@@ -2165,7 +2172,7 @@ _p[43] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(24), Button = _p.r(37), Input = _p.r(45);
         return _p.r(13).createClass("InputButton", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     button: null,
@@ -2264,7 +2271,7 @@ _p[44] = {
     value: function(require) {
         var $ = _p.r(4), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49);
         return _p.r(13).createClass("InputMenu", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     input: null,
@@ -2470,7 +2477,7 @@ _p[45] = {
     value: function(require) {
         var CONF = _p.r(12), $ = _p.r(4), tpl = _p.r(26);
         return _p.r(13).createClass("Input", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     placeholder: null
@@ -2554,7 +2561,7 @@ _p[46] = {
     value: function(require) {
         var Utils = _p.r(13), itemTpl = _p.r(27), Icon = _p.r(42), Label = _p.r(48), CONF = _p.r(12), $ = _p.r(4);
         return Utils.createClass("Item", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     label: "",
@@ -2709,7 +2716,7 @@ _p[48] = {
     value: function(require) {
         var Utils = _p.r(13), labelTpl = _p.r(28), $ = _p.r(4);
         return Utils.createClass("Label", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     text: "",
@@ -2759,9 +2766,9 @@ _p[48] = {
  */
 _p[49] = {
     value: function(require) {
-        var Utils = _p.r(13), tpl = _p.r(29), Widget = _p.r(58), $ = _p.r(4), __cache_inited = false, __MASK_CACHE = [];
+        var Utils = _p.r(13), tpl = _p.r(29), Widget = _p.r(59), $ = _p.r(4), __cache_inited = false, __MASK_CACHE = [];
         return Utils.createClass("Mask", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     bgcolor: "#000",
@@ -2896,7 +2903,7 @@ _p[50] = {
     value: function(require) {
         var Utils = _p.r(13), Item = _p.r(46), CONF = _p.r(12), $ = _p.r(4);
         return Utils.createClass("Menu", {
-            base: _p.r(53),
+            base: _p.r(54),
             constructor: function(options) {
                 var defaultOptions = {
                     column: true,
@@ -3068,15 +3075,43 @@ _p[51] = {
     }
 };
 
+//src/widget/popup-menu.js
+_p[52] = {
+    value: function(require) {
+        var Utils = _p.r(13), CONF = _p.r(12), $ = _p.r(4), Menu = _p.r(50);
+        return Utils.createClass("PopupMenu", {
+            base: _p.r(53),
+            constructor: function(options) {
+                this.callBase($.extend({
+                    menu: {}
+                }, options));
+            },
+            getMenuWidget: function() {
+                return this.__menuWidget;
+            },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "PopupMenu";
+            },
+            __render: function() {
+                this.callBase();
+                this.__menuWidget = new Menu();
+                this.__appendWidget(this.__menuWidget);
+                $(this.__element).addClass(CONF.classPrefix + "popup-menu");
+            }
+        });
+    }
+};
+
 //src/widget/popup.js
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[52] = {
+_p[53] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), Mask = _p.r(49), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(59), Mask = _p.r(49), $ = _p.r(4);
         return Utils.createClass("Popup", {
-            base: _p.r(53),
+            base: _p.r(54),
             constructor: function(options) {
                 var defaultOptions = {
                     mask: {}
@@ -3158,9 +3193,9 @@ _p[52] = {
 /**
  * 容器类： PPanel = Positioning Panel
  */
-_p[53] = {
+_p[54] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(58), LAYOUT = CONF.layout, $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(59), LAYOUT = CONF.layout, $ = _p.r(4);
         return Utils.createClass("PPanel", {
             base: _p.r(51),
             constructor: function(options) {
@@ -3424,11 +3459,11 @@ _p[53] = {
 /**
  * Separator(分隔符) Widget
  */
-_p[54] = {
+_p[55] = {
     value: function(require) {
         var Utils = _p.r(13), separatorTpl = _p.r(31), $ = _p.r(4);
         return Utils.createClass("Separator", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     width: 1,
@@ -3452,11 +3487,11 @@ _p[54] = {
  * SpinButton对象
  * 数值按钮构件
  */
-_p[55] = {
+_p[56] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(32), Button = _p.r(37), Input = _p.r(45), Panel = _p.r(51);
         return _p.r(13).createClass("SpinButton", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     suffix: null,
@@ -3547,11 +3582,11 @@ _p[55] = {
 /**
  * Tabs Widget
  */
-_p[56] = {
+_p[57] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(33), Button = _p.r(37), Panel = _p.r(51);
         return _p.r(13).createClass("Tabs", {
-            base: _p.r(58),
+            base: _p.r(59),
             constructor: function(options) {
                 var defaultOptions = {
                     selected: 0,
@@ -3715,7 +3750,7 @@ _p[56] = {
  * ToggleButton对象
  * 可切换按钮构件
  */
-_p[57] = {
+_p[58] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12);
         return _p.r(13).createClass("ToggleButton", {
@@ -3802,7 +3837,7 @@ _p[57] = {
  * widget对象
  * 所有的UI组件都是widget对象
  */
-_p[58] = {
+_p[59] = {
     value: function(require) {
         var prefix = "_fui_", uid = 0, CONF = _p.r(12), FUI_NS = _p.r(11), $ = _p.r(4), Utils = _p.r(13);
         var Widget = _p.r(13).createClass("Widget", {
@@ -4079,7 +4114,7 @@ _p[58] = {
 /**
  * 模块暴露
  */
-_p[59] = {
+_p[60] = {
     value: function(require) {
         _p.r(1);
         _p.r(2);
@@ -4087,7 +4122,7 @@ _p[59] = {
 };
 
 var moduleMapping = {
-    "fui.export": 59
+    "fui.export": 60
 };
 
 function use(name) {

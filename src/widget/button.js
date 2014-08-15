@@ -39,6 +39,14 @@ define( function ( require ) {
             return this.__labelWidget.setText( text );
         },
 
+        getLabelWidget: function() {
+            return this.__labelWidget;
+        },
+
+        getIconWidget: function() {
+            return this.__iconWidget;
+        },
+
         __render: function () {
 
             this.callBase();
