@@ -35,7 +35,7 @@ define( function ( require ) {
 
             this.__menuWidget = new Menu();
 
-            this.__appendWidget( this.__menuWidget );
+            this.appendWidget( this.__menuWidget );
 
             $( this.__element ).addClass( CONF.classPrefix + "popup-menu" );
 
