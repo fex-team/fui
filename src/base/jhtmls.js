@@ -3,5 +3,6 @@
  */
 
 define( function () {
-    return window.jhtmls;
+    /* global jhtmls: true */
+    return jhtmls;
 } );
