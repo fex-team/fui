@@ -75,6 +75,10 @@ _p[0] = {
 _p[1] = {
     value: function(require) {
         var FUI_NS = _p.r(11);
+        // 配置参数必须最先注册
+        FUI_NS.___register({
+            ALLOW_FOCUS: true
+        });
         FUI_NS.___register({
             Widget: _p.r(59),
             Icon: _p.r(42),
@@ -638,7 +642,8 @@ _p[11] = {
  * UI系统配置
  */
 _p[12] = {
-    value: function() {
+    value: function(require) {
+        var NS = _p.r(11);
         return {
             classPrefix: "fui-",
             layout: {
@@ -654,6 +659,7 @@ _p[12] = {
                 LEFT_BOTTOM: "left-bottom",
                 RIGHT_BOTTOM: "right-bottom"
             },
+            allowFocus: !!NS.ALLOW_FOCUS,
             control: {
                 input: 1,
                 textarea: 1,
@@ -3881,7 +3887,7 @@ _p[59] = {
                 this.__options = {};
                 this.__element = null;
                 // 禁止获取焦点
-                this.__allow_focus = false;
+                this.__allow_focus = !!CONF.allowFocus;
                 this.widgetName = "Widget";
                 this.__extendOptions(defaultOptions, options);
                 this.__initOptions();

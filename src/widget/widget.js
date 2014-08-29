@@ -35,7 +35,7 @@ define( function ( require ) {
             this.__options = {};
             this.__element = null;
             // 禁止获取焦点
-            this.__allow_focus = false;
+            this.__allow_focus = !!CONF.allowFocus;
 
             this.widgetName = 'Widget';
 

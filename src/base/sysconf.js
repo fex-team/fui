@@ -2,7 +2,9 @@
  * UI系统配置
  */
 
-define( function () {
+define( function ( require ) {
+
+    var NS = require( "base/ns" );
 
     return {
 
@@ -21,6 +23,8 @@ define( function () {
             LEFT_BOTTOM: 'left-bottom',
             RIGHT_BOTTOM: 'right-bottom'
         },
+
+        allowFocus: !!NS.ALLOW_FOCUS,
 
         control: {
             input: 1,

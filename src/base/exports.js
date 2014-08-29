@@ -5,6 +5,11 @@ define( function ( require ) {
 
     var FUI_NS = require( "base/ns" );
 
+    // 配置参数必须最先注册
+    FUI_NS.___register( {
+        ALLOW_FOCUS: true
+    } );
+
     FUI_NS.___register( {
 
         Widget: require( "widget/widget" ),
