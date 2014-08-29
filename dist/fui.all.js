@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-08-13
+ * Flex UI - v1.0.0 - 2014-08-29
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -3464,7 +3464,7 @@ _p[55] = {
                 var defaultOptions = {
                     selected: 0,
                     buttons: [],
-                    panels: null
+                    panels: []
                 };
                 options = $.extend({}, defaultOptions, options);
                 this.callBase(options);
@@ -3511,6 +3511,28 @@ _p[55] = {
                     panel: this.getPanel(index)
                 };
             },
+            appendTab: function(tabOpt) {
+                tabOpt.panels = tabOpt.panels || [];
+                this.__renderByOptions(tabOpt);
+                return this.__btns.slice(this.__btns.length - tabOpt.buttons.length);
+            },
+            removeTab: function(index) {
+                if (index < 0) {
+                    return null;
+                }
+                var btn = this.__btns.splice(index, 1), panel = this.__panels.splice(index, 1);
+                if (!btn.length) {
+                    return null;
+                }
+                btn = btn[0];
+                panel = panel[0];
+                btn.remove();
+                panel.remove();
+                return {
+                    button: btn,
+                    panel: panel
+                };
+            },
             /**
          * 选择接口
          * @param index 需要选中的tab页索引
@@ -3525,7 +3547,7 @@ _p[55] = {
                 if (this.__prevSelected !== this.__selected) {
                     this.trigger("tabschange", {
                         from: this.__getInfo(this.__prevSelected),
-                        toInfo: toInfo
+                        to: toInfo
                     });
                 }
                 return this;
@@ -3547,12 +3569,16 @@ _p[55] = {
                 });
             },
             __render: function() {
-                var _self = this, btnWrap = null, panelWrap = null;
                 this.callBase();
-                btnWrap = $(".fui-tabs-button-wrap", this.__element)[0];
-                panelWrap = $(".fui-tabs-panel-wrap", this.__element)[0];
-                $.each(this.__options.buttons, function(index, opt) {
-                    var btn = null;
+                this.__btnWrap = $(".fui-tabs-button-wrap", this.__element)[0];
+                this.__panelWrap = $(".fui-tabs-panel-wrap", this.__element)[0];
+                this.__renderByOptions(this.__options);
+                this.__selectItem(this.__options.selected);
+            },
+            __renderByOptions: function(options) {
+                var _self = this, btns = this.__btns, panels = this.__panels, btnWrap = this.__btnWrap, panelWrap = this.__panelWrap;
+                $.each(options.buttons, function(index, opt) {
+                    var btn = null, panel = null;
                     if (typeof opt !== "object") {
                         opt = {
                             label: opt
@@ -3562,20 +3588,14 @@ _p[55] = {
                     btn.on("click", function() {
                         _self.select(_self.getIndexByButton(this));
                     });
-                    _self.__btns.push(btn);
-                    btn.appendTo(btnWrap);
-                });
-                $.each(this.__options.panels, function(index, opt) {
-                    var panel = null;
-                    opt = opt || {
-                        hide: true
-                    };
+                    opt = options.panels[index] || {};
                     opt.hide = true;
                     panel = new Panel(opt);
-                    _self.__panels.push(panel);
+                    btns.push(btn);
+                    panels.push(panel);
+                    btn.appendTo(btnWrap);
                     panel.appendTo(panelWrap);
                 });
-                this.__selectItem(this.__options.selected);
             },
             __initOptions: function() {
                 this.callBase();
@@ -3585,6 +3605,8 @@ _p[55] = {
                 this.__panels = [];
                 this.__prevSelected = -1;
                 this.__selected = -1;
+                this.__btnWrap = null;
+                this.__panelWrap = null;
                 // panels不设置的情况下， 将根据button创建
                 if (this.__options.panels === null) {
                     this.__options.panels = [];
@@ -3763,9 +3785,11 @@ _p[57] = {
             },
             addClass: function(className) {
                 $(this.__element).addClass(className);
+                return this;
             },
             removeClass: function(className) {
                 $(this.__element).removeClass(className);
+                return this;
             },
             setStyle: function() {
                 $.fn.css.apply($(this.__element), arguments);
@@ -3813,6 +3837,13 @@ _p[57] = {
                     container.__appendChild(this);
                 } else {
                     throw new Error("TypeError: Widget.appendTo()");
+                }
+                return this;
+            },
+            remove: function() {
+                var parent = this.__element.parentNode;
+                if (parent) {
+                    parent.removeChild(this.__element);
                 }
                 return this;
             },

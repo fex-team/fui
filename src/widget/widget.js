@@ -66,29 +66,23 @@ define( function ( require ) {
         },
 
         show: function () {
-
             this.__show();
             return this;
-
         },
 
         hide: function () {
-
             this.__hide();
             return this;
-
         },
 
         addClass: function ( className ) {
-
-            $( this.__element).addClass( className );
-
+            $( this.__element ).addClass( className );
+            return this;
         },
 
         removeClass: function ( className ) {
-
-            $( this.__element).removeClass( className );
-
+            $( this.__element ).removeClass( className );
+            return this;
         },
 
         setStyle: function() {
@@ -150,6 +144,18 @@ define( function ( require ) {
 
                 throw new Error( 'TypeError: Widget.appendTo()' );
 
+            }
+
+            return this;
+
+        },
+
+        remove: function () {
+
+            var parent = this.__element.parentNode;
+
+            if ( parent ) {
+                parent.removeChild( this.__element );
             }
 
             return this;

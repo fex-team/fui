@@ -23,13 +23,22 @@
                 buttons: [ "语文", "数学", "理综", "英语" ]
             } );
 
+            var lastBtns = tabs.appendTab( {
+                buttons: [ "思想品德", "政治", "自然科学" ]
+            } );
+
+            console.log( '新增了' + lastBtns.length + '个tab' );
+
             tabs.appendTo( document.body );
 
-            $.each( tabs.getPanels(), function ( index, panel ) {
+            window.setTimeout( function () {
 
-                panel.getContentElement().innerHTML = index;
+                var result = tabs.removeTab( 4 );
 
-            } );
+                console.log( '删除了一个tab项： ' );
+                console.log( result );
+
+            }, 3000 );
 
             tabs.on( "tabsselect", function ( e, info ) {
 
@@ -39,6 +48,7 @@
 
             tabs.on( "tabschange", function ( e, info ) {
 
+                info.to.panel.getContentElement().innerHTML = '从' + info.from.index + '到' + info.to.index;
                 console.log( this.widgetName + ' 发生了 ' + e.type + ' 事件', info );
 
             } );
