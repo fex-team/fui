@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-08-29
+ * Flex UI - v1.0.0 - 2014-09-02
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -3646,8 +3646,7 @@ _p[57] = {
             },
             appendTab: function(tabOpt) {
                 tabOpt.panels = tabOpt.panels || [];
-                this.__renderByOptions(tabOpt);
-                return this.__btns.slice(this.__btns.length - tabOpt.buttons.length);
+                return this.__renderByOptions(tabOpt);
             },
             removeTab: function(index) {
                 if (index < 0) {
@@ -3709,7 +3708,7 @@ _p[57] = {
                 this.__selectItem(this.__options.selected);
             },
             __renderByOptions: function(options) {
-                var _self = this, btns = this.__btns, panels = this.__panels, btnWrap = this.__btnWrap, panelWrap = this.__panelWrap;
+                var _self = this, mapping = [], btns = this.__btns, panels = this.__panels, btnWrap = this.__btnWrap, panelWrap = this.__panelWrap;
                 $.each(options.buttons, function(index, opt) {
                     var btn = null, panel = null;
                     if (typeof opt !== "object") {
@@ -3726,9 +3725,14 @@ _p[57] = {
                     panel = new Panel(opt);
                     btns.push(btn);
                     panels.push(panel);
+                    mapping.push({
+                        button: btn,
+                        panel: panel
+                    });
                     btn.appendTo(btnWrap);
                     panel.appendTo(panelWrap);
                 });
+                return mapping;
             },
             __initOptions: function() {
                 this.callBase();

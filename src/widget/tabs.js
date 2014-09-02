@@ -96,9 +96,8 @@ define( function ( require ) {
         appendTab: function ( tabOpt ) {
 
             tabOpt.panels = tabOpt.panels || [];
-            this.__renderByOptions( tabOpt );
 
-            return this.__btns.slice( this.__btns.length - tabOpt.buttons.length );
+            return this.__renderByOptions( tabOpt );
 
         },
 
@@ -196,6 +195,7 @@ define( function ( require ) {
         __renderByOptions: function ( options ) {
 
             var _self = this,
+                mapping = [],
                 btns = this.__btns,
                 panels = this.__panels,
                 btnWrap = this.__btnWrap,
@@ -224,13 +224,20 @@ define( function ( require ) {
 
                 panel= new Panel( opt );
 
-               btns.push( btn );
-               panels.push( panel );
+                btns.push( btn );
+                panels.push( panel );
+
+                mapping.push( {
+                    button: btn,
+                    panel: panel
+                } );
 
                 btn.appendTo( btnWrap );
                 panel.appendTo( panelWrap );
 
             } );
+
+            return mapping;
 
         },
 
