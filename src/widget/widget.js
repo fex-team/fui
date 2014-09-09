@@ -122,6 +122,10 @@ define( function ( require ) {
             return this;
         },
 
+        cloneElement: function () {
+            return this.__element.cloneNode( true );
+        },
+
         /**
          * 获取
          * @returns {null}

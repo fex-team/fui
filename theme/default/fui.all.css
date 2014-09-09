@@ -501,6 +501,21 @@
 }
 
 /**
+ * 通用button
+ */
+/**
+ * FUI 通用样式定义
+ */
+/*------------ var*/
+/*------------ mixin*/
+.fui-select-menu .fui-select-menu-container {
+  background: white;
+}
+.fui-select-menu .fui-select-menu-selected {
+  background: #87a9da;
+}
+
+/**
  * FUI 通用样式定义
  */
 /*------------ var*/

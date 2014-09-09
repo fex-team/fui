@@ -107,7 +107,6 @@ define( function ( require ) {
 
             $( this.__element ).addClass( className );
 
-
             location = this.__getLocation();
 
             $( this.__element ).css( 'top', location.top + 'px' )

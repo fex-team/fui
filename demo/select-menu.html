@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FUI</title>
+
+    <link rel="stylesheet" type="text/css" href="../theme/default/fui.all.css">
+
+    <script src="../dev-lib/jhtmls.min.js"></script>
+    <script src="../dev-lib/jquery-1.11.1.js"></script>
+    <script src="../dev-lib/dev-define.js"></script>
+    <script>
+        inc.config({
+            base: '../src'
+        });
+    </script>
+    <script src="../dev-lib/exports.js"></script>
+    <script src="../dev-lib/dev-start.js"></script>
+    <script>
+        window.onload = function () {
+
+            var selectMenu = new FUI.SelectMenu( {
+                selected: 1,
+                column: 3,
+                button: {
+                    icon: {
+                        width: 10,
+                        height: 10,
+                        img: "assets/icon-demo/down.png"
+                    }
+                },
+                widgets: [
+                    {
+                        clazz: 'Button',
+                        label: '测试1',
+                        value: '1'
+                    },
+                    {
+                        clazz: 'Button',
+                        label: '测试2',
+                        value: '2'
+                    },
+                    {
+                        clazz: 'Button',
+                        label: '测试3',
+                        value: '3'
+                    },
+                    {
+                        clazz: 'Button',
+                        label: '测试4',
+                        value: '4'
+                    }
+                ]
+            } );
+
+            selectMenu.appendTo( document.body );
+
+            // select事件
+            selectMenu.on( "select", function ( e, info ) {
+
+                console.log( inputMenu.getValue() )
+                console.log(e.type, info )
+
+            } );
+
+            // change事件
+            selectMenu.on( "change", function ( e, info ) {
+
+                console.log(e.type, info )
+
+            } );
+
+            // 追加新内容
+            selectMenu.appendWidgets( FUI.Creator.parse( [
+                {
+                    clazz: 'Button',
+                    label: '测试5',
+                    value: '5'
+                },
+                {
+                    clazz: 'Button',
+                    label: '测试6',
+                    value: '6'
+                },
+                {
+                    clazz: 'Button',
+                    label: '测试7',
+                    value: '7'
+                },
+                {
+                    clazz: 'Button',
+                    label: '测试8',
+                    value: '8'
+                }
+            ] ) );
+
+        };
+    </script>
+</head>
+<body>
+    <h1>InputMenu 示例</h1>
+</body>
+</html>

@@ -100,10 +100,15 @@ define( function ( require ) {
             this.__widgets.push( widget );
             widget.appendTo( this.__contentElement );
 
-            if ( this.__options.column ) {
-                this.__contentElement.appendChild( $( '<span class="fui-column"></span>' )[0] );
-                $( widget.getElement() ).addClass( CONF.classPrefix + "panel-column-widget" );
+            if ( !this.__options.column ) {
+                return widget;
             }
+
+            if ( this.__widgets.length > 0 &&  this.__widgets.length % this.__options.column === 0 ) {
+                this.__contentElement.appendChild( $( '<span class="fui-column"></span>' )[0] );
+            }
+
+            $( widget.getElement() ).addClass( CONF.classPrefix + "panel-column-widget" );
 
             return widget;
 
@@ -128,6 +133,7 @@ define( function ( require ) {
 
         },
 
+        // TODO insertWidget时， 如果columnu为指定的数字，那么该插入需要调整换行符，现在还未对这个逻辑做处理。
         insertWidget: function ( index, widget ) {
 
             var oldElement = null;
@@ -149,10 +155,12 @@ define( function ( require ) {
             this.__widgets.splice( index, 0, widget );
             this.__contentElement.insertBefore( widget.getElement(), oldElement.getElement() );
 
-            if ( this.__options.column ) {
-                this.__contentElement.insertBefore( $( '<span class="fui-column"></span>' )[0], oldElement.getElement() );
-                $( widget.getElement() ).addClass( CONF.classPrefix + "panel-column-widget" );
+            if ( this.__options.column === false ) {
+                return widget;
             }
+
+            this.__contentElement.insertBefore( $( '<span class="fui-column"></span>' )[0], oldElement.getElement() );
+            $( widget.getElement() ).addClass( CONF.classPrefix + "panel-column-widget" );
 
             return widget;
 
@@ -204,6 +212,8 @@ define( function ( require ) {
 
             this.__widgets = [];
             this.__contentElement = null;
+
+            this.__options.column -= 0;
 
         },
 
