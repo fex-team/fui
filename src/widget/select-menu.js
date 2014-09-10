@@ -64,6 +64,10 @@ define( function ( require ) {
                 oldSelected = this.__widgets[ this.__selected ],
                 bedElement = this.__bed.getElement();
 
+            if ( !widget ){
+                return this;
+            }
+
             if ( oldSelected ) {
                 oldSelected.removeClass( className );
             }
@@ -96,10 +100,25 @@ define( function ( require ) {
 
             }
 
+            return this;
+
         },
 
         selectByWidget: function ( widget ) {
             return this.select( this.indexOf( widget ) );
+        },
+
+        selectByValue: function ( value ) {
+            var index = -1;
+
+            $.each( this.__widgets, function ( i, widget ) {
+                if ( widget.getValue() === value ) {
+                    index = i;
+                    return false;
+                }
+            } );
+
+            return this.select( index );
         },
 
         __render: function () {

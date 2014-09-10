@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-09-02
+ * Flex UI - v1.0.0 - 2014-09-10
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -80,20 +80,20 @@ _p[1] = {
             ALLOW_FOCUS: true
         });
         FUI_NS.___register({
-            Widget: _p.r(59),
+            Widget: _p.r(60),
             Icon: _p.r(42),
             Label: _p.r(48),
             Button: _p.r(37),
-            ToggleButton: _p.r(58),
+            ToggleButton: _p.r(59),
             Buttonset: _p.r(36),
-            Separator: _p.r(55),
+            Separator: _p.r(56),
             Item: _p.r(46),
             Input: _p.r(45),
             InputButton: _p.r(43),
             Mask: _p.r(49),
             ColorPicker: _p.r(38),
-            Tabs: _p.r(57),
-            SpinButton: _p.r(56),
+            Tabs: _p.r(58),
+            SpinButton: _p.r(57),
             Container: _p.r(39),
             Panel: _p.r(51),
             PPanel: _p.r(54),
@@ -104,6 +104,7 @@ _p[1] = {
             DropPanel: _p.r(41),
             Popup: _p.r(53),
             PopupMenu: _p.r(52),
+            SelectMenu: _p.r(55),
             Dialog: _p.r(40),
             Utils: _p.r(13),
             Creator: _p.r(0)
@@ -710,7 +711,7 @@ _p[16] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(14);
         return _p.r(13).createClass("TPicker", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     // 10行 10列
@@ -796,7 +797,7 @@ _p[17] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(15), Label = _p.r(48), TPicker = _p.r(16), Button = _p.r(37), PPanel = _p.r(54), Mask = _p.r(49);
         return _p.r(13).createClass("TablePicker", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     button: null,
@@ -1007,7 +1008,7 @@ _p[34] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(18), Button = _p.r(37), Menu = _p.r(50), Mask = _p.r(49), LAYOUT = CONF.layout;
         return _p.r(13).createClass("ButtonMenu", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     // item选项
@@ -1124,7 +1125,7 @@ _p[35] = {
     value: function(require) {
         var $ = _p.r(4), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49), Utils = _p.r(13);
         return _p.r(13).createClass("InputMenu", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var marker = Utils.getMarker();
                 this.callBase(marker);
@@ -1289,7 +1290,7 @@ _p[35] = {
  */
 _p[36] = {
     value: function(require) {
-        var $ = _p.r(4), CONF = _p.r(12), ToggleButton = _p.r(58);
+        var $ = _p.r(4), CONF = _p.r(12), ToggleButton = _p.r(59);
         return _p.r(13).createClass("Buttonset", {
             base: _p.r(51),
             constructor: function(options) {
@@ -1454,7 +1455,7 @@ _p[37] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), buttonTpl = _p.r(19), Icon = _p.r(42), Label = _p.r(48);
         return _p.r(13).createClass("Button", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     label: null,
@@ -1627,7 +1628,7 @@ _p[38] = {
  */
 _p[39] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(59), Creator = _p.r(0), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(60), Creator = _p.r(0), $ = _p.r(4);
         return Utils.createClass("Container", {
             base: Widget,
             constructor: function(options) {
@@ -1678,10 +1679,13 @@ _p[39] = {
                 }
                 this.__widgets.push(widget);
                 widget.appendTo(this.__contentElement);
-                if (this.__options.column) {
-                    this.__contentElement.appendChild($('<span class="fui-column"></span>')[0]);
-                    $(widget.getElement()).addClass(CONF.classPrefix + "panel-column-widget");
+                if (!this.__options.column) {
+                    return widget;
                 }
+                if (this.__widgets.length > 0 && this.__widgets.length % this.__options.column === 0) {
+                    this.__contentElement.appendChild($('<span class="fui-column"></span>')[0]);
+                }
+                $(widget.getElement()).addClass(CONF.classPrefix + "panel-column-widget");
                 return widget;
             },
             appendWidgets: function(widgetArray) {
@@ -1694,6 +1698,7 @@ _p[39] = {
                 });
                 return this;
             },
+            // TODO insertWidget时， 如果columnu为指定的数字，那么该插入需要调整换行符，现在还未对这个逻辑做处理。
             insertWidget: function(index, widget) {
                 var oldElement = null;
                 if (this.__widgets.length === 0) {
@@ -1708,10 +1713,11 @@ _p[39] = {
                 oldElement = this.__widgets[index];
                 this.__widgets.splice(index, 0, widget);
                 this.__contentElement.insertBefore(widget.getElement(), oldElement.getElement());
-                if (this.__options.column) {
-                    this.__contentElement.insertBefore($('<span class="fui-column"></span>')[0], oldElement.getElement());
-                    $(widget.getElement()).addClass(CONF.classPrefix + "panel-column-widget");
+                if (this.__options.column === false) {
+                    return widget;
                 }
+                this.__contentElement.insertBefore($('<span class="fui-column"></span>')[0], oldElement.getElement());
+                $(widget.getElement()).addClass(CONF.classPrefix + "panel-column-widget");
                 return widget;
             },
             insertWidgets: function(index, widgetArray) {
@@ -1742,6 +1748,7 @@ _p[39] = {
                 this.widgetName = "Container";
                 this.__widgets = [];
                 this.__contentElement = null;
+                this.__options.column -= 0;
             },
             __render: function() {
                 this.callBase();
@@ -1787,7 +1794,7 @@ _p[39] = {
  */
 _p[40] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(59), Mask = _p.r(49), tpl = _p.r(21), Button = _p.r(37), LAYOUT = CONF.layout, $ = _p.r(4), ACTION = {
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(60), Mask = _p.r(49), tpl = _p.r(21), Button = _p.r(37), LAYOUT = CONF.layout, $ = _p.r(4), ACTION = {
             CANCEL: "cancel",
             OK: "ok"
         };
@@ -1992,7 +1999,7 @@ _p[41] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(22), Button = _p.r(37), Panel = _p.r(51), PPanel = _p.r(54), Mask = _p.r(49);
         return _p.r(13).createClass("DropPanel", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     button: null,
@@ -2114,7 +2121,7 @@ _p[42] = {
     value: function(require) {
         var $ = _p.r(4), iconTpl = _p.r(23);
         return _p.r(13).createClass("Icon", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     img: null
@@ -2178,7 +2185,7 @@ _p[43] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(24), Button = _p.r(37), Input = _p.r(45);
         return _p.r(13).createClass("InputButton", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     button: null,
@@ -2277,7 +2284,7 @@ _p[44] = {
     value: function(require) {
         var $ = _p.r(4), tpl = _p.r(25), InputButton = _p.r(43), Menu = _p.r(50), Mask = _p.r(49);
         return _p.r(13).createClass("InputMenu", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     input: null,
@@ -2483,7 +2490,7 @@ _p[45] = {
     value: function(require) {
         var CONF = _p.r(12), $ = _p.r(4), tpl = _p.r(26);
         return _p.r(13).createClass("Input", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     placeholder: null
@@ -2567,7 +2574,7 @@ _p[46] = {
     value: function(require) {
         var Utils = _p.r(13), itemTpl = _p.r(27), Icon = _p.r(42), Label = _p.r(48), CONF = _p.r(12), $ = _p.r(4);
         return Utils.createClass("Item", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     label: "",
@@ -2722,7 +2729,7 @@ _p[48] = {
     value: function(require) {
         var Utils = _p.r(13), labelTpl = _p.r(28), $ = _p.r(4);
         return Utils.createClass("Label", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     text: "",
@@ -2772,9 +2779,9 @@ _p[48] = {
  */
 _p[49] = {
     value: function(require) {
-        var Utils = _p.r(13), tpl = _p.r(29), Widget = _p.r(59), $ = _p.r(4), __cache_inited = false, __MASK_CACHE = [];
+        var Utils = _p.r(13), tpl = _p.r(29), Widget = _p.r(60), $ = _p.r(4), __cache_inited = false, __MASK_CACHE = [];
         return Utils.createClass("Mask", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     bgcolor: "#000",
@@ -3115,7 +3122,7 @@ _p[52] = {
  */
 _p[53] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(59), Mask = _p.r(49), $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(60), Mask = _p.r(49), $ = _p.r(4);
         return Utils.createClass("Popup", {
             base: _p.r(54),
             constructor: function(options) {
@@ -3201,7 +3208,7 @@ _p[53] = {
  */
 _p[54] = {
     value: function(require) {
-        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(59), LAYOUT = CONF.layout, $ = _p.r(4);
+        var Utils = _p.r(13), CONF = _p.r(12), Widget = _p.r(60), LAYOUT = CONF.layout, $ = _p.r(4);
         return Utils.createClass("PPanel", {
             base: _p.r(51),
             constructor: function(options) {
@@ -3461,15 +3468,171 @@ _p[54] = {
     }
 };
 
+//src/widget/select-menu.js
+/**
+ * SelectMenu构件
+ * 提供从下拉菜单中选中某一项的功能构件
+ */
+_p[55] = {
+    value: function(require) {
+        var $ = _p.r(4), CONF = _p.r(12), Panel = _p.r(51), PPanel = _p.r(54), Button = _p.r(37), Creator = _p.r(0), Mask = _p.r(49);
+        return _p.r(13).createClass("SelectMenu", {
+            base: Panel,
+            constructor: function(options) {
+                var defaultOptions = {
+                    // bed 是Panel的实例
+                    bed: {
+                        className: "fui-select-menu-bed"
+                    },
+                    button: {
+                        className: "fui-select-menu-btn"
+                    },
+                    events: [ "btnclick" ],
+                    selected: -1
+                };
+                options = $.extend({}, defaultOptions, options);
+                this.callBase(options);
+            },
+            show: function() {
+                this.__widgetMenu.show();
+                this.__mask.show();
+            },
+            hide: function() {
+                this.__widgetMenu.hide();
+                this.__mask.hide();
+            },
+            getValue: function() {
+                var selectedWidet = this.__widgets[this.__selected];
+                return selectedWidet ? selectedWidet.getValue() : null;
+            },
+            getSelected: function() {
+                return this.__widgets[this.__selected];
+            },
+            select: function(index) {
+                var widget = this.__widgets[index], className = "fui-select-menu-selected", oldIndex = this.__selected, oldSelected = this.__widgets[this.__selected], bedElement = this.__bed.getElement();
+                if (!widget) {
+                    return this;
+                }
+                if (oldSelected) {
+                    oldSelected.removeClass(className);
+                }
+                bedElement.innerHTML = "";
+                bedElement.appendChild(widget.cloneElement());
+                widget.addClass(className);
+                this.__selected = index;
+                this.trigger("select", {
+                    index: index,
+                    widget: widget
+                });
+                if (this.__selected !== oldIndex) {
+                    this.trigger("change", {
+                        from: {
+                            index: oldIndex,
+                            widget: oldSelected
+                        },
+                        to: {
+                            index: index,
+                            widget: widget
+                        }
+                    });
+                }
+                return this;
+            },
+            selectByWidget: function(widget) {
+                return this.select(this.indexOf(widget));
+            },
+            selectByValue: function(value) {
+                var index = -1;
+                $.each(this.__widgets, function(i, widget) {
+                    if (widget.getValue() === value) {
+                        index = i;
+                        return false;
+                    }
+                });
+                return this.select(index);
+            },
+            __render: function() {
+                this.__bed = new Panel(this.__options.bed);
+                this.__dropBtn = new Button(this.__options.button);
+                this.__widgetMenu = new PPanel({
+                    className: "fui-select-menu-container",
+                    layout: CONF.layout.LEFT_TOP,
+                    column: this.__column
+                });
+                this.__mask = new Mask();
+                var widgets = this.__initWidgets();
+                this.callBase();
+                $(this.__element).addClass(CONF.classPrefix + "select-menu");
+                this.appendWidgets([ this.__bed, this.__dropBtn, this.__mask, this.__widgetMenu ]);
+                this.__widgets = [];
+                this.__oldContentElement = this.__contentElement;
+                this.__contentElement = this.__widgetMenu;
+                this.appendWidgets(widgets);
+                this.__widgetMenu.positionTo(this.getElement());
+                if (!$.isNumeric(this.__options.selected)) {
+                    this.__bed.appendWidget(Creator.parse(this.__options.selected));
+                } else if (this.__options.selected != -1) {
+                    this.select(this.__options.selected);
+                }
+            },
+            __initWidgets: function() {
+                var widgets = [];
+                if (!this.__options.widgets) {
+                    return;
+                }
+                $.each(this.__options.widgets, function(index, widget) {
+                    widgets.push(Creator.parse(widget));
+                });
+                return widgets;
+            },
+            __initEvent: function() {
+                this.callBase();
+                var _self = this;
+                this.__dropBtn.on("btnclick", function() {
+                    _self.show();
+                });
+                this.__mask.on("click", function() {
+                    _self.hide();
+                });
+                this.__widgetMenu.on(this.__options.events.join(" "), function(e) {
+                    var target = e.target;
+                    if (target === _self.__oldContentElement || target === _self.getElement) {
+                        return;
+                    }
+                    e.stopPropagation();
+                    _self.selectByWidget(e.widget);
+                    _self.hide();
+                    return false;
+                });
+            },
+            __initOptions: function() {
+                this.callBase();
+                this.widgetName = "SelectMenu";
+                // 被选中的元素
+                this.__bed = null;
+                // 下拉按钮
+                this.__dropBtn = null;
+                this.__widgetMenu = null;
+                this.__mask = null;
+                this.__widgets = [];
+                this.__selected = -1;
+                this.__oldContentElement = null;
+                this.__column = this.__options.column;
+                delete this.__options.column;
+            }
+        });
+    }
+};
+
 //src/widget/separator.js
 /**
  * Separator(分隔符) Widget
  */
-_p[55] = {
+_p[56] = {
     value: function(require) {
         var Utils = _p.r(13), separatorTpl = _p.r(31), $ = _p.r(4);
         return Utils.createClass("Separator", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     width: 1,
@@ -3493,11 +3656,11 @@ _p[55] = {
  * SpinButton对象
  * 数值按钮构件
  */
-_p[56] = {
+_p[57] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(32), Button = _p.r(37), Input = _p.r(45), Panel = _p.r(51);
         return _p.r(13).createClass("SpinButton", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     suffix: null,
@@ -3588,11 +3751,11 @@ _p[56] = {
 /**
  * Tabs Widget
  */
-_p[57] = {
+_p[58] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12), tpl = _p.r(33), Button = _p.r(37), Panel = _p.r(51);
         return _p.r(13).createClass("Tabs", {
-            base: _p.r(59),
+            base: _p.r(60),
             constructor: function(options) {
                 var defaultOptions = {
                     selected: 0,
@@ -3782,7 +3945,7 @@ _p[57] = {
  * ToggleButton对象
  * 可切换按钮构件
  */
-_p[58] = {
+_p[59] = {
     value: function(require) {
         var $ = _p.r(4), CONF = _p.r(12);
         return _p.r(13).createClass("ToggleButton", {
@@ -3869,7 +4032,7 @@ _p[58] = {
  * widget对象
  * 所有的UI组件都是widget对象
  */
-_p[59] = {
+_p[60] = {
     value: function(require) {
         var prefix = "_fui_", uid = 0, CONF = _p.r(12), FUI_NS = _p.r(11), $ = _p.r(4), Utils = _p.r(13);
         var Widget = _p.r(13).createClass("Widget", {
@@ -3959,6 +4122,9 @@ _p[59] = {
                 this.__options.disabled = true;
                 $(this.__element).addClass(CONF.classPrefix + "disabled");
                 return this;
+            },
+            cloneElement: function() {
+                return this.__element.cloneNode(true);
             },
             /**
          * 获取
@@ -4153,7 +4319,7 @@ _p[59] = {
 /**
  * 模块暴露
  */
-_p[60] = {
+_p[61] = {
     value: function(require) {
         _p.r(1);
         _p.r(2);
@@ -4161,7 +4327,7 @@ _p[60] = {
 };
 
 var moduleMapping = {
-    "fui.export": 60
+    "fui.export": 61
 };
 
 function use(name) {
