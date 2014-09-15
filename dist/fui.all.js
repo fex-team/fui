@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-09-10
+ * Flex UI - v1.0.0 - 2014-09-15
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -1736,7 +1736,7 @@ _p[39] = {
             },
             removeWidget: function(widget) {
                 if (typeof widget === "number") {
-                    widget = this.__widgets.splice(widget, 1);
+                    widget = this.__widgets.splice(widget, 1)[0];
                 } else {
                     this.__widgets.splice(this.indexOf(widget), 1);
                 }
@@ -2957,6 +2957,12 @@ _p[50] = {
             },
             removeItem: function(item) {
                 return this.removeWidget.apply(this, arguments);
+            },
+            clearItems: function() {
+                while (this.getItems().length) {
+                    this.removeItem(0);
+                }
+                return this;
             },
             getSelected: function() {
                 return this.__currentSelect;
