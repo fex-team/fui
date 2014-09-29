@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-09-15
+ * Flex UI - v1.0.0 - 2014-09-29
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -1812,6 +1812,7 @@ _p[40] = {
                         color: "#000",
                         opacity: .2
                     },
+                    prompt: false,
                     // 底部按钮
                     buttons: [ {
                         className: CONF.classPrefix + "xdialog-ok-btn",
@@ -1948,6 +1949,19 @@ _p[40] = {
                 $([ this.__footElement, this.__headElement ]).on("btnclick", function(e, btn) {
                     _self.__action(btn.getOptions().action, btn);
                 });
+                if (this.__options.prompt) {
+                    $(this.__element).on("keydown", function(e) {
+                        switch (e.keyCode) {
+                          case 13:
+                            _self.__action(ACTION.OK);
+                            break;
+
+                          case 27:
+                            _self.__action(ACTION.CANCEL);
+                            break;
+                        }
+                    });
+                }
             },
             __initDraggable: function() {
                 Utils.createDraggable({
