@@ -51,24 +51,22 @@ define( function ( require ) {
         __initEvent: function () {
 
             var _self = this;
+            var info = {};
 
             this.callBase();
 
-            $( this.__backplane ).delegate( 'td', 'mousemove click', function ( e ) {
+            $( this.__backplane ).delegate( 'td', 'mousemove', function ( e ) {
 
-                var info = e.target.getAttribute( "data-index" ).split( "," );
-
+                info = e.target.getAttribute( "data-index" ).split( "," );
                 info = {
                     row: parseInt( info[ 0 ], 10 ),
                     col: parseInt( info[ 1 ], 10 )
                 };
+                _self.__update( info.row, info.col );
 
-                if ( e.type === "click" ) {
-                    _self.__select( info.row, info.col );
-                } else {
-                    _self.__update( info.row, info.col );
-                }
-
+            } );
+            $( this.__backplane ).on( 'click', function ( e ) {
+                _self.__select( info.row, info.col );
             } );
 
         },
