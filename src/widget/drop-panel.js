@@ -51,7 +51,6 @@ define( function ( require ) {
             this.__popupWidget.show();
 
             var $popup = $(this.__popupWidget.getElement());
-            $popup.css('top', parseInt($popup.css('top')) - $(this.__element).outerHeight());
             $popup.css('min-width', $(this.__element).outerWidth());
             $popup.css('min-height', $(this.__element).height());
         },
@@ -111,7 +110,7 @@ define( function ( require ) {
 
             this.callBase();
 
-            this.__popupWidget.positionTo(this.__element);
+            this.__popupWidget.positionTo(this.__element, 'left-top');
             $(this.__popupWidget.getElement()).addClass(CONF.classPrefix + 'drop-panel-popup');
 
             // 初始化content

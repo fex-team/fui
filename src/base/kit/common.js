@@ -24,8 +24,8 @@ define( function ( require ) {
             var rect = node.getBoundingClientRect();
 
             return {
-                width: rect.width,
-                height: rect.height,
+                width: rect.width || $(node).width(),
+                height: rect.height || $(node).height(),
                 top: rect.top,
                 bottom: rect.bottom,
                 left: rect.left,

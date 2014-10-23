@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-09-10
+ * Flex UI - v1.0.0 - 2014-10-23
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -333,8 +333,8 @@ _p[6] = {
             getRect: function(node) {
                 var rect = node.getBoundingClientRect();
                 return {
-                    width: rect.width,
-                    height: rect.height,
+                    width: rect.width || $(node).width(),
+                    height: rect.height || $(node).height(),
                     top: rect.top,
                     bottom: rect.bottom,
                     left: rect.left,
@@ -967,7 +967,7 @@ _p[28] = {
 //src/tpl/mask.js
 _p[29] = {
     value: function() {
-        return '<div unselectable="on" class="fui-mask" style="background-color: $bgcolor; opacity: $opacity;"></div>\n';
+        return '<div unselectable="on" class="fui-mask" style="background: $bgcolor; opacity: $opacity;-moz-opacity:$opacity;-khtml-opacity: $opacity;filter:alpha(opacity=#{opacity*100});"></div>\n';
     }
 };
 
@@ -2021,7 +2021,6 @@ _p[41] = {
                 this.__maskWidget.show();
                 this.__popupWidget.show();
                 var $popup = $(this.__popupWidget.getElement());
-                $popup.css("top", parseInt($popup.css("top")) - $(this.__element).outerHeight());
                 $popup.css("min-width", $(this.__element).outerWidth());
                 $popup.css("min-height", $(this.__element).height());
             },
@@ -2063,7 +2062,7 @@ _p[41] = {
                 this.__popupWidget = new PPanel();
                 this.__maskWidget = new Mask(this.__options.mask);
                 this.callBase();
-                this.__popupWidget.positionTo(this.__element);
+                this.__popupWidget.positionTo(this.__element, "left-top");
                 $(this.__popupWidget.getElement()).addClass(CONF.classPrefix + "drop-panel-popup");
                 // 初始化content
                 var $content = $('<div class="' + CONF.classPrefix + 'drop-panel-content"></div>').append(this.__panelWidget.getElement());
@@ -3301,7 +3300,7 @@ _p[54] = {
                     return;
                 }
                 var $ele = $(this.__element), w = $ele.outerWidth(), h = $ele.outerHeight(), minWidth = targetRect.width - w - h;
-                this.__element.style.minWidth = minWidth + "px";
+                this.__element.style.minWidth = Math.max(minWidth, 0) + "px";
             },
             /**
          * 调整panel高度，使其不超过边界范围，如果已设置高度， 则不进行调整

@@ -154,7 +154,7 @@ define( function ( require ) {
                 h = $ele.outerHeight(),
                 minWidth = targetRect.width - w - h;
 
-            this.__element.style.minWidth = minWidth + 'px';
+            this.__element.style.minWidth = Math.max(minWidth, 0) + 'px';
 
         },
 
