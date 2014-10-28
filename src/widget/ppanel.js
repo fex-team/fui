@@ -25,7 +25,8 @@ define( function ( require ) {
                 // 和边界之间的最小距离
                 diff: 10,
                 hide: true,
-                resize: 'all'
+                resize: 'all',
+                iframe: false
             };
 
             options = $.extend( {}, defaultOptions, options );
@@ -94,6 +95,10 @@ define( function ( require ) {
         __render: function () {
 
             this.callBase();
+
+            if ( this.__options.iframe ) {
+                $( '<iframe class="fui-ppanel-cover" frameborder="0"></iframe>').appendTo( this.__element );
+            }
 
             $( this.__element ).addClass( CONF.classPrefix + "ppanel" );
 
