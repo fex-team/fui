@@ -121,8 +121,8 @@ define( function ( require ) {
 
             } ).on( "pickerselect", function ( e, info ) {
 
-                var row = info.row + 1,
-                    col = info.col + 1;
+                var row = info.row,
+                    col = info.col;
 
                 _self.close();
                 _self.trigger( "pickerselect", {

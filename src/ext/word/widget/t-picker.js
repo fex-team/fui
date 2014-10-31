@@ -74,8 +74,8 @@ define( function ( require ) {
         __select: function ( row, col ) {
 
             this.trigger( "pickerselect", {
-                row: row,
-                col: col
+                row: row + 1,
+                col: col + 1
             } );
 
         },
