@@ -193,7 +193,7 @@ define( function ( require ) {
         removeWidget: function ( widget ) {
 
             if ( typeof widget === "number" ) {
-                widget = this.__widgets.splice( widget, 1 );
+                widget = this.__widgets.splice( widget, 1 )[0];
             } else {
                 this.__widgets.splice( this.indexOf( widget ), 1 );
             }

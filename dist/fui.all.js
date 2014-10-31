@@ -735,18 +735,18 @@ _p[16] = {
             },
             __initEvent: function() {
                 var _self = this;
+                var info = {};
                 this.callBase();
-                $(this.__backplane).delegate("td", "mousemove click", function(e) {
-                    var info = e.target.getAttribute("data-index").split(",");
+                $(this.__backplane).delegate("td", "mousemove", function(e) {
+                    info = e.target.getAttribute("data-index").split(",");
                     info = {
                         row: parseInt(info[0], 10),
                         col: parseInt(info[1], 10)
                     };
-                    if (e.type === "click") {
-                        _self.__select(info.row, info.col);
-                    } else {
-                        _self.__update(info.row, info.col);
-                    }
+                    _self.__update(info.row, info.col);
+                });
+                $(this.__backplane).on("click", function(e) {
+                    _self.__select(info.row, info.col);
                 });
             },
             __select: function(row, col) {
@@ -1736,7 +1736,7 @@ _p[39] = {
             },
             removeWidget: function(widget) {
                 if (typeof widget === "number") {
-                    widget = this.__widgets.splice(widget, 1);
+                    widget = this.__widgets.splice(widget, 1)[0];
                 } else {
                     this.__widgets.splice(this.indexOf(widget), 1);
                 }
@@ -1812,6 +1812,7 @@ _p[40] = {
                         color: "#000",
                         opacity: .2
                     },
+                    prompt: false,
                     // 底部按钮
                     buttons: [ {
                         className: CONF.classPrefix + "xdialog-ok-btn",
@@ -1948,6 +1949,19 @@ _p[40] = {
                 $([ this.__footElement, this.__headElement ]).on("btnclick", function(e, btn) {
                     _self.__action(btn.getOptions().action, btn);
                 });
+                if (this.__options.prompt) {
+                    $(this.__element).on("keydown", function(e) {
+                        switch (e.keyCode) {
+                          case 13:
+                            _self.__action(ACTION.OK);
+                            break;
+
+                          case 27:
+                            _self.__action(ACTION.CANCEL);
+                            break;
+                        }
+                    });
+                }
             },
             __initDraggable: function() {
                 Utils.createDraggable({
@@ -2960,6 +2974,12 @@ _p[50] = {
             },
             removeItem: function(item) {
                 return this.removeWidget.apply(this, arguments);
+            },
+            clearItems: function() {
+                while (this.getItems().length) {
+                    this.removeItem(0);
+                }
+                return this;
             },
             getSelected: function() {
                 return this.__currentSelect;

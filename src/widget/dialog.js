@@ -34,6 +34,7 @@ define( function ( require ) {
                     color: '#000',
                     opacity: 0.2
                 },
+                prompt: false,
                 // 底部按钮
                 buttons: [ {
                     className: CONF.classPrefix + 'xdialog-ok-btn',
@@ -249,6 +250,19 @@ define( function ( require ) {
                 _self.__action( btn.getOptions().action, btn );
 
             } );
+
+            if (this.__options.prompt) {
+                $( this.__element ).on('keydown', function(e) {
+                    switch (e.keyCode) {
+                        case 13:
+                            _self.__action(ACTION.OK);
+                            break;
+                        case 27:
+                            _self.__action(ACTION.CANCEL);
+                            break;
+                    }
+                });
+            }
 
         },
 

@@ -75,6 +75,13 @@ define( function ( require ) {
             return this.removeWidget.apply( this, arguments );
         },
 
+        clearItems: function() {
+            while (this.getItems().length) {
+                this.removeItem(0);
+            }
+            return this;
+        },
+
         getSelected: function () {
             return this.__currentSelect;
         },
