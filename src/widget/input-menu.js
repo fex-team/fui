@@ -169,6 +169,10 @@ define( function ( require ) {
 
             } );
 
+            this.__menuWidget.on( "menuitemclick", function ( e, info ) {
+                _self.trigger( "itemclick", info );
+            } );
+
             this.__menuWidget.on( "change", function ( e, info ) {
 
                 e.stopPropagation();
