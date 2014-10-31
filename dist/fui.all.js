@@ -333,8 +333,8 @@ _p[6] = {
             getRect: function(node) {
                 var rect = node.getBoundingClientRect();
                 return {
-                    width: rect.width,
-                    height: rect.height,
+                    width: rect.width || $(node).width(),
+                    height: rect.height || $(node).height(),
                     top: rect.top,
                     bottom: rect.bottom,
                     left: rect.left,
@@ -751,8 +751,8 @@ _p[16] = {
             },
             __select: function(row, col) {
                 this.trigger("pickerselect", {
-                    row: row,
-                    col: col
+                    row: row + 1,
+                    col: col + 1
                 });
             },
             __update: function(row, col) {
@@ -862,7 +862,7 @@ _p[17] = {
                     var row = info.row + 1, col = info.col + 1;
                     _self.__labelWidget.setText(row + "x" + col + " 表格");
                 }).on("pickerselect", function(e, info) {
-                    var row = info.row + 1, col = info.col + 1;
+                    var row = info.row, col = info.col;
                     _self.close();
                     _self.trigger("pickerselect", {
                         row: row,
@@ -967,7 +967,7 @@ _p[28] = {
 //src/tpl/mask.js
 _p[29] = {
     value: function() {
-        return '<div unselectable="on" class="fui-mask" style="background-color: $bgcolor; opacity: $opacity;"></div>\n';
+        return '<div unselectable="on" class="fui-mask" style="background: $bgcolor; opacity: $opacity;-moz-opacity:$opacity;-khtml-opacity: $opacity;filter:alpha(opacity=#{opacity*100});"></div>\n';
     }
 };
 
@@ -2035,7 +2035,6 @@ _p[41] = {
                 this.__maskWidget.show();
                 this.__popupWidget.show();
                 var $popup = $(this.__popupWidget.getElement());
-                $popup.css("top", parseInt($popup.css("top")) - $(this.__element).outerHeight());
                 $popup.css("min-width", $(this.__element).outerWidth());
                 $popup.css("min-height", $(this.__element).height());
             },
@@ -2077,7 +2076,7 @@ _p[41] = {
                 this.__popupWidget = new PPanel();
                 this.__maskWidget = new Mask(this.__options.mask);
                 this.callBase();
-                this.__popupWidget.positionTo(this.__element);
+                this.__popupWidget.positionTo(this.__element, "left-top");
                 $(this.__popupWidget.getElement()).addClass(CONF.classPrefix + "drop-panel-popup");
                 // 初始化content
                 var $content = $('<div class="' + CONF.classPrefix + 'drop-panel-content"></div>').append(this.__panelWidget.getElement());
@@ -3333,7 +3332,7 @@ _p[54] = {
                     return;
                 }
                 var $ele = $(this.__element), w = $ele.outerWidth(), h = $ele.outerHeight(), minWidth = targetRect.width - w - h;
-                this.__element.style.minWidth = minWidth + "px";
+                this.__element.style.minWidth = Math.max(minWidth, 0) + "px";
             },
             /**
          * 调整panel高度，使其不超过边界范围，如果已设置高度， 则不进行调整
