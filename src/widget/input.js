@@ -63,7 +63,14 @@ define( function ( require ) {
                 endIndex = 1000000000;
             }
 
-            this.__element.setSelectionRange( startIndex, endIndex );
+            if (this.__element.setSelectionRange) {
+                this.__element.setSelectionRange( startIndex, endIndex );
+            } else {
+                var range = this.__element.createTextRange();
+                range.moveStart('character', startIndex);
+                range.moveEnd('character', endIndex);
+                range.select();
+            }
 
         },
 
