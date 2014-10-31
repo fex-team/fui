@@ -1,6 +1,6 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-09-29
+ * Flex UI - v1.0.0 - 2014-10-31
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
  * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
@@ -735,18 +735,18 @@ _p[16] = {
             },
             __initEvent: function() {
                 var _self = this;
+                var info = {};
                 this.callBase();
-                $(this.__backplane).delegate("td", "mousemove click", function(e) {
-                    var info = e.target.getAttribute("data-index").split(",");
+                $(this.__backplane).delegate("td", "mousemove", function(e) {
+                    info = e.target.getAttribute("data-index").split(",");
                     info = {
                         row: parseInt(info[0], 10),
                         col: parseInt(info[1], 10)
                     };
-                    if (e.type === "click") {
-                        _self.__select(info.row, info.col);
-                    } else {
-                        _self.__update(info.row, info.col);
-                    }
+                    _self.__update(info.row, info.col);
+                });
+                $(this.__backplane).on("click", function(e) {
+                    _self.__select(info.row, info.col);
                 });
             },
             __select: function(row, col) {
@@ -2396,6 +2396,9 @@ _p[44] = {
                     _self.trigger("select", info);
                     _self.close();
                 });
+                this.__menuWidget.on("menuitemclick", function(e, info) {
+                    _self.trigger("itemclick", info);
+                });
                 this.__menuWidget.on("change", function(e, info) {
                     e.stopPropagation();
                     _self.trigger("change", info);
@@ -3040,21 +3043,26 @@ _p[50] = {
             __initEvent: function() {
                 this.callBase();
                 this.on("itemclick", function(e) {
-                    this.__selectItem(e.widget);
+                    this.__selectItem(e.widget, true);
                 });
             },
-            __selectItem: function(item) {
+            __selectItem: function(item, isUserTrigger) {
+                var info = null;
                 if (this.__currentSelect > -1) {
                     this.__widgets[this.__currentSelect].unselect();
                 }
                 this.__prevSelect = this.__currentSelect;
                 this.__currentSelect = this.indexOf(item);
                 item.select();
-                this.trigger("select", {
+                info = {
                     index: this.__currentSelect,
                     label: item.getLabel(),
                     value: item.getValue()
-                });
+                };
+                if (isUserTrigger) {
+                    this.trigger("menuitemclick", info);
+                }
+                this.trigger("select", info);
                 if (this.__prevSelect !== this.__currentSelect) {
                     var fromItem = this.__widgets[this.__prevSelect] || null;
                     this.trigger("change", {
@@ -3240,7 +3248,8 @@ _p[54] = {
                     // 和边界之间的最小距离
                     diff: 10,
                     hide: true,
-                    resize: "all"
+                    resize: "all",
+                    iframe: false
                 };
                 options = $.extend({}, defaultOptions, options);
                 this.callBase(options);
@@ -3284,6 +3293,9 @@ _p[54] = {
             },
             __render: function() {
                 this.callBase();
+                if (this.__options.iframe) {
+                    $('<iframe class="fui-ppanel-cover" frameborder="0"></iframe>').appendTo(this.__element);
+                }
                 $(this.__element).addClass(CONF.classPrefix + "ppanel");
             },
             // 执行定位

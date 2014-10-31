@@ -181,13 +181,15 @@ define( function ( require ) {
 
             this.on( "itemclick", function ( e ) {
 
-                this.__selectItem( e.widget );
+                this.__selectItem( e.widget, true );
 
             } );
 
         },
 
-        __selectItem: function ( item ) {
+        __selectItem: function ( item, isUserTrigger ) {
+
+            var info = null;
 
             if ( this.__currentSelect > -1 ) {
                 this.__widgets[ this.__currentSelect ].unselect();
@@ -198,11 +200,17 @@ define( function ( require ) {
 
             item.select();
 
-            this.trigger( "select", {
+            info = {
                 index: this.__currentSelect,
                 label: item.getLabel(),
                 value: item.getValue()
-            } );
+            };
+
+            if ( isUserTrigger ) {
+                this.trigger( "menuitemclick", info );
+            }
+
+            this.trigger( "select", info );
 
             if ( this.__prevSelect !== this.__currentSelect ) {
 
