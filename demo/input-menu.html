@@ -55,12 +55,20 @@
 
             } );
 
+            inputMenu.on( "itemclick", function ( e, info ) {
+
+                console.log( inputMenu.getValue() )
+                console.log(e.type, info )
+
+            } );
+
             inputMenu.on( "change", function ( e, info ) {
 
                 console.log(e.type, info )
 
             } );
 
+            inputMenu.select(1);
             window.inputMenu = inputMenu;
 
         };
