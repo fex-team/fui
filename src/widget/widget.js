@@ -13,7 +13,7 @@ define( function ( require ) {
         $ = require( "base/jquery" ),
         Utils = require( "base/utils" );
 
-    var Widget = Utils.createClass( "Widget", {
+    var Widget = require( "base/utils" ).createClass( "Widget", {
 
         constructor: function ( options ) {
 
