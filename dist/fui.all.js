@@ -1,9 +1,9 @@
 /*!
  * ====================================================
- * Flex UI - v1.0.0 - 2014-10-31
+ * Flex UI - v1.0.0 - 2015-01-12
  * https://github.com/fex-team/fui
  * GitHub: https://github.com/fex-team/fui.git 
- * Copyright (c) 2014 Baidu Kity Group; Licensed MIT
+ * Copyright (c) 2015 Baidu Kity Group; Licensed MIT
  * ====================================================
  */
 
@@ -4067,7 +4067,7 @@ _p[59] = {
 _p[60] = {
     value: function(require) {
         var prefix = "_fui_", uid = 0, CONF = _p.r(12), FUI_NS = _p.r(11), $ = _p.r(4), Utils = _p.r(13);
-        var Widget = _p.r(13).createClass("Widget", {
+        var Widget = Utils.createClass("Widget", {
             constructor: function(options) {
                 var defaultOptions = {
                     id: null,
